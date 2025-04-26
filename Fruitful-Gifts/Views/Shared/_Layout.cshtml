@@ -7,28 +7,32 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fruitful_Gifts.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="bg-primary text-white py-3">
+
+    <header class="bg-fruitful-dark text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
             <div>
-                <a href="#" class="text-white text-decoration-none fs-4 fw-bold">BeryBee 🍇</a>
+                <a href="#" class="text-white text-decoration-none fs-4 fw-bold">
+                    Fruitful-Gifts
+                    <img src="~/images/Logo-fruitful-gifts.jpg" alt="Fruitful-Gifts Logo" style="max-height: 60px;">
+                </a>
             </div>
             <div class="d-none d-md-flex gap-4 align-items-center">
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-phone"></i> 1900 636 597</a>
+                <a href="tel:1900636597" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-phone"></i> 1900 636 597</a>
                 <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-regular fa-user"></i> Đăng nhập</a>
                 <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
             </div>
         </div>
     </header>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-fruitful-light shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand d-md-none" href="#">BeryBee</a>
+            <a class="navbar-brand d-md-none fw-bold text-fruitful-dark" href="#">Fruitful-Gifts</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,13 +57,13 @@
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2 rounded-pill border-0 shadow-sm" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
-                    <button class="btn btn-outline-primary rounded-pill px-4" type="submit">Tìm</button>
+                    <button class="btn btn-outline-fruitful-dark rounded-pill px-4" type="submit">Tìm</button>
                 </form>
             </div>
         </div>
     </nav>
 	
-    <div class="container">
+    <div class="container-fuild">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -70,6 +74,70 @@
             &copy; 2025 - Fruitful_Gifts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 footer-logo">
+                    <img src="path/to/your/logo.png" alt="Logo Công Ty">
+                    <p class="mt-3">Địa chỉ: Số nhà, Đường phố, Quận/Huyện, Thành phố.</p>
+                    <p>Điện thoại: 09xxxxxxxxx</p>
+                    <p>Email: info@example.com</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 footer-links">
+                    <h5>Hỗ Trợ</h5>
+                    <ul>
+                        <li><a href="#">Giới Thiệu Về BeryBee</a></li>
+                        <li><a href="#">Thông Tin Liên Hệ</a></li>
+                        <li><a href="#">Sản Phẩm</a></li>
+                        <li><a href="#">Tin Tức</a></li>
+                        <li><a href="#">Hệ Thống Cửa Hàng/Đại Lý</a></li>
+                        <li><a href="#">Tuyển Dụng</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-links">
+                    <h5>Sản Phẩm</h5>
+                    <ul>
+                        <li><a href="#">Sản Phẩm 1</a></li>
+                        <li><a href="#">Sản Phẩm 2</a></li>
+                        <li><a href="#">Danh Mục Khác</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-links">
+                    <h5>Chính Sách</h5>
+                    <ul>
+                        <li><a href="#">Chính Sách Thanh Toán</a></li>
+                        <li><a href="#">Chính Sách Đổi Trả</a></li>
+                        <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
+                        <li><a href="#">Chính Sách Giao Hàng</a></li>
+                        <li><a href="#">Chính Sách Khách Hàng Thân Thiết</a></li>
+                        <li><a href="#">Điều Khoản Sử Dụng</a></li>
+                        <li><a href="#">Chính Sách Vận Chuyển và Lắp Đặt</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Fruitful_Gifts. Tất cả các quyền được bảo lưu.
+        </div>
+    </footer>
+
+    <div class="bottom-nav">
+        <a href="#">Trợ Giúp Trực Tuyến</a>
+        <a href="#">Quảng Cáo</a>
+        <a href="#">Liên Hệ</a>
+        <a href="#">Tuyển Dụng</a>
+        <a href="#">Sơ Đồ Trang Web</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

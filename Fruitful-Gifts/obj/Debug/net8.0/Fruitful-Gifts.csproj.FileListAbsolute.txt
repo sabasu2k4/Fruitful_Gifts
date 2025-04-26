@@ -258,3 +258,4 @@ D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\obj\Debug\net8.0\refint\Fruitful-G
 D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\obj\Debug\net8.0\Fruitful-Gifts.pdb
 D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\obj\Debug\net8.0\Fruitful-Gifts.genruntimeconfig.cache
 D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\obj\Debug\net8.0\ref\Fruitful-Gifts.dll
+D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\obj\Debug\net8.0\Fruitful-Gifts.sourcelink.json

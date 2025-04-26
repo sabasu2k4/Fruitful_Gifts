@@ -55,4 +55,155 @@ body {
     font-size: 18px;
 }
 
+/*=============
+*/
 
+/* CSS tùy chỉnh cho màu xanh lá cây */
+.bg-fruitful-dark {
+    background-color: #388e3c !important; /* Màu xanh lá cây đậm hơn */
+}
+
+.bg-fruitful-light {
+    background-color: #81c784 !important; /* Màu xanh lá cây nhạt hơn */
+}
+
+.text-fruitful-dark {
+    color: #388e3c !important;
+}
+
+
+/*            ===========================================                */
+.slide-container {
+    position: relative;
+    overflow: hidden; /* Ẩn phần ảnh bị tràn */
+    /* Đặt kích thước cố định cho slide-container */
+    width: 100%; /* Ví dụ chiều rộng */
+    height: 600px; /* Ví dụ chiều cao - ĐÂY LÀ KÍCH THƯỚC CHUNG BẠN MUỐN */
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 100%; /* Đảm bảo ảnh cố gắng lấp đầy container */
+    object-fit: cover; /* Hoặc contain tùy theo hiệu ứng bạn muốn */
+}
+
+    .slide.active {
+        display: block;
+    }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .dots-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+/*=============================================*/
+
+.footer {
+    background-color: #003366; /* Màu xanh đậm như trong ảnh */
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.footer-logo img {
+    max-width: 150px; /* Điều chỉnh kích thước logo */
+    height: auto;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+    .footer-links ul li a {
+        color: white;
+        text-decoration: none;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+.footer-contact p {
+    margin-bottom: 8px;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 20px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+    .footer-social a:hover {
+        opacity: 0.8;
+    }
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 15px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.bottom-nav {
+    background-color: #001a33; /* Màu xanh đậm hơn cho thanh dưới */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+    .bottom-nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+        .bottom-nav a:hover {
+            text-decoration: underline;
+        }

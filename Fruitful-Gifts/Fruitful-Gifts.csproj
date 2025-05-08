@@ -21,6 +21,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Database\" />
+    <Folder Include="wwwroot\images\sanpham\" />
   </ItemGroup>
 
 </Project>

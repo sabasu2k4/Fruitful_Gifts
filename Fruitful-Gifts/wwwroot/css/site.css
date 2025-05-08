@@ -55,86 +55,37 @@ body {
     font-size: 18px;
 }
 
-/*=============
-*/
 
-/* CSS tùy chỉnh cho màu xanh lá cây */
+.navbar-nav .nav-link.active {
+    color: #003366 !important; /* Màu chữ đậm hơn */
+    background-color: rgba(0, 51, 102, 0.1); /* Màu nền nhạt hơn của màu chủ đạo */
+    font-weight: bold; /* Chữ đậm hơn */
+    border-radius: 5px; /* Bo tròn nhẹ */
+    padding: 0.5rem 1rem; /* Thêm padding để dễ nhìn */
+}
+
+/* CSS tùy chỉnh cho màu footer */
 .bg-fruitful-dark {
-    background-color: #388e3c !important; /* Màu xanh lá cây đậm hơn */
+    background-color: #003366 !important; /* Màu xanh đậm của footer */
 }
 
 .bg-fruitful-light {
-    background-color: #81c784 !important; /* Màu xanh lá cây nhạt hơn */
+    background-color: #004080 !important; /* Một chút nhạt hơn để tạo sự khác biệt (tùy chọn) */
 }
 
 .text-fruitful-dark {
-    color: #388e3c !important;
+    color: #003366 !important;
 }
 
-
-/*            ===========================================                */
-.slide-container {
-    position: relative;
-    overflow: hidden; /* Ẩn phần ảnh bị tràn */
-    /* Đặt kích thước cố định cho slide-container */
-    width: 100%; /* Ví dụ chiều rộng */
-    height: 600px; /* Ví dụ chiều cao - ĐÂY LÀ KÍCH THƯỚC CHUNG BẠN MUỐN */
+.btn-outline-fruitful-dark {
+    color: #003366 !important;
+    border-color: #003366 !important;
 }
 
-.slide {
-    display: none;
-    width: 100%;
-    height: 100%; /* Đảm bảo ảnh cố gắng lấp đầy container */
-    object-fit: cover; /* Hoặc contain tùy theo hiệu ứng bạn muốn */
+.btn-outline-fruitful-dark:hover {
+    background-color: #003366 !important;
+    color: white !important;
 }
-
-    .slide.active {
-        display: block;
-    }
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .dots-container {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active, .dot:hover {
-            background-color: #717171;
-        }
 
 /*=============================================*/
 
@@ -207,3 +158,49 @@ body {
         .bottom-nav a:hover {
             text-decoration: underline;
         }
+
+/*========================*/
+.chat-buttons-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.chat-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .chat-button:hover {
+        transform: scale(1.1);
+    }
+
+    .chat-button .chat-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+.zalo-button {
+    background-color: #007bff;
+}
+
+.call-button {
+    background-color: springgreen;
+}
+
+.chat-btn {
+    background-color: #007bff;
+}

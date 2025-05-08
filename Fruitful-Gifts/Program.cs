@@ -1,7 +1,13 @@
+using Fruitful_Gifts.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<FruitfulGiftsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Fruitful_Gifts")));
 
 var app = builder.Build();
 

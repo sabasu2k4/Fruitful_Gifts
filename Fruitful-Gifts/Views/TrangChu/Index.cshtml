@@ -4,151 +4,411 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/TrangChu.css" />
 }
+@{
+    var rand = new Random();
+}
 
-<div class="container-fuild">
-    <div class="slide-container">
-        <img src="~/images/slide1.jpg" class="slide active" alt="Image 1">
-        <img src="~/images/slide2.jpg" class="slide" alt="Image 2">
-        <img src="~/images/slide3.jpg" class="slide" alt="Image 3">
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-12 slide-container">
+            <img src="~/images/slide5.jpg" class="slide active" alt="Slide 1">
+            <img src="~/images/slide6.jpg" class="slide" alt="Slide 2">
+            <img src="~/images/slide8.jpg" class="slide" alt="Slide 3">
 
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
     </div>
+</section>
 
-    <div class="dots-container">
-        <span class="dot active" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-</div>
-
-<div class="container mt-3">
-    <h2 class="text-center mb-3">DANH MỤC NỔI BẬT</h2>
-    <div class="position-relative">
-        <button class="scroll-btn left-btn btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(-1)">
-            ‹
-        </button>
-        <button class="scroll-btn right-btn btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(1)">
-            ›
-        </button>
-
-        <div id="category-scroll" class="category-scroll d-flex overflow-auto gap-3 px-5 py-2">
-            @if (ViewBag.DanhMuc != null)
-            {
-                foreach (var danhMuc in ViewBag.DanhMuc)
+<section class="mb-4 mb-lg-5">
+    <div class="container container-md mt-3 category-list-container position-relative">
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <button class="scroll-btn left-btn btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(-1)">
+                ‹
+            </button>
+            <button class="scroll-btn right-btn btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(1)">
+                ›
+            </button>
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+                <span class="line-bottom position-relative">Danh mục nổi bật</span>
+            </h3>
+            <div id="category-scroll" class="category-scroll d-flex overflow-auto gap-3 px-5 py-2">
+                @if (ViewBag.DanhMuc != null)
                 {
-                    <div class="card shadow-sm rounded-3 text-center" style="min-width: 140px;">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <img src="~/images/danhmuc/@danhMuc.HinhAnh" class="object-fit-cover category-image card-img-top p-2" alt="@danhMuc.TenDm">
-                            <div class="card-body p-2">
-                                <h6 class="small fw-bold mb-0">@danhMuc.TenDm</h6>
-                            </div>
-                        </a>
-                    </div>
+                    foreach (var danhMuc in ViewBag.DanhMuc)
+                    {
+                        var r = rand.Next(220, 256);
+                        var g = rand.Next(220, 256);
+                        var b = rand.Next(220, 256);
+                        var bgColor = $"rgb({r},{g},{b})";
+                        <div class="card shadow-sm rounded-3 text-center" style="min-width: 140px; background-color: @bgColor;">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="~/images/danhmuc/@danhMuc.HinhAnh" class="object-fit-cover category-image card-img-top p-2" 
+                                alt="@danhMuc.TenDm">
+                            </a>
+                            <a href="#" class="text-decoration-none text-dark card-body p-2">
+                                <h6 class="small mb-0 text-wrap text-break">@danhMuc.TenDm</h6>
+                            </a>
+                        </div>
+                    }
                 }
-            }
-            else
-            {
-                <p>Không có danh mục nào.</p>
-            }
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5 product-list-container">
-
-    <div class="product-list-header text-white rounded-top d-flex justify-content-between align-items-center">
-        <a class="position-relative d-inline-flex align-items-center gap-1 text-decoration-none fw-bold text-white"
-           href="https://www.berybee.com/pages/flash-sale" title="HOTDEAL"
-           style="max-height: 40px; overflow: hidden; font-size: 1.5rem;">
-            <img src="https://file.hstatic.net/200000823693/file/flash_11b2c7ab01f347fdb5018fb85b0955e7.gif"
-                 alt="icon-flash-sale"
-                 style="height: 24px; width: auto; object-fit: contain;">
-            HOTDEAL
-        </a>
-        <div class="promotion-text">
-            <span id="promo-text">Giảm ngay 120k (áp dụng cho các đơn hàng trên 500k)</span>
-        </div>
-        <div class="countdown-time-wrapper font-weight-bold position-relative pl-md-2">
-            <div class="px-2 countdown-item rounded-pill d-inline-flex align-items-center justify-content-center">
-                <div class="days me-1">-73</div>
-                <span>Ngày</span>
-            </div>
-            <div class="px-2 countdown-item rounded-circle d-inline-flex align-items-center justify-content-center">-15</div>
-            <div class="px-2 countdown-item rounded-circle d-inline-flex align-items-center justify-content-center">-4</div>
-            <div class="px-2 countdown-item rounded-circle d-inline-flex align-items-center justify-content-center">-53</div>
-        </div>
-
-    </div>
-
-    <div class="position-relative">
-        <section id="product-hotdeal-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
-            <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(-1)">
-                &lsaquo;
-            </button>
-            <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(1)">
-                &rsaquo;
-            </button>
-            @if (ViewBag.SanPham != null)
-            {
-                foreach (var product in ViewBag.SanPham)
+                else
                 {
-                    <article class="card-container position-relative shadow-sm rounded-4 bg-white p-2">
-                        <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
-                                style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
-                            <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
-                        </button>
+                    <p>Không có danh mục nào.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
 
-                        <a href="#" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
-                           style="aspect-ratio: 1 / 1;">
-
-                            <!-- Ảnh sản phẩm -->
-                            <img src="~/images/sanpham/8-3-quoc-te-phu-nu/@product.HinhAnh"
-                                 class="w-100 h-100 object-fit-cover position-absolute product-image"
-                                 alt="@product.TenSp">
-
-                            <!-- Ảnh khung đè -->
-                            <img src="https://file.hstatic.net/200000865177/file/fresh_meat_af50968460124816b48d30d1fc87c6a6.png"
-                                 class="w-100 h-100 position-absolute"
-                                 alt="Khung sản phẩm"
-                                 style="pointer-events: none;">
-                        </a>
-
-                        <div class="text-center mt-3 px-2">
-                            <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
-                            <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
-                            <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
-
-                            <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
-                                <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
-                                    <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+<section id="flash_sale" class="m_product mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md product-list-container position-relative">
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div class="time_box row align-items-center mb-2">
+                <div class=" col-12 col-lg-9 mb-2 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-4">
+                            <h2 class="title text-uppercase font-weight-bold position-relative m-0 text-center text-lg-left cl_tit_fl">
+                                <a class="position-relative text-white" href="https://www.berybee.com/pages/flash-sale" title="HOTDEAL"
+                                   style="max-height: 40px; overflow: hidden; font-size: 1.5rem; text-decoration:none;">
+                                    <img alt="icon-flash-sale" src="https://file.hstatic.net/200000823693/file/flash_11b2c7ab01f347fdb5018fb85b0955e7.gif"
+                                         style="height: 40px; width: auto; object-fit: contain;">
+                                    HOTDEAL
                                 </a>
-                                <a href="#" class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end">
-                                    <i class="bi bi-cart-plus me-1"></i>
-                                </a>
+                            </h2>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <div class="promotion-text">
+                                <span id="promo-text">Giảm ngay 120k (áp dụng cho các đơn hàng trên 500k)</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-auto col-12 col-lg-3 text-center text-lg-right">
+                    <countdown-timer data-time="02/24/2025 23:33" class="countdown-time-wrapper font-weight-bold position-relative pl-md-2 hidden">
+                        <div class="px-2 countdown-item rod position-relative text-white rounded-pill d-inline-flex align-items-baseline justify-content-center modal-open">
+                            <div class="days mr-1">-74</div>
+                            <span>Ngày</span>
+                        </div>
+                        <div class="hours px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-14</div>
+                        <div class="minutes px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-24</div>
+                        <div class="seconds px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-59</div>
+                    </countdown-timer>
+                </div>
+            </div>
+            <div id="product-hotdeal-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham)
+                    {
+                        <article class="card-container position-relative shadow-sm rounded-4 bg-white p-2">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
 
+                            <a href="#" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/8-3-quoc-te-phu-nu/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenSp">
+
+                                <!-- Ảnh khung đè -->
+                                <img src="https://file.hstatic.net/200000865177/file/fresh_meat_af50968460124816b48d30d1fc87c6a6.png"
+                                     class="w-100 h-100 position-absolute"
+                                     alt="Khung sản phẩm"
+                                     style="pointer-events: none;">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <a href="#" class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                    <article class="card-container position-relative shadow-sm rounded-4 bg-light p-2 d-flex flex-column justify-content-center align-items-center" style="min-width: 200px;">
+                        <i class="bi bi-boxes" style="font-size: 2rem; color: #002395;"></i>
+                        <a href="/SanPham" class="btn btn-lg rounded-pill px-3" style="font-weight: 500; color: #002395;">Xem thêm</a>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center"
+                             style="width: 40px; height: 40px; background: #002395;">
+                            <i class="bi bi-chevron-right text-white"></i>
                         </div>
                     </article>
                 }
-                <article class="card-container position-relative shadow-sm rounded-4 bg-light p-2 d-flex flex-column justify-content-center align-items-center" style="min-width: 200px;">
-                    <i class="bi bi-boxes" style="font-size: 2rem; color: #002395;"></i>
-                    <a href="/SanPham" class="btn btn-lg rounded-pill px-3" style="font-weight: 500; color: #002395;">Xem thêm</a>
-                    <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                    style="width: 40px; height: 40px; background: #002395;">
-                        <i class="bi bi-chevron-right text-white"></i>
-                    </div>
-                </article>
-            }
-            else
-            {
-                <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
-            }
-        </section>
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng dịp lễ</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-dip-le-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaDipLe(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaDipLe(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham1)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
 
+                            <a href="#" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenSp">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <a href="#" class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng gia đình và cá nhân</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-gia-dinh-ca-nhan-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaDinhCaNhan(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaDinhCaNhan(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham2)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="#" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenSp">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <a href="#" class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng thương mại</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-thuong-mai-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaThuongMai(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaThuongMai(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham3)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="#" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenSp">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <a href="#" class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5">
+    <div class="container">
+        <div class="d-flex justify-content-start overflow-auto flex-nowrap gap-3">
+            <div class="p-2">
+                <img src="~/images/banner1.jpg" class="img-fluid" alt="Ảnh 1">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner2.jpg" class="img-fluid" alt="Ảnh 2">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner3.jpg" class="img-fluid" alt="Ảnh 3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="m_blog" class="m_blog mb-4 mb-lg-5">
+    <div class="container">
+        <h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+            <a class="line-bottom position-relative text-decoration-none text-dark" href="#" title="Tạp Chí Fruitful-Gifts">
+                Tin Tức
+            </a>
+        </h3>
+    </div>
+</section>
+
+<section class="">
+    <div class="container">
+        <div class="d-flex justify-content-start overflow-auto flex-nowrap gap-3">
+            <div class="p-2">
+                <img src="~/images/banner1.jpg" class="img-fluid" alt="Ảnh 1">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner2.jpg" class="img-fluid" alt="Ảnh 2">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner3.jpg" class="img-fluid" alt="Ảnh 3">
+            </div>
+        </div>
+    </div>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -179,7 +439,7 @@
         if (slideIndex > slides.length) { slideIndex = 1 }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 3000); // Thay đổi 3000 (milliseconds) để điều chỉnh tốc độ chuyển slide (3 giây trong ví dụ này)
+        setTimeout(showSlides, 5000); // Thay đổi 3000 (milliseconds) để điều chỉnh tốc độ chuyển slide (3 giây trong ví dụ này)
     }
 
     function smoothScroll(container, direction, scrollAmount) {
@@ -214,6 +474,24 @@
         smoothScroll(container, direction, scrollAmount);
     }
 
+    function scrollQuaDipLe(direction) {
+        const container = document.getElementById('product-dip-le-scroll');
+        const scrollAmount = 500;
+        smoothScroll(container, direction, scrollAmount);
+    }
+
+    function scrollQuaGiaDinhCaNhan(direction) {
+        const container = document.getElementById('product-gia-dinh-ca-nhan-scroll');
+        const scrollAmount = 500;
+        smoothScroll(container, direction, scrollAmount);
+    }
+
+    function scrollQuaThuongMai(direction) {
+        const container = document.getElementById('product-thuong-mai-scroll');
+        const scrollAmount = 500;
+        smoothScroll(container, direction, scrollAmount);
+    }
+
     // Hoán đổi văn bản
     const texts = [
         "Giảm ngay 120k (Áp dụng cho đơn hàng trên 1 triệu)",
@@ -227,3 +505,15 @@
     setInterval(changeText, 5000);
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+

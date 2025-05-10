@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Z501iCOIgv1qD91HT1IIE6bhW+ckXwvoOMyLVk98tk0=",
+  "Hash": "e+P80smZE1Q68cPfz5hUpj7gQtj8xElk3zZsOGJF/qw=",
   "Source": "Fruitful-Gifts",
   "BasePath": "_content/Fruitful-Gifts",
   "Mode": "Default",
@@ -435,12 +435,12 @@
       "OriginalItemSpec": "wwwroot\\images\\logo-zalo.png"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-001.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -451,15 +451,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-002.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -470,15 +470,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-003.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -489,15 +489,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-004.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -508,15 +508,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-005.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -527,15 +527,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam/20-10-phu-nu-viet-nam-006.jpg",
+      "RelativePath": "images/sanpham/20-10-phu-nu-viet-nam-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -546,15 +546,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam\\20-10-phu-nu-viet-nam-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-001.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -565,15 +565,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-002.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -584,15 +584,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-003.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -603,15 +603,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-004.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -622,15 +622,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-005.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -641,15 +641,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-006.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -660,15 +660,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-007.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-007.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-007.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-007.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -679,15 +679,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-007.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-007.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-008.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-008.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-008.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-008.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -698,15 +698,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-008.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-008.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-009.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-009.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam/20-11-nha-giao-viet-nam-009.jpg",
+      "RelativePath": "images/sanpham/20-11-nha-giao-viet-nam-009.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -717,15 +717,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam\\20-11-nha-giao-viet-nam-009.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-009.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-001.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -736,15 +736,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-002.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -755,15 +755,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-003.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -774,15 +774,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-004.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -793,15 +793,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-005.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -812,15 +812,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-006.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -831,15 +831,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-007.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-007.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-007.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-007.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -850,15 +850,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-007.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-007.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-008.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-008.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-008.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-008.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -869,15 +869,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-008.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-008.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-009.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-009.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-009.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-009.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -888,15 +888,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-009.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-009.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-010.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-010.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu/8-3-quoc-te-phu-nu-010.jpg",
+      "RelativePath": "images/sanpham/8-3-quoc-te-phu-nu-010.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -907,15 +907,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu\\8-3-quoc-te-phu-nu-010.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-010.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-001.jpg",
+      "RelativePath": "images/sanpham/khai-truong-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -926,15 +926,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-002.jpg",
+      "RelativePath": "images/sanpham/khai-truong-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -945,15 +945,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-003.jpg",
+      "RelativePath": "images/sanpham/khai-truong-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -964,15 +964,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-004.jpg",
+      "RelativePath": "images/sanpham/khai-truong-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -983,15 +983,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-005.jpg",
+      "RelativePath": "images/sanpham/khai-truong-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1002,15 +1002,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-006.jpg",
+      "RelativePath": "images/sanpham/khai-truong-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1021,15 +1021,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-007.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-007.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-007.jpg",
+      "RelativePath": "images/sanpham/khai-truong-007.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1040,15 +1040,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-007.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-007.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-008.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-008.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-008.jpg",
+      "RelativePath": "images/sanpham/khai-truong-008.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1059,15 +1059,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-008.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-008.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-009.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-009.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-009.jpg",
+      "RelativePath": "images/sanpham/khai-truong-009.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1078,15 +1078,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-009.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-009.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-010.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-010.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-010.jpg",
+      "RelativePath": "images/sanpham/khai-truong-010.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1097,15 +1097,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-010.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-010.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong\\khai-truong-011.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-011.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/khai-truong/khai-truong-011.jpg",
+      "RelativePath": "images/sanpham/khai-truong-011.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1116,15 +1116,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong\\khai-truong-011.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\khai-truong-011.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/sinh-nhat/sinh-nhat-001.jpg",
+      "RelativePath": "images/sanpham/sinh-nhat-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1135,15 +1135,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/sinh-nhat/sinh-nhat-002.jpg",
+      "RelativePath": "images/sanpham/sinh-nhat-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1154,15 +1154,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/sinh-nhat/sinh-nhat-003.jpg",
+      "RelativePath": "images/sanpham/sinh-nhat-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1173,15 +1173,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/sinh-nhat/sinh-nhat-004.jpg",
+      "RelativePath": "images/sanpham/sinh-nhat-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1192,15 +1192,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/sinh-nhat/sinh-nhat-005.jpg",
+      "RelativePath": "images/sanpham/sinh-nhat-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1211,15 +1211,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat\\sinh-nhat-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\sinh-nhat-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-001.jpg",
+      "RelativePath": "images/sanpham/tan-gia-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1230,15 +1230,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-002.jpg",
+      "RelativePath": "images/sanpham/tan-gia-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1249,15 +1249,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-003.jpg",
+      "RelativePath": "images/sanpham/tan-gia-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1268,15 +1268,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-004.jpg",
+      "RelativePath": "images/sanpham/tan-gia-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1287,15 +1287,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-005.jpg",
+      "RelativePath": "images/sanpham/tan-gia-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1306,15 +1306,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-006.jpg",
+      "RelativePath": "images/sanpham/tan-gia-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1325,15 +1325,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-007.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-007.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-007.jpg",
+      "RelativePath": "images/sanpham/tan-gia-007.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1344,15 +1344,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-007.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-007.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-008.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-008.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-008.jpg",
+      "RelativePath": "images/sanpham/tan-gia-008.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1363,15 +1363,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-008.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-008.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-009.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-009.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-009.jpg",
+      "RelativePath": "images/sanpham/tan-gia-009.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1382,15 +1382,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-009.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-009.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia\\tan-gia-010.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-010.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tan-gia/tan-gia-010.jpg",
+      "RelativePath": "images/sanpham/tan-gia-010.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1401,15 +1401,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia\\tan-gia-010.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tan-gia-010.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-001.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-001.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-001.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1420,15 +1420,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-001.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-002.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-002.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-002.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1439,15 +1439,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-002.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-003.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-003.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-003.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1458,15 +1458,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-003.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-003.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-004.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-004.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-004.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-004.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1477,15 +1477,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-004.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-004.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-005.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-005.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-005.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-005.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1496,15 +1496,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-005.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-005.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-006.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-006.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-006.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-006.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1515,15 +1515,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-006.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-006.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-007.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-007.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/tet-nguyen-dang/tet-nguyen-dang-007.jpg",
+      "RelativePath": "images/sanpham/tet-nguyen-dang-007.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1534,15 +1534,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang\\tet-nguyen-dang-007.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sanpham\\tet-nguyen-dang-007.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine\\valentine-001.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide5.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/valentine/valentine-001.jpg",
+      "RelativePath": "images/slide5.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1553,15 +1553,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\valentine\\valentine-001.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\slide5.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine\\valentine-002.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide6.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/valentine/valentine-002.jpg",
+      "RelativePath": "images/slide6.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1572,15 +1572,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\valentine\\valentine-002.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\slide6.jpg"
     },
     {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine\\valentine-003.jpg",
+      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide8.jpg",
       "SourceId": "Fruitful-Gifts",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
       "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/valentine/valentine-003.jpg",
+      "RelativePath": "images/slide8.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1591,121 +1591,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\valentine\\valentine-003.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine\\valentine-004.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/valentine/valentine-004.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\valentine\\valentine-004.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine\\valentine-005.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/sanpham/valentine/valentine-005.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\sanpham\\valentine\\valentine-005.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide1.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/slide1.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\slide1.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide2.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/slide2.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\slide2.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide3.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/slide3.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\slide3.jpg"
-    },
-    {
-      "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide4.jpg",
-      "SourceId": "Fruitful-Gifts",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
-      "BasePath": "_content/Fruitful-Gifts",
-      "RelativePath": "images/slide4.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\slide4.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\slide8.jpg"
     },
     {
       "Identity": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\zalo.jpg",

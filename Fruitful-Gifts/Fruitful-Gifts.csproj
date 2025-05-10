@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\sanpham\20-10-phu-nu-viet-nam\**" />
+    <Content Remove="wwwroot\images\sanpham\20-10-phu-nu-viet-nam\**" />
+    <EmbeddedResource Remove="wwwroot\images\sanpham\20-10-phu-nu-viet-nam\**" />
+    <None Remove="wwwroot\images\sanpham\20-10-phu-nu-viet-nam\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14">

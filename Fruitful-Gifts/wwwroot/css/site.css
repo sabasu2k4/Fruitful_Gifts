@@ -1,4 +1,9 @@
-﻿html {
+﻿:root {
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --footerBg: #003366;
+}
+
+html {
   font-size: 14px;
 }
 
@@ -7,6 +12,14 @@
     font-size: 16px;
   }
 }
+
+/* Ghi đè chiều rộng container mặc định */
+.container {
+    max-width: 1500px; /* hoặc 100%, hoặc giá trị mong muốn */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -18,9 +31,13 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: var(--font-family-sans-serif);
 }
 
+.title{
+    font-weight: 700;
+}
 
 .nav-link {
     transition: color 0.3s ease;
@@ -64,7 +81,6 @@ body {
     padding: 0.5rem 1rem; /* Thêm padding để dễ nhìn */
 }
 
-/* CSS tùy chỉnh cho màu footer */
 .bg-fruitful-dark {
     background-color: #003366 !important; /* Màu xanh đậm của footer */
 }
@@ -90,10 +106,12 @@ body {
 /*=============================================*/
 
 .footer {
-    background-color: #003366; /* Màu xanh đậm như trong ảnh */
     color: white;
-    padding-top: 30px;
-    padding-bottom: 20px;
+    transform: translateY(60px);
+}
+
+.footer-context {
+    background-color: var(--footerBg);
 }
 
 .footer-logo img {
@@ -204,3 +222,45 @@ body {
 .chat-btn {
     background-color: #007bff;
 }
+
+.waves {
+    height: 100px;
+    min-height: 100px;
+    position: relative;
+}
+
+.parallax > use {
+    animation: move-forever 18s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+    .parallax > use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 8s; /* Sóng đậm – nhanh */
+    }
+
+    .parallax > use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 11s; /* Trung bình */
+    }
+
+    .parallax > use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 14s; /* Nhẹ hơn */
+    }
+
+    .parallax > use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 18s; /* Nhẹ nhất */
+    }
+
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+

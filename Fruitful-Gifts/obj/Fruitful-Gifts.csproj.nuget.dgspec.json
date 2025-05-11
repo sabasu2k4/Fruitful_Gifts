@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Fruitful-Gifts.csproj": {}
+    "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\Fruitful-Gifts.csproj": {}
   },
   "projects": {
-    "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Fruitful-Gifts.csproj": {
+    "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\Fruitful-Gifts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Fruitful-Gifts.csproj",
+        "projectUniqueName": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\Fruitful-Gifts.csproj",
         "projectName": "Fruitful-Gifts",
-        "projectPath": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Fruitful-Gifts.csproj",
-        "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\obj\\",
+        "projectPath": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\Fruitful-Gifts.csproj",
+        "packagesPath": "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\",
+        "outputPath": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TRAN DUC MANH\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -84,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

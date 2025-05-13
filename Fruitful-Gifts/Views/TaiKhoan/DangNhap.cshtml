@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/TaiKhoan.css" />
+}
+
+@model Fruitful_Gifts.Database.KhachHang
+
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng nhập</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Form Đăng nhập -->
+        <div class="col-12 col-lg-8">
+            <h3>Đăng nhập</h3>
+            <form asp-action="DangNhap" method="post" class="row g-3 mt-3">
+                <div class="col-12 pt-2">
+                    <div class="col-8">
+                        <input name="LoginName" class="form-control input-dangnhap" placeholder="Tên đăng nhập hoặc Email" title="Nhập tên đăng nhập hoặc email của bạn" />
+                        <span class="text-danger">@ViewData["LoginNameError"]</span>
+                    </div>
+                </div>
+                <div class="col-12 pt-2">
+                    <div class="col-8">
+                        <input asp-for="MatKhau" type="password" class="form-control input-dangnhap" placeholder="Mật khẩu" title="Nhập mật khẩu của bạn" />
+                        <span asp-validation-for="MatKhau" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12 pt-3">
+                    <div class="col-3">
+                        <button type="submit" class="btn-dangky w-100 text-center" title="Nhấn để đăng ký">Đăng nhập</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- Form Đăng Ký -->
+        <div class="col-12 col-lg-4">
+            <h3>Đăng ký</h3>
+            <div class="f-dangnhap rounded p-3 mb-4 mt-3">
+                <p>Tạo tài khoản để quản lý đơn hàng, và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.</p>
+            </div>
+            <a href="/taikhoan/dangky" class="btn-dangnhap w-100 text-center" title="Nhấn để đăng nhập">Tạo tài khoản</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

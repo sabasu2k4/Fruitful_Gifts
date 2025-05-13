@@ -124,9 +124,9 @@ CREATE TABLE ChiTietGioHang (
 GO
 -- Bảng Sản phẩm yêu thích
 CREATE TABLE SanPhamYeuThich (
+	Id INT PRIMARY KEY IDENTITY(1,1),
     MaKh INT,
     MaSp INT,
-    PRIMARY KEY (MaKh, MaSp),
     FOREIGN KEY (MaKh) REFERENCES KhachHang(MaKh),
     FOREIGN KEY (MaSp) REFERENCES SanPham(MaSp)
 );

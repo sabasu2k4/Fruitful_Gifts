@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Fruitful-Gifts.bundle.scp.css"
     },
     {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\GioiThieu.css",
+      "PackagePath": "staticwebassets\\css\\GioiThieu.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\TaiKhoan.css",
+      "PackagePath": "staticwebassets\\css\\TaiKhoan.css"
+    },
+    {
       "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\TrangChu.css",
       "PackagePath": "staticwebassets\\css\\TrangChu.css"
     },
@@ -19,6 +27,34 @@
     {
       "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\Logo-fruitful-gifts.jpg",
       "PackagePath": "staticwebassets\\images\\Logo-fruitful-gifts.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\bao-quan-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\bao-quan-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\bi-quyet-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\bi-quyet-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\qua-tang-doanh-nghiep.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\qua-tang-doanh-nghiep.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\qua-tang-nguoi-yeu.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\qua-tang-nguoi-yeu.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\top-5-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\top-5-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\xu-huong-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\xu-huong-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\y-nghia-hoa-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\y-nghia-hoa-tang.jpg"
     },
     {
       "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\banner1.jpg",
@@ -227,6 +263,10 @@
     {
       "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-011.jpg",
       "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-011.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\qua-tang-suc-khoe.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\qua-tang-suc-khoe.jpg"
     },
     {
       "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-001.jpg",

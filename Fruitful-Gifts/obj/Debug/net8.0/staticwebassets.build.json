@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TYUv7pubu9dsOFk0mRAkeAx34ZD/6heBalduL81WdiY=",
+  "Hash": "86PhunJFgEO8w1DDmIVBoQgo2LIPAcjZC2zqtddwdwQ=",
   "Source": "Fruitful-Gifts",
   "BasePath": "_content/Fruitful-Gifts",
   "Mode": "Default",
@@ -2580,6 +2580,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\gulp-tasks\\vendors.js"
+    },
+    {
+      "Identity": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\wwwroot\\css\\Details.css",
+      "SourceId": "Fruitful-Gifts",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\wwwroot\\",
+      "BasePath": "_content/Fruitful-Gifts",
+      "RelativePath": "css/Details.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Details.css"
     },
     {
       "Identity": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\wwwroot\\css\\site.css",

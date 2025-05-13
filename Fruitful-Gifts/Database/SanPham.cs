@@ -43,5 +43,5 @@ public partial class SanPham
 
     public virtual NhaCungCap? MaNccNavigation { get; set; }
 
-    public virtual ICollection<KhachHang> MaKhs { get; set; } = new List<KhachHang>();
+    public virtual ICollection<SanPhamYeuThich> SanPhamYeuThiches { get; set; } = new List<SanPhamYeuThich>();
 }

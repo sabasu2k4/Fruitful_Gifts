@@ -1,0 +1,293 @@
+﻿@using Fruitful_Gifts.Database
+
+@model Fruitful_Gifts.Database.SanPham
+@{
+    ViewData["Title"] = Model.TenSp;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Details.css" asp-append-version="true" />
+}
+
+<div class="container product-detail mt-4">
+    <div class="row">
+        <!-- Bên trái: Hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <img src="~/images/sanpham/@Model.HinhAnh" alt="@Model.TenSp"
+                 class="img-fluid border rounded shadow-sm" style="max-height: 400px; object-fit: contain;" />
+
+            <!-- Đánh giá sản phẩm -->
+            <div class="reviews mt-5">
+                <h4 class="text-center mb-3">ĐÁNH GIÁ SẢN PHẨM</h4>
+                <div class="reviews-container" style="max-height: 400px; overflow-y: auto;">
+                    @if (Model.BinhLuans != null && Model.BinhLuans.Any(r => r.IsHienThi == true))
+                    {
+                        @foreach (var review in Model.BinhLuans.Where(r => r.IsHienThi == true))
+                        {
+                            <div class="review p-3 border rounded mb-3 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        <strong>@review.MaKhNavigation.TenKh</strong>
+                                    </div>
+                                    <div class="text-end">
+                                        <small class="text-muted">@review.Ngay?.ToString("dd/MM/yyyy")</small><br />
+                                        <span class="text-warning">
+                                            @Html.Raw(new string('★', review.SoSao ?? 0))
+                                            @Html.Raw(new string('☆', 5 - (review.SoSao ?? 0)))
+                                        </span>
+                                    </div>
+                                </div>
+                                <p>@review.NoiDung</p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted">Chưa có đánh giá</p>
+                    }
+                </div>
+
+
+                @if (ViewBag.DaMua)
+                {
+                    <form method="post" action="/SanPham/BinhLuan" onsubmit="return validateRating()">
+                        <div class="mt-4">
+                            <h5 class="text-center">Thêm bình luận</h5>
+                            <div class="text-center mb-2">
+                                <label>Đánh giá:</label>
+                                <div class="rating1">
+                                    @for (int i = 5; i >= 1; i--)
+                                    {
+                                        <input type="radio" id="star-@i" name="Rating" value="@i" />
+                                        <label for="star-@i" class="star1">★</label>
+                                    }
+                                </div>
+                                <span id="rating-warning" class="text-danger d-none">Vui lòng chọn số sao!</span>
+                            </div>
+                            <textarea class="form-control" name="NoiDung" rows="3" placeholder="Nhập đánh giá..."></textarea>
+                            <input type="hidden" name="MaSp" value="@Model.MaSp" />
+                            <button type="submit" class="btn btn-primary mt-2">Gửi đánh giá</button>
+                        </div>
+                    </form>
+                    <script>
+                        function validateRating() {
+                            const rating = document.querySelector('input[name="Rating"]:checked');
+                            const warning = document.getElementById('rating-warning');
+                            if (!rating) {
+                                warning.classList.remove("d-none");
+                                return false;
+                            }
+                            warning.classList.add("d-none");
+                            return true;
+                        }
+                    </script>
+                }
+            </div>
+        </div>
+
+        
+        <div class="col-md-6">
+            <h2>@Model.TenSp</h2>
+
+            <p>
+                <strong>Giá:</strong>
+                <span class="badge bg-danger p-2">@Model.Gia?.ToString("N0") đ</span>
+            </p>
+
+            <div class="rating mb-3">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= (ViewBag.TrungBinhSoSao ?? 0))
+                    {
+                        <span class="bi bi-star-fill text-warning"></span>
+                    }
+                    else
+                    {
+                        <span class="bi bi-star text-secondary"></span>
+                    }
+                }
+                <span class="ms-1">@((ViewBag.TrungBinhSoSao as double?)?.ToString("F1"))</span>
+            </div>
+
+            <div class="mt-2">
+                <i class="bi bi-heart me-2"></i>
+                Lượt yêu thích: <strong id="like-count">@ViewBag.SoLuotYeuThich</strong>
+            </div>
+
+            <!-- Số lượng khách muốn mua -->
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Số lượng:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1"
+                       max="@Model.SoLuong"
+                       class="form-control w-25 d-inline-block" />
+            </div>
+
+            <button class="btn btn-outline-danger me-2" onclick="ThemVaoGioHang(@Model.MaSp)">
+                <i class="bi bi-cart-plus"></i> Thêm vào giỏ
+            </button>
+
+         @*    @if (ViewBag.TrangThaiDangNhap)
+            {
+                <button onclick="addToWishlist(@Model.MaSp)" class="btn btn-dark">
+                    <i class="@(ViewBag.IsFavorite ? "bi bi-heart-fill" : "bi bi-heart")" id="heart-icon-@Model.MaSp"></i>
+                </button>
+            } *@
+
+
+            @if (ViewBag.TrangThaiDangNhap)
+            {
+                var isFavorite = ViewBag.IsFavorite ?? false; // Kiểm tra xem sản phẩm đã được yêu thích chưa
+
+                <button onclick="toggleFavorite(@Model.MaSp)" class="btn btn-dark">
+                    <i class="@(isFavorite ? "bi bi-heart-fill" : "bi bi-heart")" id="heart-icon-@Model.MaSp"></i>
+                </button>
+            }
+
+            <!-- Mô tả -->
+            <div class="mt-4">
+                <h5 class="fw-bold">Mô tả sản phẩm</h5>
+                <p>@Model.MoTa</p>
+            </div>
+
+            <!-- Thông tin chi tiết -->
+            <div class="mt-3">
+                <h5 class="fw-bold">Thông tin chi tiết</h5>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Danh mục:</th>
+                        <td>@Model.MaDmNavigation?.TenDm</td>
+                    </tr>
+                    <tr>
+                        <th>Nhà cung cấp:</th>
+                        <td>@Model.MaNccNavigation?.TenNcc</td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái kho:</th>
+                        <td>
+                            @if (Model.SoLuong > 0)
+                            {
+                                <span class="badge bg-success">Còn hàng</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Hết hàng</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Số lượng còn:</th>
+                        <td><span id="currentQuantity">@Model.SoLuong</span></td>
+                    </tr>
+
+                    <tr>
+                        <th>Ngày cập nhật:</th>
+                        <td>@Model.UpdatedAt?.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    @if (ViewBag.SanPhamLienQuan != null && ((List<SanPham>)ViewBag.SanPhamLienQuan).Any())
+    {
+        <div class="mt-5">
+            <h4 class="fw-bold mb-3">Sản phẩm liên quan</h4>
+            <div class="row">
+                @foreach (var sp in (List<SanPham>)ViewBag.SanPhamLienQuan)
+                {
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })">
+                                <img src="~/images/sanpham/@sp.HinhAnh" class="card-img-top" alt="@sp.TenSp" style="height: 200px; object-fit: contain;" />
+                            </a>
+                            <div class="card-body text-center">
+                                <h6 class="card-title">@sp.TenSp</h6>
+                                <p class="text-danger fw-bold">@sp.Gia?.ToString("N0") đ</p>
+                                <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })">Xem chi tiết</a>
+
+                            </div>
+                        
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+</div>
+@section Scripts {
+    <script>
+        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng theo thời gian thực
+        function getRealtimeQuantity() {
+            $.ajax({
+                url: '/SanPham/GetQuantity',
+                type: 'GET',
+                data: { maSp: '@Model.MaSp' },
+                success: function (data) {
+                    // Cập nhật lại số lượng còn và số lượng tối đa trong input
+                    $('#currentQuantity').text(data.soLuong);
+                    $('#quantity').attr('max', data.soLuong);
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi lấy số lượng sản phẩm.");
+                }
+            });
+        }
+
+        // Gọi hàm cập nhật mỗi 10 giây
+        setInterval(getRealtimeQuantity, 10000);
+
+        // Hàm toggleFavorite khi nhấn vào icon yêu thích
+        function toggleFavorite(maSp) {
+            $.ajax({
+                url: '/SanPham/ToggleFavorite', // Đảm bảo rằng đường dẫn đúng với controller và action
+                type: 'POST',
+                data: { maSp: maSp },
+                success: function (response) {
+                    // Chuyển đổi giữa icon trái tim đầy và trái tim trống
+                    $('#heart-icon-' + maSp).toggleClass('bi-heart bi-heart-fill');
+
+                    // Cập nhật số lượt yêu thích
+                    $('#like-count').text(response.soLuotYeuThich);
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi thêm sản phẩm vào danh sách yêu thích.");
+                }
+            });
+        }
+        //
+        function ThemVaoGioHang(maSp) {
+            const soLuong = parseInt(document.getElementById("quantity").value);
+
+            if (isNaN(soLuong) || soLuong <= 0) {
+                alert("Vui lòng nhập số lượng hợp lệ.");
+                return;
+            }
+
+            $.ajax({
+                url: '/GioHang/ThemVaoGioHang',
+                type: 'POST',
+                data: { maSP: maSp, soLuong: soLuong },
+                success: function (res) {
+                    if (res.success) {
+                        alert(res.message || "Thêm vào giỏ hàng thành công!");
+                    } else {
+                        alert(res.message || "Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 401) {
+                        alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
+                        window.location.href = "/TaiKhoan/DangNhap"; // Cập nhật nếu bạn có route đăng nhập khác
+                    } else if (xhr.responseJSON?.message) {
+                        alert(xhr.responseJSON.message);
+                    } else {
+                        alert("Lỗi không xác định.");
+                    }
+                }
+            });
+        }
+    </script>
+}

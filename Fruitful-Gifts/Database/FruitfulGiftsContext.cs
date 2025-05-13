@@ -45,6 +45,8 @@ public partial class FruitfulGiftsContext : DbContext
 
     public virtual DbSet<SanPham> SanPhams { get; set; }
 
+    public virtual DbSet<SanPhamYeuThich> SanPhamYeuThiches { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FRUITFUL_GIFTS;Integrated Security=True;Trust Server Certificate=True");
 
@@ -258,23 +260,6 @@ public partial class FruitfulGiftsContext : DbContext
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-
-            entity.HasMany(d => d.MaSps).WithMany(p => p.MaKhs)
-                .UsingEntity<Dictionary<string, object>>(
-                    "SanPhamYeuThich",
-                    r => r.HasOne<SanPham>().WithMany()
-                        .HasForeignKey("MaSp")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__SanPhamYeu__MaSp__7D439ABD"),
-                    l => l.HasOne<KhachHang>().WithMany()
-                        .HasForeignKey("MaKh")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__SanPhamYeu__MaKh__7C4F7684"),
-                    j =>
-                    {
-                        j.HasKey("MaKh", "MaSp").HasName("PK__SanPhamY__F5579FF9A4D1B92E");
-                        j.ToTable("SanPhamYeuThich");
-                    });
         });
 
         modelBuilder.Entity<KhuyenMai>(entity =>
@@ -370,6 +355,23 @@ public partial class FruitfulGiftsContext : DbContext
             entity.HasOne(d => d.MaNccNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaNcc)
                 .HasConstraintName("FK__SanPham__MaNcc__5CD6CB2B");
+        });
+
+        modelBuilder.Entity<SanPhamYeuThich>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SanPhamY__3214EC0711301DEA");
+
+            entity.ToTable("SanPhamYeuThich");
+
+            entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.SanPhamYeuThiches)
+                .HasForeignKey(d => d.MaKh)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__SanPhamYeu__MaKh__7C4F7684");
+
+            entity.HasOne(d => d.MaSpNavigation).WithMany(p => p.SanPhamYeuThiches)
+                .HasForeignKey(d => d.MaSp)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__SanPhamYeu__MaSp__7D439ABD");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mtKvIzDNng9S17CX+zK8ywkWDuUA0GN5P3XD8il86sT+sRwRobX5j+54FWCDkU/id+9CEhoUftt7Zn9x/2MMQA==",
+  "dgSpecHash": "pt7r/ymOENORyKKIN2xoGDv/JDv1v/o2Hn8iXy3/8OE5ttv26boWzYft6aw9sq8Em4ecSCtSkrg7AIYDvoIjJw==",
   "success": true,
   "projectFilePath": "D:\\DoAnTotNghiepKhoa\\Fruitful_Gifts\\Fruitful-Gifts\\Fruitful-Gifts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\TRAN DUC MANH\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

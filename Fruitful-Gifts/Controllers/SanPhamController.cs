@@ -139,5 +139,45 @@ namespace Fruitful_Gifts.Controllers
             }
             return null;
         }
+
+        [HttpPost]
+        public IActionResult ThemSanPhamYeuThich(int productId)
+        {
+            var userId = GetLoggedInKhachHangId(); // Lấy ID của khách hàng đã đăng nhập
+
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để thêm vào danh sách yêu thích." });
+            }
+
+            var existingItem = _context.SanPhamYeuThiches
+                .FirstOrDefault(x => x.MaKh == userId && x.MaSp == productId);
+
+            if (existingItem != null)
+            {
+                _context.SanPhamYeuThiches.Remove(existingItem);
+                _context.SaveChanges();
+
+                return Json(new { success = true, message = "Sản phẩm đã được xóa khỏi danh sách yêu thích.", newLikeCount = GetLikeCount(productId), isAdded = false });
+            }
+
+            var newWishlistItem = new SanPhamYeuThich
+            {
+                MaKh = userId.Value,
+                MaSp = productId
+            };
+
+            _context.SanPhamYeuThiches.Add(newWishlistItem);
+            _context.SaveChanges();
+
+            // Trả về số lượt yêu thích mới và trạng thái sản phẩm đã được thêm
+            return Json(new { success = true, message = "Sản phẩm đã được thêm vào danh sách yêu thích!", newLikeCount = GetLikeCount(productId), isAdded = true });
+        }
+
+        private int GetLikeCount(int productId)
+        {
+            return _context.SanPhamYeuThiches.Count(x => x.MaSp == productId);
+        }
+
     }
 }

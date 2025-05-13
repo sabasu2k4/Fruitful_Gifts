@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Đăng Ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/TaiKhoan.css" />
+}
+
+@model Fruitful_Gifts.Database.KhachHang
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-2 position-absolute top-0 end-0 ms-3 z-3" role="alert" id="success-alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Form Đăng Ký -->
+        <div class="col-12 col-lg-8">
+            <h3>Đăng ký tài khoản</h3>
+            <form asp-action="DangKy" method="post" class="row g-3 mt-3">
+                <div class="col-md-5">
+                    <input asp-for="HoKh" class="form-control input-dangky" placeholder="Họ" title="Nhập họ của bạn" />
+                    <span asp-validation-for="HoKh" class="text-danger"></span>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="TenKh" class="form-control input-dangky" placeholder="Tên" title="Nhập tên của bạn" />
+                    <span asp-validation-for="TenKh" class="text-danger"></span>
+                </div>
+
+                <div class="col-10 pt-2">
+                    <input asp-for="Sdt" class="form-control input-dangky" placeholder="Số điện thoại" title="Nhập số điện thoại của bạn" />
+                    <span asp-validation-for="Sdt" class="text-danger"></span>
+
+                </div>
+
+                @*                 <div class="col-10 pt-2">
+                <input type="date" name="NgaySinh" class="form-control input-dangky" title="Chọn ngày sinh của bạn" />
+                <input asp-for="NgaySinh" class="form-control input-dangky" placeholder="Tên" title="Chọn ngày sinh của bạn" />
+                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                </div> *@
+
+                <div class="col-10 pt-2">
+                    <select name="GioiTinh" class="form-control input-dangky" title="Chọn giới tính của bạn">
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+
+                <div class="col-10 pt-2">
+                    <input asp-for="Email" class="form-control input-dangky" placeholder="Email" title="Nhập email của bạn" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-10 pt-2">
+                    <input asp-for="TenNguoiDung" class="form-control input-dangky" placeholder="Tên đăng nhập" title="Nhập username của bạn" />
+                    <span asp-validation-for="TenNguoiDung" class="text-danger"></span>
+                </div>
+
+                <div class="col-10 pt-2">
+                    <input asp-for="MatKhau" type="password" class="form-control input-dangky" placeholder="Mật khẩu" title="Nhập mật khẩu của bạn" />
+                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                </div>
+
+                <div class="col-3 pt-3">
+                    <button type="submit" class="btn-dangky w-100 rounded" title="Nhấn để đăng ký">Đăng ký</button>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- Form Đăng Nhập -->
+        <div class="col-12 col-lg-4">
+            <h3>Đăng nhập</h3>
+            <div class="f-dangnhap rounded p-3 mb-4 mt-3">
+                <p>Bạn đã có tài khoản, vui lòng ấn đăng nhập tại link bên dưới của chúng tôi. Hoặc các nút đăng nhập isocial</p>
+            </div>
+            <a href="/TaiKhoan/DangNhap" class="btn-dangnhap w-100 text-center" title="Nhấn để đăng nhập">Đăng nhập</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        window.setTimeout(function () {
+            const alert = document.getElementById("success-alert");
+            if (alert) {
+                alert.classList.remove("show");
+                alert.classList.add("fade");
+            }
+        }, 3000); // 3 giây
+    </script>
+}
+

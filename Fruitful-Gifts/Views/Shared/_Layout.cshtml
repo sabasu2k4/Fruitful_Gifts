@@ -1,6 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Fruitful_Gifts.Database
+@* @model Fruitful_Gifts.Database.KhachHang *@
+
+<!DOCTYPE html>
 <html lang="en">
 @RenderSection("Styles", required: false)
+@{
+    var userName = Context.Session.GetString("TenNguoiDung");
+}
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,161 +19,262 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/TaiKhoan.css" asp-append-version="true" />
 
 </head>
 <body>
-
-    <header class="bg-fruitful-dark text-white py-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div>
-                <a href="#" class="text-white text-decoration-none fs-4 fw-bold">
-                    Fruitful-Gifts
-                    <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 40px;">
-                </a>
-            </div>
-            <div class="d-none d-md-flex gap-4 align-items-center">
-                <a href="tel:1900636597" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-phone"></i> 1900 636 597</a>
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-regular fa-user"></i> Đăng nhập</a>
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
-            </div>
-        </div>
-    </header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand d-md-none fw-bold text-fruitful-dark" href="#">Fruitful-Gifts</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/TrangChu">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Giới thiệu</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Danh mục
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Giỏ quà trái cây tươi</a></li>
-                            <li><a class="dropdown-item" href="#">Giỏ quà trái cây nhập khẩu</a></li>
-                            <li><a class="dropdown-item" href="#">Giỏ quà đặc biệt (theo dịp)</a></li>
-                            <li><a class="dropdown-item" href="#">Hộp quà trái cây</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ưu đãi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2 rounded-pill border-0 shadow-sm" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
-                    <button class="btn btn-outline-fruitful-dark rounded-pill px-4" type="submit">Tìm</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-	
-    <div class="container-fuild">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <div class="chat-buttons-container">
-        <!-- Nút Zalo -->
-        <a href="https://zalo.me/1889612680828902680" target="_blank" rel="nofollow noopener" class="chat-button zalo-button">
-            <img src="https://vinfruits.com/wp-content/uploads/2024/03/Icon_of_Zalo.svg.png" alt="Zalo" class="chat-icon">
-        </a>
-        <!-- Nút Gọi -->
-        <a href="#" class="chat-button call-button">
-            <i class="bi bi-telephone-fill"></i>
-        </a>
-        <!-- Nút Chat -->
-        <a href="#" class="chat-button chat-btn">
-            <i class="bi bi-chat-left-dots-fill"></i>
-        </a>
-    </div>
-
-
-    <footer class="footer">
-
-        <!-- SVG sóng nước -->
-        <div class="wave-wrapper">
-            <svg class="waves position-relative w-100" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 51, 102, 1)"></use>    <!-- đậm nhất -->
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 51, 102, 0.8)"></use>
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 51, 102, 0.6)"></use>
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0, 51, 102, 0.4)"></use>  <!-- nhạt nhất -->
-
-                </g>
-            </svg>
-        </div>
-
-        <div class="container-fluid footer-context">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 footer-logo">
-                        <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 80px;">
-                        <p class="mt-3">Địa chỉ: Số nhà, Đường phố, Quận/Huyện, Thành phố.</p>
-                        <p>Điện thoại: 09xxxxxxxxx</p>
-                        <p>Email: info@example.com</p>
-                        <div class="footer-social">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
+    <div class="wrapper-main">
+        <header class="bg-fruitful-dark text-white py-3">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="#" class="text-white text-decoration-none fs-4 fw-bold">
+                        Fruitful-Gifts
+                        <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 40px;">
+                    </a>
+                </div>
+                <div class="d-none d-md-flex gap-4 align-items-center text-white">
+                    <div class="d-flex gap-4">
+                        <div class="d-flex  align-items-center gap-2">
+                            <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                <i class="fa-regular fa-heart fa-lg"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="">
+                                    <a href="/sanpham/sanphamyeuthich" class="text-white text-decoration-none align-items-center text-start header-title">
+                                        <div class="small">Sản phẩm</div>
+                                        <div class="fw-bold">Yêu thích</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="d-flex gap-4">
+                        <div class="d-flex  align-items-center gap-2">
+                            <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                <i class="fa-solid fa-bag-shopping fa-lg"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="">
+                                    <a href="/giohang" class="text-white text-decoration-none align-items-center text-start header-title">
+                                        <div class="small">Giỏ</div>
+                                        <div class="fw-bold">hàng</div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3 footer-links">
-                        <h5>Hỗ Trợ</h5>
-                        <ul>
-                            <li><a href="#">Giới Thiệu Về BeryBee</a></li>
-                            <li><a href="#">Thông Tin Liên Hệ</a></li>
-                            <li><a href="#">Sản Phẩm</a></li>
-                            <li><a href="#">Tin Tức</a></li>
-                            <li><a href="#">Hệ Thống Cửa Hàng/Đại Lý</a></li>
-                            <li><a href="#">Tuyển Dụng</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 footer-links">
-                        <h5>Sản Phẩm</h5>
-                        <ul>
-                            <li><a href="#">Sản Phẩm 1</a></li>
-                            <li><a href="#">Sản Phẩm 2</a></li>
-                            <li><a href="#">Danh Mục Khác</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 footer-links">
-                        <h5>Chính Sách</h5>
-                        <ul>
-                            <li><a href="#">Chính Sách Thanh Toán</a></li>
-                            <li><a href="#">Chính Sách Đổi Trả</a></li>
-                            <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
-                            <li><a href="#">Chính Sách Giao Hàng</a></li>
-                            <li><a href="#">Chính Sách Khách Hàng Thân Thiết</a></li>
-                            <li><a href="#">Điều Khoản Sử Dụng</a></li>
-                            <li><a href="#">Chính Sách Vận Chuyển và Lắp Đặt</a></li>
-                        </ul>
-                    </div>
+                    <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <div class="d-flex gap-4 dropdown">
+                            <a href="#" class="d-flex align-items-center gap-2 text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                    <i class="fa-regular fa-user fa-lg"></i>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold">Hello, @userName</div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/taikhoan/thongtintaikhoan">Thông tin tài khoản</a></li>
+                                <li><a class="dropdown-item" href="/taikhoan/dangxuat">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                      <!-- Nếu chưa đăng nhập, hiển thị các liên kết đăng nhập và đăng ký -->
+                        <div class="d-flex gap-4">
+                            <div class="d-flex  align-items-center gap-2">
+                                <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                    <i class="fa-regular fa-user fa-lg"></i>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold">
+                                        <a href="#" class="text-white text-decoration-none align-items-center text-start header-title"
+                                           data-bs-toggle="modal" data-bs-target="#loginModal" style="cursor: pointer;">
+                                            <div class="fw-bold">Đăng nhập</div>
+                                        </a>
+                                    </div>
+                                    <div class="fw-bold">
+                                        <a href="/taikhoan/dangky" class="text-white text-decoration-none align-items-center text-start header-title">
+                                            <div class="fw-bold">Đăng ký</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    }
                 </div>
             </div>
-            <div class="footer-bottom">
-                &copy; 2025 Fruitful - Gifts. Tất cả các quyền được bảo lưu.
+        </header>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+            <div class="container">
+                <a class="navbar-brand d-md-none fw-bold text-fruitful-dark" href="#">Fruitful-Gifts</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/TrangChu">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/gioithieu">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Danh mục
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Giỏ quà trái cây tươi</a></li>
+                                <li><a class="dropdown-item" href="#">Giỏ quà trái cây nhập khẩu</a></li>
+                                <li><a class="dropdown-item" href="#">Giỏ quà đặc biệt (theo dịp)</a></li>
+                                <li><a class="dropdown-item" href="#">Hộp quà trái cây</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ưu đãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Liên hệ</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2 rounded-pill border-0 shadow-sm" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
+                        <button class="btn btn-outline-fruitful-dark rounded-pill px-4" type="submit">Tìm</button>
+                    </form>
+                </div>
             </div>
+        </nav>
+
+        <div class="container-fuild main-content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
 
-    </footer>
+        <div class="chat-buttons-container">
+            <a href="https://zalo.me/1889612680828902680" target="_blank" rel="nofollow noopener" class="chat-button zalo-button">
+                <img src="https://vinfruits.com/wp-content/uploads/2024/03/Icon_of_Zalo.svg.png" alt="Zalo" class="chat-icon">
+            </a>
+            <a href="#" class="chat-button call-button">
+                <i class="bi bi-telephone-fill"></i>
+            </a>
+            <a href="#" class="chat-button chat-btn">
+                <i class="bi bi-chat-left-dots-fill"></i>
+            </a>
+        </div>
+
+        <footer class="text-white">
+            <!-- SVG sóng nước -->
+            <div class="wave-wrapper">
+                <svg class="waves position-relative w-100" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+                    </defs>
+                    <g class="parallax">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 51, 102, 1)"></use>    <!-- đậm nhất -->
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 51, 102, 0.8)"></use>
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 51, 102, 0.6)"></use>
+                        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0, 51, 102, 0.4)"></use>  <!-- nhạt nhất -->
+
+                    </g>
+                </svg>
+            </div>
+
+            <div class="container-fluid footer-context">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 footer-logo">
+                            <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 80px;">
+                            <p class="mt-3">Địa chỉ: Số nhà, Đường phố, Quận/Huyện, Thành phố.</p>
+                            <p>Điện thoại: 09xxxxxxxxx</p>
+                            <p>Email: info@example.com</p>
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Hỗ Trợ</h5>
+                            <ul>
+                                <li><a href="#">Giới Thiệu Về BeryBee</a></li>
+                                <li><a href="#">Thông Tin Liên Hệ</a></li>
+                                <li><a href="#">Sản Phẩm</a></li>
+                                <li><a href="#">Tin Tức</a></li>
+                                <li><a href="#">Hệ Thống Cửa Hàng/Đại Lý</a></li>
+                                <li><a href="#">Tuyển Dụng</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Sản Phẩm</h5>
+                            <ul>
+                                <li><a href="#">Sản Phẩm 1</a></li>
+                                <li><a href="#">Sản Phẩm 2</a></li>
+                                <li><a href="#">Danh Mục Khác</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Chính Sách</h5>
+                            <ul>
+                                <li><a href="#">Chính Sách Thanh Toán</a></li>
+                                <li><a href="#">Chính Sách Đổi Trả</a></li>
+                                <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
+                                <li><a href="#">Chính Sách Giao Hàng</a></li>
+                                <li><a href="#">Chính Sách Khách Hàng Thân Thiết</a></li>
+                                <li><a href="#">Điều Khoản Sử Dụng</a></li>
+                                <li><a href="#">Chính Sách Vận Chuyển và Lắp Đặt</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2025 Fruitful - Gifts. Tất cả các quyền được bảo lưu.
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="loginModalLabel">Đăng nhập</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Razor bên trong Modal -->
+                    <form asp-controller="TaiKhoan" asp-action="DangNhap" method="post" class="row g-3">
+                        <div class="col-12 pt-2">
+                            <div class="col-12">
+                                <input name="LoginName" class="form-control input-dangnhap" placeholder="Tên đăng nhập hoặc Email" title="Nhập tên đăng nhập hoặc email của bạn" />
+                                <span class="text-danger">@ViewData["LoginNameError"]</span>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="col-12">
+                                <input name="MatKhau" type="password" class="form-control input-dangnhap" placeholder="Mật khẩu" title="Nhập mật khẩu của bạn" />
+                                <span class="text-danger">@ViewData.ModelState["MatKhau"]?.Errors.FirstOrDefault()?.ErrorMessage</span>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn-dangky w-100 text-center" title="Nhấn để đăng nhập">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

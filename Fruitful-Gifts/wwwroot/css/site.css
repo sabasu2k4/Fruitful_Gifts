@@ -1,10 +1,10 @@
 ﻿:root {
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-sans-serif: Roboto, sans-serif;
     --footerBg: #003366;
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -13,7 +13,6 @@ html {
   }
 }
 
-/* Ghi đè chiều rộng container mặc định */
 .container {
     max-width: 1500px; /* hoặc 100%, hoặc giá trị mong muốn */
     padding-left: 20px;
@@ -31,8 +30,18 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
     font-family: var(--font-family-sans-serif);
+    color: #424242;
+}
+
+.wrapper-main {
+    min-height: 100vh; /* đảm bảo wrapper luôn cao bằng chiều cao trình duyệt */
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1; /* giúp phần nội dung giãn ra đẩy footer xuống đáy */
 }
 
 .title{
@@ -103,12 +112,28 @@ body {
     color: white !important;
 }
 
-/*=============================================*/
-
-.footer {
-    color: white;
-    transform: translateY(60px);
+.dropdown-menu {
+    z-index: 1050 !important;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
 }
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    color: #003366 !important;
+}
+
+
+/*.dropdown:hover .dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    color: white !important;
+    background-color: #003366 !important;
+}*/
+
+/*=============================================*/
 
 .footer-context {
     background-color: var(--footerBg);
@@ -197,7 +222,7 @@ body {
     height: 60px;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #fff;
+    color: white !important;
     font-weight: bold;
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -263,4 +288,15 @@ body {
         transform: translate3d(85px, 0, 0);
     }
 }
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.header-title:hover {
+    color: #0661c3 !important;
+}
+
 

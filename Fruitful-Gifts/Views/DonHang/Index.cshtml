@@ -1,0 +1,172 @@
+﻿@using Fruitful_Gifts.ViewModels
+@model List<DonHangViewModel>
+
+@{
+    ViewData["Title"] = "📦 Danh sách đơn hàng";
+    var trangThaiLabels = new Dictionary<int, string>
+    {
+        {1, "🕒 Đang xử lý"},
+        {2, "🚚 Đang giao"},
+        {3, "❌ Đã hủy"},
+        {4, "✅ Giao thành công"},
+        {5, "⚠️ Giao thất bại"}
+    };
+    var currentTrangThai = ViewBag.CurrentTrangThai as int?;
+    var counts = ViewBag.CountsByStatus as Dictionary<int, int> ?? new();
+
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <style>
+        .order-card {
+            border: 1px solid #e3e3e3;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-products {
+            margin-top: 15px;
+        }
+        .order-products th, .order-products td {
+            padding: 6px 10px;
+        }
+        .order-status {
+            font-weight: bold;
+        }
+    </style>
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <div class="col-md-9">
+            <h2 class="mb-4">@ViewData["Title"]</h2>
+
+            <ul class="nav nav-tabs mb-4">
+                @foreach (var item in trangThaiLabels)
+                {
+                    counts.TryGetValue(item.Key, out int count);
+                    var active = (currentTrangThai == item.Key) ? "active" : "";
+                    <li class="nav-item">
+                        <a class="nav-link @active" href="@Url.Action("Index", "DonHang", new { trangThai = item.Key })">
+                            @item.Value (@count)
+                        </a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link @(currentTrangThai == null ? "active" : "")" href="@Url.Action("Index", "DonHang")">Tất cả</a>
+                </li>
+            </ul>
+
+            @{
+                var statusText = "tất cả đơn hàng";
+                if (currentTrangThai.HasValue && trangThaiLabels.ContainsKey(currentTrangThai.Value))
+                {
+                    statusText = $"\"{trangThaiLabels[currentTrangThai.Value]}\"";
+                }
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    Không có đơn hàng nào @statusText.
+                </div>
+            }
+
+
+            @foreach (var don in Model)
+            {
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <strong>Mã ĐH:</strong> #@don.MaDh <br />
+                            <strong>Ngày đặt:</strong> @don.NgayDatHang?.ToString("dd/MM/yyyy")
+                        </div>
+                        <div class="text-end">
+                            @{
+                                string statusLabel = trangThaiLabels.ContainsKey(don.TrangThai ?? 0) ? trangThaiLabels[don.TrangThai ?? 0] : "Không xác định";
+                                string badgeClass = don.TrangThai switch
+                                {
+                                    1 => "warning text-dark",
+                                    2 => "info text-dark",
+                                    3 => "danger",
+                                    4 => "success",
+                                    5 => "secondary",
+                                    _ => "dark"
+                                };
+                            }
+                            <span class="badge bg-@badgeClass order-status">@statusLabel</span>
+                        </div>
+                    </div>
+
+                    <div class="order-products">
+                        <table class="table table-sm table-bordered mt-2 mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sp in don.SanPhams)
+                                {
+                                    <tr>
+                                        <td>@sp.TenSp</td>
+                                        <td>@sp.SoLuong</td>
+                                        <td>@sp.TongTien?.ToString("N0") đ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Tổng tiền:</strong> <span class="text-danger">@don.TongTienDonHang?.ToString("N0") đ</span>
+                        </div>
+                        <div>
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="DonHang" asp-action="DetailsDonHang" asp-route-id="@don.MaDh">
+                                Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+       
+            <div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = currentPage - 1 })">Previous</a>
+                        </li>
+
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == currentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = i })">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = currentPage + 1 })">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+﻿@model Fruitful_Gifts.Database.KhachHang
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS
+{
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success fade-message" id="success-message">@TempData["SuccessMessage"]</div>
+}
+
+@* End Header *@
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-9">
+
+            <div class="profile-container">
+                <div class="profile-header">Hồ Sơ Của Tôi</div>
+                <div class="profile-subheader">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+                <form method="post" action="@Url.Action("EditProfile", "KhachHang")">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="ho" class="form-label">Họ</label>
+                                <input type="text" id="ho" name="HoKH" class="form-control" value="@Model.HoKh" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="ten" class="form-label">Tên</label>
+                                <input type="text" id="ten" name="TenKH" class="form-control" value="@Model.TenKh" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="Email" class="form-control" value="@Model.Email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Vui lòng nhập địa chỉ email hợp lệ." required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="sdt" class="form-label">Số Điện Thoại</label>
+                                <input type="text" id="sdt" name="SDT" class="form-control" value="@Model.Sdt" pattern="^\d{10}$" title="Số điện thoại phải là 10 chữ số." required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="diachi" class="form-label">Địa Chỉ</label>
+                                <input type="text" id="diachi" name="DiaChi" class="form-control" value="@Model.DiaChi" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Giới Tính</label>
+                                <select class="form-control" id="gioiTinh" name="gioiTinh">
+                                    @if (Model.GioiTinh == "Nam")
+                                    {
+                                        <option value="Nam" selected>Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ" selected>Nữ</option>
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm rounded-pill shadow-sm">
+                                <i class="fa fa-save me-1"></i> Cập Nhật
+                            </button>
+
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info fade-message" id="info-message">@TempData["Message"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger fade-message" id="error-message">@TempData["ErrorMessage"]</div>
+}
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy tất cả các thông báo
+            const messages = document.querySelectorAll('.fade-message');
+            messages.forEach(function (message) {
+                // Sau 5 giây, thêm lớp để ẩn thông báo
+                setTimeout(() => {
+                    message.style.transition = "opacity 1s ease";
+                    message.style.opacity = "0"; // Giảm độ trong suốt
+                    setTimeout(() => {
+                        message.style.display = "none"; // Ẩn hoàn toàn sau khi hiệu ứng kết thúc
+                    }, 1000); // 1 giây sau khi mờ đi
+                }, 4000); // Sau 5 giây bắt đầu mờ dần
+            });
+        });
+    </script>
+}
+
+
+

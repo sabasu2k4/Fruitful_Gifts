@@ -1,0 +1,139 @@
+﻿@model IPagedList<SanPhamViewModel>
+
+@using X.PagedList.Mvc.Core
+@using Fruitful_Gifts.Models.ViewModels
+@using X.PagedList
+@using Fruitful_Gifts.Database
+
+
+@{
+    ViewData["Title"] = "Tìm kiếm sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var danhMucList = ViewBag.DanhMuc as List<DanhMuc>;
+    bool trangThaiDangNhap = ViewBag.TrangThaiDangNhap;
+    var sanPhamYeuThich = ViewBag.SanPhamYeuThich as List<SanPhamYeuThich> ?? new();
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Search.css" asp-append-version="true" />
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Tìm kiếm sản phẩm</h2>
+
+    <!-- Form tìm kiếm -->
+    <form method="get" asp-action="TimKiemSanPham" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="TenTimKiem" value="@ViewBag.CurrentSearchTerm" placeholder="Tên sản phẩm..." />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="DanhMucId">
+                <option value="">-- Danh mục --</option>
+                @foreach (var dm in danhMucList)
+                {
+                    if (ViewBag.CurrentCategory != null && ViewBag.CurrentCategory == dm.MaDm)
+                    {
+                        <option value="@dm.MaDm" selected>@dm.TenDm</option>
+                    }
+                    else
+                    {
+                        <option value="@dm.MaDm">@dm.TenDm</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="GiaMin" value="@ViewBag.CurrentPriceMin" placeholder="Giá từ..." min="0" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="GiaMax" value="@ViewBag.CurrentPriceMax" placeholder="Đến..." min="0" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="SortOrder">
+                <option value="">-- Sắp xếp --</option>
+                <option value="asc" selected="@(ViewBag.CurrentSortOrder == "asc" ? "selected" : "")">Giá tăng dần</option>
+                <option value="desc" selected="@(ViewBag.CurrentSortOrder == "desc" ? "selected" : "")">Giá giảm dần</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Lọc</button>
+        </div>
+    </form>
+
+    <!-- Kết quả tìm kiếm -->
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                var sp = item.SanPham;
+                bool isYeuThich = trangThaiDangNhap && sanPhamYeuThich.Any(x => x.MaSp == sp.MaSp);
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })">
+                            <img src="~/images/sanpham/@sp.HinhAnh" class="card-img-top" alt="@sp.TenSp" style="height: 200px; object-fit: contain;">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title">@sp.TenSp</h6>
+                            <p class="text-danger fw-bold">@item.GiaSauKhiGiam.ToString("N0") đ</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })" class="btn btn-sm btn-outline-primary">Xem</a>
+                            @if (trangThaiDangNhap)
+                            {
+                                <button onclick="addToWishlist(@sp.MaSp)" class="btn btn-sm btn-outline-danger">
+                                    <i class="@(isYeuThich ? "bi bi-heart-fill" : "bi bi-heart")" id="heart-icon-@sp.MaSp"></i>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">Không tìm thấy sản phẩm nào phù hợp.</div>
+            </div>
+        }
+    </div>
+
+    <!-- Phân trang -->
+    <div class="d-flex justify-content-center mt-4">
+        @Html.PagedListPager(Model, page => Url.Action("TimKiemSanPham", new
+            {
+                page,
+                TenTimKiem = ViewBag.CurrentSearchTerm,
+                DanhMucId = ViewBag.CurrentCategory,
+                GiaMin = ViewBag.CurrentPriceMin,
+                GiaMax = ViewBag.CurrentPriceMax,
+                SortOrder = ViewBag.CurrentSortOrder
+            }), new PagedListRenderOptions { UlElementClasses = new[] { "pagination" }, LiElementClasses = new[] { "page-item" }, PageClasses = new[] { "page-link" } })
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addToWishlist(productId) {
+            $.ajax({
+                url: '/SanPhamYeuThich/ThemSanPhamYeuThich',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (res) {
+                    const icon = $(`#heart-icon-${productId}`);
+                    if (res.success) {
+                        if (res.isAdded) {
+                            icon.removeClass("bi-heart").addClass("bi-heart-fill");
+                        } else {
+                            icon.removeClass("bi-heart-fill").addClass("bi-heart");
+                        }
+                    }
+                },
+                error: function () {
+                    alert("Lỗi khi kết nối máy chủ.");
+                }
+            });
+        }
+    </script>
+}

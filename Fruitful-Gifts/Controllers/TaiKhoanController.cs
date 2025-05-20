@@ -67,14 +67,18 @@ namespace Fruitful_Gifts.Controllers
 
             if (user != null)
             {
-                // Kiểm tra mật khẩu sử dụng BCrypt
+               
                 bool passwordMatch = BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau);
 
                 if (passwordMatch)
                 {
-                    // Lưu toàn bộ thông tin KhachHang vào session dưới dạng JSON
+                    
+
                     var userJson = JsonSerializer.Serialize(user);
                     HttpContext.Session.SetString("user", userJson); 
+                    HttpContext.Session.SetString("TenNguoiDung", user.TenNguoiDung); 
+
+
 
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
                     return RedirectToAction("Index", "TrangChu");

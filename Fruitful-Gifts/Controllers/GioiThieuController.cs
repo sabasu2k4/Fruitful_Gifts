@@ -13,16 +13,21 @@ namespace Fruitful_Gifts.Controllers
         }
         public IActionResult Index()
         {
-            // Tất cả bài viết
+            var gioiThieu = _context.BaiViets
+                .FirstOrDefault(bv => bv.Slug == "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true);
+
             var baiVietList = _context.BaiViets
-                .Where(bv => bv.IsHienThi == true)
+                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true)
                 .OrderByDescending(bv => bv.CreatedAt)
                 .ToList();
 
-            // Lấy 5 bài viết mới nhất
+            // Lấy 5 bài viết mới nhất từ danh sách đã lọc
             ViewBag.BaiVietMoi = baiVietList.Take(5).ToList();
+
+            ViewBag.BaiVietGioiThieu = gioiThieu;
 
             return View(baiVietList);
         }
+
     }
 }

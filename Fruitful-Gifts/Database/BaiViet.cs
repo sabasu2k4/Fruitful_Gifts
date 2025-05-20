@@ -19,5 +19,7 @@ public partial class BaiViet
 
     public DateTime? UpdatedAt { get; set; }
 
+    public string? Slug { get; set; }
+
     public bool? IsHienThi { get; set; }
 }

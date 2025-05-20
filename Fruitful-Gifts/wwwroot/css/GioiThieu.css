@@ -2,3 +2,15 @@
     background: #fff7f4;
     border-radius: 10px !important;
 }
+
+.btn-xemthem-1 {
+    color: #002395 !important;
+    border: 1px solid #002395 !important;
+    font-weight: 600 !important;
+    text-decoration: none;
+}
+
+    .btn-xemthem-1:hover {
+        background-color: #002395 !important;
+        color: white !important;
+    }

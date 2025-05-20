@@ -1,0 +1,76 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model X.PagedList.IPagedList<Fruitful_Gifts.Database.BaiViet>
+@{
+    var baiVietMoi = ViewBag.BaiVietMoi as List<Fruitful_Gifts.Database.BaiViet>;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/BaiViet.css" />
+}
+
+<div class="container mt-4 mb-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light p-2 rounded">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-bold">Bài viết</h2>
+        <p class="text-muted">Danh sách các bài viết mới nhất được cập nhật thường xuyên.</p>
+    </div>
+
+    <!-- Danh sách bài viết dạng card -->
+    <div class="row g-4">
+        @foreach (var tin in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })" class="text-decoration-none text-dark">
+                        <img src="~/images/baiviet/@tin.HinhAnh"
+                             class="card-img-top"
+                             alt="@tin.TieuDe"
+                             style="height: 200px; object-fit: cover;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })" class="text-decoration-none text-dark">
+                            <h5 class="card-title fw-bold mb-2 text-truncate">@tin.TieuDe</h5>
+                        </a>
+                        <p class="card-text text-muted mb-3">
+                            <i class="bi bi-calendar-event me-1"></i> @tin.CreatedAt?.ToString("dd/MM/yyyy")
+                        </p>
+                        <div class="mt-auto">
+                            <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })" class="btn btn-xemchitiet rounded-pill px-4">
+                                Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Phân trang -->
+    <div class="d-flex justify-content-center mt-5">
+        @Html.PagedListPager(
+                 Model,
+                 page => Url.Action("Index", new { page }),
+                 new X.PagedList.Mvc.Core.PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            UlElementClasses = new[] { "pagination" }
+        })
+    </div>
+</div>
+
+

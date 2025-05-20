@@ -1,4 +1,5 @@
 ﻿using Fruitful_Gifts.Database;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -72,6 +73,7 @@ namespace Fruitful_Gifts.Controllers
                 if (passwordMatch)
                 {
                     HttpContext.Session.SetString("TenNguoiDung", user.TenNguoiDung);
+                    HttpContext.Session.SetInt32("MaKh", user.MaKh);
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
                     return RedirectToAction("Index", "TrangChu");
                 }

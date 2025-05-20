@@ -26,12 +26,20 @@ GO
 -- Bảng Danh mục
 CREATE TABLE DanhMuc (
     MaDm INT PRIMARY KEY IDENTITY(1,1),
-    TenDm NVARCHAR(255),
-	HinhAnh NVARCHAR(255),
+    TenDm NVARCHAR(255) NOT NULL,
+    HinhAnh NVARCHAR(255),
     TrangThai BIT DEFAULT 1,
     CreatedAt DATETIME DEFAULT GETDATE(),
-    UpdatedAt DATETIME DEFAULT GETDATE()
+    UpdatedAt DATETIME DEFAULT GETDATE(),
+    DanhMucChaId INT NULL,
+	Slug NVARCHAR(255) NULL
 );
+
+ALTER TABLE DanhMuc
+ADD CONSTRAINT FK_DanhMucCha
+FOREIGN KEY (DanhMucChaId) REFERENCES DanhMuc(MaDm)
+ON DELETE NO ACTION;
+
 GO
 -- Bảng Nhà cung cấp
 CREATE TABLE NhaCungCap (
@@ -163,7 +171,8 @@ CREATE TABLE BaiViet (
     NoiDung NVARCHAR(MAX),
     NgayDang DATE DEFAULT GETDATE(),
     CreatedAt DATETIME DEFAULT GETDATE(),
-    UpdatedAt DATETIME DEFAULT GETDATE()
+    UpdatedAt DATETIME DEFAULT GETDATE(),
+	Slug NVARCHAR(255) NULL
 );
 GO
 -- Bảng Liên hệ
@@ -238,17 +247,23 @@ VALUES 
 GO
 
 -- Insert dữ liệu vào bảng DanhMuc
-INSERT INTO DanhMuc (TenDm, HinhAnh, TrangThai, CreatedAt, UpdatedAt)
+INSERT INTO DanhMuc (TenDm, HinhAnh, Slug)
+VALUES 
+(N'Quà tặng dịp lễ', NULL, 'qua-tang-dip-le'),           -- ID = 1
+(N'Quà tặng gia đình và cá nhân', NULL, 'qua-tang-gia-dinh-va-ca-nhan'), -- ID = 2
+(N'Quà tặng thương mại', NULL, 'qua-tang-thuong-mai'); 
+GO
+INSERT INTO DanhMuc (TenDm, HinhAnh, TrangThai, DanhMucChaId, CreatedAt, UpdatedAt, Slug)
 VALUES 
-(N'8/3 Quốc tế Phụ nữ', '8-3-quoc-te-phu-nu.jpg', 1, GETDATE(), GETDATE()),
-(N'20/10 Phụ nữ Việt Nam', '20-10-phu-nu-viet-nam.jpg', 1, GETDATE(), GETDATE()),
-(N'20/11 Nhà giáo Việt Nam', '20-11-nha-giao-viet-nam.jpg', 1, GETDATE(), GETDATE()),
-(N'Khai trương', 'khai-truong.jpg', 1, GETDATE(), GETDATE()),
-(N'Sinh nhật', 'sinh-nhat.jpg', 1, GETDATE(), GETDATE()),
-(N'Tân gia', 'tan-gia.jpg', 1, GETDATE(), GETDATE()),
-(N'Tết Nguyên Đán', 'tet-nguyen-dan.jpg', 1, GETDATE(), GETDATE()),
-(N'Valentine', 'valentine.jpg', 1, GETDATE(), GETDATE()),
-(N'Cưới hỏi', 'cuoi-hoi.jpg', 1, GETDATE(), GETDATE());
+(N'8/3 Quốc tế Phụ nữ', '8-3-quoc-te-phu-nu.jpg', 1, 1, GETDATE(), GETDATE(), '8-3-quoc-te-phu-nu'),
+(N'20/10 Phụ nữ Việt Nam', '20-10-phu-nu-viet-nam.jpg', 1, 1, GETDATE(), GETDATE(), '20-10-phu-nu-viet-nam'),
+(N'20/11 Nhà giáo Việt Nam', '20-11-nha-giao-viet-nam.jpg', 1, 1, GETDATE(), GETDATE(), '20-11-nha-giao-viet-nam'),
+(N'Khai trương', 'khai-truong.jpg', 1, 3, GETDATE(), GETDATE(), 'khai-truong'),
+(N'Sinh nhật', 'sinh-nhat.jpg', 1, 2, GETDATE(), GETDATE(), 'sinh-nhat'),
+(N'Tân gia', 'tan-gia.jpg', 1, 2, GETDATE(), GETDATE(), 'tan-gia'),
+(N'Tết Nguyên Đán', 'tet-nguyen-dan.jpg', 1, 1, GETDATE(), GETDATE(), 'tet-nguyen-dan'),
+(N'Valentine', 'valentine.jpg', 1, 1, GETDATE(), GETDATE(), 'valentine'),
+(N'Cưới hỏi', 'cuoi-hoi.jpg', 1, 2, GETDATE(), GETDATE(), 'cuoi-hoi');
 
 GO
 
@@ -264,79 +279,78 @@ VALUES
 GO
 
 -- Insert dữ liệu vào bảng SanPham
--- Insert 10 sản phẩm mẫu cho dịp 8/3
 INSERT INTO SanPham (TenSp, MaDm, MaNcc, Gia, SoLuong, MoTa, Slug, TrangThai, HinhAnh, CreatedAt, UpdatedAt)
 VALUES 
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 01', 1, 1, 450000.00, 20, N'Giỏ quà gồm táo, nho, cam và dâu tươi cao cấp.', 'qua-trai-cay-tuoi-8-3-001', 1, '8-3-quoc-te-phu-nu-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 02', 1, 2, 720000.00, 15, N'Sản phẩm gồm kiwi, lê Hàn, nho Mỹ, táo Pháp.', 'qua-trai-cay-tuoi-8-3-002', 1, '8-3-quoc-te-phu-nu-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 03', 1, 3, 980000.00, 10, N'Đóng hộp gỗ, trái cây nhập khẩu kèm thiệp chúc.', 'qua-trai-cay-tuoi-8-3-003', 1, '8-3-quoc-te-phu-nu-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 04', 1, 1, 650000.00, 12, N'Giỏ gồm trái cây và hoa baby trắng trang trí đẹp mắt.', 'qua-trai-cay-tuoi-8-3-004', 1, '8-3-quoc-te-phu-nu-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 05', 1, 2, 500000.00, 18, N'Dành tặng phụ nữ với trái cây tốt cho sức khỏe.', 'qua-trai-cay-tuoi-8-3-005', 1, '8-3-quoc-te-phu-nu-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 06', 1, 3, 390000.00, 25, N'Phù hợp làm quà cho bạn nữ đồng nghiệp, trang nhã.', 'qua-trai-cay-tuoi-8-3-006', 1, '8-3-quoc-te-phu-nu-006.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 07', 1, 1, 880000.00, 8, N'Trọn vẹn tình cảm với trái cây và socola nhập.', 'qua-trai-cay-tuoi-8-3-007', 1, '8-3-quoc-te-phu-nu-007.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 08', 1, 2, 550000.00, 20, N'Dễ ăn, nhẹ nhàng, phù hợp mẹ lớn tuổi.', 'qua-trai-cay-tuoi-8-3-008', 1, '8-3-quoc-te-phu-nu-008.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 09', 1, 3, 1100000.00, 5, N'Trái cây tuyển chọn, hộp da sang trọng, có nơ.', 'qua-trai-cay-tuoi-8-3-009', 1, '8-3-quoc-te-phu-nu-009.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 10', 1, 1, 290000.00, 30, N'Giỏ mini xinh xắn, tặng bạn bè, học sinh – sinh viên.', 'qua-trai-cay-tuoi-8-3-010', 1, '8-3-quoc-te-phu-nu-010.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 01', 4, 1, 450000.00, 20, N'Giỏ quà gồm táo, nho, cam và dâu tươi cao cấp.', 'qua-trai-cay-tuoi-8-3-001', 1, '8-3-quoc-te-phu-nu-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 02', 4, 2, 720000.00, 15, N'Sản phẩm gồm kiwi, lê Hàn, nho Mỹ, táo Pháp.', 'qua-trai-cay-tuoi-8-3-002', 1, '8-3-quoc-te-phu-nu-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 03', 4, 3, 980000.00, 10, N'Đóng hộp gỗ, trái cây nhập khẩu kèm thiệp chúc.', 'qua-trai-cay-tuoi-8-3-003', 1, '8-3-quoc-te-phu-nu-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 04', 4, 1, 650000.00, 12, N'Giỏ gồm trái cây và hoa baby trắng trang trí đẹp mắt.', 'qua-trai-cay-tuoi-8-3-004', 1, '8-3-quoc-te-phu-nu-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 05', 4, 2, 500000.00, 18, N'Dành tặng phụ nữ với trái cây tốt cho sức khỏe.', 'qua-trai-cay-tuoi-8-3-005', 1, '8-3-quoc-te-phu-nu-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 06', 4, 3, 390000.00, 25, N'Phù hợp làm quà cho bạn nữ đồng nghiệp, trang nhã.', 'qua-trai-cay-tuoi-8-3-006', 1, '8-3-quoc-te-phu-nu-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 07', 4, 1, 880000.00, 8, N'Trọn vẹn tình cảm với trái cây và socola nhập.', 'qua-trai-cay-tuoi-8-3-007', 1, '8-3-quoc-te-phu-nu-007.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 08', 4, 2, 550000.00, 20, N'Dễ ăn, nhẹ nhàng, phù hợp mẹ lớn tuổi.', 'qua-trai-cay-tuoi-8-3-008', 1, '8-3-quoc-te-phu-nu-008.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 09', 4, 3, 1100000.00, 5, N'Trái cây tuyển chọn, hộp da sang trọng, có nơ.', 'qua-trai-cay-tuoi-8-3-009', 1, '8-3-quoc-te-phu-nu-009.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 8/3 - 10', 4, 1, 290000.00, 30, N'Giỏ mini xinh xắn, tặng bạn bè, học sinh – sinh viên.', 'qua-trai-cay-tuoi-8-3-010', 1, '8-3-quoc-te-phu-nu-010.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 01', 2, 1, 480000.00, 20, N'Giỏ quà gồm táo, cam Úc, nho đen, dưa lưới Nhật.', 'qua-trai-cay-tuoi-20-10-001', 1, '20-10-phu-nu-viet-nam-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 02', 2, 2, 750000.00, 12, N'Hộp quà gỗ sang trọng gồm trái cây nhập khẩu cao cấp.', 'qua-trai-cay-tuoi-20-10-002', 1, '20-10-phu-nu-viet-nam-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 03', 2, 3, 520000.00, 18, N'Giỏ hoa quả và socola tặng mẹ, kèm thiệp chúc.', 'qua-trai-cay-tuoi-20-10-003', 1, '20-10-phu-nu-viet-nam-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 04', 2, 1, 430000.00, 25, N'Trọn gói trái cây nhẹ nhàng, dễ ăn, phù hợp mọi lứa tuổi.', 'qua-trai-cay-tuoi-20-10-004', 1, '20-10-phu-nu-viet-nam-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 05', 2, 2, 690000.00, 10, N'Giỏ quà trang trí tinh tế, có thể tặng sếp nữ.', 'qua-trai-cay-tuoi-20-10-005', 1, '20-10-phu-nu-viet-nam-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 06', 2, 3, 310000.00, 30, N'Phiên bản mini dành tặng bạn bè, học sinh – sinh viên.', 'qua-trai-cay-tuoi-20-10-006', 1, '20-10-phu-nu-viet-nam-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 01', 5, 1, 480000.00, 20, N'Giỏ quà gồm táo, cam Úc, nho đen, dưa lưới Nhật.', 'qua-trai-cay-tuoi-20-10-001', 1, '20-10-phu-nu-viet-nam-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 02', 5, 2, 750000.00, 12, N'Hộp quà gỗ sang trọng gồm trái cây nhập khẩu cao cấp.', 'qua-trai-cay-tuoi-20-10-002', 1, '20-10-phu-nu-viet-nam-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 03', 5, 3, 520000.00, 18, N'Giỏ hoa quả và socola tặng mẹ, kèm thiệp chúc.', 'qua-trai-cay-tuoi-20-10-003', 1, '20-10-phu-nu-viet-nam-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 04', 5, 1, 430000.00, 25, N'Trọn gói trái cây nhẹ nhàng, dễ ăn, phù hợp mọi lứa tuổi.', 'qua-trai-cay-tuoi-20-10-004', 1, '20-10-phu-nu-viet-nam-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 05', 5, 2, 690000.00, 10, N'Giỏ quà trang trí tinh tế, có thể tặng sếp nữ.', 'qua-trai-cay-tuoi-20-10-005', 1, '20-10-phu-nu-viet-nam-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/10 - 06', 5, 3, 310000.00, 30, N'Phiên bản mini dành tặng bạn bè, học sinh – sinh viên.', 'qua-trai-cay-tuoi-20-10-006', 1, '20-10-phu-nu-viet-nam-006.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 01', 3, 1, 520000.00, 15, N'Giỏ quà gồm nho Mỹ, táo Envy, lê Hàn và cam Úc.', 'qua-trai-cay-tuoi-20-11-001', 1, '20-11-nha-giao-viet-nam-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 02', 3, 2, 670000.00, 10, N'Giỏ trái cây nhập khẩu cao cấp, có nơ, thiệp cảm ơn.', 'qua-trai-cay-tuoi-20-11-002', 1, '20-11-nha-giao-viet-nam-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 03', 3, 3, 450000.00, 20, N'Trọn bộ trái cây, hoa và socola sang trọng tặng thầy cô.', 'qua-trai-cay-tuoi-20-11-003', 1, '20-11-nha-giao-viet-nam-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 04', 3, 1, 390000.00, 25, N'Hộp gỗ nhỏ xinh, gồm trái cây tươi và thiệp viết tay.', 'qua-trai-cay-tuoi-20-11-004', 1, '20-11-nha-giao-viet-nam-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 05', 3, 2, 800000.00, 8, N'Hộp da sang trọng, trái cây nhập khẩu nguyên thùng.', 'qua-trai-cay-tuoi-20-11-005', 1, '20-11-nha-giao-viet-nam-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 06', 3, 3, 620000.00, 14, N'Giỏ trái cây cao cấp phù hợp tri ân giáo viên nữ.', 'qua-trai-cay-tuoi-20-11-006', 1, '20-11-nha-giao-viet-nam-006.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 07', 3, 1, 350000.00, 30, N'Mẫu giỏ nhỏ, nhẹ nhàng dành cho học sinh tặng giáo viên.', 'qua-trai-cay-tuoi-20-11-007', 1, '20-11-nha-giao-viet-nam-007.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 08', 3, 2, 710000.00, 12, N'Giỏ trái cây kết hợp trà và socola nhập khẩu.', 'qua-trai-cay-tuoi-20-11-008', 1, '20-11-nha-giao-viet-nam-008.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 09', 3, 3, 580000.00, 16, N'Trọn bộ quà tinh tế với trái cây, ruy băng và lời chúc.', 'qua-trai-cay-tuoi-20-11-009', 1, '20-11-nha-giao-viet-nam-009.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 01', 6, 1, 520000.00, 15, N'Giỏ quà gồm nho Mỹ, táo Envy, lê Hàn và cam Úc.', 'qua-trai-cay-tuoi-20-11-001', 1, '20-11-nha-giao-viet-nam-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 02', 6, 2, 670000.00, 10, N'Giỏ trái cây nhập khẩu cao cấp, có nơ, thiệp cảm ơn.', 'qua-trai-cay-tuoi-20-11-002', 1, '20-11-nha-giao-viet-nam-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 03', 6, 3, 450000.00, 20, N'Trọn bộ trái cây, hoa và socola sang trọng tặng thầy cô.', 'qua-trai-cay-tuoi-20-11-003', 1, '20-11-nha-giao-viet-nam-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 04', 6, 1, 390000.00, 25, N'Hộp gỗ nhỏ xinh, gồm trái cây tươi và thiệp viết tay.', 'qua-trai-cay-tuoi-20-11-004', 1, '20-11-nha-giao-viet-nam-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 05', 6, 2, 800000.00, 8, N'Hộp da sang trọng, trái cây nhập khẩu nguyên thùng.', 'qua-trai-cay-tuoi-20-11-005', 1, '20-11-nha-giao-viet-nam-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 06', 6, 3, 620000.00, 14, N'Giỏ trái cây cao cấp phù hợp tri ân giáo viên nữ.', 'qua-trai-cay-tuoi-20-11-006', 1, '20-11-nha-giao-viet-nam-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 07', 6, 1, 350000.00, 30, N'Mẫu giỏ nhỏ, nhẹ nhàng dành cho học sinh tặng giáo viên.', 'qua-trai-cay-tuoi-20-11-007', 1, '20-11-nha-giao-viet-nam-007.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 08', 6, 2, 710000.00, 12, N'Giỏ trái cây kết hợp trà và socola nhập khẩu.', 'qua-trai-cay-tuoi-20-11-008', 1, '20-11-nha-giao-viet-nam-008.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Lễ 20/11 - 09', 6, 3, 580000.00, 16, N'Trọn bộ quà tinh tế với trái cây, ruy băng và lời chúc.', 'qua-trai-cay-tuoi-20-11-009', 1, '20-11-nha-giao-viet-nam-009.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 01', 4, 1, 850000.00, 10, N'Giỏ trái cây sang trọng, phối hoa chúc mừng khai trương.', 'qua-trai-cay-tuoi-khai-truong-001', 1, 'khai-truong-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 02', 4, 2, 920000.00, 8, N'Giỏ trái cây nhập khẩu, đi kèm thiệp chúc và hoa tươi.', 'qua-trai-cay-tuoi-khai-truong-002', 1, 'khai-truong-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 03', 4, 3, 780000.00, 12, N'Trọn bộ trái cây, bánh và socola, thích hợp tặng khai trương.', 'qua-trai-cay-tuoi-khai-truong-003', 1, 'khai-truong-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 04', 4, 1, 690000.00, 15, N'Giỏ quà trái cây tươi kèm hoa baby, mang ý nghĩa may mắn.', 'qua-trai-cay-tuoi-khai-truong-004', 1, 'khai-truong-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 05', 4, 2, 950000.00, 6, N'Hộp gỗ trái cây cao cấp, trang trí chỉn chu, lịch sự.', 'qua-trai-cay-tuoi-khai-truong-005', 1, 'khai-truong-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 06', 4, 3, 720000.00, 14, N'Sản phẩm trái cây nhập khẩu được chọn lọc kỹ lưỡng.', 'qua-trai-cay-tuoi-khai-truong-006', 1, 'khai-truong-006.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 07', 4, 1, 830000.00, 10, N'Giỏ quà phối màu đỏ, vàng - tượng trưng tài lộc, phát đạt.', 'qua-trai-cay-tuoi-khai-truong-007', 1, 'khai-truong-007.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 08', 4, 2, 890000.00, 9, N'Giỏ trái cây có logo công ty khách hàng - thiết kế riêng.', 'qua-trai-cay-tuoi-khai-truong-008', 1, 'khai-truong-008.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 09', 4, 3, 680000.00, 20, N'Giỏ quà thiết kế đơn giản nhưng đầy ý nghĩa.', 'qua-trai-cay-tuoi-khai-truong-009', 1, 'khai-truong-009.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 10', 4, 1, 1100000.00, 5, N'Hộp quà cao cấp, gồm trái cây, trà và thiệp chúc mừng.', 'qua-trai-cay-tuoi-khai-truong-010', 1, 'khai-truong-010.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 11', 4, 2, 770000.00, 13, N'Mẫu giỏ quà nhẹ nhàng, ý nghĩa, thích hợp mọi ngành nghề.', 'qua-trai-cay-tuoi-khai-truong-011', 1, 'khai-truong-011.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 01', 7, 1, 850000.00, 10, N'Giỏ trái cây sang trọng, phối hoa chúc mừng khai trương.', 'qua-trai-cay-tuoi-khai-truong-001', 1, 'khai-truong-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 02', 7, 2, 920000.00, 8, N'Giỏ trái cây nhập khẩu, đi kèm thiệp chúc và hoa tươi.', 'qua-trai-cay-tuoi-khai-truong-002', 1, 'khai-truong-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 03', 7, 3, 780000.00, 12, N'Trọn bộ trái cây, bánh và socola, thích hợp tặng khai trương.', 'qua-trai-cay-tuoi-khai-truong-003', 1, 'khai-truong-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 04', 7, 1, 690000.00, 15, N'Giỏ quà trái cây tươi kèm hoa baby, mang ý nghĩa may mắn.', 'qua-trai-cay-tuoi-khai-truong-004', 1, 'khai-truong-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 05', 7, 2, 950000.00, 6, N'Hộp gỗ trái cây cao cấp, trang trí chỉn chu, lịch sự.', 'qua-trai-cay-tuoi-khai-truong-005', 1, 'khai-truong-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 06', 7, 3, 720000.00, 14, N'Sản phẩm trái cây nhập khẩu được chọn lọc kỹ lưỡng.', 'qua-trai-cay-tuoi-khai-truong-006', 1, 'khai-truong-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 07', 7, 1, 830000.00, 10, N'Giỏ quà phối màu đỏ, vàng - tượng trưng tài lộc, phát đạt.', 'qua-trai-cay-tuoi-khai-truong-007', 1, 'khai-truong-007.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 08', 7, 2, 890000.00, 9, N'Giỏ trái cây có logo công ty khách hàng - thiết kế riêng.', 'qua-trai-cay-tuoi-khai-truong-008', 1, 'khai-truong-008.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 09', 7, 3, 680000.00, 20, N'Giỏ quà thiết kế đơn giản nhưng đầy ý nghĩa.', 'qua-trai-cay-tuoi-khai-truong-009', 1, 'khai-truong-009.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 10', 7, 1, 1100000.00, 5, N'Hộp quà cao cấp, gồm trái cây, trà và thiệp chúc mừng.', 'qua-trai-cay-tuoi-khai-truong-010', 1, 'khai-truong-010.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Khai Trương - 11', 7, 2, 770000.00, 13, N'Mẫu giỏ quà nhẹ nhàng, ý nghĩa, thích hợp mọi ngành nghề.', 'qua-trai-cay-tuoi-khai-truong-011', 1, 'khai-truong-011.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 01', 5, 1, 520000.00, 15, N'Giỏ trái cây nhỏ xinh kèm thiệp sinh nhật dễ thương.', 'qua-trai-cay-tuoi-sinh-nhat-001', 1, 'sinh-nhat-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 02', 5, 2, 670000.00, 10, N'Trọn bộ trái cây nhập khẩu và bánh cookie mini.', 'qua-trai-cay-tuoi-sinh-nhat-002', 1, 'sinh-nhat-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 03', 5, 3, 750000.00, 8, N'Giỏ quà phối màu pastel, nhẹ nhàng và tinh tế.', 'qua-trai-cay-tuoi-sinh-nhat-003', 1, 'sinh-nhat-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 04', 5, 1, 820000.00, 6, N'Hộp quà trái cây tươi kết hợp socola và ruy băng sinh nhật.', 'qua-trai-cay-tuoi-sinh-nhat-004', 1, 'sinh-nhat-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 05', 5, 2, 590000.00, 12, N'Sản phẩm dành tặng bạn bè, người thân trong ngày sinh nhật.', 'qua-trai-cay-tuoi-sinh-nhat-005', 1, 'sinh-nhat-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 01', 8, 1, 520000.00, 15, N'Giỏ trái cây nhỏ xinh kèm thiệp sinh nhật dễ thương.', 'qua-trai-cay-tuoi-sinh-nhat-001', 1, 'sinh-nhat-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 02', 8, 2, 670000.00, 10, N'Trọn bộ trái cây nhập khẩu và bánh cookie mini.', 'qua-trai-cay-tuoi-sinh-nhat-002', 1, 'sinh-nhat-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 03', 8, 3, 750000.00, 8, N'Giỏ quà phối màu pastel, nhẹ nhàng và tinh tế.', 'qua-trai-cay-tuoi-sinh-nhat-003', 1, 'sinh-nhat-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 04', 8, 1, 820000.00, 6, N'Hộp quà trái cây tươi kết hợp socola và ruy băng sinh nhật.', 'qua-trai-cay-tuoi-sinh-nhat-004', 1, 'sinh-nhat-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Sinh Nhật - 05', 8, 2, 590000.00, 12, N'Sản phẩm dành tặng bạn bè, người thân trong ngày sinh nhật.', 'qua-trai-cay-tuoi-sinh-nhat-005', 1, 'sinh-nhat-005.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 01', 6, 1, 680000.00, 10, N'Giỏ trái cây trang trọng chúc mừng tân gia.', 'qua-trai-cay-tuoi-tan-gia-001', 1, 'tan-gia-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 02', 6, 2, 750000.00, 8, N'Hộp trái cây cao cấp kèm nơ, chúc phát tài.', 'qua-trai-cay-tuoi-tan-gia-002', 1, 'tan-gia-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 03', 6, 3, 820000.00, 6, N'Sản phẩm gồm nho Mỹ, táo xanh, cam vàng.', 'qua-trai-cay-tuoi-tan-gia-003', 1, 'tan-gia-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 04', 6, 1, 940000.00, 5, N'Hộp quà gỗ trái cây nhập khẩu, sang trọng.', 'qua-trai-cay-tuoi-tan-gia-004', 1, 'tan-gia-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 05', 6, 2, 590000.00, 10, N'Giỏ quà vừa phải với trái cây Việt & nhập.', 'qua-trai-cay-tuoi-tan-gia-005', 1, 'tan-gia-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 06', 6, 3, 780000.00, 7, N'Giỏ quà chúc mừng nhà mới bình an, tài lộc.', 'qua-trai-cay-tuoi-tan-gia-006', 1, 'tan-gia-006.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 07', 6, 1, 880000.00, 5, N'Trái cây tươi kết hợp hoa tươi trang trí.', 'qua-trai-cay-tuoi-tan-gia-007', 1, 'tan-gia-007.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 08', 6, 2, 610000.00, 12, N'Giỏ nhỏ xinh dành cho bạn bè, đồng nghiệp.', 'qua-trai-cay-tuoi-tan-gia-008', 1, 'tan-gia-008.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 09', 6, 3, 990000.00, 4, N'Hộp trái cây mix cùng mật ong, trà thảo mộc.', 'qua-trai-cay-tuoi-tan-gia-009', 1, 'tan-gia-009.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 10', 6, 1, 720000.00, 9, N'Trái cây sạch được sắp xếp nghệ thuật, bắt mắt.', 'qua-trai-cay-tuoi-tan-gia-010', 1, 'tan-gia-010.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 01', 9, 1, 680000.00, 10, N'Giỏ trái cây trang trọng chúc mừng tân gia.', 'qua-trai-cay-tuoi-tan-gia-001', 1, 'tan-gia-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 02', 9, 2, 750000.00, 8, N'Hộp trái cây cao cấp kèm nơ, chúc phát tài.', 'qua-trai-cay-tuoi-tan-gia-002', 1, 'tan-gia-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 03', 9, 3, 820000.00, 6, N'Sản phẩm gồm nho Mỹ, táo xanh, cam vàng.', 'qua-trai-cay-tuoi-tan-gia-003', 1, 'tan-gia-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 04', 9, 1, 940000.00, 5, N'Hộp quà gỗ trái cây nhập khẩu, sang trọng.', 'qua-trai-cay-tuoi-tan-gia-004', 1, 'tan-gia-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 05', 9, 2, 590000.00, 10, N'Giỏ quà vừa phải với trái cây Việt & nhập.', 'qua-trai-cay-tuoi-tan-gia-005', 1, 'tan-gia-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 06', 9, 3, 780000.00, 7, N'Giỏ quà chúc mừng nhà mới bình an, tài lộc.', 'qua-trai-cay-tuoi-tan-gia-006', 1, 'tan-gia-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 07', 9, 1, 880000.00, 5, N'Trái cây tươi kết hợp hoa tươi trang trí.', 'qua-trai-cay-tuoi-tan-gia-007', 1, 'tan-gia-007.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 08', 9, 2, 610000.00, 12, N'Giỏ nhỏ xinh dành cho bạn bè, đồng nghiệp.', 'qua-trai-cay-tuoi-tan-gia-008', 1, 'tan-gia-008.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 09', 9, 3, 990000.00, 4, N'Hộp trái cây mix cùng mật ong, trà thảo mộc.', 'qua-trai-cay-tuoi-tan-gia-009', 1, 'tan-gia-009.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tân Gia - 10', 9, 1, 720000.00, 9, N'Trái cây sạch được sắp xếp nghệ thuật, bắt mắt.', 'qua-trai-cay-tuoi-tan-gia-010', 1, 'tan-gia-010.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 01', 7, 1, 880000.00, 12, N'Giỏ quà tết trái cây tươi cao cấp, chúc xuân an khang.', 'qua-trai-cay-tuoi-tet-nguyen-dan-001', 1, 'tet-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 02', 7, 2, 1020000.00, 8, N'Trái cây nhập khẩu sắp xếp nghệ thuật trong giỏ có nơ.', 'qua-trai-cay-tuoi-tet-nguyen-dan-002', 1, 'tet-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 03', 7, 3, 950000.00, 10, N'Giỏ quà sang trọng gồm táo đỏ, nho đen, cam vàng, hoa.', 'qua-trai-cay-tuoi-tet-nguyen-dan-003', 1, 'tet-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 04', 7, 1, 680000.00, 15, N'Giỏ trái cây tết cho người thân, ý nghĩa và tinh tế.', 'qua-trai-cay-tuoi-tet-nguyen-dan-004', 1, 'tet-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 05', 7, 2, 770000.00, 9, N'Hộp trái cây tết thiết kế hiện đại, lịch sự.', 'qua-trai-cay-tuoi-tet-nguyen-dan-005', 1, 'tet-005.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 06', 7, 3, 590000.00, 20, N'Giỏ quà nhỏ gọn dành tặng đồng nghiệp, bạn bè dịp tết.', 'qua-trai-cay-tuoi-tet-nguyen-dan-006', 1, 'tet-006.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 07', 7, 1, 1130000.00, 6, N'Giỏ quà trái cây tươi loại đặc biệt, gửi gắm lời chúc năm mới.', 'qua-trai-cay-tuoi-tet-nguyen-dan-007', 1, 'tet-007.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 01', 10, 1, 880000.00, 12, N'Giỏ quà tết trái cây tươi cao cấp, chúc xuân an khang.', 'qua-trai-cay-tuoi-tet-nguyen-dan-001', 1, 'tet-nguyen-dang-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 02', 10, 2, 1020000.00, 8, N'Trái cây nhập khẩu sắp xếp nghệ thuật trong giỏ có nơ.', 'qua-trai-cay-tuoi-tet-nguyen-dan-002', 1, 'tet-nguyen-dang-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 03', 10, 3, 950000.00, 10, N'Giỏ quà sang trọng gồm táo đỏ, nho đen, cam vàng, hoa.', 'qua-trai-cay-tuoi-tet-nguyen-dan-003', 1, 'tet-nguyen-dang-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 04', 10, 1, 680000.00, 15, N'Giỏ trái cây tết cho người thân, ý nghĩa và tinh tế.', 'qua-trai-cay-tuoi-tet-nguyen-dan-004', 1, 'tet-nguyen-dang-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 05', 10, 2, 770000.00, 9, N'Hộp trái cây tết thiết kế hiện đại, lịch sự.', 'qua-trai-cay-tuoi-tet-nguyen-dan-005', 1, 'tet-nguyen-dang-005.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 06', 10, 3, 590000.00, 20, N'Giỏ quà nhỏ gọn dành tặng đồng nghiệp, bạn bè dịp tết.', 'qua-trai-cay-tuoi-tet-nguyen-dan-006', 1, 'tet-nguyen-dang-006.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Tết Nguyên Đán - 07', 10, 1, 1130000.00, 6, N'Giỏ quà trái cây tươi loại đặc biệt, gửi gắm lời chúc năm mới.', 'qua-trai-cay-tuoi-tet-nguyen-dan-007', 1, 'tet-nguyen-dang-007.jpg', GETDATE(), GETDATE()),
 
-(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 01', 8, 1, 690000.00, 15, N'Giỏ trái cây tươi kèm hoa hồng đỏ, món quà tặng ngọt ngào dịp 14/2.', 'qua-trai-cay-tuoi-valentine-001', 1, 'valentine-001.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 02', 8, 2, 820000.00, 10, N'Hộp trái cây nhập khẩu kết hợp socola cao cấp, ý nghĩa và tinh tế.', 'qua-trai-cay-tuoi-valentine-002', 1, 'valentine-002.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 03', 8, 3, 590000.00, 20, N'Giỏ quà nhỏ xinh gồm dâu, nho đỏ và thiệp chúc ngọt ngào.', 'qua-trai-cay-tuoi-valentine-003', 1, 'valentine-003.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 04', 8, 1, 970000.00, 8, N'Trái cây tươi tuyển chọn, đựng trong hộp tim đẹp mắt, dành tặng người yêu.', 'qua-trai-cay-tuoi-valentine-004', 1, 'valentine-004.jpg', GETDATE(), GETDATE()),
-(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 05', 8, 2, 760000.00, 12, N'Giỏ quà Valentine phong cách lãng mạn, trái cây tươi, nơ và thiệp.', 'qua-trai-cay-tuoi-valentine-005', 1, 'valentine-005.jpg', GETDATE(), GETDATE());
+(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 01', 11, 1, 690000.00, 15, N'Giỏ trái cây tươi kèm hoa hồng đỏ, món quà tặng ngọt ngào dịp 14/2.', 'qua-trai-cay-tuoi-valentine-001', 1, 'valentine-001.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 02', 11, 2, 820000.00, 10, N'Hộp trái cây nhập khẩu kết hợp socola cao cấp, ý nghĩa và tinh tế.', 'qua-trai-cay-tuoi-valentine-002', 1, 'valentine-002.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 03', 11, 3, 590000.00, 20, N'Giỏ quà nhỏ xinh gồm dâu, nho đỏ và thiệp chúc ngọt ngào.', 'qua-trai-cay-tuoi-valentine-003', 1, 'valentine-003.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 04', 11, 1, 970000.00, 8, N'Trái cây tươi tuyển chọn, đựng trong hộp tim đẹp mắt, dành tặng người yêu.', 'qua-trai-cay-tuoi-valentine-004', 1, 'valentine-004.jpg', GETDATE(), GETDATE()),
+(N'Quà Trái Cây Tươi Tặng Dịp Valentine - 05', 11, 2, 760000.00, 12, N'Giỏ quà Valentine phong cách lãng mạn, trái cây tươi, nơ và thiệp.', 'qua-trai-cay-tuoi-valentine-005', 1, 'valentine-005.jpg', GETDATE(), GETDATE());
 
 GO
 
@@ -444,16 +458,77 @@ VALUES 
 GO
 
 -- Insert dữ liệu vào bảng BaiViet
-INSERT INTO BaiViet (TieuDe, HinhAnh, NoiDung, NgayDang, CreatedAt, UpdatedAt)
+INSERT INTO BaiViet (TieuDe, HinhAnh, NoiDung, NgayDang, CreatedAt, UpdatedAt, Slug)
 VALUES 
-(N'Top 5 món quà tặng được yêu thích nhất', 'top-5-qua-tang.jpg', N'Bài viết tổng hợp 5 món quà tặng được khách hàng ưa chuộng nhất trong thời gian qua. Bao gồm các sản phẩm hoa tươi, giỏ trái cây, quà tặng doanh nghiệp, v.v.', GETDATE(), GETDATE(), GETDATE()),
-(N'Bí quyết chọn quà tặng cho người thân', 'bi-quyet-qua-tang.jpg', N'Bài viết chia sẻ những bí quyết và gợi ý để bạn có thể chọn được món quà tặng phù hợp và ý nghĩa nhất cho người thân của mình.', GETDATE(), GETDATE(), GETDATE()),
-(N'Xu hướng quà tặng năm nay', 'xu-huong-qua-tang.jpg', N'Bài viết cập nhật những xu hướng quà tặng mới nhất trong năm, giúp bạn luôn bắt kịp thời đại và chọn được những món quà độc đáo.', GETDATE(), GETDATE(), GETDATE()),
-(N'Quà tặng doanh nghiệp: Xây dựng mối quan hệ bền vững', 'qua-tang-doanh-nghiep.jpg', N'Bài viết về tầm quan trọng của quà tặng doanh nghiệp trong việc xây dựng và duy trì mối quan hệ tốt đẹp với đối tác và khách hàng.', GETDATE(), GETDATE(), GETDATE()),
-(N'Hướng dẫn bảo quản quà tặng tươi lâu', 'bao-quan-qua-tang.jpg', N'Bài viết cung cấp những hướng dẫn chi tiết về cách bảo quản các loại quà tặng tươi như hoa, trái cây để giữ được vẻ đẹp và độ tươi ngon lâu nhất.', GETDATE(), GETDATE(), GETDATE()),
-(N'Ý nghĩa của các loại hoa tặng trong những dịp đặc biệt', 'y-nghia-hoa-tang.jpg', N'Bài viết giải thích ý nghĩa của các loại hoa khác nhau và gợi ý lựa chọn hoa phù hợp cho từng dịp lễ, sự kiện đặc biệt.', GETDATE(), GETDATE(), GETDATE()),
-(N'Gợi ý quà tặng cho người yêu', 'qua-tang-nguoi-yeu.jpg', N'Bài viết đưa ra những gợi ý quà tặng lãng mạn và ý nghĩa dành cho người yêu trong các dịp như Valentine, kỷ niệm ngày yêu, v.v.', GETDATE(), GETDATE(), GETDATE()),
-(N'Quà tặng sức khỏe: Món quà ý nghĩa cho mọi người', 'qua-tang-suc-khoe.jpg', N'Bài viết giới thiệu những món quà tặng tốt cho sức khỏe, phù hợp để tặng cho mọi đối tượng và thể hiện sự quan tâm của bạn.', GETDATE(), GETDATE(), GETDATE());
+(
+    N'Giới thiệu về chúng tôi',
+    N'gioi-thieu-ve-chung-toi.jpg', -- ảnh đại diện tùy chỉnh
+    N'
+	<p>
+        Hệ thống cửa hàng trái cây nhập khẩu cao cấp Fruitful-Gifts thuộc công ty cổ phần Fruitful-Gifts Global được thành lập từ năm 2019. 
+        Từ một cửa hàng nhỏ tại số 32 Đà Nẵng, Ngô Quyền, Hải Phòng. Fruitful-Gifts tập trung cung cấp sản phẩm trái cây tươi, sạch, 
+        giá cả hợp lý, đến tay khách hàng nhanh nhất.
+    </p>
+    
+    <h5>Định hướng phát triển của hệ thống cửa hàng Fruitful-Gifts</h5>
+    <p>
+        Xuyên suốt quá trình phát triển của Fruitful-Gifts, chúng tôi luôn lấy sự hài lòng của khách hàng là trọng tâm phát triển. 
+        Với khao khát mang đến cho khách hàng sản phẩm trái cây tươi ngon, tiện lợi và dịch vụ chăm sóc khách hàng vượt trội. 
+        Trong tương lai, Fruitful-Gifts sẽ trở thành hệ thống cửa hàng bán lẻ trái cây số 1 Việt Nam. Mang trái cây tươi ngon từ khắp nơi 
+        trên thế giới đến tay người tiêu dùng Việt Nam, và cũng mang trái cây Việt ra với thế giới.
+    </p>
+
+    <h5>Không gian mua sắm tiện lợi, tinh tế nâng cao trải nghiệm khách hàng</h5>
+    <p>
+        Fruitful-Gifts không chỉ chú trọng vào sản phẩm mà còn rất quan tâm đến trải nghiệm mua sắm của khách hàng. 
+        Chúng tôi luôn tìm cách nâng cao không gian mua sắm sạch sẽ, tiện lợi mang đến trải nghiệm mua sắm nhanh 
+        và tiết kiệm thời gian cho khách hàng.
+    </p>
+
+    <h5>Fruitful-Gifts – lựa chọn số 1 về giỏ trái cây biếu tặng tại Việt Nam</h5>
+    <p>
+        Fruitful-Gifts là đơn vị hàng đầu tại Việt Nam về sản phẩm giỏ quà trái cây nhập khẩu. Được doanh nghiệp và cá nhân tin dùng 
+        biếu tặng đối tác trong những dịp đặc biệt trong năm. Chúng tôi luôn đi đầu trong mẫu mã cũng như sản phẩm, cung cấp nhiều 
+        gói quà tặng sang trọng, đẳng cấp đến tay khách hàng.
+    </p>
+
+    <h5>Cam kết về chất lượng, dịch vụ</h5>
+    <p>
+        Fruitful-Gifts sở hữu quy trình nhập khẩu, vận chuyển chuyên nghiệp với kho lạnh, tủ trưng bày chuẩn quốc tế. 
+        Chúng tôi luôn mang đến những sản phẩm chất lượng, được lựa chọn khắt khe nhất. Đảm bảo khách hàng khi mua hàng tại hệ thống 
+        cửa hàng Fruitful-Gifts nhận được những sản phẩm đúng với giá trị và trải nghiệm mua sắm 5 sao.
+    </p>
+
+    <h5>Bảo hành và hậu mãi</h5>
+    <p>
+        Khi mua sắm tại Fruitful-Gifts, quý khách luôn yên tâm về dịch vụ bảo hành cũng như hậu mãi của chúng tôi với chương trình:
+    </p>
+    <ul>
+        <li><strong>24h miễn phí:</strong> Sau khi quý khách mua hàng tại Fruitful-Gifts, nếu không hài lòng về sản phẩm đã mua, 
+            quý khách hoàn toàn có quyền yêu cầu đổi sang sản phẩm khác hoặc hoàn tiền 100% mà không mất thêm chi phí nào.
+        </li>
+        <li><strong>Ăn thử miễn phí:</strong> Khi mua hàng trên toàn bộ hệ thống của Fruitful-Gifts, quý khách có quyền yêu cầu ăn thử 
+            để có lựa chọn tốt nhất trước khi quyết định mua sản phẩm.
+        </li>
+    </ul>
+
+    <h5>Lời kết</h5>
+    <p>
+        Cám ơn quý khách hàng đã luôn tin tưởng và ủng hộ Fruitful-Gifts. Chúng tôi cam kết giữ vững chất lượng sản phẩm 
+        cũng như dịch vụ trên toàn bộ hệ thống cửa hàng của Fruitful-Gifts, trở thành địa chỉ mua sắm uy tín, yêu thích – 
+        nơi quý khách an tâm mua sắm trái cây tươi ngon, đảm bảo và tiết kiệm cho gia đình thân yêu.
+    </p>	
+	',
+    GETDATE(), GETDATE(), GETDATE(), 'gioi-thieu-ve-chung-toi'
+),
+(N'Top 5 món quà tặng được yêu thích nhất', 'top-5-qua-tang.jpg', N'Bài viết tổng hợp 5 món quà tặng được khách hàng ưa chuộng nhất trong thời gian qua. Bao gồm các sản phẩm hoa tươi, giỏ trái cây, quà tặng doanh nghiệp, v.v.', GETDATE(), GETDATE(), GETDATE(), 'top-5-qua-tang'),
+(N'Bí quyết chọn quà tặng cho người thân', 'bi-quyet-qua-tang.jpg', N'Bài viết chia sẻ những bí quyết và gợi ý để bạn có thể chọn được món quà tặng phù hợp và ý nghĩa nhất cho người thân của mình.', GETDATE(), GETDATE(), GETDATE(), 'bi-quyet-qua-tang'),
+(N'Xu hướng quà tặng năm nay', 'xu-huong-qua-tang.jpg', N'Bài viết cập nhật những xu hướng quà tặng mới nhất trong năm, giúp bạn luôn bắt kịp thời đại và chọn được những món quà độc đáo.', GETDATE(), GETDATE(), GETDATE(), 'xu-huong-qua-tang'),
+(N'Quà tặng doanh nghiệp: Xây dựng mối quan hệ bền vững', 'qua-tang-doanh-nghiep.jpg', N'Bài viết về tầm quan trọng của quà tặng doanh nghiệp trong việc xây dựng và duy trì mối quan hệ tốt đẹp với đối tác và khách hàng.', GETDATE(), GETDATE(), GETDATE(), 'qua-tang-doanh-nghiep'),
+(N'Hướng dẫn bảo quản quà tặng tươi lâu', 'bao-quan-qua-tang.jpg', N'Bài viết cung cấp những hướng dẫn chi tiết về cách bảo quản các loại quà tặng tươi như hoa, trái cây để giữ được vẻ đẹp và độ tươi ngon lâu nhất.', GETDATE(), GETDATE(), GETDATE(), 'bao-quan-qua-tang'),
+(N'Ý nghĩa của các loại hoa tặng trong những dịp đặc biệt', 'y-nghia-hoa-tang.jpg', N'Bài viết giải thích ý nghĩa của các loại hoa khác nhau và gợi ý lựa chọn hoa phù hợp cho từng dịp lễ, sự kiện đặc biệt.', GETDATE(), GETDATE(), GETDATE(), 'y-nghia-hoa-tang'),
+(N'Gợi ý quà tặng cho người yêu', 'qua-tang-nguoi-yeu.jpg', N'Bài viết đưa ra những gợi ý quà tặng lãng mạn và ý nghĩa dành cho người yêu trong các dịp như Valentine, kỷ niệm ngày yêu, v.v.', GETDATE(), GETDATE(), GETDATE(), 'qua-tang-nguoi-yeu'),
+(N'Quà tặng sức khỏe: Món quà ý nghĩa cho mọi người', 'qua-tang-suc-khoe.jpg', N'Bài viết giới thiệu những món quà tặng tốt cho sức khỏe, phù hợp để tặng cho mọi đối tượng và thể hiện sự quan tâm của bạn.', GETDATE(), GETDATE(), GETDATE(), 'qua-tang-suc-khoe');
 GO
 
 -- Insert dữ liệu vào bảng LienHe

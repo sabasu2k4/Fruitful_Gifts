@@ -24,32 +24,36 @@
         <!-- Nội dung giới thiệu công ty -->
         <div class="col-12 col-lg-9 gap-4">
             <h2 class="fw-bold">Giới thiệu</h2>
-            <h4 class="fw-bold mt-3">Giới thiệu về chúng tôi</h4>
-            <p>Hệ thống cửa hàng trái cây nhập khẩu cao cấp <strong>BeryBee</strong> thuộc công ty cổ phần BerybeeGlobal được thành lập từ năm 2019. Từ một cửa hàng nhỏ tại số 32 Đà Nẵng, Ngô Quyền, Hải Phòng, BeryBee tập trung cung cấp sản phẩm trái cây tươi, sạch, giá cả hợp lý, đến tay khách hàng nhanh nhất.</p>
-
-            <h5 class="fw-bold mt-4">Định hướng phát triển của hệ thống cửa hàng BeryBee</h5>
-            <p>Xuyên suốt quá trình phát triển của BeryBee, luôn lấy sự hài lòng của khách hàng là trọng tâm phát triển. Trong tương lai sẽ trở thành hệ thống cửa hàng bán lẻ trái cây số 1 Việt Nam.</p>
-
-            <h5 class="fw-bold mt-4">Không gian mua sắm tiện lợi, tinh tế</h5>
-            <p>BeryBee luôn tìm cách nâng cao không gian mua sắm sạch sẽ, tiện lợi mang đến trải nghiệm mua sắm nhanh và tiết kiệm thời gian cho khách hàng.</p>
-
-            <h5 class="fw-bold mt-4">Cam kết về chất lượng, dịch vụ</h5>
-            <p>BeryBee sở hữu quy trình nhập khẩu, vận chuyển chuyên nghiệp với kho lạnh, tiêu chuẩn quốc tế. Đảm bảo khách hàng hài lòng khi mua hàng.</p>
+            <h4 class="fw-bold mt-3">@ViewBag.BaiVietGioiThieu.TieuDe</h4>
+            <div class="mt-2">
+                @Html.Raw(ViewBag.BaiVietGioiThieu.NoiDung)
+            </div>
         </div>
 
         <!-- Tin mới nhất -->
-        <div class="col-12 col-lg-3 tin-moi-nhat">
-            <h5 class="fw-bold p-1 pt-3">Tin mới nhất</h5>
-            @foreach (var tin in baiVietMoi)
-            {
-                <div class="d-flex mb-2 news-item p-1">
-                    <img src="~/images/baiviet/@tin.HinhAnh" alt="tin" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
-                    <div>
-                        <p class="mb-1 fw-bold text-break">@tin.TieuDe</p>
-                        <small class="text-muted">@tin.CreatedAt?.ToString("dd/MM/yyyy")</small>
+        <div class="col-12 col-lg-3">
+            <div class="row p-3 tin-moi-nhat">
+                <h5 class="fw-bold">Tin mới nhất</h5>
+                @foreach (var tin in baiVietMoi)
+                {
+                    <div class="d-flex mb-2 news-item p-1">
+                        <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })"
+                           class="mb-1 fw-bold text-break text-decoration-none text-dark">
+                            <img src="~/images/baiviet/@tin.HinhAnh" alt="tin" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+                        </a>
+                        <div>
+                            <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })" 
+                            class="mb-1 fw-bold text-break text-decoration-none text-dark">
+                                @tin.TieuDe
+                            </a><br />
+                            <small class="text-muted">@tin.CreatedAt?.ToString("dd/MM/yyyy")</small>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+                <a href="/baiviet" class="btn btn-xemthem-1 rounded-pill px-4">
+                    Xem thêm
+                </a>
+            </div>
         </div>
     </div>
 </div>

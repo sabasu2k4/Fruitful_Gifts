@@ -1,0 +1,15 @@
+﻿@model Fruitful_Gifts.Database.BaiViet
+@{
+    ViewData["Title"] = "ChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary fw-bold mb-3">@Model.TieuDe</h2>
+    <p class="text-muted mb-4"><i class="bi bi-calendar-event"></i> @Model.CreatedAt?.ToString("dd/MM/yyyy")</p>
+    <img src="~/images/baiviet/@Model.HinhAnh" alt="@Model.TieuDe" class="img-fluid rounded mb-4" style="max-height: 400px; object-fit: cover;">
+    <div class="text-break">
+        @Html.Raw(Model.NoiDung) <!-- Nếu dùng CKEditor hoặc có HTML -->
+    </div>
+</div>
+

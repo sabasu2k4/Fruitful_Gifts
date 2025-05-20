@@ -14,11 +14,10 @@ html {
 }
 
 .container {
-    max-width: 1500px; /* hoặc 100%, hoặc giá trị mong muốn */
+    max-width: 1500px; 
     padding-left: 20px;
     padding-right: 20px;
 }
-
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -35,7 +34,7 @@ body {
 }
 
 .wrapper-main {
-    min-height: 100vh; /* đảm bảo wrapper luôn cao bằng chiều cao trình duyệt */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -46,6 +45,16 @@ body {
 
 .title{
     font-weight: 700;
+}
+
+/* Tạo hiệu ứng hover cho các phần tử trong header */
+.header-link:hover {
+    color: #ffdf00;
+    text-decoration: underline;
+}
+
+.d-flex .gap-2 i {
+    font-size: 18px;
 }
 
 .nav-link {
@@ -71,23 +80,49 @@ body {
     border-radius: 5px;
 }
 
-/* Tạo hiệu ứng hover cho các phần tử trong header */
-.header-link:hover {
-    color: #ffdf00;
-    text-decoration: underline;
-}
-
-.d-flex .gap-2 i {
-    font-size: 18px;
-}
-
-
 .navbar-nav .nav-link.active {
-    color: #003366 !important; /* Màu chữ đậm hơn */
-    background-color: rgba(0, 51, 102, 0.1); /* Màu nền nhạt hơn của màu chủ đạo */
-    font-weight: bold; /* Chữ đậm hơn */
-    border-radius: 5px; /* Bo tròn nhẹ */
-    padding: 0.5rem 1rem; /* Thêm padding để dễ nhìn */
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Tùy chỉnh nếu bị lệch */
+}
+
+.dropdown-menu {
+    transition: all 1s ease-in-out;
+    display: none;
+}
+
+.dropdown-item:hover {
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+    margin: 45px 0 0 20px;
+}
+
+.user-dropdown .dropdown-menu {
+    display: none;
+    transition: all 1s ease-in-out;
+}
+
+.user-dropdown .dropdown-item:hover {
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+}
+
+
+.badge {
+    color: white;
+    font-size: 0.7rem;
+    padding: 5px 7px;
 }
 
 .bg-fruitful-dark {
@@ -112,26 +147,6 @@ body {
     color: white !important;
 }
 
-.dropdown-menu {
-    z-index: 1050 !important;
-    transition: all 0.2s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    color: #003366 !important;
-}
-
-
-/*.dropdown:hover .dropdown-menu:hover {
-    opacity: 1;
-    visibility: visible;
-    color: white !important;
-    background-color: #003366 !important;
-}*/
 
 /*=============================================*/
 
@@ -298,5 +313,6 @@ body {
 .header-title:hover {
     color: #0661c3 !important;
 }
+
 
 

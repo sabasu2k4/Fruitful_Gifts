@@ -23,3 +23,4 @@ public partial class BaiViet
 
     public bool? IsHienThi { get; set; }
 }
+

@@ -1,7 +1,6 @@
 ﻿using Fruitful_Gifts.Database;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Fruitful_Gifts.Controllers
 {
@@ -63,7 +62,7 @@ namespace Fruitful_Gifts.Controllers
             }
 
             var user = _context.KhachHangs.FirstOrDefault(kh =>
-            kh.TenNguoiDung == loginName || kh.Email == loginName);
+              kh.TenNguoiDung == loginName || kh.Email == loginName);
 
             if (user != null)
             {
@@ -72,22 +71,26 @@ namespace Fruitful_Gifts.Controllers
 
                 if (passwordMatch)
                 {
+                    // Lưu thông tin user vào session
+                    var userJson = JsonSerializer.Serialize(user);
+                    HttpContext.Session.SetString("user", userJson);
                     HttpContext.Session.SetString("TenNguoiDung", user.TenNguoiDung);
-                    HttpContext.Session.SetInt32("MaKh", user.MaKh);
+                    HttpContext.Session.SetInt32("MaKh", user.MaKh); // thêm MaKh nếu cần
+
                     TempData["SuccessMessage"] = "Đăng nhập thành công!";
                     return RedirectToAction("Index", "TrangChu");
                 }
             }
-
             ViewData["LoginNameError"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
             return View(u);
         }
 
         public IActionResult DangXuat()
         {
-            HttpContext.Session.Remove("TenNguoiDung");
+            HttpContext.Session.Clear();
             TempData["SuccessMessage"] = "Đăng xuất thành công!";
             return RedirectToAction("Index", "TrangChu");
         }
+
     }
 }

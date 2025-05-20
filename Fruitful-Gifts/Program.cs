@@ -1,9 +1,9 @@
-using Fruitful_Gifts.Database;
+﻿using Fruitful_Gifts.Database;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Th�m d?ch v? Session
+// Thêm d?ch v? Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -20,7 +20,6 @@ builder.Services.AddDbContext<FruitfulGiftsContext>(options =>
 
 var app = builder.Build();
 
-// S? d?ng Session
 app.UseSession();
 
 // Configure the HTTP request pipeline.

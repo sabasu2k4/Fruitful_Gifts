@@ -1,0 +1,117 @@
+﻿@model Fruitful_Gifts.Database.DonHang
+
+@{
+    ViewData["Title"] = "Chi tiết Đơn Hàng";
+}
+
+@section CSS
+{
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <!-- Chi tiết đơn hàng -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <strong>Thông tin mã đơn hàng - @Model.MaDh</strong>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <strong>Ngày Đặt Hàng:</strong>
+                        @if (DateTime.TryParse(Model.NgayDatHang?.ToString(), out DateTime date))
+                        {
+                            @date.ToString("dd/MM/yyyy")
+                        }
+                        else
+                        {
+                            @:N/A
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Sản phẩm:</strong>
+                        <ul>
+                            @foreach (var chiTiet in Model.ChiTietDonHangs)
+                            {
+                                <li>
+                                    <strong>@chiTiet.MaSpNavigation.TenSp</strong> -
+                                    Số lượng: @chiTiet.SoLuong -
+                                    Số tiền: @(string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0} VNĐ", chiTiet.TongTienTungSanPham))
+                                </li>
+                            }
+
+                        </ul>
+                    </p>
+                    <p>
+                        <strong>Tổng Tiền:</strong>
+                        @if (Model.TongTienDonHang.HasValue)
+                        {
+                            @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0} VNĐ", Model.TongTienDonHang)
+                        }
+                        else
+                        {
+                            @:N/A
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Trạng Thái:</strong>
+                        @switch (Model.TrangThai)
+                        {
+                            case 1:
+                                <span class="badge bg-warning text-dark">Đang xử lý</span>
+                                break;
+                            case 2:
+                                <span class="badge bg-success">Đang giao</span>
+                                break;
+                            case 3:
+                                <span class="badge bg-danger">Đã hủy</span>
+                                break;
+                            case 4:
+                                <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                break;
+                            case 5:
+                                <span class="badge bg-secondary">Giao hàng thất bại</span>
+                                break;
+                            default:
+                                <span class="badge bg-dark">Không xác định</span>
+                                break;
+                        }
+                    </p>
+
+                    <p><strong>Địa Chỉ Nhận Hàng:</strong> @Model.DiaChiNhanHang</p>
+                    <p><strong>Số Điện Thoại:</strong> @Model.SoDienThoai</p>
+
+                    <!-- Chi tiết sản phẩm trong đơn hàng -->
+
+                    <form asp-action="CancelOrder" asp-controller="DonHang" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+                        <input type="hidden" name="id" value="@Model.MaDh" />
+                        <button type="submit" class="btn btn-danger btn-sm me-2">
+                            <i class="bi bi-trash"></i> Hủy
+                        </button>
+                    </form>
+
+                    @if (Model.TrangThai == 3 || Model.TrangThai == 5)
+                    {
+                        <form asp-action="RepurchaseOrder" asp-controller="DonHang" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@Model.MaDh" />
+                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-arrow-repeat"></i> Mua lại
+                            </button>
+                        </form>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model Fruitful_Gifts.Database.KhachHang
+
+@{
+    ViewData["Title"] = "UpdateProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>UpdateProfile</h1>
+
+<form asp-action="UpdateProfile" method="post">
+    <div class="form-group">
+        <label for="HoKH">Họ</label>
+        <input type="text" class="form-control" id="HoKH" name="HoKH" value="@Model.HoKh" required />
+    </div>
+    <div class="form-group">
+        <label for="TenKH">Tên</label>
+        <input type="text" class="form-control" id="TenKH" name="TenKH" value="@Model.TenKh" required />
+    </div>
+    <div class="form-group">
+        <label for="gioiTinh">Giới Tính</label>
+        <select class="form-control" id="gioiTinh" name="gioiTinh">
+            @if (Model.GioiTinh == "Nam")
+            {
+                <option value="Nam" selected>Nam</option>
+                <option value="Nữ">Nữ</option>
+            }
+            else
+            {
+                <option value="Nam">Nam</option>
+                <option value="Nữ" selected>Nữ</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+    <div class="form-group">
+        <label for="SDT">Số điện thoại</label>
+        <input type="text" class="form-control" id="SDT" name="SDT" value="@Model.Sdt" />
+    </div>
+    <div class="form-group">
+        <label for="DiaChi">Địa chỉ</label>
+        <input type="text" class="form-control" id="DiaChi" name="DiaChi" value="@Model.DiaChi" />
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>
+
+
+

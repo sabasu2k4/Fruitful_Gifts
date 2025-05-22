@@ -15,11 +15,9 @@ public partial class Footer
 
     public string? DuongLienKet { get; set; }
 
-    public bool? TrangThaiHienThi { get; set; }
+    public int? TrangThai { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-    public bool? IsHienThi { get; set; }
 }

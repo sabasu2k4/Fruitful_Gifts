@@ -19,11 +19,7 @@ public partial class KhachHang
 
     public string? DiaChi { get; set; }
 
-    public string? TenNguoiDung { get; set; }
-
-    public string? MatKhau { get; set; }
-
-    public bool? TrangThai { get; set; }
+    public int? TaiKhoanId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -35,5 +31,7 @@ public partial class KhachHang
 
     public virtual ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
 
-    public virtual ICollection<SanPham> MaSps { get; set; } = new List<SanPham>();
+    public virtual ICollection<SanPhamYeuThich> SanPhamYeuThiches { get; set; } = new List<SanPhamYeuThich>();
+
+    public virtual TaiKhoan? TaiKhoan { get; set; }
 }

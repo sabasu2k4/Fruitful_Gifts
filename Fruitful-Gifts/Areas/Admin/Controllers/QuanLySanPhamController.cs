@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Fruitful_Gifts.Models;
-using Fruitful_Gifts.Database; // Thêm dòng này để dùng FruitfulGiftsContext
+using Fruitful_Gifts.Database;
 using System.Linq;
 
 namespace Fruitful_Gifts.Areas.Admin.Controllers
@@ -19,13 +19,13 @@ namespace Fruitful_Gifts.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = _context.SanPhams
-                .Include(p => p.MaDmNavigation) 
+                .Include(p => p.MaDmNavigation)
                 .Include(p => p.MaNccNavigation)
                 .ToList();
 
             return View(products);
         }
-        //
+
 
     }
 }

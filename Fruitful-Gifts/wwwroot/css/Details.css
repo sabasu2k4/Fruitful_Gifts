@@ -1,0 +1,113 @@
+﻿﻿.rating1 {
+    direction: rtl; /* Đảo ngược để thứ tự sao là từ phải sang trái */
+    display: inline-flex;
+}
+
+.star1 {
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+input[type="radio"] {
+    display: none; /* Ẩn nút radio */
+}
+
+    input[type="radio"]:checked ~ label {
+        color: gold; /* Đổi màu khi được chọn */
+    }
+
+.star1:hover,
+.star1:hover ~ .star1 {
+    color: gold; /* Hiệu ứng hover */
+}
+/* Phóng to ảnh khi di chuột */
+.product-image {
+    transition: transform 0.3s ease; /* Tạo hiệu ứng mượt mà khi phóng to */
+}
+
+    .product-image:hover {
+        transform: scale(1.1); /* Phóng to ảnh 1.1 lần so với kích thước gốc */
+    }
+
+
+.product-detail {
+    padding: 40px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+    .product-detail h1 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .product-detail .badge {
+        font-size: 1.2rem;
+    }
+
+    .product-detail .rating span {
+        font-size: 1.5rem;
+        margin-right: 3px;
+    }
+
+    .product-detail .actions {
+        margin-top: 20px;
+    }
+
+        .product-detail .actions .btn {
+            font-size: 1rem;
+            padding: 8px 16px;
+        }
+
+        .product-detail .actions input[type="number"] {
+            font-size: 1rem;
+        }
+
+    .product-detail .reviews {
+        border-top: 2px solid #eee;
+        padding-top: 20px;
+    }
+
+.review {
+    background-color: #f9f9f9;
+}
+
+.rating1 input {
+    display: none;
+}
+
+.rating1 label.star1 {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+    .rating1 input:checked ~ label.star1,
+    .rating1 label.star1:hover,
+    .rating1 label.star1:hover ~ label.star1 {
+        color: gold;
+    }
+
+.list-group-item {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .product-detail {
+        padding: 20px 10px;
+    }
+
+        .product-detail h1 {
+            font-size: 1.6rem;
+        }
+
+        .product-detail .rating span {
+            font-size: 1.2rem;
+        }
+
+        .product-detail .actions .btn {
+            font-size: 0.9rem;
+        }
+}

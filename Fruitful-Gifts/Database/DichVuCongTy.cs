@@ -13,11 +13,9 @@ public partial class DichVuCongTy
 
     public string? HinhAnh { get; set; }
 
-    public bool? TrangThai { get; set; }
+    public int? TrangThai { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-    public bool? IsHienThi { get; set; }
 }

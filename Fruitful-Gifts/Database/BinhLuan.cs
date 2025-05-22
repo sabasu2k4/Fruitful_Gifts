@@ -17,13 +17,11 @@ public partial class BinhLuan
 
     public DateTime? Ngay { get; set; }
 
-    public bool? TrangThai { get; set; }
+    public int? TrangThai { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-    public bool? IsHienThi { get; set; }
 
     public virtual KhachHang? MaKhNavigation { get; set; }
 

@@ -176,8 +176,7 @@ namespace Fruitful_Gifts.Controllers
 
             // Lấy thông tin sản phẩm
             var sanPham = _context.SanPhams
-                .FirstOrDefault(sp => sp.MaSp == maSP && sp.IsHienThi == true && sp.TrangThai == true);
-
+              .FirstOrDefault(sp => sp.MaSp == maSP && sp.TrangThai == 1);
             if (sanPham == null)
             {
                 return NotFound(new { success = false, message = "Sản phẩm không tồn tại hoặc đã bị ẩn." });

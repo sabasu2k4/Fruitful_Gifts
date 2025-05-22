@@ -1,5 +1,6 @@
 ﻿using Fruitful_Gifts.Database;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace Fruitful_Gifts.Controllers
@@ -16,9 +17,10 @@ namespace Fruitful_Gifts.Controllers
         [HttpGet]
         public IActionResult DangKy()
         {
-            return View();
+            var model = new KhachHang();
+            model.TaiKhoan = new TaiKhoan(); // khởi tạo để binding hoạt động
+            return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> DangKy(KhachHang user)
         {
@@ -31,59 +33,55 @@ namespace Fruitful_Gifts.Controllers
                 return View(user);
             }
 
-            user.MatKhau = BCrypt.Net.BCrypt.HashPassword(user.MatKhau);
+            if (user.TaiKhoan == null)
+            {
+                ModelState.AddModelError("", "Thông tin tài khoản không hợp lệ.");
+                return View(user);
+            }
+
+            // Hash mật khẩu
+            user.TaiKhoan.MatKhau = BCrypt.Net.BCrypt.HashPassword(user.TaiKhoan.MatKhau);
+            user.TaiKhoan.VaiTro = "KhachHang";
+            user.TaiKhoan.TrangThai = 1;
 
             _context.KhachHangs.Add(user);
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Đăng ký thành công! Bạn có thể đăng nhập ngay.";
-
-            //return RedirectToAction("DangNhap", "TaiKhoan");
-            return RedirectToAction("DangKy", "TaiKhoan");
+            return RedirectToAction("DangNhap", "TaiKhoan");
         }
+
 
         [HttpGet]
         public IActionResult DangNhap()
         {
             return View();
         }
-
         [HttpPost]
-        public IActionResult DangNhap(KhachHang u)
+        public IActionResult DangNhap(string TenDangNhap, string MatKhau)
         {
-            var loginName = Request.Form["LoginName"].ToString();
-
-            if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(u.MatKhau))
+            if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(MatKhau))
             {
-                ViewData["LoginNameError"] = "Vui lòng nhập tên đăng nhập hoặc email";
-                if (string.IsNullOrEmpty(u.MatKhau))
-                    ModelState.AddModelError("MatKhau", "Vui lòng nhập mật khẩu");
-                return View(u);
+                ViewData["LoginError"] = "Vui lòng nhập đủ thông tin đăng nhập.";
+                return View();
             }
 
-            var user = _context.KhachHangs.FirstOrDefault(kh =>
-              kh.TenNguoiDung == loginName || kh.Email == loginName);
-
-            if (user != null)
+            var user = _context.TaiKhoans.FirstOrDefault(u => u.TenDangNhap == TenDangNhap && u.MatKhau == MatKhau && u.TrangThai == 1);
+            if (user == null)
             {
-                // Kiểm tra mật khẩu sử dụng BCrypt
-                bool passwordMatch = BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau);
-
-                if (passwordMatch)
-                {
-                    // Lưu thông tin user vào session
-                    var userJson = JsonSerializer.Serialize(user);
-                    HttpContext.Session.SetString("user", userJson);
-                    HttpContext.Session.SetString("TenNguoiDung", user.TenNguoiDung);
-                    HttpContext.Session.SetInt32("MaKh", user.MaKh); // thêm MaKh nếu cần
-
-                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    return RedirectToAction("Index", "TrangChu");
-                }
+                ViewData["LoginError"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
+                return View();
             }
-            ViewData["LoginNameError"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
-            return View(u);
+
+            // Lưu thông tin đăng nhập vào session
+            HttpContext.Session.SetInt32("TaiKhoanId", user.TaiKhoanId);
+            HttpContext.Session.SetString("TenDangNhap", user.TenDangNhap);
+            HttpContext.Session.SetString("VaiTro", user.VaiTro);
+
+            return RedirectToAction("Index", "TrangChu");
         }
+
+
 
         public IActionResult DangXuat()
         {

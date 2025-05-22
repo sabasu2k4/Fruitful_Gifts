@@ -24,7 +24,7 @@ namespace Fruitful_Gifts.Controllers
                 .Include(sp => sp.MaNccNavigation)
                 .Include(sp => sp.BinhLuans)
                     .ThenInclude(bl => bl.MaKhNavigation)
-                .FirstOrDefault(sp => sp.Slug == slug && sp.TrangThai == true);
+                .FirstOrDefault(sp => sp.Slug == slug && sp.TrangThai == 1);
 
             if (sanPham == null)
             {
@@ -47,8 +47,8 @@ namespace Fruitful_Gifts.Controllers
                            ct.MaDhNavigation.TrangThai == 4);
 
             // Tính số sao trung bình
-            var danhGiaTB = (sanPham.BinhLuans != null && sanPham.BinhLuans.Any(b => b.IsHienThi == true))
-                ? sanPham.BinhLuans.Where(b => b.IsHienThi == true).Average(b => b.SoSao ?? 0)
+            var danhGiaTB = (sanPham.BinhLuans != null && sanPham.BinhLuans.Any(b => b.TrangThai == 1))
+                ? sanPham.BinhLuans.Where(b => b.TrangThai == 1).Average(b => b.SoSao ?? 0)
                 : 0;
             ViewBag.TrungBinhSoSao = danhGiaTB;
 
@@ -59,7 +59,7 @@ namespace Fruitful_Gifts.Controllers
 
             // Sản phẩm liên quan
             var lienQuan = _context.SanPhams
-                .Where(p => p.MaDm == sanPham.MaDm && p.MaSp != sanPham.MaSp && p.TrangThai == true)
+                .Where(p => p.MaDm == sanPham.MaDm && p.MaSp != sanPham.MaSp && p.TrangThai == 1)
                 .OrderByDescending(p => p.Gia)
                 .Take(4) //số lượng hiện thị 
                 .ToList();
@@ -97,7 +97,7 @@ namespace Fruitful_Gifts.Controllers
                     .ThenInclude(sp => sp.MaDmNavigation)
                 .Include(spy => spy.MaSpNavigation.MaNccNavigation)
                 .Select(spy => spy.MaSpNavigation)
-                .Where(sp => sp.TrangThai == true);
+                .Where(sp => sp.TrangThai == 1);
 
             int totalItems = query.Count();
             var sanPhams = query
@@ -251,7 +251,7 @@ namespace Fruitful_Gifts.Controllers
                 SoSao = Rating,
                 NoiDung = NoiDung,
                 Ngay = DateTime.Now,
-                IsHienThi = true
+                TrangThai = 1
             };
 
             _context.BinhLuans.Add(binhLuan);

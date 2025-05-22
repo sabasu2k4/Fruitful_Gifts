@@ -41,7 +41,7 @@ namespace Fruitful_Gifts.Controllers
             .ToList();
 
             var baiVietList = _context.BaiViets
-                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true)
+                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.TrangThai == 1)
                 .OrderByDescending(bv => bv.CreatedAt);
 
             ViewBag.TinTuc = baiVietList.Take(8).ToList();
@@ -69,7 +69,7 @@ namespace Fruitful_Gifts.Controllers
             var query = from sp in _context.SanPhams
                         join km in _context.KhuyenMais on sp.MaSp equals km.MaSp into kmGroup
                         from km in kmGroup.DefaultIfEmpty()
-                        where sp.TrangThai == true && sp.IsHienThi == true
+                        where sp.TrangThai == 1 && sp.TrangThai == 1
                         select new
                         {
                             SanPham = sp,

@@ -9,9 +9,13 @@ public partial class DonHang
 
     public int? MaKh { get; set; }
 
+    public int? MaNv { get; set; }
+
     public DateTime? NgayDatHang { get; set; }
 
     public decimal? TongTienDonHang { get; set; }
+
+    public decimal? PhiVanChuyenBanHang { get; set; }
 
     public int? TrangThai { get; set; }
 
@@ -34,6 +38,8 @@ public partial class DonHang
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
 
     public virtual KhachHang? MaKhNavigation { get; set; }
+
+    public virtual NhanVien? MaNvNavigation { get; set; }
 
     public virtual PhuongThucThanhToan? MaPtNavigation { get; set; }
 }

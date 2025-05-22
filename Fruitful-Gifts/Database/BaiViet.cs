@@ -21,6 +21,5 @@ public partial class BaiViet
 
     public string? Slug { get; set; }
 
-    public bool? IsHienThi { get; set; }
+    public int? TrangThai { get; set; }
 }
-

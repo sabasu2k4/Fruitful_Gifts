@@ -14,7 +14,7 @@ namespace Fruitful_Gifts.Controllers
         }
         public IActionResult Index()
         {
-            var footers = _context.Footers.Where(f => f.TrangThaiHienThi == true).ToList();
+            var footers = _context.Footers.Where(f => f.TrangThai == 1).ToList();
 
             ViewBag.Footers = footers;
 

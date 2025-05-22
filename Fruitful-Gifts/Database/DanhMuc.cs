@@ -11,7 +11,7 @@ public partial class DanhMuc
 
     public string? HinhAnh { get; set; }
 
-    public bool? TrangThai { get; set; }
+    public int? TrangThai { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

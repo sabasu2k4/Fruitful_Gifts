@@ -19,8 +19,9 @@ namespace Fruitful_Gifts.Controllers
             int pageSize = 6;
 
             var baiVietList = _context.BaiViets
-                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true)
-                .OrderByDescending(bv => bv.CreatedAt);
+          .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.TrangThai == 1)
+          .OrderByDescending(bv => bv.CreatedAt);
+
 
             var pagedList = baiVietList.ToPagedList(pageNumber, pageSize);
 

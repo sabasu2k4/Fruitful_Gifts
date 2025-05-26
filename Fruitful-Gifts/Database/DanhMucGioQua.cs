@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fruitful_Gifts.Database;
 
-public partial class DanhMuc
+public partial class DanhMucGioQua
 {
     public int MaDm { get; set; }
 
@@ -11,7 +11,7 @@ public partial class DanhMuc
 
     public string? HinhAnh { get; set; }
 
-    public bool? TrangThai { get; set; }
+    public int? TrangThai { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -21,9 +21,9 @@ public partial class DanhMuc
 
     public string? Slug { get; set; }
 
-    public virtual DanhMuc? DanhMucCha { get; set; }
+    public virtual DanhMucGioQua? DanhMucCha { get; set; }
 
-    public virtual ICollection<DanhMuc> InverseDanhMucCha { get; set; } = new List<DanhMuc>();
+    public virtual ICollection<GioQua> GioQuas { get; set; } = new List<GioQua>();
 
-    public virtual ICollection<SanPham> SanPhams { get; set; } = new List<SanPham>();
+    public virtual ICollection<DanhMucGioQua> InverseDanhMucCha { get; set; } = new List<DanhMucGioQua>();
 }

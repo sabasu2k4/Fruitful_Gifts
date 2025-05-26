@@ -2,12 +2,23 @@
 
 @{
     ViewData["Title"] = "Danh Sách Sản Phẩm Chấm Điểm";
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
 }
 
 @section CSS
 {
     <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/chamdiem.css" asp-append-version="true" />
+    <style>
+        .alert-fixed {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+        }
+    </style>
 }
 
 <div class="container mt-5">
@@ -19,6 +30,29 @@
 
         <!-- Main content -->
         <div class="col-md-9">
+            <!-- Thông báo -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show alert-fixed" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            else if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show alert-fixed" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            else if (TempData["InfoMessage"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show alert-fixed" role="alert">
+                    @TempData["InfoMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
             <div class="row">
                 @if (Model != null && Model.Any())
                 {
@@ -26,24 +60,19 @@
                     {
                         <div class="col-md-4 mb-4">
                             <div class="card">
-
-                                <img src="~/images/sanpham/@item.MaSpNavigation?.HinhAnh" alt="@item.MaSpNavigation?.TenSp"
+                                <img src="~/images/sanpham/@item.MaSpNavigation.HinhAnh" alt="@item.MaSpNavigation?.TenSp"
                                      class="img-fluid border rounded shadow-sm" style="max-height: 200px; object-fit: contain;" />
-
                                 <div class="card-body">
                                     <h5 class="card-title">@item.MaSpNavigation?.TenSp</h5>
                                     <p class="card-text">
                                         <strong>Điểm:</strong> @item.SoSao <i class="fa fa-star text-warning"></i><br />
                                         <strong>Nội dung:</strong> @item.NoiDung<br />
-                                        <strong>Ngày:</strong> @item.Ngay?.ToString("dd/MM/yyyy")
+                                        <strong>Ngày:</strong> @item.NgayBinhLuan?.ToString("dd/MM/yyyy")
                                     </p>
                                     <div class="action-buttons">
-                                        <!-- Xem chi tiết -->
                                         <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = item.MaSpNavigation.Slug })" class="btn btn-info btn-sm me-2">
                                             <i class="fa fa-eye"></i> Xem Chi Tiết
                                         </a>
-
-                                        <!-- Chỉnh sửa -->
                                         <a href="@Url.Action("SuaChamDiem", "SanPham", new { khachHangId = item.MaKh, sanPhamId = item.MaSp })" class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i> Chỉnh Sửa
                                         </a>
@@ -60,6 +89,29 @@
                     </div>
                 }
             </div>
+
+            <!-- Phân trang -->
+            @if (totalPages > 1)
+            {
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("SanPhamChamDiem", new { page = currentPage - 1 })">Trước</a>
+                        </li>
+
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == currentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("SanPhamChamDiem", new { page = i })">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("SanPhamChamDiem", new { page = currentPage + 1 })">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+            }
         </div>
     </div>
 </div>
@@ -67,4 +119,13 @@
 @section Scripts
 {
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        setTimeout(function () {
+            let alert = document.querySelector('.alert');
+            if (alert) {
+                let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                bsAlert.close();
+            }
+        }, 5000); // 5 giây
+    </script>
 }

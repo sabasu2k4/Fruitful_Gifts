@@ -9,7 +9,11 @@ public partial class KhuyenMai
 
     public int? MaSp { get; set; }
 
+    public int? MaGq { get; set; }
+
     public decimal? MucGiamGia { get; set; }
+
+    public int? TrangThai { get; set; }
 
     public DateOnly? NgayBatDau { get; set; }
 
@@ -19,7 +23,7 @@ public partial class KhuyenMai
 
     public DateTime? UpdatedAt { get; set; }
 
-    public bool? IsHienThi { get; set; }
+    public virtual GioQua? MaGqNavigation { get; set; }
 
     public virtual SanPham? MaSpNavigation { get; set; }
 }

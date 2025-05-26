@@ -14,10 +14,10 @@ namespace Fruitful_Gifts.Controllers
         public IActionResult Index()
         {
             var gioiThieu = _context.BaiViets
-                .FirstOrDefault(bv => bv.Slug == "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true);
+                .FirstOrDefault(bv => bv.Slug == "gioi-thieu-ve-chung-toi");
 
             var baiVietList = _context.BaiViets
-                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true)
+                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi")
                 .OrderByDescending(bv => bv.CreatedAt)
                 .ToList();
 

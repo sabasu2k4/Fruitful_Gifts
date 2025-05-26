@@ -1,6 +1,6 @@
 ﻿using Fruitful_Gifts.Database;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fruitful_Gifts.Controllers
 {
@@ -20,27 +20,54 @@ namespace Fruitful_Gifts.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DangKy(KhachHang user)
+        public IActionResult DangKy(KhachHang kh)
         {
-            if (!ModelState.IsValid)
-                return View(user);
-
-            if (_context.KhachHangs.Any(u => u.Email == user.Email))
+            if (kh.TaiKhoan == null || string.IsNullOrEmpty(kh.TaiKhoan.TenDangNhap) || string.IsNullOrEmpty(kh.TaiKhoan.MatKhau))
             {
-                ModelState.AddModelError("Email", "Email đã được đăng ký.");
-                return View(user);
+                ModelState.AddModelError("TaiKhoan.TenDangNhap", "Vui lòng nhập đầy đủ tên đăng nhập");
+                ModelState.AddModelError("TaiKhoan.MatKhau", "Vui lòng nhập mật khẩu");
+                return View(kh);
             }
 
-            user.MatKhau = BCrypt.Net.BCrypt.HashPassword(user.MatKhau);
+            string tenDangNhap = kh.TaiKhoan.TenDangNhap;
+            string matKhau = kh.TaiKhoan.MatKhau;
+            string email = kh.Email;
 
-            _context.KhachHangs.Add(user);
-            await _context.SaveChangesAsync();
+            bool exist = _context.TaiKhoans.Any(tk => tk.TenDangNhap == tenDangNhap);
+            if (exist)
+            {
+                ModelState.AddModelError("TaiKhoan.TenDangNhap", "Tên đăng nhập đã tồn tại");
+                return View(kh);
+            }
 
-            TempData["SuccessMessage"] = "Đăng ký thành công! Bạn có thể đăng nhập ngay.";
+            // Kiểm tra email đã tồn tại (dựa vào bảng KhachHang)
+            bool existEmail = _context.KhachHangs.Any(k => k.Email == email);
+            if (existEmail)
+            {
+                ModelState.AddModelError("Email", "Email đã được sử dụng");
+                return View(kh);
+            }
 
-            //return RedirectToAction("DangNhap", "TaiKhoan");
-            return RedirectToAction("DangKy", "TaiKhoan");
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(matKhau);
+
+            var taiKhoan = new TaiKhoan
+            {
+                TenDangNhap = tenDangNhap,
+                MatKhau = hashedPassword,
+                VaiTro = "KhachHang",
+                TrangThai = 1
+            };
+
+            // GÁN trực tiếp tài khoản cho khách hàng
+            kh.TaiKhoan = taiKhoan;
+
+            _context.KhachHangs.Add(kh);
+            _context.SaveChanges(); 
+
+            TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
+            return RedirectToAction("DangNhap");
         }
+
 
         [HttpGet]
         public IActionResult DangNhap()
@@ -49,40 +76,47 @@ namespace Fruitful_Gifts.Controllers
         }
 
         [HttpPost]
-        public IActionResult DangNhap(KhachHang u)
+        public IActionResult DangNhap(string tenDangNhap, string matKhau)
         {
-            var loginName = Request.Form["LoginName"].ToString();
-
-            if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(u.MatKhau))
+            if (string.IsNullOrEmpty(tenDangNhap) || string.IsNullOrEmpty(matKhau))
             {
-                ViewData["LoginNameError"] = "Vui lòng nhập tên đăng nhập hoặc email";
-                if (string.IsNullOrEmpty(u.MatKhau))
-                    ModelState.AddModelError("MatKhau", "Vui lòng nhập mật khẩu");
-                return View(u);
+                ViewData["Error"] = "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu";
+                return View();
             }
 
-            var user = _context.KhachHangs.FirstOrDefault(kh =>
-              kh.TenNguoiDung == loginName || kh.Email == loginName);
+            var taiKhoan = _context.TaiKhoans
+                .Include(tk => tk.KhachHang)
+                .FirstOrDefault(tk => tk.TenDangNhap == tenDangNhap);
 
-            if (user != null)
+            if (taiKhoan == null || !BCrypt.Net.BCrypt.Verify(matKhau, taiKhoan.MatKhau))
             {
-                // Kiểm tra mật khẩu sử dụng BCrypt
-                bool passwordMatch = BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau);
-
-                if (passwordMatch)
-                {
-                    // Lưu thông tin user vào session
-                    var userJson = JsonSerializer.Serialize(user);
-                    HttpContext.Session.SetString("user", userJson);
-                    HttpContext.Session.SetString("TenNguoiDung", user.TenNguoiDung);
-                    HttpContext.Session.SetInt32("MaKh", user.MaKh); // thêm MaKh nếu cần
-
-                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
-                    return RedirectToAction("Index", "TrangChu");
-                }
+                ViewData["Error"] = "Tên đăng nhập hoặc mật khẩu không đúng";
+                return View();
             }
-            ViewData["LoginNameError"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
-            return View(u);
+
+            if (taiKhoan.TrangThai == 0)
+            {
+                ViewData["Error"] = "Tài khoản đã bị khóa";
+                return View();
+            }
+
+            if (taiKhoan.VaiTro != "KhachHang")
+            {
+                ViewData["Error"] = "Tài khoản không hợp lệ";
+                return View();
+            }
+
+            // Lưu thông tin đăng nhập vào session
+            HttpContext.Session.SetInt32("TaiKhoanId", taiKhoan.TaiKhoanId);
+            HttpContext.Session.SetString("VaiTro", taiKhoan.VaiTro);
+            HttpContext.Session.SetString("UserName", taiKhoan.TenDangNhap);
+            if (taiKhoan.KhachHang != null)
+            {
+                HttpContext.Session.SetInt32("MaKh", taiKhoan.KhachHang.MaKh);
+            }
+
+            // Đăng nhập thành công → về trang chủ
+            return RedirectToAction("Index", "TrangChu");
         }
 
         public IActionResult DangXuat()

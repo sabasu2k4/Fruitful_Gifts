@@ -19,7 +19,7 @@ namespace Fruitful_Gifts.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = _context.SanPhams
-                .Include(p => p.MaDmNavigation)
+                //.Include(p => p.MaDmNavigation)
                 .Include(p => p.MaNccNavigation)
                 .ToList();
 

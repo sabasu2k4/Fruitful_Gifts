@@ -1,0 +1,1361 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Fruitful-Gifts.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Fruitful-Gifts.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\css\\style.css",
+      "PackagePath": "staticwebassets\\Admin\\assets\\css\\style.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\css\\style.css.map",
+      "PackagePath": "staticwebassets\\Admin\\assets\\css\\style.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.eot",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.eot"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.ttf",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.ttf"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.woff",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.woff"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.woff2",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Bold.woff2"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.eot",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.eot"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.ttf",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.ttf"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.woff",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.woff"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.woff2",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Light.woff2"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.eot",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.eot"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.ttf",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.ttf"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.woff",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.woff"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.woff2",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Medium.woff2"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.eot",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.eot"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.ttf",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.ttf"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.woff",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.woff"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.woff2",
+      "PackagePath": "staticwebassets\\Admin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.woff2"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\circle.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\circle.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\circle.svg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\circle.svg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\img_1.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\img_1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\img_2.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\img_2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\img_3.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\img_3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\dashboard\\img_4.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\dashboard\\img_4.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces-clipart\\pic-1.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces-clipart\\pic-1.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces-clipart\\pic-2.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces-clipart\\pic-2.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces-clipart\\pic-3.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces-clipart\\pic-3.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces-clipart\\pic-4.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces-clipart\\pic-4.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face1.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face10.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face10.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face11.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face11.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face12.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face12.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face13.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face13.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face14.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face14.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face15.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face15.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face16.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face16.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face17.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face17.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face18.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face18.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face19.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face19.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face2.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face20.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face20.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face21.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face21.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face22.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face22.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face23.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face23.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face24.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face24.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face25.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face25.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face26.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face26.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face27.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face27.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face3.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face4.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face4.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face5.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face5.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face6.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face6.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face7.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face7.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face8.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face8.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\faces\\face9.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\faces\\face9.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\favicon.ico",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\favicon.ico"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\favicon.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\favicon.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\logo-mini.svg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\logo-mini.svg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\logo.svg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\logo.svg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\logo1.jpg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\logo1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\blue.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\blue.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\dark.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\dark.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\flag.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\flag.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\green.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\green.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\jsgrid-icons.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\jsgrid-icons.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\red.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\red.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\images\\sprites\\yellow.png",
+      "PackagePath": "staticwebassets\\Admin\\assets\\images\\sprites\\yellow.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\chart.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\chart.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\dashboard.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\dashboard.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\file-upload.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\file-upload.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\hoverable-collapse.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\hoverable-collapse.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\jquery.cookie.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\jquery.cookie.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\misc.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\misc.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\off-canvas.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\off-canvas.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\todo.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\todo.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\js\\todolist.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\js\\todolist.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_dashboard.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_dashboard.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_demo.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_demo.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_fonts.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_fonts.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_footer.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_footer.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_functions.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_functions.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_layouts.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_layouts.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_misc.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_misc.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_navbar.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_navbar.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_reset.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_reset.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_sidebar.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_sidebar.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_typography.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_typography.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_utilities.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_utilities.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_variables.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_vertical-wrapper.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_vertical-wrapper.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\_widget-grid.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\_widget-grid.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_badges.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_badges.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_bootstrap-progress.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_bootstrap-progress.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_breadcrumbs.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_breadcrumbs.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_buttons.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_buttons.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_cards.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_cards.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_checkbox-radio.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_checkbox-radio.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_dropdown.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_dropdown.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_forms.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_forms.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_icons.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_icons.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_lists.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_lists.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_preview.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_preview.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_tables.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_tables.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\components\\_todo-list.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\components\\_todo-list.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\landing-screens\\_auth.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\landing-screens\\_auth.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_animation.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_animation.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_background.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_background.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_badges.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_badges.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_blockqoute.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_blockqoute.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_breadcrumbs.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_breadcrumbs.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_buttons.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_buttons.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_cards.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_cards.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_misc.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_misc.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_pagination.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_pagination.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_popovers.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_popovers.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_text.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_text.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\mixins\\_tooltips.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\mixins\\_tooltips.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\scss\\style.scss",
+      "PackagePath": "staticwebassets\\Admin\\assets\\scss\\style.scss"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\chart.js\\Chart.min.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\chart.js\\Chart.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\css\\vendor.bundle.base.css",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\css\\vendor.bundle.base.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\js\\vendor.bundle.base.js",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\js\\vendor.bundle.base.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\css\\materialdesignicons.min.css",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\css\\materialdesignicons.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\css\\materialdesignicons.min.css.map",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\css\\materialdesignicons.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.eot",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.eot"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.ttf",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.ttf"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff2",
+      "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff2"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\csssanpham\\style.css",
+      "PackagePath": "staticwebassets\\Admin\\csssanpham\\style.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulp-tasks\\inject.js",
+      "PackagePath": "staticwebassets\\Admin\\gulp-tasks\\inject.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulp-tasks\\serve.js",
+      "PackagePath": "staticwebassets\\Admin\\gulp-tasks\\serve.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulp-tasks\\vendors.js",
+      "PackagePath": "staticwebassets\\Admin\\gulp-tasks\\vendors.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulpfile.js",
+      "PackagePath": "staticwebassets\\Admin\\gulpfile.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\BaiViet.css",
+      "PackagePath": "staticwebassets\\css\\BaiViet.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\Details.css",
+      "PackagePath": "staticwebassets\\css\\Details.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\GioHang.css",
+      "PackagePath": "staticwebassets\\css\\GioHang.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\GioiThieu.css",
+      "PackagePath": "staticwebassets\\css\\GioiThieu.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\TaiKhoan.css",
+      "PackagePath": "staticwebassets\\css\\TaiKhoan.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\TrangChu.css",
+      "PackagePath": "staticwebassets\\css\\TrangChu.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\chamdiem.css",
+      "PackagePath": "staticwebassets\\css\\chamdiem.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\contact.css",
+      "PackagePath": "staticwebassets\\css\\contact.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\Icon_of_Zalo.svg.png",
+      "PackagePath": "staticwebassets\\images\\Icon_of_Zalo.svg.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\Logo-fruitful-gifts.jpg",
+      "PackagePath": "staticwebassets\\images\\Logo-fruitful-gifts.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\bao-quan-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\bao-quan-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\bi-quyet-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\bi-quyet-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\qua-tang-doanh-nghiep.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\qua-tang-doanh-nghiep.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\qua-tang-nguoi-yeu.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\qua-tang-nguoi-yeu.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\top-5-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\top-5-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\xu-huong-qua-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\xu-huong-qua-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\baiviet\\y-nghia-hoa-tang.jpg",
+      "PackagePath": "staticwebassets\\images\\baiviet\\y-nghia-hoa-tang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\banner1.jpg",
+      "PackagePath": "staticwebassets\\images\\banner1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\banner2.jpg",
+      "PackagePath": "staticwebassets\\images\\banner2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\banner3.jpg",
+      "PackagePath": "staticwebassets\\images\\banner3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\20-10-phu-nu-viet-nam.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\20-10-phu-nu-viet-nam.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\20-11-nha-giao-viet-nam.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\20-11-nha-giao-viet-nam.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\8-3-quoc-te-phu-nu.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\8-3-quoc-te-phu-nu.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\cuoi-hoi.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\cuoi-hoi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\khai-truong.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\khai-truong.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\sinh-nhat.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\sinh-nhat.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\tan-gia.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\tan-gia.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\tet-nguyen-dan.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\tet-nguyen-dan.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\danhmuc\\valentine.jpg",
+      "PackagePath": "staticwebassets\\images\\danhmuc\\valentine.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\icon-flash.jpg",
+      "PackagePath": "staticwebassets\\images\\icon-flash.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\logo-zalo.png",
+      "PackagePath": "staticwebassets\\images\\logo-zalo.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\logo1.png",
+      "PackagePath": "staticwebassets\\images\\logo1.png"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-10-phu-nu-viet-nam-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-10-phu-nu-viet-nam-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-007.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-007.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-008.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-008.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\20-11-nha-giao-viet-nam-009.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\20-11-nha-giao-viet-nam-009.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-007.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-007.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-008.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-008.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-009.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-009.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\8-3-quoc-te-phu-nu-010.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\8-3-quoc-te-phu-nu-010.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\cam-vang-uc-moi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\cam-vang-uc-moi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\cherry-uc.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\cherry-uc.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\dau-tay-han-quoc.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\dau-tay-han-quoc.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\dua-luoi-dai-loan.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\dua-luoi-dai-loan.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\dua-luoi-vietgap.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\dua-luoi-vietgap.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\gio-dan-tre.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\gio-dan-tre.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\gio-nhua.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\gio-nhua.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\hong-tao.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\hong-tao.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-007.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-007.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-008.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-008.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-009.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-009.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-010.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-010.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\khai-truong-011.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\khai-truong-011.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\kiwi-vang-phap.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\kiwi-vang-phap.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\kiwi-vang.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\kiwi-vang.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\kiwi-xanh-new-zealand-moi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\kiwi-xanh-new-zealand-moi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\le-gift.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\le-gift.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\le-golden.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\le-golden.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\le-nam-phi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\le-nam-phi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\le-nau-han-quoc.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\le-nau-han-quoc.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\le-sua-noi-dia.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\le-sua-noi-dia.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\luu-moi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\luu-moi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\man-duong.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\man-duong.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\may-bali.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\may-bali.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\nho-den-keo-uc.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\nho-den-keo-uc.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\nho-sua-han-quoc.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\nho-sua-han-quoc.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\nho-sua-noi-dia.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\nho-sua-noi-dia.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\nho-xanh-my-moi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\nho-xanh-my-moi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\nho-xanh-peru.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\nho-xanh-peru.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\qua-tang-suc-khoe.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\qua-tang-suc-khoe.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\quyt-uc-moi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\quyt-uc-moi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\sinh-nhat-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\sinh-nhat-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\sinh-nhat-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\sinh-nhat-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\sinh-nhat-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\sinh-nhat-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-007.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-007.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-008.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-008.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-009.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-009.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tan-gia-010.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tan-gia-010.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-ambrosia-s80.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-ambrosia-s80.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-dazzle-s80.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-dazzle-s80.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-envy-s100.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-envy-s100.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-envy-s30.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-envy-s30.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-envy-s70.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-envy-s70.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-fuji-nam-phi.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-fuji-nam-phi.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-joya.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-joya.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-rocket-new-zealand.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-rocket-new-zealand.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tao-rockit.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tao-rockit.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-006.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-006.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\tet-nguyen-dang-007.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\tet-nguyen-dang-007.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\thanh-long-to-yen.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\thanh-long-to-yen.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\thiep1.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\thiep1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine-001.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\valentine-001.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine-002.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\valentine-002.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine-003.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\valentine-003.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine-004.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\valentine-004.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\valentine-005.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\valentine-005.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\viet-quat.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\viet-quat.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\vu-sua-tim-mica.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\vu-sua-tim-mica.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\sanpham\\xoai-cat-chu-dong-thap.jpg",
+      "PackagePath": "staticwebassets\\images\\sanpham\\xoai-cat-chu-dong-thap.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide5.jpg",
+      "PackagePath": "staticwebassets\\images\\slide5.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide6.jpg",
+      "PackagePath": "staticwebassets\\images\\slide6.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\slide8.jpg",
+      "PackagePath": "staticwebassets\\images\\slide8.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\images\\zalo.jpg",
+      "PackagePath": "staticwebassets\\images\\zalo.jpg"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Fruitful-Gifts.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Fruitful-Gifts.props",
+      "PackagePath": "build\\Fruitful-Gifts.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Fruitful-Gifts.props",
+      "PackagePath": "buildMultiTargeting\\Fruitful-Gifts.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Fruitful-Gifts.props",
+      "PackagePath": "buildTransitive\\Fruitful-Gifts.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

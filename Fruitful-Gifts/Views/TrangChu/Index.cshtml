@@ -120,7 +120,7 @@
                                 <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
                             </button>
 
-                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
                                style="aspect-ratio: 1 / 1;">
 
                                 <!-- Ảnh sản phẩm -->
@@ -128,7 +128,7 @@
                                        <img src="~/images/sanpham/@product.HinhAnh"
 
                                      class="w-100 h-100 object-fit-cover position-absolute product-image"
-                                     alt="@product.TenSp">
+                                     alt="@product.TenGioQua">
                              
                                 <!-- Ảnh khung đè -->
                                 <img src="https://file.hstatic.net/200000865177/file/fresh_meat_af50968460124816b48d30d1fc87c6a6.png"
@@ -138,16 +138,16 @@
                             </a>
 
                             <div class="text-center mt-3 px-2">
-                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
                                 <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
-                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
 
                                 <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
                                         <i class="bi bi-lightning-fill me-1"></i> Mua ngay
                                     </a>
                                     <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
-                                            onclick="themVaoGio(@product.MaSp)">
+                                            onclick="themVaoGio(@product.MaGq)">
                                         <i class="bi bi-cart-plus me-1"></i>
                                     </button>
                                 </div>
@@ -188,7 +188,7 @@
                 <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaDipLe(1)">
                     &rsaquo;
                 </button>
-                @if (ViewBag.SanPham != null)
+                @if (ViewBag.SanPham1 != null)
                 {
                     foreach (var product in ViewBag.SanPham1)
                     {
@@ -198,26 +198,26 @@
                                 <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
                             </button>
 
-                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
                                style="aspect-ratio: 1 / 1;">
 
                                 <!-- Ảnh sản phẩm -->
                                 <img src="~/images/sanpham/@product.HinhAnh"
                                      class="w-100 h-100 object-fit-cover position-absolute product-image"
-                                     alt="@product.TenSp">
+                                     alt="@product.TenGioQua">
                             </a>
 
                             <div class="text-center mt-3 px-2">
-                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
                                 <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
-                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
 
                                 <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
                                         <i class="bi bi-lightning-fill me-1"></i> Mua ngay
                                     </a>
                                     <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
-                                            onclick="themVaoGio(@product.MaSp)">
+                                            onclick="themVaoGio(null, @product.MaGq)">
                                         <i class="bi bi-cart-plus me-1"></i>
                                     </button>
                                 </div>
@@ -249,10 +249,10 @@
         </div>
         <div class="rounded-10 bg-flash p-2 p-lg-3">
             <div id="product-gia-dinh-ca-nhan-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
-                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaDinhCaNhan(-1)">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaBanDinhCaNhan(-1)">
                     &lsaquo;
                 </button>
-                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaDinhCaNhan(1)">
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaBanDinhCaNhan(1)">
                     &rsaquo;
                 </button>
                 @if (ViewBag.SanPham != null)
@@ -265,26 +265,26 @@
                                 <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
                             </button>
 
-                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
                                style="aspect-ratio: 1 / 1;">
 
                                 <!-- Ảnh sản phẩm -->
                                 <img src="~/images/sanpham/@product.HinhAnh"
                                      class="w-100 h-100 object-fit-cover position-absolute product-image"
-                                     alt="@product.TenSp">
+                                     alt="@product.TenGioQua">
                             </a>
 
                             <div class="text-center mt-3 px-2">
-                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
                                 <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
-                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
 
                                 <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
                                         <i class="bi bi-lightning-fill me-1"></i> Mua ngay
                                     </a>
                                     <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
-                                            onclick="themVaoGio(@product.MaSp)">
+                                            onclick="themVaoGio(@product.MaGq)">
                                         <i class="bi bi-cart-plus me-1"></i>
                                     </button>
                                 </div>
@@ -332,6 +332,73 @@
                                 <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
                             </button>
 
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenGioQua">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                       onclick="themVaoGio(@product.MaGq)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Các sản phẩm khác</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-cac-san-pham-khac-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollCacSanPhamKhac(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollCacSanPhamKhac(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham4 != null)
+                {
+                    foreach (var product in ViewBag.SanPham4)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
                             <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
                                style="aspect-ratio: 1 / 1;">
 
@@ -344,14 +411,14 @@
                             <div class="text-center mt-3 px-2">
                                 <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
                                 <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
-                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.Gia)</p>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
 
                                 <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
                                         <i class="bi bi-lightning-fill me-1"></i> Mua ngay
                                     </a>
                                     <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
-                                       onclick="themVaoGio(@product.MaSp)">
+                                       onclick="themVaoGio(@product.MaSp, null)">
                                         <i class="bi bi-cart-plus me-1"></i>
                                     </button>
                                 </div>
@@ -421,9 +488,6 @@
                                 <p class="card-text text-muted small mb-2">
                                     <i class="bi bi-calendar-event"></i> @baiViet.CreatedAt.ToString("dd/MM/yyyy")
                                 </p>
-@*                                 <a href="@Url.Action("chitiet", "baiviet", new { mabv = baiViet.MaBv })" class="btn btn-xemchitiet rounded-pill px-4">
-                                    Xem chi tiết
-                                </a> *@
                             </div>
                         </div>
                     </div>
@@ -485,7 +549,7 @@
         function smoothScroll(container, direction, scrollAmount) {
             const start = container.scrollLeft;
             const end = start + direction * scrollAmount;
-            const duration = 700; // Thời gian cuộn (ms)
+            const duration = 700; // Thời GiaBann cuộn (ms)
             let startTime = null;
 
             function animateScroll(currentTime) {
@@ -520,14 +584,20 @@
             smoothScroll(container, direction, scrollAmount);
         }
 
-        function scrollQuaGiaDinhCaNhan(direction) {
-            const container = document.getElementById('product-gia-dinh-ca-nhan-scroll');
+        function scrollQuaGiaBanDinhCaNhan(direction) {
+            const container = document.getElementById('product-GiaBan-dinh-ca-nhan-scroll');
             const scrollAmount = 500;
             smoothScroll(container, direction, scrollAmount);
         }
 
         function scrollQuaThuongMai(direction) {
             const container = document.getElementById('product-thuong-mai-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollCacSanPhamKhac(direction) {
+            const container = document.getElementById('product-cac-san-pham-khac-scroll');
             const scrollAmount = 500;
             smoothScroll(container, direction, scrollAmount);
         }
@@ -544,17 +614,15 @@
         }
         setInterval(changeText, 5000);
 
-        function themVaoGio(maSp) {
+        function themVaoGio(maSp = null, maGq = null) {
             $.ajax({
                 url: '/GioHang/ThemVaoGio',
                 type: 'POST',
-                data: { maSp: maSp },
+                data: { maSp: maSp, maGq: maGq },
                 success: function (res) {
                     if (res.success) {
-                        // Cập nhật số lượng giỏ hàng
                         $('#soLuongGio').text(res.tongSoLuong);
 
-                        // Hiển thị SweetAlert tự động biến mất
                         Swal.fire({
                             icon: 'success',
                             title: 'Đã thêm vào giỏ hàng!',
@@ -581,6 +649,7 @@
                 }
             });
         }
+
 
     </script>
 }

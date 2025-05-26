@@ -43,10 +43,10 @@
                             {
                                 <tr>
                                     <td>@product.TenSp</td>
-                                    <td>@product.MaDmNavigation?.TenDm</td>
+                                    @* <td>@product.MaDmNavigation?.TenDm</td> *@
                                     <td>@product.MaNccNavigation?.TenNcc</td>
-                                    <td>@string.Format("{0:C}", product.Gia)</td>
-                                    <td>@product.SoLuong</td>
+                                    <td>@string.Format("{0:C}", product.GiaBan)</td>
+                                    @* <td>@product.SoLuong</td> *@
                                     <td>@product.TrangThai</td>
                                     <td>
                                         <img src="@product.HinhAnh" alt="@product.TenSp" width="100" />

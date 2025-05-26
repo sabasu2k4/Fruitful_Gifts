@@ -42,7 +42,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Database\" />
-    <Folder Include="wwwroot\images\sanpham\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -285,12 +285,14 @@
 /* ===== SCROLLBAR CUSTOM FOR HOTDEAL SCROLL ===== */
 
 #product-hotdeal-scroll::-webkit-scrollbar, #product-dip-le-scroll::-webkit-scrollbar,
-#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar, #product-thuong-mai-scroll::-webkit-scrollbar {
+#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar, #product-thuong-mai-scroll::-webkit-scrollbar,
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar {
     display: none;
 }
 
 #product-hotdeal-scroll::-webkit-scrollbar-thumb, #product-dip-le-scroll::-webkit-scrollbar-thumb,
-#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar-thumb, #product-thuong-mai-scroll::-webkit-scrollbar-thumb {
+#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar-thumb, #product-thuong-mai-scroll::-webkit-scrollbar-thumb,
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 10px;
 }

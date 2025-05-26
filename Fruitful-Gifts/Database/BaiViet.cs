@@ -15,12 +15,11 @@ public partial class BaiViet
 
     public DateOnly? NgayDang { get; set; }
 
+    public int? TrangThai { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
     public string? Slug { get; set; }
-
-    public bool? IsHienThi { get; set; }
 }
-

@@ -13,13 +13,13 @@ namespace Fruitful_Gifts.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(int ?page)
+        public IActionResult Index(int? page)
         {
             int pageNumber = page ?? 1;
             int pageSize = 6;
 
             var baiVietList = _context.BaiViets
-                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi" && bv.IsHienThi == true)
+                .Where(bv => bv.Slug != "gioi-thieu-ve-chung-toi")
                 .OrderByDescending(bv => bv.CreatedAt);
 
             var pagedList = baiVietList.ToPagedList(pageNumber, pageSize);
@@ -35,7 +35,7 @@ namespace Fruitful_Gifts.Controllers
                 return NotFound();
             }
 
-            return View(baiViet); 
+            return View(baiViet);
         }
 
     }

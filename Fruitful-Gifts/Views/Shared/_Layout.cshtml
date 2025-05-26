@@ -5,7 +5,7 @@
 <html lang="en">
 @RenderSection("Styles", required: false)
 @{
-    var userName = Context.Session.GetString("TenNguoiDung");
+    var userName = Context.Session.GetString("UserName");
     int? maKh = Context.Session.GetInt32("MaKh");
 
     var db = Context.RequestServices.GetService(typeof(FruitfulGiftsContext)) as FruitfulGiftsContext;
@@ -294,8 +294,8 @@
                     <form asp-controller="TaiKhoan" asp-action="DangNhap" method="post" class="row g-3">
                         <div class="col-12 pt-2">
                             <div class="col-12">
-                                <input name="LoginName" class="form-control input-dangnhap" placeholder="Tên đăng nhập hoặc Email" title="Nhập tên đăng nhập hoặc email của bạn" />
-                                <span class="text-danger">@ViewData["LoginNameError"]</span>
+                                <input name="TenDangNhap" class="form-control input-dangnhap" placeholder="Tên đăng nhập hoặc Email" title="Nhập tên đăng nhập hoặc email của bạn" />
+                                <span class="text-danger">@ViewData["Error"]</span>
                             </div>
                         </div>
                         <div class="col-12 pt-2">

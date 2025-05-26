@@ -1,4 +1,5 @@
 ﻿using Fruitful_Gifts.Database;
+using Fruitful_Gifts.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -13,71 +14,129 @@ namespace Fruitful_Gifts.Controllers
         {
             _context = context;
         }
-
         [HttpGet("san-pham/{slug}")]
-        public IActionResult ChiTietSanPham(string slug)
+        public IActionResult ChiTietSanPham(string slug, int page = 1)
         {
+            int pageSize = 3;//phân trang bình luận
+
             var userId = GetLoggedInKhachHangId();
 
             var sanPham = _context.SanPhams
-                .Include(sp => sp.MaDmNavigation)
+                .Include(sp => sp.MaLoaiNavigation)
                 .Include(sp => sp.MaNccNavigation)
                 .Include(sp => sp.BinhLuans)
                     .ThenInclude(bl => bl.MaKhNavigation)
-                .FirstOrDefault(sp => sp.Slug == slug && sp.TrangThai == true);
+                .FirstOrDefault(sp => sp.Slug == slug && sp.TrangThai == 1);
 
             if (sanPham == null)
-            {
                 return NotFound();
+
+            int soLuongTonKho = _context.KhoHangs
+                .Where(k => k.MaSp == sanPham.MaSp)
+                .Select(k => k.SoLuongTon)
+                .FirstOrDefault();
+
+            bool isFavorite = false;
+            bool daMua = false;
+            bool daDanhGia = false;
+            List<int> donHangChuaDanhGia = new();
+
+            if (userId != null)
+            {
+                isFavorite = _context.SanPhamYeuThiches
+                    .Any(spy => spy.MaKh == userId && spy.MaSp == sanPham.MaSp);
+
+                daMua = _context.ChiTietDonHangs
+                    .Include(ct => ct.MaDhNavigation)
+                    .Any(ct => ct.MaSp == sanPham.MaSp &&
+                               ct.MaDhNavigation.MaKh == userId &&
+                               ct.MaDhNavigation.TrangThai == 4);
+
+                daDanhGia = _context.BinhLuans
+                    .Any(bl => bl.MaSp == sanPham.MaSp && bl.MaKh == userId);
+
+                donHangChuaDanhGia = _context.ChiTietDonHangs
+                    .Include(ct => ct.MaDhNavigation)
+                    .Where(ct => ct.MaSp == sanPham.MaSp &&
+                                 ct.MaDhNavigation.MaKh == userId &&
+                                 ct.MaDhNavigation.TrangThai == 4 &&
+                                 !_context.BinhLuans.Any(bl => bl.MaSp == sanPham.MaSp &&
+                                                               bl.MaKh == userId &&
+                                                               bl.MaGq == ct.MaDh))
+                    .Select(ct => ct.MaDh)
+                    .Distinct()
+                    .ToList();
             }
 
-            // Kiểm tra người dùng đã đăng nhập hay chưa
-            ViewBag.TrangThaiDangNhap = userId != null;
+            ViewBag.DaMua = daMua;
+            ViewBag.DaDanhGia = daDanhGia;
+            ViewBag.DonHangChuaDanhGia = donHangChuaDanhGia;
 
-            // Kiểm tra sản phẩm có trong danh sách yêu thích của người dùng hay không
-            var isFavorite = _context.SanPhamYeuThiches
-                .Any(spy => spy.MaKh == userId && spy.MaSp == sanPham.MaSp);
-            ViewBag.IsFavorite = isFavorite;
+            // Tính sao trung bình
+            double trungBinhSoSao = sanPham.BinhLuans?
+                .Where(b => b.TrangThai == 1 && b.SoSao != null)
+                .Select(b => b.SoSao.Value)
+                .DefaultIfEmpty(0)
+                .Average() ?? 0;
 
-            // Kiểm tra người dùng đã từng mua hàng
-            bool daMua = _context.ChiTietDonHangs
-                .Include(ct => ct.MaDhNavigation)
-                .Any(ct => ct.MaSp == sanPham.MaSp &&
-                           ct.MaDhNavigation.MaKh == userId &&
-                           ct.MaDhNavigation.TrangThai == 4);
-
-            // Tính số sao trung bình
-            var danhGiaTB = (sanPham.BinhLuans != null && sanPham.BinhLuans.Any(b => b.IsHienThi == true))
-                ? sanPham.BinhLuans.Where(b => b.IsHienThi == true).Average(b => b.SoSao ?? 0)
-                : 0;
-            ViewBag.TrungBinhSoSao = danhGiaTB;
-
-            // Số lượt yêu thích
-            var soLuotYeuThich = _context.SanPhamYeuThiches
+            // Sản phẩm yêu thích
+            int soLuotYeuThich = _context.SanPhamYeuThiches
                 .Count(spy => spy.MaSp == sanPham.MaSp);
-            ViewBag.SoLuotYeuThich = soLuotYeuThich;
 
             // Sản phẩm liên quan
-            var lienQuan = _context.SanPhams
-                .Where(p => p.MaDm == sanPham.MaDm && p.MaSp != sanPham.MaSp && p.TrangThai == true)
-                .OrderByDescending(p => p.Gia)
-                .Take(4) //số lượng hiện thị 
+            var sanPhamLienQuan = _context.SanPhams
+           .Where(p => p.MaLoai == sanPham.MaLoai &&
+                       p.MaSp != sanPham.MaSp &&
+                       p.TrangThai == 1 &&
+                       p.GiaBan != null && sanPham.GiaBan != null &&
+                       Math.Abs(p.GiaBan.Value - sanPham.GiaBan.Value) <= sanPham.GiaBan.Value * 0.2m)
+           .OrderByDescending(p => p.GiaBan)
+           .Take(4)
+           .ToList();
+
+
+            // BÌNH LUẬN PHÂN TRANG
+            var binhLuans = sanPham.BinhLuans
+                .Where(bl => bl.TrangThai == 1)
+                .OrderByDescending(bl => bl.NgayBinhLuan)
                 .ToList();
-            ViewBag.SanPhamLienQuan = lienQuan;
 
-            ViewBag.DaMua = daMua;
-            ViewBag.TrangThaiDangNhap = userId != null;
+            int totalComments = binhLuans.Count;
+            int totalPages = (int)Math.Ceiling((double)totalComments / pageSize);
 
-            return View(sanPham);
+            var binhLuansPhanTrang = binhLuans
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.BinhLuans = binhLuansPhanTrang;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            // Gửi về View
+            var viewModel = new SanPhamViewModel
+            {
+                SanPham = sanPham,
+                SoLuongTonKho = soLuongTonKho,
+                TrangThaiDangNhap = userId != null,
+                IsFavorite = isFavorite,
+                DaMua = daMua,
+                TrungBinhSoSao = trungBinhSoSao,
+                SoLuotYeuThich = soLuotYeuThich,
+                SanPhamLienQuan = sanPhamLienQuan
+            };
+
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public IActionResult GetQuantity(int maSp)
         {
-            var product = _context.SanPhams.FirstOrDefault(x => x.MaSp == maSp);
-            if (product == null) return NotFound();
+            var kho = _context.KhoHangs.FirstOrDefault(k => k.MaSp == maSp);
+            if (kho == null) return NotFound();
 
-            return Json(new { soLuong = product.SoLuong });
+            return Json(new { soLuong = kho.SoLuongTon });
         }
 
         //
@@ -94,10 +153,10 @@ namespace Fruitful_Gifts.Controllers
             var query = _context.SanPhamYeuThiches
                 .Where(spy => spy.MaKh == userId)
                 .Include(spy => spy.MaSpNavigation)
-                    .ThenInclude(sp => sp.MaDmNavigation)
+                    .ThenInclude(sp => sp.MaLoaiNavigation)
                 .Include(spy => spy.MaSpNavigation.MaNccNavigation)
                 .Select(spy => spy.MaSpNavigation)
-                .Where(sp => sp.TrangThai == true);
+                .Where(sp => sp.TrangThai == 1);
 
             int totalItems = query.Count();
             var sanPhams = query
@@ -147,9 +206,9 @@ namespace Fruitful_Gifts.Controllers
         }
 
         [HttpPost]
-        public IActionResult ThemSanPhamYeuThich(int productId)
+        public async Task<IActionResult> ThemSanPhamYeuThich(int productId)
         {
-            var userId = GetLoggedInKhachHangId(); // Lấy ID của khách hàng đã đăng nhập
+            var userId = GetLoggedInKhachHangId(); // Lấy ID khách hàng
 
             if (userId == null)
             {
@@ -162,7 +221,7 @@ namespace Fruitful_Gifts.Controllers
             if (existingItem != null)
             {
                 _context.SanPhamYeuThiches.Remove(existingItem);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Json(new { success = true, message = "Sản phẩm đã được xóa khỏi danh sách yêu thích.", newLikeCount = GetLikeCount(productId), isAdded = false });
             }
@@ -174,9 +233,8 @@ namespace Fruitful_Gifts.Controllers
             };
 
             _context.SanPhamYeuThiches.Add(newWishlistItem);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            // Trả về số lượt yêu thích mới và trạng thái sản phẩm đã được thêm
             return Json(new { success = true, message = "Sản phẩm đã được thêm vào danh sách yêu thích!", newLikeCount = GetLikeCount(productId), isAdded = true });
         }
 
@@ -187,31 +245,29 @@ namespace Fruitful_Gifts.Controllers
 
         public int? GetLoggedInKhachHangId()
         {
-            var khachHangJson = HttpContext.Session.GetString("user");
+            // Lấy TaiKhoanId đã lưu khi đăng nhập
+            int? taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
 
-            if (string.IsNullOrEmpty(khachHangJson))
+            if (taiKhoanId == null)
             {
                 return null;
             }
 
-            var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson);
+            // Tìm KhachHang tương ứng với TaiKhoanId
+            var khachHang = _context.KhachHangs.FirstOrDefault(kh => kh.TaiKhoanId == taiKhoanId);
 
-            if (thongTinkhachHang != null)
+            if (khachHang != null)
             {
-                var customer = _context.KhachHangs.FirstOrDefault(kh => kh.MaKh == thongTinkhachHang.MaKh);
-
-                if (customer != null)
-                {
-                    return customer.MaKh;
-                }
+                return khachHang.MaKh;
             }
 
             return null;
         }
+
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BinhLuan(int MaSp, int Rating, string NoiDung)
+        public async Task<IActionResult> BinhLuan(int MaSp, int Rating, string NoiDung, int MaDh)
         {
             var maKH = GetLoggedInKhachHangId();
             if (!maKH.HasValue)
@@ -224,6 +280,7 @@ namespace Fruitful_Gifts.Controllers
             bool daMua = _context.ChiTietDonHangs
                 .Include(ct => ct.MaDhNavigation)
                 .Any(ct => ct.MaSp == MaSp &&
+                           ct.MaDh == MaDh &&
                            ct.MaDhNavigation.MaKh == maKH &&
                            ct.MaDhNavigation.TrangThai == 4);
 
@@ -234,12 +291,12 @@ namespace Fruitful_Gifts.Controllers
                 return RedirectToAction("ChiTietSanPham", new { slug = spNotBuy?.Slug ?? "" });
             }
 
-            var binhLuanCu = await _context.BinhLuans
-                .FirstOrDefaultAsync(b => b.MaSp == MaSp && b.MaKh == maKH);
+            var daDanhGiaDonHangNay = await _context.BinhLuans
+                .AnyAsync(b => b.MaSp == MaSp && b.MaKh == maKH && b.MaGq == MaDh);
 
-            if (binhLuanCu != null)
+            if (daDanhGiaDonHangNay)
             {
-                TempData["Message"] = "Bạn đã đánh giá sản phẩm này rồi.";
+                TempData["Message"] = "Bạn đã đánh giá sản phẩm này cho đơn hàng này rồi.";
                 var spRated = await _context.SanPhams.FindAsync(MaSp);
                 return RedirectToAction("ChiTietSanPham", new { slug = spRated?.Slug ?? "" });
             }
@@ -248,10 +305,12 @@ namespace Fruitful_Gifts.Controllers
             {
                 MaKh = maKH.Value,
                 MaSp = MaSp,
+                MaGq = MaDh,
                 SoSao = Rating,
                 NoiDung = NoiDung,
-                Ngay = DateTime.Now,
-                IsHienThi = true
+                NgayBinhLuan = DateTime.Now,
+                TrangThai = 1,
+                CreatedAt = DateTime.Now
             };
 
             _context.BinhLuans.Add(binhLuan);
@@ -265,34 +324,41 @@ namespace Fruitful_Gifts.Controllers
 
 
         //
-        public async Task<IActionResult> SanPhamChamDiem()
+        public async Task<IActionResult> SanPhamChamDiem(int page = 1, int pageSize = 6)
         {
-            // Lấy ID khách hàng từ session
             var maKH = GetLoggedInKhachHangId();
 
-            // Kiểm tra nếu maKH là null, có nghĩa là người dùng chưa đăng nhập
             if (!maKH.HasValue)
             {
-                ViewBag.Message = "Vui lòng đăng nhập để xem sản phẩm chấm điểm.";
-                return View(); // Trả về view hiện tại mà không chuyển hướng
+                TempData["ErrorMessage"] = "Vui lòng đăng nhập để xem sản phẩm chấm điểm.";
+                return RedirectToAction("DangNhap", "TaiKhoan");
             }
 
-            // Lấy danh sách sản phẩm đã được khách hàng chấm điểm
-            var sanPhamChamDiem = await _context.BinhLuans
-                .Include(d => d.MaKhNavigation)  // Liên kết với bảng KhachHang
-                .Include(d => d.MaSpNavigation)    // Liên kết với bảng SanPham
-                .Where(d => d.MaKh == maKH.Value)  // Lọc theo MaKH
+            var query = _context.BinhLuans
+                .Include(d => d.MaKhNavigation)
+                .Include(d => d.MaSpNavigation)
+                .Where(d => d.MaKh == maKH.Value)
+                .OrderByDescending(d => d.NgayBinhLuan);
+
+            int totalItems = await query.CountAsync();
+
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            // Trả về View và gửi thông báo nếu không có dữ liệu
-            if (sanPhamChamDiem == null || !sanPhamChamDiem.Any())
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (!items.Any())
             {
-                ViewBag.Message = "Không có sản phẩm chấm điểm.";
+                TempData["InfoMessage"] = "Không có sản phẩm chấm điểm.";
             }
 
-            return View(sanPhamChamDiem); // Trả về view và danh sách sản phẩm đã chấm điểm
+            return View(items);
         }
-        //sửa chấm điểm 
+
+
         public async Task<IActionResult> SuaChamDiem(int sanPhamId)
         {
             var maKH = GetLoggedInKhachHangId();

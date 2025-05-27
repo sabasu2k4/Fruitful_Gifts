@@ -86,7 +86,8 @@ namespace Fruitful_Gifts.Controllers
 
             var taiKhoan = _context.TaiKhoans
                 .Include(tk => tk.KhachHang)
-                .FirstOrDefault(tk => tk.TenDangNhap == tenDangNhap);
+                .FirstOrDefault(tk => tk.TenDangNhap == tenDangNhap
+                                   || (tk.KhachHang != null && tk.KhachHang.Email == tenDangNhap));
 
             if (taiKhoan == null || !BCrypt.Net.BCrypt.Verify(matKhau, taiKhoan.MatKhau))
             {
@@ -106,16 +107,15 @@ namespace Fruitful_Gifts.Controllers
                 return View();
             }
 
-            // Lưu thông tin đăng nhập vào session
             HttpContext.Session.SetInt32("TaiKhoanId", taiKhoan.TaiKhoanId);
             HttpContext.Session.SetString("VaiTro", taiKhoan.VaiTro);
             HttpContext.Session.SetString("UserName", taiKhoan.TenDangNhap);
+
             if (taiKhoan.KhachHang != null)
             {
                 HttpContext.Session.SetInt32("MaKh", taiKhoan.KhachHang.MaKh);
             }
 
-            // Đăng nhập thành công → về trang chủ
             return RedirectToAction("Index", "TrangChu");
         }
 

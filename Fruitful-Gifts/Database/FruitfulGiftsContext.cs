@@ -69,6 +69,8 @@ public partial class FruitfulGiftsContext : DbContext
 
     public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
 
+    public virtual DbSet<TrangThaiDonHang> TrangThaiDonHangs { get; set; }
+
     public virtual DbSet<XuatXu> XuatXus { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -78,7 +80,7 @@ public partial class FruitfulGiftsContext : DbContext
     {
         modelBuilder.Entity<BaiViet>(entity =>
         {
-            entity.HasKey(e => e.MaBv).HasName("PK__BaiViet__272475F518DDCBDA");
+            entity.HasKey(e => e.MaBv).HasName("PK__BaiViet__272475F5F00B5C41");
 
             entity.ToTable("BaiViet");
 
@@ -97,7 +99,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<BinhLuan>(entity =>
         {
-            entity.HasKey(e => e.IdBinhLuan).HasName("PK__BinhLuan__A6E39FBFAB997C2E");
+            entity.HasKey(e => e.IdBinhLuan).HasName("PK__BinhLuan__A6E39FBF1588CB0B");
 
             entity.ToTable("BinhLuan");
 
@@ -128,7 +130,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<ChatLieu>(entity =>
         {
-            entity.HasKey(e => e.MaChatLieu).HasName("PK__ChatLieu__453995BC2745C1FB");
+            entity.HasKey(e => e.MaChatLieu).HasName("PK__ChatLieu__453995BCD7E25E09");
 
             entity.ToTable("ChatLieu");
 
@@ -137,7 +139,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<ChiTietDonHang>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ChiTietD__3214EC078A04181A");
+            entity.HasKey(e => e.Id).HasName("PK__ChiTietD__3214EC075EB44065");
 
             entity.ToTable("ChiTietDonHang");
 
@@ -161,7 +163,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<ChiTietGioHang>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ChiTietG__3214EC07864CBE63");
+            entity.HasKey(e => e.Id).HasName("PK__ChiTietG__3214EC0781420EFC");
 
             entity.ToTable("ChiTietGioHang");
 
@@ -185,7 +187,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<ChiTietGioQua>(entity =>
         {
-            entity.HasKey(e => new { e.MaGq, e.MaSp }).HasName("PK__ChiTietG__F557FE6B24FD14CC");
+            entity.HasKey(e => new { e.MaGq, e.MaSp }).HasName("PK__ChiTietG__F557FE6B9645BE4D");
 
             entity.ToTable("ChiTietGioQua");
 
@@ -202,11 +204,11 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<ChiTietNhapHang>(entity =>
         {
-            entity.HasKey(e => new { e.MaNhap, e.MaSp }).HasName("PK__ChiTietN__F13D5F1F2A0FCA95");
+            entity.HasKey(e => new { e.MaNhap, e.MaSp }).HasName("PK__ChiTietN__F13D5F1FFD5C857F");
 
             entity.ToTable("ChiTietNhapHang");
 
-            entity.Property(e => e.DonGia).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.GiaNhap).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.MaNhapNavigation).WithMany(p => p.ChiTietNhapHangs)
                 .HasForeignKey(d => d.MaNhap)
@@ -221,7 +223,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<DanhMucGioQua>(entity =>
         {
-            entity.HasKey(e => e.MaDm).HasName("PK__DanhMucG__2725864EFB482CCB");
+            entity.HasKey(e => e.MaDm).HasName("PK__DanhMucG__2725864E99355601");
 
             entity.ToTable("DanhMucGioQua");
 
@@ -243,7 +245,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<DanhMucSanPham>(entity =>
         {
-            entity.HasKey(e => e.MaLoai).HasName("PK__DanhMucS__730A57597B0B6BFC");
+            entity.HasKey(e => e.MaLoai).HasName("PK__DanhMucS__730A5759BE123CE6");
 
             entity.ToTable("DanhMucSanPham");
 
@@ -252,7 +254,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<DichVuCongTy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DichVuCo__3214EC07495A0789");
+            entity.HasKey(e => e.Id).HasName("PK__DichVuCo__3214EC07198B69D9");
 
             entity.ToTable("DichVuCongTy");
 
@@ -269,7 +271,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<DonHang>(entity =>
         {
-            entity.HasKey(e => e.MaDh).HasName("PK__DonHang__27258641A122D589");
+            entity.HasKey(e => e.MaDh).HasName("PK__DonHang__2725864150A8F116");
 
             entity.ToTable("DonHang");
 
@@ -285,7 +287,7 @@ public partial class FruitfulGiftsContext : DbContext
             entity.Property(e => e.PhuongThucBan).HasMaxLength(100);
             entity.Property(e => e.SoDienThoai).HasMaxLength(20);
             entity.Property(e => e.TongTienDonHang).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.TrangThai).HasDefaultValue(0);
+            entity.Property(e => e.TrangThai).HasDefaultValue(1);
             entity.Property(e => e.TrangThaiThanhToan).HasDefaultValue(0);
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -302,11 +304,15 @@ public partial class FruitfulGiftsContext : DbContext
             entity.HasOne(d => d.MaPtNavigation).WithMany(p => p.DonHangs)
                 .HasForeignKey(d => d.MaPt)
                 .HasConstraintName("FK_DonHang_PhuongThucThanhToan");
+
+            entity.HasOne(d => d.TrangThaiNavigation).WithMany(p => p.DonHangs)
+                .HasForeignKey(d => d.TrangThai)
+                .HasConstraintName("FK_DonHang_TrangThaiDonHang");
         });
 
         modelBuilder.Entity<DonViTinh>(entity =>
         {
-            entity.HasKey(e => e.MaDvt).HasName("PK__DonViTin__3D824D169A1CD6B6");
+            entity.HasKey(e => e.MaDvt).HasName("PK__DonViTin__3D824D16B553F3B9");
 
             entity.ToTable("DonViTinh");
 
@@ -315,7 +321,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<Footer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Footer__3214EC073368FDC1");
+            entity.HasKey(e => e.Id).HasName("PK__Footer__3214EC07267628B0");
 
             entity.ToTable("Footer");
 
@@ -333,7 +339,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<GioQua>(entity =>
         {
-            entity.HasKey(e => e.MaGq).HasName("PK__GioQua__2725AEEC3BD421FA");
+            entity.HasKey(e => e.MaGq).HasName("PK__GioQua__2725AEEC62976EE7");
 
             entity.ToTable("GioQua");
 
@@ -351,7 +357,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<Header>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Header__3214EC0734F5718A");
+            entity.HasKey(e => e.Id).HasName("PK__Header__3214EC072B3C0766");
 
             entity.ToTable("Header");
 
@@ -369,11 +375,11 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<KhachHang>(entity =>
         {
-            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF7E113DA57C");
+            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF7E4E31C158");
 
             entity.ToTable("KhachHang");
 
-            entity.HasIndex(e => e.TaiKhoanId, "UQ__KhachHan__9A124B44AC4BA8D9").IsUnique();
+            entity.HasIndex(e => e.TaiKhoanId, "UQ__KhachHan__9A124B44C76019B9").IsUnique();
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -395,7 +401,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<KhoHang>(entity =>
         {
-            entity.HasKey(e => e.MaKho).HasName("PK__KhoHang__3BDA93506B9F746F");
+            entity.HasKey(e => e.MaKho).HasName("PK__KhoHang__3BDA9350F09422C5");
 
             entity.ToTable("KhoHang");
 
@@ -416,7 +422,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<KhuyenMai>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__KhuyenMa__3214EC07498E0D8D");
+            entity.HasKey(e => e.Id).HasName("PK__KhuyenMa__3214EC0793589579");
 
             entity.ToTable("KhuyenMai");
 
@@ -440,7 +446,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<LienHe>(entity =>
         {
-            entity.HasKey(e => e.MaLh).HasName("PK__LienHe__2725C75F5DF5B288");
+            entity.HasKey(e => e.MaLh).HasName("PK__LienHe__2725C75F0268796D");
 
             entity.ToTable("LienHe");
 
@@ -455,7 +461,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<Luong>(entity =>
         {
-            entity.HasKey(e => e.MaLuong).HasName("PK__Luong__6609A48DBB4F74EC");
+            entity.HasKey(e => e.MaLuong).HasName("PK__Luong__6609A48DD2F36CE3");
 
             entity.ToTable("Luong");
 
@@ -483,7 +489,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<NhaCungCap>(entity =>
         {
-            entity.HasKey(e => e.MaNcc).HasName("PK__NhaCungC__3A1951E335A54157");
+            entity.HasKey(e => e.MaNcc).HasName("PK__NhaCungC__3A1951E38D1DFA85");
 
             entity.ToTable("NhaCungCap");
 
@@ -501,11 +507,11 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<NhanVien>(entity =>
         {
-            entity.HasKey(e => e.MaNv).HasName("PK__NhanVien__2725D76AA2B2402E");
+            entity.HasKey(e => e.MaNv).HasName("PK__NhanVien__2725D76AB5FAE6B9");
 
             entity.ToTable("NhanVien");
 
-            entity.HasIndex(e => e.TaiKhoanId, "UQ__NhanVien__9A124B44D278E196").IsUnique();
+            entity.HasIndex(e => e.TaiKhoanId, "UQ__NhanVien__9A124B44350DB967").IsUnique();
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -524,7 +530,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<NhapHang>(entity =>
         {
-            entity.HasKey(e => e.MaNhap).HasName("PK__NhapHang__234F0F98AE8DAA4A");
+            entity.HasKey(e => e.MaNhap).HasName("PK__NhapHang__234F0F982D6841AE");
 
             entity.ToTable("NhapHang");
 
@@ -550,7 +556,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<PhuongThucThanhToan>(entity =>
         {
-            entity.HasKey(e => e.MaPt).HasName("PK__PhuongTh__2725E7D64AD8B22A");
+            entity.HasKey(e => e.MaPt).HasName("PK__PhuongTh__2725E7D67272D41B");
 
             entity.ToTable("PhuongThucThanhToan");
 
@@ -565,7 +571,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<SanPham>(entity =>
         {
-            entity.HasKey(e => e.MaSp).HasName("PK__SanPham__2725087CED9726AF");
+            entity.HasKey(e => e.MaSp).HasName("PK__SanPham__2725087C0588A25C");
 
             entity.ToTable("SanPham");
 
@@ -604,7 +610,7 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<SanPhamYeuThich>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SanPhamY__3214EC077C662640");
+            entity.HasKey(e => e.Id).HasName("PK__SanPhamY__3214EC07BBFB9F6D");
 
             entity.ToTable("SanPhamYeuThich");
 
@@ -624,11 +630,11 @@ public partial class FruitfulGiftsContext : DbContext
 
         modelBuilder.Entity<TaiKhoan>(entity =>
         {
-            entity.HasKey(e => e.TaiKhoanId).HasName("PK__TaiKhoan__9A124B4546D73D87");
+            entity.HasKey(e => e.TaiKhoanId).HasName("PK__TaiKhoan__9A124B45139A79F7");
 
             entity.ToTable("TaiKhoan");
 
-            entity.HasIndex(e => e.TenDangNhap, "UQ__TaiKhoan__55F68FC0311029C8").IsUnique();
+            entity.HasIndex(e => e.TenDangNhap, "UQ__TaiKhoan__55F68FC0296E9630").IsUnique();
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -642,9 +648,25 @@ public partial class FruitfulGiftsContext : DbContext
             entity.Property(e => e.VaiTro).HasMaxLength(20);
         });
 
+        modelBuilder.Entity<TrangThaiDonHang>(entity =>
+        {
+            entity.HasKey(e => e.MaTrangThai).HasName("PK__TrangTha__AADE41380F6AB751");
+
+            entity.ToTable("TrangThaiDonHang");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.MoTa).HasMaxLength(255);
+            entity.Property(e => e.TenTrangThai).HasMaxLength(100);
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<XuatXu>(entity =>
         {
-            entity.HasKey(e => e.MaXuatXu).HasName("PK__XuatXu__27BB6B19162C8BB5");
+            entity.HasKey(e => e.MaXuatXu).HasName("PK__XuatXu__27BB6B1957AEF87E");
 
             entity.ToTable("XuatXu");
 

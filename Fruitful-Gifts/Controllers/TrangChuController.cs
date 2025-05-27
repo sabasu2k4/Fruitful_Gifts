@@ -64,129 +64,129 @@ namespace Fruitful_Gifts.Controllers
             return View();
         }
 
-        //public IActionResult TimKiemSanPham(string? TenTimKiem, int? DanhMucId, decimal? GiaMin, decimal? GiaMax, string? SortOrder, int page = 1, int pageSize = 8)
-        //{
-        //    var userId = GetLoggedInKhachHangId();
-        //    bool trangThaiDangNhap = userId != null;
-        //    ViewBag.TrangThaiDangNhap = trangThaiDangNhap;
 
-        //    // Lấy dữ liệu sản phẩm kèm khuyến mãi
-        //    var query = from sp in _context.SanPhams
-        //                join km in _context.KhuyenMais on sp.MaSp equals km.MaSp into kmGroup
-        //                from km in kmGroup.DefaultIfEmpty()
-        //                where sp.TrangThai == 1
-        //                select new
-        //                {
-        //                    SanPham = sp,
-        //                    GiaSauKhiGiam = (km != null &&
-        //                                    km.NgayBatDau <= DateOnly.FromDateTime(DateTime.Now.Date) &&
-        //                                    km.NgayKetThuc >= DateOnly.FromDateTime(DateTime.Now.Date))
-        //                                    ? sp.Gia - km.MucGiamGia
-        //                                    : sp.Gia
-        //                };
+        public IActionResult TimKiemSanPham(string? TenTimKiem, int? DanhMucId, decimal? GiaMin, decimal? GiaMax, string? SortOrder, int page = 1, int pageSize = 6)
+        {
+            var userId = GetLoggedInKhachHangId();
+            bool trangThaiDangNhap = userId != null;
+            ViewBag.TrangThaiDangNhap = trangThaiDangNhap;
 
-        //    // Lọc theo tên sản phẩm
-        //    if (!string.IsNullOrEmpty(TenTimKiem))
-        //    {
-        //        var TenDaDuocMaHoa = MaHoaTenTimKiem(TenTimKiem.ToLower());
-        //        query = query
-        //            .AsEnumerable()
-        //            .Where(sp => MaHoaTenTimKiem(sp.SanPham.TenSp?.ToLower() ?? "").Contains(TenDaDuocMaHoa))
-        //            .Select(sp => new { sp.SanPham, sp.GiaSauKhiGiam })
-        //            .AsQueryable();
-        //    }
+            // Query cơ bản
+            var query = from sp in _context.SanPhams
+                        join km in _context.KhuyenMais on sp.MaSp equals km.MaSp into kmGroup
+                        from km in kmGroup.DefaultIfEmpty()
+                        where sp.TrangThai == 1
+                        select new
+                        {
+                            SanPham = sp,
+                            GiaSauKhiGiam = (km != null &&
+                                            km.NgayBatDau <= DateOnly.FromDateTime(DateTime.Now.Date) &&
+                                            km.NgayKetThuc >= DateOnly.FromDateTime(DateTime.Now.Date))
+                                            ? sp.GiaBan - km.MucGiamGia
+                                            : sp.GiaBan
+                        };
 
-        //    // Lọc theo danh mục
-        //    if (DanhMucId.HasValue && DanhMucId > 0)
-        //    {
-        //        query = query.Where(sp => sp.SanPham.MaLoai == DanhMucId);
-        //    }
+            // Lọc theo tên
+            if (!string.IsNullOrEmpty(TenTimKiem))
+            {
+                var TenDaDuocMaHoa = MaHoaTenTimKiem(TenTimKiem.ToLower());
+                query = query
+                    .AsEnumerable()
+                    .Where(sp => MaHoaTenTimKiem(sp.SanPham.TenSp?.ToLower() ?? "").Contains(TenDaDuocMaHoa))
+                    .Select(sp => new { sp.SanPham, sp.GiaSauKhiGiam })
+                    .AsQueryable();
+            }
 
-        //    // Lọc theo khoảng giá
-        //    if (GiaMin.HasValue)
-        //    {
-        //        query = query.Where(sp => sp.GiaSauKhiGiam >= GiaMin);
-        //    }
-        //    if (GiaMax.HasValue)
-        //    {
-        //        query = query.Where(sp => sp.GiaSauKhiGiam <= GiaMax);
-        //    }
+            // Lọc theo danh mục (dùng MaLoai từ DanhMucSanPham)
+            if (DanhMucId.HasValue && DanhMucId > 0)
+            {
+                query = query.Where(sp => sp.SanPham.MaLoai == DanhMucId);
+            }
 
-        //    // Sắp xếp
-        //    if (SortOrder == "asc")
-        //    {
-        //        query = query.OrderBy(sp => sp.GiaSauKhiGiam);
-        //    }
-        //    else if (SortOrder == "desc")
-        //    {
-        //        query = query.OrderByDescending(sp => sp.GiaSauKhiGiam);
-        //    }
-        //    else
-        //    {
-        //        query = query.OrderBy(sp => sp.SanPham.TenSp);
-        //    }
+            // Lọc theo khoảng giá
+            if (GiaMin.HasValue)
+            {
+                query = query.Where(sp => sp.GiaSauKhiGiam >= GiaMin);
+            }
+            if (GiaMax.HasValue)
+            {
+                query = query.Where(sp => sp.GiaSauKhiGiam <= GiaMax);
+            }
 
-        //    var sanPhamViewModels = query
-        //    .Select(sp => new SanPhamViewModel
-        //    {
-        //        SanPham = sp.SanPham,
-        //        GiaSauKhiGiam = sp.GiaSauKhiGiam ?? 0
-        //    })
-        //    .ToList() // ép về List để dùng ToPagedList
-        //    .ToPagedList(page, pageSize);
+            // Sắp xếp
+            if (SortOrder == "asc")
+            {
+                query = query.OrderBy(sp => sp.GiaSauKhiGiam);
+            }
+            else if (SortOrder == "desc")
+            {
+                query = query.OrderByDescending(sp => sp.GiaSauKhiGiam);
+            }
+            else
+            {
+                query = query.OrderBy(sp => sp.SanPham.TenSp);
+            }
 
-        //    ViewBag.DanhMuc = _context.DanhMucGioQuas.ToList();
-        //    ViewBag.CurrentSearchTerm = TenTimKiem;
-        //    ViewBag.CurrentCategory = DanhMucId;
-        //    ViewBag.CurrentPriceMin = GiaMin;
-        //    ViewBag.CurrentPriceMax = GiaMax;
-        //    ViewBag.CurrentSortOrder = SortOrder;
+            // Tạo danh sách view model
+            var sanPhamViewModels = query
+                .Select(sp => new SanPhamViewModel
+                {
+                    SanPham = sp.SanPham,
+                    GiaSauKhiGiam = sp.GiaSauKhiGiam ?? 0
+                })
+                .ToList()
+                .ToPagedList(page, pageSize);
 
-        //    ViewBag.SanPhamYeuThich = _context.SanPhamYeuThiches.ToList();
+            // Gán dữ liệu cho ViewBag
+            ViewBag.DanhMuc = _context.DanhMucSanPhams.ToList(); // <- đã sửa đúng
+            ViewBag.CurrentSearchTerm = TenTimKiem;
+            ViewBag.CurrentCategory = DanhMucId;
+            ViewBag.CurrentPriceMin = GiaMin;
+            ViewBag.CurrentPriceMax = GiaMax;
+            ViewBag.CurrentSortOrder = SortOrder;
+            ViewBag.SanPhamYeuThich = _context.SanPhamYeuThiches.ToList();
 
-        //    return View(sanPhamViewModels);
-        //}
+            return View(sanPhamViewModels);
+        }
 
-        //public static string MaHoaTenTimKiem(string text)
-        //{
-        //    if (string.IsNullOrWhiteSpace(text))
-        //        return text;
+        public static string MaHoaTenTimKiem(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return text;
 
-        //    var normalizedString = text.Normalize(NormalizationForm.FormD);
-        //    var stringBuilder = new System.Text.StringBuilder();
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new System.Text.StringBuilder();
 
-        //    foreach (var c in normalizedString)
-        //    {
-        //        var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-        //        if (unicodeCategory != UnicodeCategory.NonSpacingMark)
-        //        {
-        //            stringBuilder.Append(c);
-        //        }
-        //    }
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
 
-        //    return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        //}
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
 
         public int? GetLoggedInKhachHangId()
         {
-            var khachHangJson = HttpContext.Session.GetString("user");
+            // Lấy TaiKhoanId đã lưu khi đăng nhập
+            int? taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
 
-            if (string.IsNullOrEmpty(khachHangJson))
+            if (taiKhoanId == null)
             {
                 return null;
             }
 
-            var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson); //*
+            // Tìm KhachHang tương ứng với TaiKhoanId
+            var khachHang = _context.KhachHangs.FirstOrDefault(kh => kh.TaiKhoanId == taiKhoanId);
 
-            if (thongTinkhachHang != null)
+            if (khachHang != null)
             {
-                var customer = _context.KhachHangs.FirstOrDefault(kh => kh.MaKh == thongTinkhachHang.MaKh);
-
-                if (customer != null)
-                {
-                    return customer.MaKh;
-                }
+                return khachHang.MaKh;
             }
+
             return null;
         }
 

@@ -1,7 +1,6 @@
 ﻿using Fruitful_Gifts.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace Fruitful_Gifts.Controllers
 {
@@ -41,7 +40,7 @@ namespace Fruitful_Gifts.Controllers
         }
 
         [HttpPost]
-        public IActionResult ThemVaoGio(int? maSp, int? maGq)
+        public IActionResult ThemVaoGio(int? maSp, int? maGq, int soLuong = 1)
         {
             int? maKh = HttpContext.Session.GetInt32("MaKh");
 
@@ -50,17 +49,19 @@ namespace Fruitful_Gifts.Controllers
                 return Json(new { success = false, message = "Bạn cần đăng nhập để mua hàng." });
             }
 
+            if (soLuong <= 0)
+                soLuong = 1;
+
             ChiTietGioHang? gioHangItem = null;
 
             if (maSp != null)
             {
-                // THÊM SẢN PHẨM
                 gioHangItem = _context.ChiTietGioHangs
                     .FirstOrDefault(c => c.MaKh == maKh && c.MaSp == maSp && c.MaGq == null);
 
                 if (gioHangItem != null)
                 {
-                    gioHangItem.SoLuong = (gioHangItem.SoLuong ?? 0) + 1;
+                    gioHangItem.SoLuong = (gioHangItem.SoLuong ?? 0) + soLuong;
                 }
                 else
                 {
@@ -68,7 +69,7 @@ namespace Fruitful_Gifts.Controllers
                     {
                         MaKh = maKh.Value,
                         MaSp = maSp,
-                        SoLuong = 1,
+                        SoLuong = soLuong,
                         CreatedAt = DateTime.Now
                     };
                     _context.ChiTietGioHangs.Add(gioHangItem);
@@ -76,13 +77,12 @@ namespace Fruitful_Gifts.Controllers
             }
             else if (maGq != null)
             {
-                // THÊM GIỎ QUÀ
                 gioHangItem = _context.ChiTietGioHangs
                     .FirstOrDefault(c => c.MaKh == maKh && c.MaGq == maGq && c.MaSp == null);
 
                 if (gioHangItem != null)
                 {
-                    gioHangItem.SoLuong = (gioHangItem.SoLuong ?? 0) + 1;
+                    gioHangItem.SoLuong = (gioHangItem.SoLuong ?? 0) + soLuong;
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace Fruitful_Gifts.Controllers
                     {
                         MaKh = maKh.Value,
                         MaGq = maGq,
-                        SoLuong = 1,
+                        SoLuong = soLuong,
                         CreatedAt = DateTime.Now
                     };
                     _context.ChiTietGioHangs.Add(gioHangItem);
@@ -114,113 +114,50 @@ namespace Fruitful_Gifts.Controllers
             });
         }
 
-        //[HttpPost]
-        //public IActionResult ThemVaoGio(int gqsp)
-        //{
-        //    int? maKh = HttpContext.Session.GetInt32("MaKh");
-
-        //    if (maKh == null)
-        //    {
-        //        return Json(new { success = false, message = "Bạn cần đăng nhập để mua hàng." });
-        //    }
-
-        //    var gioHangItem = _context.ChiTietGioHangs
-        //        .FirstOrDefault(c => c.MaKh == maKh && c.MaSp == maSp);
-
-        //    if (gioHangItem != null)
-        //    {
-        //        gioHangItem.SoLuong = (gioHangItem.SoLuong ?? 0) + 1;
-        //    }
-        //    else
-        //    {
-        //        gioHangItem = new ChiTietGioHang
-        //        {
-        //            MaKh = (int)maKh,
-        //            MaSp = maSp,
-        //            SoLuong = 1,
-        //            CreatedAt = DateTime.Now
-        //        };
-        //        _context.ChiTietGioHangs.Add(gioHangItem);
-        //    }
-
-        //    _context.SaveChanges();
-
-        //    var tongSoLuong = _context.ChiTietGioHangs
-        //        .Where(c => c.MaKh == maKh)
-        //        .Sum(c => c.SoLuong);
-
-        //    return Json(new
-        //    {
-        //        success = true,
-        //        tongSoLuong = tongSoLuong
-        //    });
-        //}
-
-        //[HttpPost]
-        //public IActionResult CapNhatSoLuongAjax(int id, string type)
-        //{
-        //    int? maKh = HttpContext.Session.GetInt32("MaKh");
-        //    var sp = _context.ChiTietGioHangs
-        //        .Include(x => x.MaSpNavigation)
-        //        .FirstOrDefault(x => x.MaSp == id && x.MaKh == maKh);
-
-        //    if (sp != null)
-        //    {
-        //        if (type == "tang") sp.SoLuong += 1;
-        //        else if (type == "giam") sp.SoLuong = Math.Max(sp.SoLuong.Value - 1, 1);
-
-        //        _context.SaveChanges();
-
-        //        var tongTien = TinhTongTien(maKh);
-        //        var thanhTien = (sp.SoLuong ?? 0) * (sp.MaSpNavigation.GiaBan ?? 0);
-
-        //        var tongSoLuongGioHang = _context.ChiTietGioHangs
-        //        .Where(x => x.MaKh == maKh)
-        //        .Sum(x => x.SoLuong ?? 0);
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            soLuongMoi = sp.SoLuong,
-        //            tongTien = tongTien.ToString("N0") + "₫",
-        //            thanhTien = thanhTien.ToString("N0") + "₫",
-        //            tongSoLuongMoi = tongSoLuongGioHang
-        //        });
-        //    }
-
-        //    return Json(new { success = false });
-        //}
-
         [HttpPost]
-        public IActionResult CapNhatSoLuongAjax(int id, string type)
+        public IActionResult CapNhatSoLuongAjax(int id, string loai, string type)
         {
             int? maKh = HttpContext.Session.GetInt32("MaKh");
 
-            var gioQua = _context.ChiTietGioHangs
-                .Include(x => x.MaGqNavigation)
-                .FirstOrDefault(x => x.MaGq == id && x.MaKh == maKh);
+            ChiTietGioHang gioHang = null;
 
-            if (gioQua != null)
+            if (loai == "gq")
             {
-                if (type == "tang") gioQua.SoLuong += 1;
-                else if (type == "giam") gioQua.SoLuong = Math.Max(gioQua.SoLuong.Value - 1, 1);
+                gioHang = _context.ChiTietGioHangs
+                    .Include(x => x.MaGqNavigation)
+                    .FirstOrDefault(x => x.MaGq == id && x.MaKh == maKh);
+            }
+            else if (loai == "sp")
+            {
+                gioHang = _context.ChiTietGioHangs
+                    .Include(x => x.MaSpNavigation)
+                    .FirstOrDefault(x => x.MaSp == id && x.MaKh == maKh);
+            }
+
+            if (gioHang != null)
+            {
+                if (type == "tang") gioHang.SoLuong += 1;
+                else if (type == "giam") gioHang.SoLuong = Math.Max((gioHang.SoLuong ?? 1) - 1, 1);
 
                 _context.SaveChanges();
 
-                var tongTien = TinhTongTien(maKh); // Hàm tính tổng tiền của giỏ quà, bạn giữ nguyên hoặc sửa theo bảng dữ liệu mới
-                var thanhTien = (gioQua.SoLuong ?? 0) * gioQua.MaGqNavigation.GiaBan;
+                decimal gia = 0;
+                if (loai == "gq") gia = gioHang.MaGqNavigation?.GiaBan ?? 0;
+                else if (loai == "sp") gia = gioHang.MaSpNavigation?.GiaBan ?? 0;
 
-                var tongSoLuongGioHang = _context.ChiTietGioHangs
+                var thanhTien = (gioHang.SoLuong ?? 0) * gia;
+                var tongTien = TinhTongTien(maKh); // bạn tự định nghĩa
+                var tongSoLuong = _context.ChiTietGioHangs
                     .Where(x => x.MaKh == maKh)
                     .Sum(x => x.SoLuong ?? 0);
 
                 return Json(new
                 {
                     success = true,
-                    soLuongMoi = gioQua.SoLuong,
-                    tongTien = tongTien.ToString("N0") + "₫",
+                    soLuongMoi = gioHang.SoLuong,
                     thanhTien = thanhTien.ToString("N0") + "₫",
-                    tongSoLuongMoi = tongSoLuongGioHang
+                    tongTien = tongTien.ToString("N0") + "₫",
+                    tongSoLuongMoi = tongSoLuong
                 });
             }
 
@@ -265,7 +202,6 @@ namespace Fruitful_Gifts.Controllers
             return Json(new { success = true, soLuongBiTru = soLuongBiTru, tongTienMoi = tongTien });
         }
 
-
         [HttpPost]
         public IActionResult XoaTatCaGioHang()
         {
@@ -282,13 +218,6 @@ namespace Fruitful_Gifts.Controllers
 
             return Json(new { success = false, message = "Không có sản phẩm nào để xóa." });
         }
-
-        //private int TinhTongTien(int? maKh)
-        //{
-        //    return (int)_context.ChiTietGioHangs
-        //        .Where(x => x.MaKh == maKh)
-        //        .Sum(x => (x.SoLuong ?? 0) * (x.MaGqNavigation.GiaBan));
-        //}
 
         private decimal TinhTongTien(int? maKh)
         {
@@ -308,71 +237,5 @@ namespace Fruitful_Gifts.Controllers
             });
         }
 
-        //[HttpPost]
-        //public IActionResult ThemVaoGioHang(int maSP, int soLuong)
-        //{
-        //    var KH_JSON = HttpContext.Session.GetString("user");
-        //    if (string.IsNullOrEmpty(KH_JSON))
-        //    {
-        //        return StatusCode(401, new { success = false, message = "Bạn cần đăng nhập!" });
-        //    }
-
-        //    var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(KH_JSON);
-        //    if (thongTinkhachHang?.MaKh == null)
-        //    {
-        //        return BadRequest(new { success = false, message = "Không thể xác định khách hàng." });
-        //    }
-
-        //    var maKH = thongTinkhachHang.MaKh;
-
-        //   var sanPham = _context.SanPhams
-        //       .FirstOrDefault(sp => sp.MaSp == maSP && sp.TrangThai == 1);
-
-        //    if (sanPham == null)
-        //    {
-        //        return NotFound(new { success = false, message = "Sản phẩm không tồn tại hoặc đã bị ẩn." });
-        //    }
-
-        //    if (soLuong <= 0)
-        //    {
-        //        return BadRequest(new { success = false, message = "Số lượng không hợp lệ." });
-        //    }
-
-        //    if (soLuong > sanPham.SoLuong)
-        //    {
-        //        return BadRequest(new { success = false, message = "Sản phẩm không đủ tồn kho." });
-        //    }
-
-        //    var gioHangItem = _context.ChiTietGioHangs
-        //        .FirstOrDefault(x => x.MaKh == maKH && x.MaSp == maSP);
-
-        //    if (gioHangItem != null)
-        //    {
-        //        gioHangItem.SoLuong += soLuong;
-
-        //        if (gioHangItem.SoLuong > sanPham.SoLuong)
-        //        {
-        //            return BadRequest(new { success = false, message = "Tổng số lượng vượt tồn kho!" });
-        //        }
-
-        //        _context.ChiTietGioHangs.Update(gioHangItem);
-        //    }
-        //    else
-        //    {
-        //        var gioHangMoi = new ChiTietGioHang
-        //        {
-        //            MaKh = maKH,
-        //            MaSp = maSP,
-        //            SoLuong = soLuong,
-        //            CreatedAt = DateTime.Now
-        //        };
-
-        //        _context.ChiTietGioHangs.Add(gioHangMoi);
-        //    }
-
-        //    _context.SaveChanges();
-
-        //    return Ok(new { success = true, message = "Đã thêm vào giỏ hàng!" });
-        //}
     }
 }

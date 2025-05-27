@@ -135,9 +135,10 @@
                 <h4>Ý kiến khách hàng</h4>
                 @{
                     var binhLuans = ViewBag.BinhLuans as List<BinhLuan>;
-                    int currentPage = ViewBag.CurrentPage;
-                    int totalPages = ViewBag.TotalPages;
+                    int currentPage = ViewBag.CurrentPage ?? 1;
+                    int totalPages = ViewBag.TotalPages ?? 1;
                 }
+
 
                 @if (binhLuans != null && binhLuans.Any())
                 {
@@ -235,10 +236,12 @@
                 <input type="number" id="quantity" name="quantity" value="1" min="1" max="@ViewBag.SoLuongTonKho"
                        class="form-control form-control-sm text-center" style="width: 100px;"
                        placeholder="SL" />
-
-                <button class="btn btn-danger btn-sm d-flex align-items-center" onclick="ThemVaoGioHang(@Model.SanPham.MaSp)">
-                    <i class="bi bi-cart-plus-fill me-1"></i> Thêm
+                <!-- Nút thêm giỏ hàng -->
+                <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                        onclick="themVaoGio(@Model.SanPham.MaSp, null)">
+                    <i class="bi bi-cart-plus me-1"></i> Thêm
                 </button>
+
             </div>
 
 
@@ -289,8 +292,9 @@
     </div>
     @if (Model.SanPhamLienQuan != null && Model.SanPhamLienQuan.Any())
     {
-        <h3>Sản phẩm liên quan</h3>
-        <div class="related-products-grid">
+        <div class="related-products mt-5">
+            <h4>Sản phẩm liên quan</h4>
+            <div class="related-products-grid">
             @foreach (var sp in Model.SanPhamLienQuan)
             {
                 <div class="product-card">
@@ -301,6 +305,7 @@
                     </a>
                 </div>
             }
+            </div>
         </div>
     }
     else
@@ -371,14 +376,44 @@
                 }
             });
         }
-        function ThemVaoGioHang(maSp) {
-            const quantity = document.getElementById('quantity').value;
-            if (quantity < 1) {
-                alert('Vui lòng nhập số lượng hợp lệ!');
-                return;
-            }
-            // Gọi AJAX hoặc submit form để thêm vào giỏ hàng
-            alert(`Thêm ${quantity} sản phẩm (Mã SP: ${maSp}) vào giỏ hàng.`);
+
+        function themVaoGio(maSp = null, maGq = null) {
+            const soLuong = parseInt(document.getElementById('quantity')?.value || 1);
+
+            $.ajax({
+                url: '/GioHang/ThemVaoGio',
+                type: 'POST',
+                data: { maSp: maSp, maGq: maGq, soLuong: soLuong },
+                success: function (res) {
+                    if (res.success) {
+                        $('#soLuongGio').text(res.tongSoLuong);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: res.message,
+                            showConfirmButton: true
+                        }).then(() => {
+                            window.location.href = "/TaiKhoan/DangNhap";
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi khi thêm vào giỏ hàng!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            });
         }
+
     </script>
 }

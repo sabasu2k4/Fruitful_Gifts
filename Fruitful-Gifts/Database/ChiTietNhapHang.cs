@@ -11,7 +11,7 @@ public partial class ChiTietNhapHang
 
     public int? SoLuong { get; set; }
 
-    public decimal? DonGia { get; set; }
+    public decimal? GiaNhap { get; set; }
 
     public virtual NhapHang MaNhapNavigation { get; set; } = null!;
 

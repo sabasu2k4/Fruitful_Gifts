@@ -114,11 +114,8 @@
                         Bạn cần mua sản phẩm để có thể đánh giá.
                     </div>
                 }
-
-
             </div>
         </div>
-
         
         <div class="col-md-6">
             <h2>@Model.TenGioQua</h2>
@@ -163,7 +160,6 @@
                 </div>
             </div>
 
-
             <!-- Số lượng khách muốn mua -->
             <div class="mb-3">
                 <label for="quantity" class="form-label">Số lượng:</label>
@@ -172,10 +168,11 @@
                        class="form-control w-25 d-inline-block" />
             </div>
 
-            <button class="btn btn-outline-danger me-2" onclick="ThemVaoGioHang(@Model.MaGq)">
-                <i class="bi bi-cart-plus"></i> Thêm vào giỏ
+            <!-- Nút thêm giỏ hàng -->
+            <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                    onclick="themVaoGio(null, @Model.MaGq)">
+                <i class="bi bi-cart-plus me-1"></i> Thêm
             </button>
-
 
             <!-- Mô tả -->
             <div class="mt-4">
@@ -208,7 +205,6 @@
                         <th>Số lượng còn:</th>
                         <td><span id="currentQuantity">@ViewBag.SoLuongGioQua</span></td>
                     </tr>
-
 @*                     <tr>
                         <th>Ngày cập nhật:</th>
                         <td>@Model.UpdatedAt?.ToString("dd/MM/yyyy")</td>
@@ -252,7 +248,7 @@
             $.ajax({
                 url: '/GioQua/GetQuantity',
                 type: 'GET',
-                data: { MaGq: '@Model.MaGq' },
+                data: { slug: '@Model.Slug' },
                 success: function (data) {
                     // Cập nhật lại số lượng còn và số lượng tối đa trong input
                     $('#currentQuantity').text(data.soLuong);
@@ -298,45 +294,45 @@
             });
         }
 
-        // thêm giỏ hàng 
-        function ThemVaoGioHang(MaGq) {
-            const soLuong = parseInt(document.getElementById("quantity").value);
-
-            if (isNaN(soLuong) || soLuong <= 0) {
-                alert("Vui lòng nhập số lượng hợp lệ.");
-                return;
-            }
-
-            // Lưu URL hiện tại vào session trước khi chuyển hướng đến trang đăng nhập
-            sessionStorage.setItem("redirectUrl", window.location.href);
+        // thêm giỏ hàng
+        function themVaoGio(maSp = null, maGq = null) {
+            const soLuong = parseInt(document.getElementById('quantity')?.value || 1);
 
             $.ajax({
-                url: '/GioHang/ThemVaoGioHang',
+                url: '/GioHang/ThemVaoGio',
                 type: 'POST',
-                data: { MaGq: MaGq, soLuong: soLuong },
-                xhrFields: {
-                    withCredentials: true // ⭐ Cho phép gửi cookie kèm request
-                },
+                data: { maSp: maSp, maGq: maGq, soLuong: soLuong },
                 success: function (res) {
                     if (res.success) {
-                        alert(res.message || "Thêm vào giỏ hàng thành công!");
+                        $('#soLuongGio').text(res.tongSoLuong);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
                     } else {
-                        alert(res.message || "Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+                        Swal.fire({
+                            icon: 'warning',
+                            title: res.message,
+                            showConfirmButton: true
+                        }).then(() => {
+                            window.location.href = "/TaiKhoan/DangNhap";
+                        });
                     }
                 },
-                error: function (xhr) {
-                    if (xhr.status === 401) {
-                        alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                        window.location.href = "/TaiKhoan/DangNhap";
-                    } else if (xhr.responseJSON?.message) {
-                        alert(xhr.responseJSON.message);
-                    } else {
-                        alert("Lỗi không xác định.");
-                    }
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi khi thêm vào giỏ hàng!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 }
             });
-
         }
+
 
     </script>
 }

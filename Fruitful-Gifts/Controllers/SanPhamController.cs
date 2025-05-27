@@ -245,23 +245,25 @@ namespace Fruitful_Gifts.Controllers
 
         public int? GetLoggedInKhachHangId()
         {
-            // Lấy TaiKhoanId đã lưu khi đăng nhập
-            int? taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
+            // Kiểm tra session có tồn tại và đúng vai trò KhachHang không
+            var vaiTro = HttpContext.Session.GetString("VaiTro");
+            if (vaiTro != "KhachHang")
+            {
+                return null;
+            }
 
+            // Lấy TaiKhoanId từ session
+            int? taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
             if (taiKhoanId == null)
             {
                 return null;
             }
 
-            // Tìm KhachHang tương ứng với TaiKhoanId
-            var khachHang = _context.KhachHangs.FirstOrDefault(kh => kh.TaiKhoanId == taiKhoanId);
+            // Tìm khách hàng tương ứng, sử dụng Include nếu cần thông tin liên quan
+            var khachHang = _context.KhachHangs
+                .FirstOrDefault(kh => kh.TaiKhoanId == taiKhoanId);
 
-            if (khachHang != null)
-            {
-                return khachHang.MaKh;
-            }
-
-            return null;
+            return khachHang?.MaKh;
         }
 
         //

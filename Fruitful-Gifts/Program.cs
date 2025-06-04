@@ -18,6 +18,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FruitfulGiftsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Fruitful_Gifts")));
 
+// chat nhanh
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 app.UseSession();
@@ -38,7 +41,18 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    //defaults: new { area = "Admin" } // nhay vào trang admin khi chạy ct
+    );
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=TrangChu}/{action=Index}/{id?}");
+
+
+
+// chat nhanh
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

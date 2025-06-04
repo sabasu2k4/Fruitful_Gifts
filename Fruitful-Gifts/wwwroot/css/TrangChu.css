@@ -207,25 +207,34 @@
     overflow: hidden;
 }
 
+.card-container-tintuc {
+    position: relative;
+    display: inline-block;
+    min-width: 350px;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
     .card-container a:hover .product-image, .card-container-1 a:hover .product-image,
-    .category-image:hover {
+    .card-container-tintuc a:hover .product-image, .category-image:hover {
         transform: scale(1.1);
     }
 
-    .card-container-1:hover {
+    .card-container-1:hover{
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 15px 30px rgba(0, 0, 0, 0.4), 0 20px 50px rgba(0, 0, 0, 0.3);
         box-shadow: 0 10px 24px rgba(0, 0, 0, 1);
         background-color: #f8f9fa;
     }
-    /* ===== PROMOTION LABELS ===== */
-    .promotion-labels {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
+
+/* ===== PROMOTION LABELS ===== */
+.promotion-labels {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
     .promotion-labels .badge {
         font-size: 0.8rem;
@@ -286,13 +295,15 @@
 
 #product-hotdeal-scroll::-webkit-scrollbar, #product-dip-le-scroll::-webkit-scrollbar,
 #product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar, #product-thuong-mai-scroll::-webkit-scrollbar,
-#product-cac-san-pham-khac-scroll::-webkit-scrollbar {
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar, #dich-vu-cong-ty-scroll::-webkit-scrollbar,
+#list-bai-viet-scroll::-webkit-scrollbar {
     display: none;
 }
 
 #product-hotdeal-scroll::-webkit-scrollbar-thumb, #product-dip-le-scroll::-webkit-scrollbar-thumb,
 #product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar-thumb, #product-thuong-mai-scroll::-webkit-scrollbar-thumb,
-#product-cac-san-pham-khac-scroll::-webkit-scrollbar-thumb {
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar-thumb, #dich-vu-cong-ty-scroll::-webkit-scrollbar-thumb,
+#list-bai-viet-scroll::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 10px;
 }

@@ -104,31 +104,36 @@
             <img src="~/images/sanpham/@Model.SanPham.HinhAnh" alt="@Model.SanPham.TenSp" class="img-fluid" />
 
             <!-- Form đánh giá -->
-            @if (ViewBag.DonHangChuaDanhGia != null && ((List<int>)ViewBag.DonHangChuaDanhGia).Count > 0)
+            @if (Model.TrangThaiDangNhap && Model.DaMua)
             {
-                foreach (var maDh in (List<int>)ViewBag.DonHangChuaDanhGia)
+                var donHangChuaDanhGia = ViewBag.DonHangChuaDanhGia as List<int>;
+                if (donHangChuaDanhGia != null && donHangChuaDanhGia.Count > 0)
                 {
-                    <form method="post" action="/SanPham/BinhLuan" onsubmit="return validateRating(@maDh)" class="w-100 mt-4 p-3 border rounded shadow-sm bg-light">
-                        @Html.AntiForgeryToken()
-                        <h5>Đánh giá đơn hàng #@maDh</h5>
-                        <div class="mb-2">
-                            <label class="form-label">Số sao:</label>
-                            <div class="rating1 d-flex gap-1">
-                                @for (int i = 5; i >= 1; i--)
-                                {
-                                    <input type="radio" id="star-@maDh-@i" name="Rating" value="@i" />
-                                    <label for="star-@maDh-@i" class="star1" title="@i sao">★</label>
-                                }
+                    foreach (var maDh in donHangChuaDanhGia)
+                    {
+                        <form method="post" action="/SanPham/BinhLuan" onsubmit="return validateRating(@maDh)" class="w-100 mt-4 p-3 border rounded shadow-sm bg-light">
+                            @Html.AntiForgeryToken()
+                            <h5>Đánh giá đơn hàng #@maDh</h5>
+                            <div class="mb-2">
+                                <label class="form-label">Số sao:</label>
+                                <div class="rating1 d-flex gap-1">
+                                    @for (int i = 5; i >= 1; i--)
+                                    {
+                                        <input type="radio" id="star-@maDh-@i" name="Rating" value="@i" />
+                                        <label for="star-@maDh-@i" class="star1" title="@i sao">★</label>
+                                    }
+                                </div>
+                                <small id="rating-warning-@maDh" class="text-danger d-none">Vui lòng chọn số sao!</small>
                             </div>
-                            <small id="rating-warning-@maDh" class="text-danger d-none">Vui lòng chọn số sao!</small>
-                        </div>
-                        <textarea class="form-control" name="NoiDung" rows="3" placeholder="Nhập đánh giá..." required></textarea>
-                        <input type="hidden" name="MaSp" value="@Model.SanPham.MaSp" />
-                        <input type="hidden" name="MaDh" value="@maDh" />
-                        <button type="submit" class="btn btn-primary mt-3 w-100">Gửi đánh giá</button>
-                    </form>
+                            <textarea class="form-control" name="NoiDung" rows="3" placeholder="Nhập đánh giá..." required></textarea>
+                            <input type="hidden" name="MaSp" value="@Model.SanPham.MaSp" />
+                            <input type="hidden" name="MaDh" value="@maDh" />
+                            <button type="submit" class="btn btn-primary mt-3 w-100">Gửi đánh giá</button>
+                        </form>
+                    }
                 }
             }
+
 
             <!-- Bình luận khách hàng -->
             <section class="customer-comments w-100 mt-5">
@@ -232,11 +237,11 @@
                 </div>
             </div>
 
+
             <div class="d-flex align-items-center gap-2 mb-3">
                 <input type="number" id="quantity" name="quantity" value="1" min="1" max="@ViewBag.SoLuongTonKho"
                        class="form-control form-control-sm text-center" style="width: 100px;"
                        placeholder="SL" />
-                <!-- Nút thêm giỏ hàng -->
                 <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
                         onclick="themVaoGio(@Model.SanPham.MaSp, null)">
                     <i class="bi bi-cart-plus me-1"></i> Thêm
@@ -349,15 +354,17 @@
             var toast = new bootstrap.Toast(toastEl, { delay: 5000 }); // 5 giây
             toast.show();
         }
-
-        function addToWishlist(maSp) {
+        function addToWishlist(maId, loai) {
             $.ajax({
                 url: '@Url.Action("ThemSanPhamYeuThich", "SanPham")',
                 type: 'POST',
-                data: { productId: maSp },
+                data: {
+                    productId: maId,
+                    loai: loai // "sanpham" hoặc "gioqua"
+                },
                 success: function (response) {
                     if (response.success) {
-                        var btn = $('#wishlist-btn-' + maSp);
+                        var btn = $('#wishlist-btn-' + maId);
                         if (response.isAdded) {
                             btn.removeClass('btn-outline-danger').addClass('btn-danger');
                             btn.find('i').removeClass('bi-heart').addClass('bi-heart-fill');
@@ -365,7 +372,8 @@
                             btn.removeClass('btn-danger').addClass('btn-outline-danger');
                             btn.find('i').removeClass('bi-heart-fill').addClass('bi-heart');
                         }
-                        $('#like-count-' + maSp).text(response.newLikeCount);
+
+                        $('#like-count-' + maId).text(response.newLikeCount);
                         showToast(response.message, "success");
                     } else {
                         showToast(response.message, "danger");
@@ -376,6 +384,8 @@
                 }
             });
         }
+
+
 
         function themVaoGio(maSp = null, maGq = null) {
             const soLuong = parseInt(document.getElementById('quantity')?.value || 1);

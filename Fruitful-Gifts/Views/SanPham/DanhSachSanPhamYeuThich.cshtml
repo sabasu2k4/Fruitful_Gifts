@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fruitful_Gifts.Database.SanPham>
+﻿@model IEnumerable<dynamic>
 @* @using X.PagedList.Mvc.Core
 @using X.PagedList *@
 
@@ -29,29 +29,36 @@
                 {
                     @foreach (var item in Model)
                     {
+                        string loai = item.GetType().Name.ToLower(); // "SanPham" hoặc "GioQua"
+                        string ten = loai == "sanpham" ? item.TenSp : item.TenGioQua;
+                        string hinh = item.HinhAnh;
+                        string slug = loai == "sanpham" ? item.Slug : item.Slug;
+                        int id = loai == "sanpham" ? item.MaSp : item.MaGq;
+
+                        string anh = loai == "sanpham" ? "~/images/sanpham/" + hinh : "~/images/gioqua/" + hinh;
+                        string chiTietAction = loai == "sanpham" ? "ChiTietSanPham" : "ChiTietGioQua";
+                        string chiTietController = loai == "sanpham" ? "SanPham" : "GioQua";
+
                         <div class="col-md-4 mb-4">
                             <div class="card">
-                                <img src="~/images/sanpham/@item.HinhAnh" alt="@item.TenSp" class="card-img-top" />
+                                <img src="@Url.Content(anh)" alt="@ten" class="card-img-top" />
                                 <div class="card-body">
-                                    <h5 class="card-title">@item.TenSp</h5>
-                                    <!-- Nếu muốn hiển thị tên khách hàng thì cần lấy từ đâu? Trong controller chưa có -->
-                                    <!-- Nếu không thì bỏ phần Khách hàng đi hoặc lấy từ session -->
-
+                                    <h5 class="card-title">@ten</h5>
                                     <div class="action-buttons d-flex align-items-center">
-                                        <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = item.Slug })" class="btn btn-info btn-sm me-2">
+                                        <a href="@Url.Action(chiTietAction, chiTietController, new { slug = slug })" class="btn btn-info btn-sm me-2">
                                             <i class="fa fa-eye"></i> Xem Chi Tiết
                                         </a>
 
-                                        <button type="button" class="btn btn-danger btn-sm remove-fav-btn" data-id="@item.MaSp">
+                                        <button type="button" class="btn btn-danger btn-sm remove-fav-btn"
+                                                data-id="@id" data-loai="@loai">
                                             <i class="fa fa-trash"></i> Xóa
                                         </button>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     }
+
                 }
                 else
                 {
@@ -97,16 +104,15 @@
             toastEl.className = "toast align-items-center text-white bg-" + type + " border-0";
             toastBody.textContent = message;
 
-            var toast = new bootstrap.Toast(toastEl, { delay: 5000 }); // 5 giây tự tắt
+            var toast = new bootstrap.Toast(toastEl, { delay: 5000 });
             toast.show();
         }
 
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".remove-fav-btn").forEach(button => {
                 button.addEventListener("click", function () {
-                    const productId = this.getAttribute("data-id");
-
-                    // if (!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi danh sách yêu thích?")) return;
+                    const id = parseInt(this.getAttribute("data-id"));
+                    const loai = this.getAttribute("data-loai");
 
                     const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
@@ -116,14 +122,13 @@
                             'Content-Type': 'application/json',
                             'RequestVerificationToken': token
                         },
-                        body: JSON.stringify({ maSp: parseInt(productId) })
+                        body: JSON.stringify({ id: id, loai: loai })
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
                                 showToast(data.message, "success");
                                 this.closest(".col-md-4").remove();
-                                // location.reload();
                             } else {
                                 showToast(data.message, "danger");
                             }
@@ -135,5 +140,6 @@
             });
         });
     </script>
+
 }
 

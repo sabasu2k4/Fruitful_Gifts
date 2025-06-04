@@ -1,0 +1,101 @@
+﻿@model Fruitful_Gifts.Database.SanPham
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm sản phẩm mới</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form asp-action="ThemSanPham" asp-controller="QuanLySanPham" asp-area="Admin" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>Tên sản phẩm</label>
+        <input name="TenSp" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Danh mục</label>
+        <select name="MaLoai" class="form-select">
+            <option value="">-- Chọn danh mục --</option>
+            @foreach (var item in ViewBag.DanhMucList)
+            {
+                <option value="@item.MaLoai">@item.TenLoai</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Nhà cung cấp</label>
+        <select name="MaNcc" class="form-select">
+            <option value="">-- Chọn NCC --</option>
+            @foreach (var item in ViewBag.NccList)
+            {
+                <option value="@item.MaNcc">@item.TenNcc</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Xuất xứ</label>
+        <select name="MaXuatXu" class="form-select">
+            <option value="">-- Chọn xuất xứ --</option>
+            @foreach (var item in ViewBag.XuatXuList)
+            {
+                <option value="@item.MaXuatXu">@item.TenNuoc</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Chất liệu</label>
+        <select name="MaChatLieu" class="form-select">
+            <option value="">-- Chọn chất liệu --</option>
+            @foreach (var item in ViewBag.ChatLieuList)
+            {
+                <option value="@item.MaChatLieu">@item.TenChatLieu</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Đơn vị tính</label>
+        <select name="MaDvt" class="form-select">
+            <option value="">-- Chọn đơn vị --</option>
+            @foreach (var item in ViewBag.DonViTinhList)
+            {
+                <option value="@item.MaDvt">@item.TenDvt</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Giá bán</label>
+        <input name="GiaBan" class="form-control" type="number" />
+    </div>
+
+    <div class="mb-3">
+        <label>Mô tả</label>
+        <textarea name="MoTa" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Trạng thái</label>
+        <select name="TrangThai" class="form-select">
+            <option value="1">Đang kinh doanh</option>
+            <option value="0">Ngừng kinh doanh</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Hình ảnh</label>
+        <input type="file" name="HinhAnhUpload" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm</button>
+    <a asp-action="DanhSachSanPham" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,69 @@
+﻿@model Fruitful_Gifts.Models.Vnpay.PaymentInformationModel
+@{
+    ViewData["Title"] = "Xác nhận thanh toán";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Xác nhận thông tin thanh toán</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Checkout" asp-controller="Payment" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Họ tên:</label>
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email:</label>
+                    <input asp-for="Email" class="form-control" readonly />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Sdt" class="form-label">Số điện thoại:</label>
+                    <input asp-for="Sdt" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DiaChi" class="form-label">Địa chỉ:</label>
+                    <input asp-for="DiaChi" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Amount" class="form-label">Số tiền:</label>
+                    <input asp-for="Amount" class="form-control" readonly />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="OrderDescription" class="form-label">Ghi chú đơn hàng (tuỳ chọn):</label>
+                    <input asp-for="OrderDescription" class="form-control" placeholder="Nhập ghi chú nếu có..." />
+                    <span asp-validation-for="OrderDescription" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderType" class="form-label">Loại đơn:</label>
+                    <input asp-for="OrderType" class="form-control" readonly />
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Phương thức thanh toán:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="PaymentMethod" value="cash" id="payCash" checked>
+                        <label class="form-check-label" for="payCash">Thanh toán khi nhận hàng (Tiền mặt)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="PaymentMethod" value="vnpay" id="payVnpay">
+                        <label class="form-check-label" for="payVnpay">Thanh toán qua thẻ (VNPay)</label>
+                    </div>
+                  @*   <div class="form-check">
+                        <input class="form-check-input" type="radio" name="PaymentMethod" value="vnpay" id="payVnpay">
+                        <label class="form-check-label" for="payVnpay">Thanh toán qua ví điện tử</label>
+                    </div> *@
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Xác nhận và thanh toán</button>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
       <PrivateAssets>all</PrivateAssets>
@@ -40,12 +41,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Database\" />
+    <None Include="Views\Shared\PartialsViews\_SlidebarProfile.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Shared\PartialsViews\_SlidebarProfile.cshtml" />
+    <Content Update="Areas\Admin\Views\QuanLySanPham\DanhSachGioQua.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

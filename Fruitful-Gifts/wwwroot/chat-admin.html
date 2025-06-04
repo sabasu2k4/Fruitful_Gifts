@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #main {
+            display: flex;
+            max-width: 900px;
+            margin: auto;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        #userList {
+            width: 30%;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+            .user-item:hover {
+                background-color: #f9f9f9;
+            }
+
+        #chatPanel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        #chatBox {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .admin {
+            text-align: right;
+            color: #1d3557;
+        }
+
+        .client {
+            color: #e63946;
+        }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        #inputArea {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            font-size: 1em;
+        }
+
+        #sendButton {
+            padding: 10px 20px;
+            border: none;
+            background: #457b9d;
+            color: white;
+            cursor: pointer;
+        }
+
+            #sendButton:hover {
+                background: #1d3557;
+            }
+
+        h3 {
+            margin-top: 0;
+            padding: 10px;
+            background: #457b9d;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main">
+        <div id="userList"></div>
+
+        <div id="chatPanel">
+            <h3>Admin Chat</h3>
+            <div id="chatBox"></div>
+            <div id="inputArea">
+                <input id="messageInput" placeholder="Nhập tin nhắn..." />
+                <button id="sendButton" onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chathub?role=admin")
+            .build();
+
+        const userListEl = document.getElementById("userList");
+        const chatBox = document.getElementById("chatBox");
+
+        let selectedClientId = null;
+        const conversations = {}; // { clientId: [{ sender, message, time }] }
+
+        connection.on("ReceiveFromClient", function (clientId, message) {
+            const time = new Date().toLocaleTimeString();
+
+            if (!conversations[clientId]) {
+                conversations[clientId] = [];
+                const userItem = document.createElement("div");
+                userItem.className = "user-item";
+                userItem.id = "user-" + clientId;
+                userItem.onclick = () => showConversation(clientId);
+                userItem.innerHTML = `<b>${clientId}</b><br><span class="preview">${message}</span>`;
+                userListEl.appendChild(userItem);
+            } else {
+                document.querySelector("#user-" + clientId + " .preview").innerText = message;
+            }
+
+            conversations[clientId].push({ sender: "client", message, time });
+
+            if (clientId === selectedClientId) {
+                appendMessage("client", message, time);
+            }
+            updateDropdownMessages();
+        });
+
+        connection.start().then(function () {
+            console.log("Connected as admin");
+        });
+
+        function sendMessage() {
+            const msg = document.getElementById("messageInput").value.trim();
+            if (!msg || !selectedClientId) return;
+
+            const time = new Date().toLocaleTimeString();
+            connection.invoke("SendFromAdminOrStaff", selectedClientId, msg);
+            conversations[selectedClientId].push({ sender: "admin", message: msg, time });
+            appendMessage("admin", msg, time);
+            document.getElementById("messageInput").value = "";
+        }
+
+        function showConversation(clientId) {
+            selectedClientId = clientId;
+            chatBox.innerHTML = "";
+            const conv = conversations[clientId] || [];
+            for (const msg of conv) {
+                appendMessage(msg.sender, msg.message, msg.time);
+            }
+        }
+
+        function appendMessage(sender, message, time) {
+            const div = document.createElement("div");
+            div.className = "message " + sender;
+            const label = sender === "admin" ? "Bạn" : "Khách";
+            div.innerHTML = `<strong>${label}:</strong> ${message}<br><span class="timestamp">${time}</span>`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>

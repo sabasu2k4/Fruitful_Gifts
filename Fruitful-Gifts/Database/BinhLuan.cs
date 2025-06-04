@@ -25,6 +25,10 @@ public partial class BinhLuan
 
     public DateTime? UpdatedAt { get; set; }
 
+    public int? MaDh { get; set; }
+
+    public virtual DonHang? MaDhNavigation { get; set; }
+
     public virtual GioQua? MaGqNavigation { get; set; }
 
     public virtual KhachHang MaKhNavigation { get; set; } = null!;

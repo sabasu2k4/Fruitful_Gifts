@@ -1,0 +1,19 @@
+﻿@model Fruitful_Gifts.Models.Vnpay.PaymentResponseModel
+
+<div class="container py-5 text-center">
+    <h2 class="text-success">🎉 Thanh toán thành công!</h2>
+    <p>Cảm ơn bạn đã sử dụng dịch vụ VNPay.</p>
+
+    <p><strong>Mã giao dịch:</strong> @Model.TransactionId</p>
+
+   @*  @if (!string.IsNullOrEmpty(Model.OrderDescription))
+    {
+        <p><strong>Mô tả đơn hàng:</strong> @Model.OrderDescription</p>
+    }
+ *@
+    <p><strong>Mã đơn hàng:</strong> @Model.OrderId</p>
+    <p><strong>Số tiền:</strong> @Model.Amount.ToString("N0") VNĐ</p>
+
+    <a class="btn btn-primary mt-3 me-2" href="/">Quay lại trang chủ</a>
+   
+</div>

@@ -1,4 +1,4 @@
-﻿@* @{
+﻿@{
     ViewData["Title"] = "Liên Hệ";
 }
 
@@ -23,20 +23,21 @@
 
                     <form asp-action="Index" method="post">
                         @Html.AntiForgeryToken()
-
                         <div class="mb-3">
                             <label for="HO_TEN" class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="HO_TEN" name="HO_TEN" required placeholder="Nhập họ và tên của bạn" />
+                            <input type="text" class="form-control" id="HO_TEN" name="HO_TEN" required placeholder="Nhập họ và tên của bạn"
+                                   value="@ViewBag.HoTen" />
                         </div>
 
                         <div class="mb-3">
                             <label for="EMAIL" class="form-label">Email</label>
                             <input type="email" name="EMAIL" class="form-control"
-                                   value="@Model?.Email"
+                                   value="@ViewBag.Email"
                             @Html.Raw(@"pattern=""^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$""")
                                    title="Email không hợp lệ" required />
-
                         </div>
+                   
+
 
                         <div class="mb-3">
                             <label for="SDT" class="form-label">Số điện thoại</label>
@@ -74,4 +75,3 @@
         });
     </script>
 }
- *@

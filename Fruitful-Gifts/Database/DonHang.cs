@@ -35,6 +35,10 @@ public partial class DonHang
 
     public DateTime? UpdatedAt { get; set; }
 
+    public string? HinhThucMua { get; set; }
+
+    public virtual ICollection<BinhLuan> BinhLuans { get; set; } = new List<BinhLuan>();
+
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
 
     public virtual KhachHang? MaKhNavigation { get; set; }
@@ -42,6 +46,8 @@ public partial class DonHang
     public virtual NhanVien? MaNvNavigation { get; set; }
 
     public virtual PhuongThucThanhToan? MaPtNavigation { get; set; }
+
+    public virtual ICollection<ThanhToan> ThanhToans { get; set; } = new List<ThanhToan>();
 
     public virtual TrangThaiDonHang? TrangThaiNavigation { get; set; }
 }

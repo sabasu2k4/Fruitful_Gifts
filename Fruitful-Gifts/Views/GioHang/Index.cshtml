@@ -136,7 +136,10 @@
                             </div>
                         </dl>
 
-                        <a href="/thanh-toan" class="btn-dangnhap w-100 text-center" title="Nhấn để thanh toán">Thanh Toán</a>
+                        <form method="get" asp-controller="Payment" asp-action="Checkout">
+                            <input type="hidden" name="Amount" value="@tongTien" />
+                            <button type="submit" class="btn-dangnhap w-100 text-center">Thanh Toán</button>
+                        </form>
                     </div>
                 </div>
             }

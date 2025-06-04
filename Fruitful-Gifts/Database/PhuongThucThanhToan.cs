@@ -14,4 +14,6 @@ public partial class PhuongThucThanhToan
     public DateTime? UpdatedAt { get; set; }
 
     public virtual ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
+
+    public virtual ICollection<ThanhToan> ThanhToans { get; set; } = new List<ThanhToan>();
 }

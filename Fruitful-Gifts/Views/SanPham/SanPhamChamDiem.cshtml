@@ -4,6 +4,9 @@
     ViewData["Title"] = "Danh Sách Sản Phẩm Chấm Điểm";
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+
+    var binhLuanSanPham = Model.Where(x => x.MaSpNavigation != null).ToList();
+    var binhLuanGioQua = Model.Where(x => x.MaGqNavigation != null).ToList();
 }
 
 @section CSS
@@ -30,6 +33,7 @@
 
         <!-- Main content -->
         <div class="col-md-9">
+
             <!-- Thông báo -->
             @if (TempData["SuccessMessage"] != null)
             {
@@ -53,10 +57,12 @@
                 </div>
             }
 
+            <!-- Phần Sản phẩm -->
+            <h3>Sản Phẩm Được Đánh Giá</h3>
             <div class="row">
-                @if (Model != null && Model.Any())
+                @if (binhLuanSanPham.Any())
                 {
-                    foreach (var item in Model)
+                    foreach (var item in binhLuanSanPham)
                     {
                         <div class="col-md-4 mb-4">
                             <div class="card">
@@ -86,6 +92,47 @@
                 {
                     <div class="col-12 text-center">
                         <p class="text-muted">Không có sản phẩm nào được đánh giá.</p>
+                    </div>
+                }
+            </div>
+
+            <hr />
+
+            <!-- Phần Giỏ quà -->
+            <h3>Giỏ Quà Được Đánh Giá</h3>
+            <div class="row">
+                @if (binhLuanGioQua.Any())
+                {
+                    foreach (var item in binhLuanGioQua)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="~/images/gioqua/@item.MaGqNavigation.HinhAnh" alt="@item.MaGqNavigation?.TenGioQua"
+                                     class="img-fluid border rounded shadow-sm" style="max-height: 200px; object-fit: contain;" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.MaGqNavigation?.TenGioQua</h5>
+                                    <p class="card-text">
+                                        <strong>Điểm:</strong> @item.SoSao <i class="fa fa-star text-warning"></i><br />
+                                        <strong>Nội dung:</strong> @item.NoiDung<br />
+                                        <strong>Ngày:</strong> @item.NgayBinhLuan?.ToString("dd/MM/yyyy")
+                                    </p>
+                                    <div class="action-buttons">
+                                        <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = item.MaGqNavigation.Slug })" class="btn btn-info btn-sm me-2">
+                                            <i class="fa fa-eye"></i> Xem Chi Tiết
+                                        </a>
+                                        <a href="@Url.Action("SuaChamDiemGioQua", "GioQua", new { khachHangId = item.MaKh, gioQuaId = item.MaGq })" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-edit"></i> Chỉnh Sửa
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Không có giỏ quà nào được đánh giá.</p>
                     </div>
                 }
             </div>

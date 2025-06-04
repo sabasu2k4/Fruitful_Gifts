@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fruitful_Gifts.Database;
 
@@ -26,4 +27,8 @@ public partial class DanhMucGioQua
     public virtual ICollection<GioQua> GioQuas { get; set; } = new List<GioQua>();
 
     public virtual ICollection<DanhMucGioQua> InverseDanhMucCha { get; set; } = new List<DanhMucGioQua>();
+
+    // Dùng để nhận file ảnh upload, không lưu vào DB
+    [NotMapped]
+    public IFormFile? ImageUpload { get; set; }
 }

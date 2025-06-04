@@ -1,136 +1,157 @@
-﻿//using Fruitful_Gifts.Database;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
-//using System.Diagnostics;
-//using System.Text.Json;
+﻿using Fruitful_Gifts.Database;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.Text.Json;
+using Microsoft.Extensions.Logging;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
+namespace Fruitful_Gifts.Controllers
+{
+    public class KhachHangController : Controller
+    {
+        private readonly FruitfulGiftsContext _context;
+        private readonly ILogger<KhachHangController> _logger;
+        public KhachHangController(FruitfulGiftsContext context, ILogger<KhachHangController> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-//namespace Fruitful_Gifts.Controllers
-//{
-//    public class KhachHangController : Controller
-//    {
-//        private readonly FruitfulGiftsContext _context;
-//        public KhachHangController(FruitfulGiftsContext context)
-//        {
-//            _context = context;
-//        }
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
-//        //Thông tin tài khoản khách hàng
-//        public IActionResult Profile()
-//        {
-//            var khachHangJson = HttpContext.Session.GetString("user");
+        public IActionResult Profile()
+        {
+            var taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
 
-//            if (string.IsNullOrEmpty(khachHangJson))
-//            {
-//                return RedirectToAction("Index", "TrangChu");
-//            }
+            if (taiKhoanId == null)
+            {
+                return RedirectToAction("Index", "TrangChu");
+            }
 
-//            var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson);
+            var khachHang = _context.KhachHangs.FirstOrDefault(kh => kh.TaiKhoanId == taiKhoanId);
 
-//            if (thongTinkhachHang != null)
-//            {
-//                var customer = _context.KhachHangs.FirstOrDefault(c => c.MaKh == thongTinkhachHang.MaKh);
-//                Debug.WriteLine("========: " + customer);
+            if (khachHang != null)
+            {
+                return View(khachHang);
+            }
 
-//                if (customer != null)
-//                {
-//                    return View(customer);
-//                }
-//            }
+            return View();
+        }
 
-//            return View();
-//        }
+        public IActionResult EditProfile()
+        {
+            var khachHangJson = HttpContext.Session.GetString("user");
 
+            if (string.IsNullOrEmpty(khachHangJson))
+            {
+                return RedirectToAction("Index", "TrangChu");
+            }
 
-//        // Sửa thông tin tài khoản 
+            var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson);
 
-//        public IActionResult EditProfile()
-//        {
-//            var khachHangJson = HttpContext.Session.GetString("user");
+            if (thongTinkhachHang != null)
+            {
+                var customer = _context.KhachHangs.FirstOrDefault(c => c.MaKh == thongTinkhachHang.MaKh);
 
-//            if (string.IsNullOrEmpty(khachHangJson))
-//            {
-//                return RedirectToAction("Index", "TrangChu");
-//            }
-
-//            var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson);
-
-//            if (thongTinkhachHang != null)
-//            {
-//                var customer = _context.KhachHangs.FirstOrDefault(c => c.MaKh == thongTinkhachHang.MaKh);
-
-//                if (customer != null)
-//                {
-//                    return View(customer);
-//                }
-//            }
+                if (customer != null)
+                {
+                    return View(customer);
+                }
+            }
 
 
-//            return View();
-//        }
-
-//        // Sửa thông tin tài khoản 
-
-//        [HttpPost]
-//        public IActionResult EditProfile(string hoKH, string tenKH, string gioiTinh, string email, string sdt, string diaChi)
-//        {
-//            try
-//            {
-//                var khachHangJson = HttpContext.Session.GetString("user");
-
-//                if (string.IsNullOrEmpty(khachHangJson))
-//                {
-//                    TempData["ErrorMessage"] = "Vui lòng đăng nhập lại.";
-//                    return RedirectToAction("Index", "TrangChu");
-//                }
-
-//                var thongTinkhachHang = JsonSerializer.Deserialize<KhachHang>(khachHangJson);
-
-//                if (thongTinkhachHang != null)
-//                {
-//                    var customer = _context.KhachHangs.FirstOrDefault(c => c.MaKh == thongTinkhachHang.MaKh);
-
-//                    if (customer != null)
-//                    {
-//                        // Kiểm tra email đã tồn tại
-//                        var existingAccount = _context.KhachHangs.FirstOrDefault(kh => kh.Email == email && kh.MaKh != thongTinkhachHang.MaKh);
-//                        if (existingAccount != null)
-//                        {
-//                            TempData["ErrorMessage"] = "Email đã tồn tại.";
-//                            return RedirectToAction("EditProfile");
-//                        }
-
-//                        // Cập nhật thông tin
-//                        customer.HoKh = hoKH;
-//                        customer.TenKh = tenKH;
-//                        customer.GioiTinh = gioiTinh;
-//                        customer.Email = email;
-//                        customer.Sdt = sdt;
-//                        customer.DiaChi = diaChi;
-
-//                        _context.KhachHangs.Update(customer);
-//                        _context.SaveChanges();
-
-//                        // Lưu thông tin mới vào Session
-//                        HttpContext.Session.SetString("user", JsonSerializer.Serialize(customer));
-
-//                        TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
-//                        return RedirectToAction("Profile");
-//                    }
-//                }
-
-//                TempData["ErrorMessage"] = "Không tìm thấy thông tin khách hàng.";
-//                return RedirectToAction("EditProfile");
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["ErrorMessage"] = "Có lỗi xảy ra: " + ex.Message;
-//                return RedirectToAction("EditProfile");
-//            }
-//        }
+            return View();
+        }
 
 
-//    }
-//}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProfile([Bind("HoKH,TenKH,gioiTinh,Email,SDT,DiaChi")] KhachHangEditModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Vui lòng kiểm tra lại thông tin nhập vào.";
+                return RedirectToAction(nameof(Profile));
+            }
+
+            try
+            {
+                // ✅ Lấy MaKh (id khách hàng) từ session đã set khi đăng nhập
+                int? taiKhoanId = HttpContext.Session.GetInt32("TaiKhoanId");
+                if (taiKhoanId == null)
+                {
+                    TempData["ErrorMessage"] = "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
+                    return RedirectToAction("DangNhap", "TaiKhoan");
+                }
+
+                // ✅ Tìm mã khách hàng từ bảng TaiKhoan
+                var taiKhoan = _context.TaiKhoans
+                    .Include(tk => tk.KhachHang)
+                    .FirstOrDefault(tk => tk.TaiKhoanId == taiKhoanId);
+
+                if (taiKhoan?.KhachHang == null)
+                {
+                    TempData["ErrorMessage"] = "Không tìm thấy thông tin khách hàng.";
+                    return RedirectToAction(nameof(Profile));
+                }
+
+                var customer = taiKhoan.KhachHang;
+
+                // Kiểm tra email đã tồn tại chưa
+                if (_context.KhachHangs.Any(kh => kh.Email == model.Email && kh.MaKh != customer.MaKh))
+                {
+                    TempData["ErrorMessage"] = "Email này đã được sử dụng bởi tài khoản khác.";
+                    return RedirectToAction(nameof(Profile));
+                }
+
+                // Cập nhật thông tin
+                customer.HoKh = model.HoKH;
+                customer.TenKh = model.TenKH;
+                customer.GioiTinh = model.gioiTinh;
+                customer.Email = model.Email;
+                customer.Sdt = model.SDT;
+                customer.DiaChi = model.DiaChi;
+
+                _context.Update(customer);
+                _context.SaveChanges();
+
+                // ✅ Không cần dùng Session.SetString("user") nữa
+                TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
+                return RedirectToAction(nameof(Profile));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi cập nhật thông tin khách hàng");
+                TempData["ErrorMessage"] = "Đã xảy ra lỗi khi cập nhật thông tin. Vui lòng thử lại.";
+                return RedirectToAction(nameof(Profile));
+            }
+        }
+
+        // Model mới để binding
+        public class KhachHangEditModel
+        {
+            [Required(ErrorMessage = "Họ không được để trống")]
+            public string HoKH { get; set; }
+
+            [Required(ErrorMessage = "Tên không được để trống")]
+            public string TenKH { get; set; }
+
+            [Required(ErrorMessage = "Giới tính không được để trống")]
+            public string gioiTinh { get; set; }
+
+            [Required(ErrorMessage = "Email không được để trống")]
+            [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+            public string Email { get; set; }
+
+            [Required(ErrorMessage = "Số điện thoại không được để trống")]
+            [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải có 10 chữ số")]
+            public string SDT { get; set; }
+
+            public string DiaChi { get; set; }
+        }
+
+    }
+}

@@ -54,99 +54,136 @@ namespace Fruitful_Gifts.Controllers
                 .Where(dm => dm.DanhMucChaId != null)
                 .ToList();
 
+            var dichVuCongTyList = _context.DichVuCongTies
+            .Where(dv => dv.TrangThai == 1)
+            .OrderByDescending(dv => dv.CreatedAt)
+            .ToList();
+
             ViewBag.SanPham = san_pham_hotdeal;
             ViewBag.SanPham1 = qua_dip_le;
             ViewBag.SanPham2 = qua_gia_dinh_ca_nha;
             ViewBag.SanPham3 = qua_thuong_mai;
             ViewBag.SanPham4 = san_pham_khac;
             ViewBag.DanhMuc = danhMucCons;
+            ViewBag.DichVuCongTy = dichVuCongTyList;
 
             return View();
         }
 
-
-        public IActionResult TimKiemSanPham(string? TenTimKiem, int? DanhMucId, decimal? GiaMin, decimal? GiaMax, string? SortOrder, int page = 1, int pageSize = 6)
+        public IActionResult TimKiem(string? TuKhoa, int? DanhMucId, decimal? GiaMin, decimal? GiaMax, string? SortOrder, int page = 1, int pageSize = 6)
         {
             var userId = GetLoggedInKhachHangId();
-            bool trangThaiDangNhap = userId != null;
-            ViewBag.TrangThaiDangNhap = trangThaiDangNhap;
+            bool daDangNhap = userId != null;
 
-            // Query cơ bản
-            var query = from sp in _context.SanPhams
-                        join km in _context.KhuyenMais on sp.MaSp equals km.MaSp into kmGroup
-                        from km in kmGroup.DefaultIfEmpty()
-                        where sp.TrangThai == 1
-                        select new
-                        {
-                            SanPham = sp,
-                            GiaSauKhiGiam = (km != null &&
-                                            km.NgayBatDau <= DateOnly.FromDateTime(DateTime.Now.Date) &&
-                                            km.NgayKetThuc >= DateOnly.FromDateTime(DateTime.Now.Date))
-                                            ? sp.GiaBan - km.MucGiamGia
-                                            : sp.GiaBan
-                        };
+            var resultList = new List<SanPhamViewModel>();
 
-            // Lọc theo tên
-            if (!string.IsNullOrEmpty(TenTimKiem))
+            var today = DateOnly.FromDateTime(DateTime.Now.Date);
+
+            // ======== Tìm kiếm Sản phẩm ========
+            var querySP = from sp in _context.SanPhams
+                          join km in _context.KhuyenMais on sp.MaSp equals km.MaSp into kmGroup
+                          from km in kmGroup.DefaultIfEmpty()
+                          where sp.TrangThai == 1
+                          select new
+                          {
+                              SanPham = sp,
+                              GiaSauGiam = (km != null && km.NgayBatDau <= today && km.NgayKetThuc >= today)
+                                  ? sp.GiaBan - km.MucGiamGia
+                                  : sp.GiaBan
+                          };
+
+            if (!string.IsNullOrEmpty(TuKhoa))
             {
-                var TenDaDuocMaHoa = MaHoaTenTimKiem(TenTimKiem.ToLower());
-                query = query
+                var keyword = MaHoaTenTimKiem(TuKhoa.ToLower());
+                querySP = querySP
                     .AsEnumerable()
-                    .Where(sp => MaHoaTenTimKiem(sp.SanPham.TenSp?.ToLower() ?? "").Contains(TenDaDuocMaHoa))
-                    .Select(sp => new { sp.SanPham, sp.GiaSauKhiGiam })
+                    .Where(sp => MaHoaTenTimKiem(sp.SanPham.TenSp?.ToLower() ?? "").Contains(keyword))
                     .AsQueryable();
             }
 
-            // Lọc theo danh mục (dùng MaLoai từ DanhMucSanPham)
-            if (DanhMucId.HasValue && DanhMucId > 0)
-            {
-                query = query.Where(sp => sp.SanPham.MaLoai == DanhMucId);
-            }
+            if (DanhMucId.HasValue)
+                querySP = querySP.Where(sp => sp.SanPham.MaLoai == DanhMucId);
 
-            // Lọc theo khoảng giá
             if (GiaMin.HasValue)
-            {
-                query = query.Where(sp => sp.GiaSauKhiGiam >= GiaMin);
-            }
+                querySP = querySP.Where(sp => sp.GiaSauGiam >= GiaMin);
             if (GiaMax.HasValue)
-            {
-                query = query.Where(sp => sp.GiaSauKhiGiam <= GiaMax);
-            }
+                querySP = querySP.Where(sp => sp.GiaSauGiam <= GiaMax);
 
-            // Sắp xếp
-            if (SortOrder == "asc")
+            var sanPhamList = querySP.ToList();
+            foreach (var item in sanPhamList)
             {
-                query = query.OrderBy(sp => sp.GiaSauKhiGiam);
-            }
-            else if (SortOrder == "desc")
-            {
-                query = query.OrderByDescending(sp => sp.GiaSauKhiGiam);
-            }
-            else
-            {
-                query = query.OrderBy(sp => sp.SanPham.TenSp);
-            }
-
-            // Tạo danh sách view model
-            var sanPhamViewModels = query
-                .Select(sp => new SanPhamViewModel
+                resultList.Add(new SanPhamViewModel
                 {
-                    SanPham = sp.SanPham,
-                    GiaSauKhiGiam = sp.GiaSauKhiGiam ?? 0
-                })
-                .ToList()
-                .ToPagedList(page, pageSize);
+                    SanPham = item.SanPham,
+                    GiaSauKhiGiam = item.GiaSauGiam ?? 0,
+                    TrangThaiDangNhap = daDangNhap,
+                    Loai = "sanpham"
+                });
+            }
 
-            // Gán dữ liệu cho ViewBag
-            ViewBag.DanhMuc = _context.DanhMucSanPhams.ToList(); // <- đã sửa đúng
-            ViewBag.CurrentSearchTerm = TenTimKiem;
+            // ======== Tìm kiếm Giỏ Quà ========
+            var queryGQ = from gq in _context.GioQuas
+                          join km in _context.KhuyenMais on gq.MaGq equals km.MaGq into kmGroup
+                          from km in kmGroup.DefaultIfEmpty()
+                          where gq.TrangThai == 1
+                          select new
+                          {
+                              GioQua = gq,
+                              GiaSauGiam = (km != null && km.NgayBatDau <= today && km.NgayKetThuc >= today)
+                                  ? gq.GiaBan - km.MucGiamGia
+                                  : gq.GiaBan
+                          };
+
+            if (!string.IsNullOrEmpty(TuKhoa))
+            {
+                var keyword = MaHoaTenTimKiem(TuKhoa.ToLower());
+                queryGQ = queryGQ
+                    .AsEnumerable()
+                    .Where(gq => MaHoaTenTimKiem(gq.GioQua.TenGioQua?.ToLower() ?? "").Contains(keyword))
+                    .AsQueryable();
+            }
+
+            if (DanhMucId.HasValue)
+                queryGQ = queryGQ.Where(gq => gq.GioQua.MaDm == DanhMucId);
+
+            if (GiaMin.HasValue)
+                queryGQ = queryGQ.Where(gq => gq.GiaSauGiam >= GiaMin);
+            if (GiaMax.HasValue)
+                queryGQ = queryGQ.Where(gq => gq.GiaSauGiam <= GiaMax);
+
+            var gioQuaList = queryGQ.ToList();
+            foreach (var item in gioQuaList)
+            {
+                resultList.Add(new SanPhamViewModel
+                {
+                    GioQua = item.GioQua,
+                    GiaSauKhiGiam = item.GiaSauGiam ?? 0,
+                    TrangThaiDangNhap = daDangNhap,
+                    Loai = "gioqua"
+                });
+            }
+
+            // Sắp xếp nếu có
+            if (SortOrder == "asc")
+                resultList = resultList.OrderBy(x => x.GiaSauKhiGiam).ToList();
+            else if (SortOrder == "desc")
+                resultList = resultList.OrderByDescending(x => x.GiaSauKhiGiam).ToList();
+
+            var pagedList = resultList.ToPagedList(page, pageSize);
+            // Lấy danh mục sản phẩm
+            var danhMucList = _context.DanhMucSanPhams.ToList();
+            // ViewBag để giữ lại trạng thái tìm kiếm
+
+            // Gán danh mục cho ViewBag
+            ViewBag.DanhMuc = danhMucList;
+            ViewBag.CurrentSearchTerm = TuKhoa;
             ViewBag.CurrentCategory = DanhMucId;
             ViewBag.CurrentPriceMin = GiaMin;
             ViewBag.CurrentPriceMax = GiaMax;
             ViewBag.CurrentSortOrder = SortOrder;
-            ViewBag.SanPhamYeuThich = _context.SanPhamYeuThiches.ToList();
 
-            return View(sanPhamViewModels);
+            return View(pagedList); // nếu bạn đang có file tên như vậy
+
         }
 
         public static string MaHoaTenTimKiem(string text)
@@ -189,8 +226,5 @@ namespace Fruitful_Gifts.Controllers
 
             return null;
         }
-
-
-
     }
 }

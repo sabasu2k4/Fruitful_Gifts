@@ -1,47 +1,61 @@
-﻿//using Fruitful_Gifts.Database;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Fruitful_Gifts.Database;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace Fruitful_Gifts.Controllers
-//{
-//    public class LienHeController : Controller
-//    {
-//        private readonly FruitfulGiftsContext _context;
+namespace Fruitful_Gifts.Controllers
+{
+    public class LienHeController : Controller
+    {
+        private readonly FruitfulGiftsContext _context;
 
-//        public LienHeController(FruitfulGiftsContext context)
-//        {
-//            _context = context;
-//        }
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
+        public LienHeController(FruitfulGiftsContext context)
+        {
+            _context = context;
+        }
+        private (string Email, string HoTen) GetUserThongTin()
+        {
+            var email = HttpContext.Session.GetString("Email") ?? "";
+            var hoTen = HttpContext.Session.GetString("HoTen") ?? "";
+            return (email, hoTen);
+        }
 
-//        [HttpPost]
-//        public IActionResult Index(string HO_TEN, string EMAIL, string SDT, string NOI_DUNG)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                var lienHe = new LienHe
-//                {
-//                    HoTen = HO_TEN,
-//                    Email = EMAIL,
-//                    Sdt = SDT,
-//                    NoiDung = NOI_DUNG,
-//                    ThoiGianGui = DateTime.Now,
-//                    TrangThai = false  // Mặc định đang xử lý
-//                };
+        public IActionResult Index()
+        {
+            var userInfo = GetUserThongTin();
+            ViewBag.Email = userInfo.Email;
+            ViewBag.HoTen = userInfo.HoTen;
+            return View();
+        }
 
-//                _context.LienHes.Add(lienHe);
-//                _context.SaveChanges();
+        [HttpPost]
+        public IActionResult Index(string HO_TEN, string EMAIL, string SDT, string NOI_DUNG)
+        {
+            var userInfo = GetUserThongTin();
+            ViewBag.Email = userInfo.Email;
+            ViewBag.HoTen = userInfo.HoTen;
 
-//                // Lưu thông báo thành công vào TempData
-//                TempData["GuiLienHeThanhCong"] = "Cảm ơn bạn đã liên hệ với chúng tôi!";
-//                return RedirectToAction("Index");
-//            }
+            if (ModelState.IsValid)
+            {
+                var lienHe = new LienHe
+                {
+                    HoTen = HO_TEN,
+                    Email = EMAIL,
+                    Sdt = SDT,
+                    NoiDung = NOI_DUNG,
+                    ThoiGianGui = DateTime.Now,
+                    TrangThai = false
+                };
 
-//            // Nếu dữ liệu không hợp lệ, hiển thị lại form
-//            return View();
-//        }
+                _context.LienHes.Add(lienHe);
+                _context.SaveChanges();
 
-//    }
-//}
+                TempData["GuiLienHeThanhCong"] = "Cảm ơn bạn đã liên hệ với chúng tôi!";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+
+
+    }
+}

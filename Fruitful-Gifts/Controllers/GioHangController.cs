@@ -12,6 +12,7 @@ namespace Fruitful_Gifts.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             int? maKh = HttpContext.Session.GetInt32("MaKh");
@@ -34,6 +35,9 @@ namespace Fruitful_Gifts.Controllers
                 )
             );
 
+            bool checkALl = danhSach.All(x => x.TrangThai == 1);
+
+            ViewBag.CheckALl = checkALl;
             ViewBag.TongTien = tongTien;
 
             return View(danhSach);
@@ -70,6 +74,7 @@ namespace Fruitful_Gifts.Controllers
                         MaKh = maKh.Value,
                         MaSp = maSp,
                         SoLuong = soLuong,
+                        TrangThai = 1,
                         CreatedAt = DateTime.Now
                     };
                     _context.ChiTietGioHangs.Add(gioHangItem);
@@ -91,6 +96,7 @@ namespace Fruitful_Gifts.Controllers
                         MaKh = maKh.Value,
                         MaGq = maGq,
                         SoLuong = soLuong,
+                        TrangThai = 1,
                         CreatedAt = DateTime.Now
                     };
                     _context.ChiTietGioHangs.Add(gioHangItem);
@@ -222,7 +228,7 @@ namespace Fruitful_Gifts.Controllers
         private decimal TinhTongTien(int? maKh)
         {
             var gioHang = _context.ChiTietGioHangs
-                .Where(x => x.MaKh == maKh)
+                .Where(x => x.MaKh == maKh && x.TrangThai == 1)
                 .Include(x => x.MaGqNavigation)
                 .Include(x => x.MaSpNavigation)
                 .ToList();
@@ -230,12 +236,39 @@ namespace Fruitful_Gifts.Controllers
             return gioHang.Sum(x =>
             {
                 int soLuong = x.SoLuong ?? 0;
-                decimal giaGq = x.MaGqNavigation?.GiaBan ?? 0;
-                decimal giaSp = x.MaSpNavigation?.GiaBan ?? 0;
-
-                return soLuong * (giaGq + giaSp);
+                decimal gia = x.MaGqNavigation?.GiaBan ?? x.MaSpNavigation?.GiaBan ?? 0;
+                return soLuong * gia;
             });
         }
+
+        [HttpPost]
+        public IActionResult CapNhatTrangThai(int id, string loai, bool trangThai)
+        {
+            int? maKh = HttpContext.Session.GetInt32("MaKh");
+
+            ChiTietGioHang? item = null;
+
+            if (loai == "sp")
+            {
+                item = _context.ChiTietGioHangs.FirstOrDefault(c => c.MaKh == maKh && c.MaSp == id);
+            }
+            else if (loai == "gq")
+            {
+                item = _context.ChiTietGioHangs.FirstOrDefault(c => c.MaKh == maKh && c.MaGq == id);
+            }
+
+            if (item != null)
+            {
+                item.TrangThai = trangThai ? 1 : 0;
+                _context.SaveChanges();
+
+                decimal tongTien = TinhTongTien(maKh);
+                return Json(new { success = true, tongTienMoi = tongTien.ToString("N0") + "₫" });
+            }
+
+            return Json(new { success = false, message = "Không tìm thấy sản phẩm để cập nhật." });
+        }
+
 
     }
 }

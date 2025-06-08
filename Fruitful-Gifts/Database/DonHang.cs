@@ -35,8 +35,6 @@ public partial class DonHang
 
     public DateTime? UpdatedAt { get; set; }
 
-    public string? HinhThucMua { get; set; }
-
     public virtual ICollection<BinhLuan> BinhLuans { get; set; } = new List<BinhLuan>();
 
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();

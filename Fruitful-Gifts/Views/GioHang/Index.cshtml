@@ -38,10 +38,22 @@
             {
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <h6>
-                            <a href="javascript:void(0)" id="btn-xoa-tat-ca" class="line-bottom position-relative text-decoration-none text-danger mt-2 mb-2">
-                                Xóa tất cả</a>
-                        </h6>
+                        <div class="col-11 d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <!-- Checkbox chọn tất cả -->
+                                <input type="checkbox" id="checkbox-chon-tat-ca" style="width: 18px; height: 18px; accent-color: #165da3;"
+                                @(ViewBag.CheckAll == true ? "checked" : "") />
+                                <label for="checkbox-chon-tat-ca" class="ms-2 mb-0">Chọn tất cả</label>
+                            </div>
+
+                            <h6 class="mb-0">
+                                <a href="javascript:void(0)" id="btn-xoa-tat-ca"
+                                   class="line-bottom position-relative text-decoration-none text-danger">
+                                    Xóa tất cả
+                                </a>
+                            </h6>
+                        </div>
+
                         <div class="col-11 pt-2">
                             <div class="col-12">
                                 @foreach (var item in Model)
@@ -51,7 +63,10 @@
                                     var giaBan = item.MaSpNavigation?.GiaBan ?? item.MaGqNavigation?.GiaBan;
                                     var id = item.MaGq ?? item.MaSp;
                                     var loai = item.MaGq != null ? "gq" : "sp";
-
+                                    var slug = loai == "gq" ? item.MaGqNavigation?.Slug : item.MaSpNavigation?.Slug;
+                                    var img = loai == "gq" ? $"~/images/gioqua/{@hinhAnh}" : $"~/images/sanpham/{@hinhAnh}";
+                                    var chitiet = Url.Action(loai == "gq" ? "ChiTietGioQua" : "ChiTietSanPham",
+                                    loai == "gq" ? "GioQua" : "SanPham", new { slug = slug });
                                     <div class="col-12 mb-3 position-relative">
                                         <!-- Nút xóa -->
                                         <button type="button"
@@ -65,9 +80,23 @@
                                         <div class="d-flex align-items-center justify-content-between border rounded p-3 shadow-sm">
                                             <!-- Ảnh sản phẩm -->
                                             <div class="d-flex align-items-center">
-                                                <img src="~/images/sanpham/@hinhAnh" alt="@tenSanPham" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
+                                                <!-- Checkbox chọn sản phẩm -->
+                                                <input type="checkbox"
+                                                       class="me-3 checkbox-chon-sp"
+                                                       name="chonSanPham"
+                                                       value="@($"{loai}-{id}")"
+                                                       data-id="@id"
+                                                       data-loai="@loai"
+                                                       style="width: 18px; height: 18px; accent-color: #165da3;"
+                                                @(item.TrangThai == 1 ? "checked" : "")
+                                                       onchange="capNhatTrangThaiCheckbox(this)" />
+                                                <a href="@chitiet" class="text-decoration-none text-dark">
+                                                    <img src="@Url.Content(img)" alt="@tenSanPham" class="image-item-cart" />
+                                                </a>
                                                 <div>
-                                                    <h6 class="mb-1 text-uppercase">@tenSanPham</h6>
+                                                    <h6 class="mb-1 text-uppercase">
+                                                        <a href="@chitiet" class="text-decoration-none text-dark">@tenSanPham</a>
+                                                    </h6>
                                                     <div class="d-flex align-items-center">
                                                         <button class="btn btn-sm btn-outline-secondary rounded-circle btn-update-qty"
                                                                 data-id="@id"
@@ -109,19 +138,24 @@
                             <div class="js-free-shipping mb-3 mt-3 position-relative progress rounded-10" data-value="50000000">
                                 @if (tongTien >= 500000)
                                 {
-                                    <div class="progress-bar progress-bar-animated rounded-10 position-relative bg-success progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                                        <span class="align-items-center d-inline-flex icon justify-content-center position-absolute rounded-circle bg-success" style="top: 50%; left: 10px; transform: translateY(-50%); width: 30px; height: 30px;">
-                                            <i class="bi bi-truck" style="color: white;"></i>
+                                    <div class="progress-bar progress-bar-animated rounded-10 position-relative bg-success progress-bar-striped"
+                                         role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                        <span class="align-items-center d-inline-flex icon justify-content-center position-absolute rounded-circle bg-success"
+                                              style="top: 50%; right: -5px; transform: translateY(-50%); width: 40px; height: 40px;">
+                                            <i class="bi bi-truck" style="color: white; font-size: 15px;"></i>
                                         </span>
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="progress-bar progress-bar-animated rounded-10 position-relative progress-bar-striped bg-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 99.8%;">
-                                        <span class="align-items-center d-inline-flex icon justify-content-center position-absolute rounded-circle bg-warning" style="top: 50%; left: 10px; transform: translateY(-50%); width: 30px; height: 30px;">
-                                            <svg width="22" height="16"><use href="#svg-ship"></use></svg>
+                                    <div class="progress-bar progress-bar-animated rounded-10 position-relative progress-bar-striped bg-warning"
+                                         role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 99.8%;">
+                                        <span class="align-items-center d-inline-flex icon justify-content-center position-absolute rounded-circle bg-warning"
+                                              style="top: 50%; right: -5px; transform: translateY(-50%); width: 40px; height: 40px;">
+                                            <i class="bi bi-truck" style="color: white; font-size: 15px;"></i>
                                         </span>
                                     </div>
+
                                 }
                             </div>
                             <div class="alert alert-info free-shipping-content js-free-shipping-text mb-0 rounded-10">
@@ -267,6 +301,45 @@
                 }
             });
         });
+        // Cập nhật trạng thái
+        $(document).ready(function () {
+            $('#checkbox-chon-tat-ca').on('change', function () {
+                const checked = $(this).is(':checked');
+
+                $('.checkbox-chon-sp').each(function () {
+                    $(this).prop('checked', checked);
+                    capNhatTrangThaiCheckbox(this); 
+                });
+            });
+
+            $('.checkbox-chon-sp').on('change', function () {
+                const allCheckboxes = $('.checkbox-chon-sp');
+                const allChecked = allCheckboxes.length === allCheckboxes.filter(':checked').length;
+
+                $('#checkbox-chon-tat-ca').prop('checked', allChecked);
+
+                capNhatTrangThaiCheckbox(this);
+            });
+        });
+
+        function capNhatTrangThaiCheckbox(checkbox) {
+            const id = checkbox.getAttribute("data-id");
+            const loai = checkbox.getAttribute("data-loai");
+            const trangThai = checkbox.checked;
+
+            $.post("/GioHang/CapNhatTrangThai", {
+                id: id,
+                loai: loai,
+                trangThai: trangThai
+            }, function (res) {
+                if (res.success) {
+                    // Cập nhật tổng tiền trên UI
+                    $("#tong-tien").text(res.tongTienMoi);
+                } else {
+                    alert("Cập nhật trạng thái thất bại: " + res.message);
+                }
+            });
+        }
 
     </script>
 }

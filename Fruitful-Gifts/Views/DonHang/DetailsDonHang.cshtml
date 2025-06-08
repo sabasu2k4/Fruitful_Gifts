@@ -147,11 +147,11 @@
                             <tr>
                                 <td>
                                     @{
-                                        var imageUrl = chiTiet.MaSpNavigation?.HinhAnh
-                                        ?? chiTiet.MaGqNavigation?.HinhAnh
-                                        ?? "default.png";
+                                        var hinhAnh = chiTiet.MaSpNavigation?.HinhAnh ?? chiTiet.MaGqNavigation?.HinhAnh;
+                                        var loai = chiTiet.MaGq != null ? "gq" : "sp";
+                                        var img = loai == "gq" ? $"~/images/gioqua/{@hinhAnh}" : $"~/images/sanpham/{@hinhAnh}";
                                     }
-                                    <img src="~/images/sanpham/@imageUrl"
+                                    <img src="@Url.Content(img)"
                                          alt="@chiTiet.MaSpNavigation?.TenSp ?? chiTiet.MaGqNavigation?.TenGq"
                                          class="product-img" />
                                 </td>

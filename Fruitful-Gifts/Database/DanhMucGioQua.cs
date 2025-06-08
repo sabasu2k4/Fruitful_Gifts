@@ -28,7 +28,7 @@ public partial class DanhMucGioQua
 
     public virtual ICollection<DanhMucGioQua> InverseDanhMucCha { get; set; } = new List<DanhMucGioQua>();
 
-    // Dùng để nhận file ảnh upload, không lưu vào DB
-    [NotMapped]
-    public IFormFile? ImageUpload { get; set; }
+    // Thêm dòng này nếu bạn muốn upload ảnh
+    [NotMapped] 
+    public IFormFile ImageUpload { get; set; }
 }

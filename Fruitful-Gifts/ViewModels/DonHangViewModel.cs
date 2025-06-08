@@ -7,9 +7,10 @@ namespace Fruitful_Gifts.ViewModels
         public string? TenSp { get; set; }
         public int? SoLuong { get; set; }
         public decimal? TongTien { get; set; }
-        public string? HinhAnh { get; set; } 
+        public string? HinhAnh { get; set; }
+        public string? Loai { get; set; }
         public decimal? DonGia { get; set; } 
-        public int? SoLuongTon { get; set; } 
+        public int? SoLuongTon { get; set; }
     }
 
     public class DonHangViewModel

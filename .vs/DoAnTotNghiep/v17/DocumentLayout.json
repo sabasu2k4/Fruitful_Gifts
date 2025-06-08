@@ -1,0 +1,137 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\controllers\\donhangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\controllers\\donhangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\viewmodels\\donhangviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\viewmodels\\donhangviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\views\\donhang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\views\\donhang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\views\\donhang\\detailsdonhang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\views\\donhang\\detailsdonhang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\views\\giohang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\views\\giohang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\database\\chitietgiohang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\database\\chitietgiohang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|d:\\doantotnghiep\\doantotnghiep\\fruitful-gifts\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C983BBF0-F02C-4284-98FC-360FE9F07799}|Fruitful-Gifts\\Fruitful-Gifts.csproj|solutionrelative:fruitful-gifts\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DonHangController.cs",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Controllers\\DonHangController.cs",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Controllers\\DonHangController.cs",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Controllers\\DonHangController.cs",
+              "RelativeToolTip": "Fruitful-Gifts\\Controllers\\DonHangController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwFQAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T11:21:52.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DonHangViewModel.cs",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\ViewModels\\DonHangViewModel.cs",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\ViewModels\\DonHangViewModel.cs",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\ViewModels\\DonHangViewModel.cs",
+              "RelativeToolTip": "Fruitful-Gifts\\ViewModels\\DonHangViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T11:13:34.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DetailsDonHang.cshtml",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\DonHang\\DetailsDonHang.cshtml",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Views\\DonHang\\DetailsDonHang.cshtml",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\DonHang\\DetailsDonHang.cshtml",
+              "RelativeToolTip": "Fruitful-Gifts\\Views\\DonHang\\DetailsDonHang.cshtml",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAawJkAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-06T11:04:26.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\DonHang\\Index.cshtml",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Views\\DonHang\\Index.cshtml",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\DonHang\\Index.cshtml",
+              "RelativeToolTip": "Fruitful-Gifts\\Views\\DonHang\\Index.cshtml",
+              "ViewState": "AgIAAMQBAAAAAAAAAAAAANsBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-06T11:02:39.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GioHangController.cs",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Controllers\\GioHangController.cs",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Controllers\\GioHangController.cs",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Controllers\\GioHangController.cs",
+              "RelativeToolTip": "Fruitful-Gifts\\Controllers\\GioHangController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T14:45:35.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChiTietGioHang.cs",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Database\\ChiTietGioHang.cs",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Database\\ChiTietGioHang.cs",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Database\\ChiTietGioHang.cs",
+              "RelativeToolTip": "Fruitful-Gifts\\Database\\ChiTietGioHang.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T14:45:54.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\GioHang\\Index.cshtml",
+              "RelativeDocumentMoniker": "Fruitful-Gifts\\Views\\GioHang\\Index.cshtml",
+              "ToolTip": "D:\\DoAnTotNghiep\\DoAnTotNghiep\\Fruitful-Gifts\\Views\\GioHang\\Index.cshtml",
+              "RelativeToolTip": "Fruitful-Gifts\\Views\\GioHang\\Index.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-05T14:23:10.416Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

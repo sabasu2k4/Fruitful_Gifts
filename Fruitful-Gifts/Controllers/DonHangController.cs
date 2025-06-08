@@ -82,6 +82,8 @@ namespace Fruitful_Gifts.Controllers
 
                     HinhAnh = ct.MaSpNavigation?.HinhAnh ?? ct.MaGqNavigation?.HinhAnh,
 
+                    Loai = ct.MaSp != null ? "sp" : ct.MaGq != null ? "gq" : null,
+
                     SoLuong = ct.SoLuong.HasValue ? (int?)Convert.ToInt32(ct.SoLuong.Value) : 0,
 
                     // Giá bán lấy theo từng loại (sản phẩm hoặc giỏ quà)

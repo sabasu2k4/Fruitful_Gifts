@@ -15,6 +15,8 @@ public partial class ChiTietGioHang
 
     public int? SoLuong { get; set; }
 
+    public int? TrangThai { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public virtual GioQua? MaGqNavigation { get; set; }

@@ -96,7 +96,7 @@
     <div class="row gy-4">
         <!-- Hình ảnh giỏ quà bên trái -->
         <div class="col-md-6 d-flex flex-column align-items-center">
-            <img src="~/images/sanpham/@Model.HinhAnh" alt="@Model.TenGioQua" class="img-fluid" />
+            <img src="~/images/gioqua/@Model.HinhAnh" alt="@Model.TenGioQua" class="img-fluid" />
 
             <!-- Form đánh giá -->
             @if (ViewBag.DonHangChuaDanhGia != null && ((List<int>)ViewBag.DonHangChuaDanhGia).Count > 0)
@@ -289,7 +289,7 @@
                 {
                     <div class="product-card">
                         <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = sp.Slug })" class="product-link">
-                            <img src="~/images/sanpham/@sp.HinhAnh" alt="@sp.TenGioQua" />
+                            <img src="~/images/gioqua/@sp.HinhAnh" alt="@sp.TenGioQua" />
                             <h4>@sp.TenGioQua</h4>
                             <p class="price">@sp.GiaBan.ToString("N0") đ</p>
                         </a>

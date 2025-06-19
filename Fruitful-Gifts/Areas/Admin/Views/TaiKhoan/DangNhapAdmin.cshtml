@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@{
+    var userName = Context.Session.GetString("UserName");
+    int? maNv = Context.Session.GetInt32("MaNv");
+}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng nhập quản trị</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .login-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: url('@Url.Content("~/Admin/assets/images/banner-admin-login-1.jpg")') no-repeat center center;
+            background-size: cover;
+            opacity: 0.8;
+        }
+
+        .login-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-input-field {
+            position: relative;
+            border-bottom: 2px solid #ccc;
+            margin: 20px 0;
+        }
+
+            .login-input-field input {
+                width: 100%;
+                height: 40px;
+                background: transparent;
+                border: none;
+                outline: none;
+                font-size: 16px;
+                color: #fff;
+            }
+
+            .login-input-field label {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                color: #ccc;
+                font-size: 16px;
+                pointer-events: none;
+                transition: 0.2s ease;
+            }
+
+            .login-input-field input:focus ~ label,
+            .login-input-field input:valid ~ label {
+                font-size: 0.8rem;
+                top: 5px;
+                color: #fff;
+            }
+
+        .login-forget {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            font-size: 14px;
+            color: #eee;
+        }
+
+            .login-forget label {
+                display: flex;
+                align-items: center;
+            }
+
+            .login-forget input {
+                accent-color: #fff;
+            }
+
+            .login-forget p {
+                margin-left: 8px;
+            }
+
+        .login-wrapper a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+            .login-wrapper a:hover {
+                text-decoration: underline;
+            }
+
+        .login-button {
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .login-button:hover {
+                background: transparent;
+                color: #fff;
+                border: 2px solid #fff;
+            }
+
+        .login-register {
+            margin-top: 30px;
+            color: #eee;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-body">
+        <div class="login-wrapper">
+            <form asp-action="DangNhapAdmin" method="post">
+                <h2 class="login-title">Đăng nhập</h2>
+                <div class="login-input-field">
+                    <input type="text" name="tenDangNhap" required>
+                    <label>Nhập tên đăng nhập hoặc Email</label>
+                </div>
+                <div class="login-input-field">
+                    <input type="password" name="matKhau" required>
+                    <label>Nhập mật khẩu</label>
+                </div>
+                <span class="text-danger">@ViewData["Error"]</span>
+                <div class="login-forget">
+                    <label for="login-remember">
+                        <input type="checkbox" id="login-remember" />
+                        <p>Nhớ mật khẩu</p>
+                    </label>
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+                <button type="submit" class="login-button">Đăng nhập</button>
+                @*             <div class="login-register">
+                <p>Nếu chưa có tài khoản? <a href="#">Đăng ký</a></p>
+                </div> *@
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

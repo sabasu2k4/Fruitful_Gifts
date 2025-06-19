@@ -1,0 +1,227 @@
+﻿@model IPagedList<SanPhamViewModel>
+
+@using X.PagedList.Mvc.Core
+@using Fruitful_Gifts.Models.ViewModels
+@using X.PagedList
+@using Fruitful_Gifts.Database
+
+@{
+    ViewData["Title"] = "Tìm kiếm sản phẩm & giỏ quà";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var danhMucList = ViewBag.DanhMuc as List<DanhMucSanPham> ?? new List<DanhMucSanPham>();
+    bool trangThaiDangNhap = ViewBag.TrangThaiDangNhap ?? false;
+    var sanPhamYeuThich = ViewBag.SanPhamYeuThich as List<SanPhamYeuThich> ?? new();
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/timkiem.css" asp-append-version="true" />
+    <style>
+        /* Tùy chỉnh thêm */
+        .filter-sidebar {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #343a40;
+        }
+
+        .btn-primary {
+            background: #4caf50;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background: #43a047;
+            }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            }
+
+            .card .card-body h6 {
+                font-weight: 700;
+                color: #2e7d32;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        .card-footer {
+            background: transparent;
+            border-top: none;
+        }
+
+        .text-danger {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pagination .page-link {
+            color: #4caf50;
+            font-weight: 600;
+        }
+
+        .pagination .active .page-link {
+            background-color: #4caf50 !important;
+            border-color: #4caf50 !important;
+            color: white !important;
+        }
+    </style>
+}
+
+<div class="container my-5">
+    <h1 class="mb-4 text-success fw-bold text-center">Tìm kiếm sản phẩm & giỏ quà</h1>
+
+    <div class="row g-4">
+        <!-- Sidebar bộ lọc -->
+        <aside class="col-lg-3">
+            <form method="get" asp-action="TimKiem" class="filter-sidebar">
+                <div class="mb-4">
+                    <label for="TuKhoa" class="form-label">Từ khóa</label>
+                    <input type="text" id="TuKhoa" name="TuKhoa" value="@ViewBag.CurrentSearchTerm" class="form-control" placeholder="Nhập từ khóa..." />
+                </div>
+
+                <div class="mb-4">
+                    <label for="DanhMucId" class="form-label">Danh mục</label>
+                    <select id="DanhMucId" name="DanhMucId" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        @foreach (var dm in danhMucList)
+                        {
+                            <option value="@dm.MaLoai" selected="@(ViewBag.CurrentCategory == dm.MaLoai)">@dm.TenLoai</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Khoảng giá (VNĐ)</label>
+                    <div class="d-flex gap-2">
+                        <input type="number" name="GiaMin" value="@ViewBag.CurrentPriceMin" class="form-control" placeholder="Từ" min="0" />
+                        <input type="number" name="GiaMax" value="@ViewBag.CurrentPriceMax" class="form-control" placeholder="Đến" min="0" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="SortOrder" class="form-label">Sắp xếp</label>
+                    <select id="SortOrder" name="SortOrder" class="form-select">
+                        <option value="">-- Chọn --</option>
+                        <option value="asc" selected="@(ViewBag.CurrentSortOrder == "asc")">Giá tăng dần</option>
+                        <option value="desc" selected="@(ViewBag.CurrentSortOrder == "desc")">Giá giảm dần</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 py-2 fw-bold shadow-sm">Áp dụng bộ lọc</button>
+            </form>
+        </aside>
+
+        <!-- Kết quả sản phẩm -->
+        <section class="col-lg-9">
+            <div class="row g-4">
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        if (item.Loai == "sanpham" && item.SanPham != null)
+                        {
+                            var sp = item.SanPham;
+                            bool isYeuThich = trangThaiDangNhap && sanPhamYeuThich.Any(x => x.MaSp == sp.MaSp);
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm">
+                                    <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })" class="d-block">
+                                        <img src="~/images/sanpham/@sp.HinhAnh" alt="@sp.TenSp" class="card-img-top" style="height: 200px; object-fit: contain;" />
+                                    </a>
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title" title="@sp.TenSp">@sp.TenSp</h6>
+                                        <p class="text-danger">@item.GiaSauKhiGiam.ToString("N0") đ</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = sp.Slug })" class="btn btn-outline-success btn-sm px-4">Xem</a>
+                                        @if (trangThaiDangNhap)
+                                        {
+                                            <button onclick="addToWishlist(@sp.MaSp)" class="btn btn-sm btn-outline-danger" aria-label="Yêu thích sản phẩm">
+                                                <i class="@(isYeuThich ? "bi bi-heart-fill" : "bi bi-heart")" id="heart-icon-@sp.MaSp"></i>
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (item.Loai == "gioqua" && item.GioQua != null)
+                        {
+                            var gq = item.GioQua;
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm">
+                                    <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = gq.Slug })" class="d-block">
+                                        <img src="~/images/gioqua/@gq.HinhAnh" alt="@gq.TenGioQua" class="card-img-top" style="height: 200px; object-fit: contain;" />
+                                    </a>
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title" title="@gq.TenGioQua">@gq.TenGioQua</h6>
+                                        <p class="text-danger">@item.GiaSauKhiGiam.ToString("N0") đ</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = gq.Slug })" class="btn btn-outline-success btn-sm w-100">Xem</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info text-center fs-5">Không tìm thấy sản phẩm hoặc giỏ quà nào phù hợp.</div>
+                    </div>
+                }
+            </div>
+
+            <!-- Phân trang -->
+            <nav aria-label="Page navigation" class="mt-4 d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("TimKiem", new
+                    {
+                        page,
+                        TuKhoa = ViewBag.CurrentSearchTerm,
+                        DanhMucId = ViewBag.CurrentCategory,
+                        GiaMin = ViewBag.CurrentPriceMin,
+                        GiaMax = ViewBag.CurrentPriceMax,
+                        SortOrder = ViewBag.CurrentSortOrder
+                    }), new PagedListRenderOptions
+           {
+               UlElementClasses = new[] { "pagination", "pagination-sm" },
+               LiElementClasses = new[] { "page-item" },
+               PageClasses = new[] { "page-link" },
+               ActiveLiElementClass = "active",
+               DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+               DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+               DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+               DisplayLinkToLastPage = PagedListDisplayMode.Never,
+           })
+            </nav>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addToWishlist(maSp) {
+            // TODO: Thêm logic gọi API hoặc xử lý AJAX để thêm sản phẩm yêu thích
+            const heartIcon = document.getElementById(`heart-icon-${maSp}`);
+            if (heartIcon.classList.contains('bi-heart')) {
+                heartIcon.classList.remove('bi-heart');
+                heartIcon.classList.add('bi-heart-fill');
+            } else {
+                heartIcon.classList.remove('bi-heart-fill');
+                heartIcon.classList.add('bi-heart');
+            }
+        }
+    </script>
+}

@@ -1,0 +1,241 @@
+﻿@model Fruitful_Gifts.Database.DonHang
+
+@{
+    ViewData["Title"] = "Chi tiết Đơn Hàng #" + Model.MaDh;
+    var trangThaiLabels = ViewBag.TrangThaiLabels as Dictionary<int, string> ?? new Dictionary<int, string>();
+    var paymentStatus = ViewBag.PaymentStatus as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+@section CSS
+{
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <style>
+        .order-detail-card {
+            border: 1px solid #e3e3e3;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .summary-row {
+            font-weight: 500;
+        }
+
+        .status-badge {
+            font-size: 0.9rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #555;
+            min-width: 150px;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <!-- Chi tiết đơn hàng -->
+        <div class="col-md-9">
+            <div class="order-detail-card">
+                <div class="order-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-receipt"></i> Đơn hàng #@Model.MaDh
+                        <span class="badge bg-primary status-badge float-end">
+                            @(trangThaiLabels.ContainsKey(Model.TrangThai ?? 0)
+                                ? trangThaiLabels[Model.TrangThai ?? 0]
+                                : "Không xác định")
+                        </span>
+                    </h4>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-truck"></i> Thông tin giao hàng</h5>
+                        <p>
+                            <span class="info-label">Ngày đặt:</span>
+                            @Model.NgayDatHang?.ToString("dd/MM/yyyy HH:mm")
+                        </p>
+                        <p>
+                            <span class="info-label">Địa chỉ:</span>
+                            @Model.DiaChiNhanHang
+                        </p>
+                        <p>
+                            <span class="info-label">Điện thoại:</span>
+                            @Model.SoDienThoai
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-credit-card"></i> Thông tin thanh toán</h5>
+                        <p>
+                            <span class="info-label">Phương thức:</span>
+                            @Model.MaPtNavigation?.TenPt
+                        </p>
+                        <p>
+                            <span class="info-label">Trạng thái:</span>
+                            <span class="badge @(Model.TrangThaiThanhToan == 1 ? "bg-success" :
+                                               Model.TrangThaiThanhToan == 2 ? "bg-danger" :
+                                               Model.TrangThaiThanhToan == 3 ? "bg-warning" : "bg-secondary")">
+                                @(paymentStatus.ContainsKey(Model.TrangThaiThanhToan ?? 0)
+                                    ? paymentStatus[Model.TrangThaiThanhToan ?? 0]
+                                    : "Không xác định")
+                            </span>
+                        </p>
+                        @if (Model.MaNvNavigation != null)
+                        {
+                            <p>
+                                <span class="info-label">Nhân viên xử lý:</span>
+                                 @Model.MaNvNavigation.TenNv
+                                @if (Model.MaNvNavigation.MaNv != null)
+                                {
+                                    <span class="text-muted">(Mã NV: @Model.MaNvNavigation.MaNv)</span>
+                                }
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                <span class="info-label">Nhân viên xử lý:</span>
+                                <span class="text-muted">Chưa có nhân viên xử lý</span>
+                            </p>
+                        }
+                    </div>
+                </div>
+
+                <h5><i class="bi bi-cart-check"></i> Sản phẩm đã đặt</h5>
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px">Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th class="text-end">Đơn giá</th>
+                            <th class="text-end">Số lượng</th>
+                            <th class="text-end">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var chiTiet in Model.ChiTietDonHangs)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        var hinhAnh = chiTiet.MaSpNavigation?.HinhAnh ?? chiTiet.MaGqNavigation?.HinhAnh;
+                                        var loai = chiTiet.MaGq != null ? "gq" : "sp";
+                                        var img = loai == "gq" ? $"~/images/gioqua/{@hinhAnh}" : $"~/images/sanpham/{@hinhAnh}";
+                                    }
+                                    <img src="@Url.Content(img)"
+                                         alt="@chiTiet.MaSpNavigation?.TenSp ?? chiTiet.MaGqNavigation?.TenGq"
+                                         class="product-img" />
+                                </td>
+
+                                <td>
+                                    @if (chiTiet.MaSpNavigation != null)
+                                    {
+                                        @chiTiet.MaSpNavigation.TenSp
+                                    }
+                                    else if (chiTiet.MaGqNavigation != null)
+                                    {
+                                        <span class="fw-bold text-primary">@chiTiet.MaGqNavigation.TenGioQua</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Không rõ</span>
+                                    }
+                                </td>
+
+                                <td class="text-end">
+                                    @{
+                                        var price = chiTiet.MaSpNavigation?.GiaBan
+                                        ?? chiTiet.MaGqNavigation?.GiaBan;
+                                    }
+                                    @(price.HasValue ? price.Value.ToString("N0") : "0") đ
+                                </td>
+                                <td class="text-end">@chiTiet.SoLuong</td>
+                                <td class="text-end">@chiTiet.TongTienTungSanPham?.ToString("N0") đ</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-light summary-row">
+                            <td colspan="4" class="text-end"><strong>Tạm tính:</strong></td>
+                            <td class="text-end">
+                                @Model.ChiTietDonHangs.Sum(ct => ct.TongTienTungSanPham ?? 0).ToString("N0") đ
+                            </td>
+                        </tr>
+                        <tr class="table-light summary-row">
+                            <td colspan="4" class="text-end"><strong>Phí vận chuyển:</strong></td>
+                            <td class="text-end">@Model.PhiVanChuyenBanHang?.ToString("N0") đ</td>
+                        </tr>
+                        <tr class="table-light summary-row">
+                            <td colspan="4" class="text-end"><strong>Tổng cộng:</strong></td>
+                            <td class="text-end text-danger fw-bold">@Model.TongTienDonHang?.ToString("N0") đ</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                @if (!string.IsNullOrEmpty(Model.GhiChu))
+                {
+                    <div class="alert alert-info mt-3">
+                        <h5><i class="bi bi-chat-left-text"></i> Ghi chú đơn hàng</h5>
+                        <p>@Model.GhiChu</p>
+                    </div>
+                }
+
+                <div class="action-buttons">
+                    <a href="@Url.Action("Index", "DonHang")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </a>
+
+                    @if (Model.TrangThai == 1 || Model.TrangThai == 2)
+                    {
+                        <form asp-action="CancelOrder" method="post" class="d-inline"
+                              onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+                            <input type="hidden" name="id" value="@Model.MaDh" />
+                            <button type="submit" class="btn btn-danger ms-2">
+                                <i class="bi bi-x-circle"></i> Hủy đơn hàng
+                            </button>
+                        </form>
+                    }
+
+                    @if (Model.TrangThai == 3 || Model.TrangThai == 5)
+                    {
+                        <form asp-action="RepurchaseOrder" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@Model.MaDh" />
+                            <button type="submit" class="btn btn-primary ms-2">
+                                <i class="bi bi-arrow-repeat"></i> Mua lại
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

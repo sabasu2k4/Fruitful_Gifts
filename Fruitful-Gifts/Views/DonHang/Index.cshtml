@@ -1,0 +1,607 @@
+﻿@using Fruitful_Gifts.ViewModels
+@model List<DonHangViewModel>
+
+
+@{
+    ViewData["Title"] = "📦 Quản lý đơn hàng";
+    var trangThaiLabels = new Dictionary<int, string>
+    {
+        {1, "⏳ Chờ xác nhận"},
+        {2, "✅ Đã xác nhận"},
+        {3, "🚚 Đang giao hàng"},
+        {4, "✔️ Đã giao hàng"},
+        {5, "🔄 Hoàn hàng"},
+        {6, "❌ Đã hủy"},
+        {7, "⚠️ Giao hàng thất bại"},
+        {8, "🚫 Từ chối"}
+    };
+
+    var currentTrangThai = ViewBag.CurrentTrangThai as int?;
+    var counts = ViewBag.CountsByStatus as Dictionary<int, int> ?? new Dictionary<int, int>();
+    var paymentStatus = ViewBag.PaymentStatus as Dictionary<int, string> ?? new Dictionary<int, string>();
+
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+        .order-management {
+            background-color: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        .order-card {
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+            .order-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+
+            .order-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: var(--primary-color);
+            }
+
+        .order-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .order-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .order-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background-color: rgba(248, 150, 30, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-confirmed {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-shipping {
+            background-color: rgba(63, 55, 201, 0.1);
+            color: var(--secondary-color);
+        }
+
+        .status-delivered {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .status-cancelled {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: var(--danger-color);
+        }
+
+        .order-body {
+            padding: 20px;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+            .product-table thead th {
+                background-color: transparent;
+                border: none;
+                color: #6c757d;
+                font-weight: 500;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding-bottom: 10px;
+            }
+
+            .product-table tbody tr {
+                background-color: white;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+                .product-table tbody tr:hover {
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                    transform: translateY(-2px);
+                }
+
+            .product-table td {
+                padding: 15px;
+                vertical-align: middle;
+                border: none;
+            }
+
+                .product-table td:first-child {
+                    border-top-left-radius: 8px;
+                    border-bottom-left-radius: 8px;
+                }
+
+                .product-table td:last-child {
+                    border-top-right-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                }
+
+        .product-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+            .product-img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+        .product-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .order-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+            .summary-row:last-child {
+                border-top: 1px solid rgba(0, 0, 0, 0.05);
+                margin-top: 10px;
+                padding-top: 15px;
+            }
+
+        .summary-label {
+            color: #6c757d;
+        }
+
+        .summary-value {
+            font-weight: 600;
+        }
+
+        .total-amount {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .order-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+        }
+
+            .payment-method i {
+                margin-right: 8px;
+                color: var(--primary-color);
+            }
+
+        .action-buttons .btn {
+            margin-left: 10px;
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+            .nav-tabs .nav-link {
+                border: none;
+                color: #6c757d;
+                font-weight: 500;
+                padding: 12px 20px;
+                position: relative;
+                transition: all 0.3s ease;
+            }
+
+                .nav-tabs .nav-link:hover {
+                    color: var(--primary-color);
+                }
+
+                .nav-tabs .nav-link.active {
+                    color: var(--primary-color);
+                    background: transparent;
+                    border-bottom: 2px solid var(--primary-color);
+                }
+
+                    .nav-tabs .nav-link.active::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -2px;
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        background: var(--primary-color);
+                    }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                color: #dee2e6;
+                margin-bottom: 20px;
+            }
+
+            .empty-state h4 {
+                color: #6c757d;
+                margin-bottom: 15px;
+            }
+
+        .pagination .page-item .page-link {
+            border: none;
+            color: #6c757d;
+            margin: 0 5px;
+            border-radius: 8px !important;
+            transition: all 0.3s ease;
+        }
+
+            .pagination .page-item .page-link:hover {
+                background-color: rgba(67, 97, 238, 0.1);
+                color: var(--primary-color);
+            }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #ced4da;
+        }
+
+        .animate__fadeInUp {
+            animation-duration: 0.6s;
+        }
+
+        .badge-payment {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .payment-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .payment-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .payment-failed {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+    </style>
+}
+
+<div class="order-management">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+            </div>
+
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-0">@ViewData["Title"]</h2>
+                        <p class="text-muted mb-0">Quản lý và theo dõi đơn hàng của bạn</p>
+                    </div>
+                    <a href="@Url.Action("Index", "TrangChu")" class="btn btn-primary">
+                        <i class="bi bi-cart-plus me-2"></i>Tiếp tục mua sắm
+                    </a>
+                </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link @(currentTrangThai == null ? "active" : "")"
+                           href="@Url.Action("Index", "DonHang")">
+                            Tất cả (@counts.Values.Sum())
+                        </a>
+                    </li>
+                    @foreach (var item in trangThaiLabels)
+                    {
+                        counts.TryGetValue(item.Key, out int count);
+                        var active = (currentTrangThai == item.Key) ? "active" : "";
+                        <li class="nav-item">
+                            <a class="nav-link @active" href="@Url.Action("Index", "DonHang", new { trangThai = item.Key })">
+                                @item.Value (@count)
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                @{
+                    var statusText = currentTrangThai.HasValue && trangThaiLabels.ContainsKey(currentTrangThai.Value)
+                    ? $"\"{trangThaiLabels[currentTrangThai.Value]}\""
+                    : "";
+                }
+
+                @if (!Model.Any())
+                {
+                    <div class="empty-state animate__animated animate__fadeIn">
+                        <i class="bi bi-box-seam"></i>
+                        <h4>Không có đơn hàng nào @statusText</h4>
+                        <p class="text-muted">Bạn chưa có đơn hàng nào trong mục này. Hãy tiếp tục mua sắm!</p>
+                        <a href="@Url.Action("Index", "TrangChu")" class="btn btn-primary mt-3">
+                            <i class="bi bi-cart-plus me-2"></i>Mua sắm ngay
+                        </a>
+                    </div>
+                }
+
+                @foreach (var don in Model)
+                {
+                    <div class="order-card animate__animated animate__fadeInUp">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Đơn hàng #@don.MaDh</div>
+                                <div class="order-date">
+                                    <i class="bi bi-calendar me-1"></i>
+                                    @don.NgayDatHang?.ToString("dd/MM/yyyy HH:mm")
+                                </div>
+                            </div>
+                            <div>
+                                @{
+                                    string statusLabel = trangThaiLabels.ContainsKey(don.TrangThai ?? 0)
+                                    ? trangThaiLabels[don.TrangThai ?? 0]
+                                    : "Không xác định";
+
+                                    string paymentLabel = paymentStatus.ContainsKey(don.TrangThaiThanhToan ?? 0)
+                                    ? paymentStatus[don.TrangThaiThanhToan ?? 0]
+                                    : "Không xác định";
+
+                                    string statusClass = don.TrangThai switch
+                                    {
+                                        1 => "status-pending",
+                                        2 => "status-confirmed",
+                                        3 => "status-shipping",
+                                        4 => "status-delivered",
+                                        _ => "status-cancelled"
+                                    };
+
+                                    string paymentClass = don.TrangThaiThanhToan switch
+                                    {
+                                        1 => "badge-payment payment-success",
+                                        2 => "badge-payment payment-failed",
+                                        _ => "badge-payment payment-pending"
+                                    };
+                                }
+                                <div class="order-status-badge @statusClass mb-2">@statusLabel</div>
+                                <div class="@paymentClass">
+                                    <i class="bi bi-credit-card me-1"></i>@paymentLabel
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-body">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th class="text-end">Đơn giá</th>
+                                        <th class="text-end">Số lượng</th>
+                                        <th class="text-end">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var sp in don.SanPhams)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="~/images/@(sp.Loai == "gq" ? "gioqua" : "sanpham")/@sp.HinhAnh"
+                                                         alt="@sp.TenSp"
+                                                         class="product-img me-3" />
+                                                    <div>
+                                                        <div class="product-name">@sp.TenSp</div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end product-price">
+                                                @(sp.DonGia.HasValue ? sp.DonGia.Value.ToString("N0") + " đ" : "N/A")
+                                            </td>
+                                            <td class="text-end">@sp.SoLuong</td>
+                                            <td class="text-end product-price">
+                                                @sp.TongTien?.ToString("N0") đ
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <div class="order-summary">
+                                <div class="summary-row">
+                                    <span class="summary-label">Tạm tính:</span>
+                                    <span class="summary-value">@((don.TongTienDonHang - don.PhiVanChuyen)?.ToString("N0")) đ</span>
+
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Phí vận chuyển:</span>
+                                    <span class="summary-value">@don.PhiVanChuyen?.ToString("N0") đ</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Tổng cộng:</span>
+                                    <span class="summary-value total-amount">@don.TongTienDonHang?.ToString("N0") đ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-footer">
+                            <div class="payment-method">
+                                <i class="bi bi-credit-card-2-front"></i>
+                                <span>@don.PhuongThucThanhToan</span>
+                                @if (!string.IsNullOrEmpty(don.GhiChu))
+                                {
+                                    <span class="ms-3 text-muted">
+                                        <i class="bi bi-chat-square-text me-1"></i>@don.GhiChu
+                                    </span>
+                                }
+                            </div>
+                            <div class="action-buttons">
+                                <a class="btn btn-outline-primary"
+                                   asp-controller="DonHang"
+                                   asp-action="DetailsDonHang"
+                                   asp-route-id="@don.MaDh">
+                                    <i class="bi bi-eye me-1"></i>Chi tiết
+                                </a>
+                                @if (don.TrangThai == 1)
+                                {
+                                    <button class="btn btn-outline-danger">
+                                        <i class="bi bi-x-circle me-1"></i>Hủy đơn
+                                    </button>
+                                }
+                                @if (don.TrangThai == 4)
+                                {
+                                    <button class="btn btn-outline-success">
+                                        <i class="bi bi-check-circle me-1"></i>Đã nhận
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (totalPages > 1)
+                {
+                    <div class="mt-4 animate__animated animate__fadeIn">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                                    <a class="page-link"
+                                       href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = currentPage - 1 })">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </a>
+                                </li>
+
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    <li class="page-item @(i == currentPage ? "active" : "")">
+                                        <a class="page-link"
+                                           href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = i })">@i</a>
+                                    </li>
+                                }
+
+                                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                                    <a class="page-link"
+                                       href="@Url.Action("Index", "DonHang", new { trangThai = currentTrangThai, page = currentPage + 1 })">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Animation khi load trang
+        document.addEventListener('DOMContentLoaded', function () {
+            const orderCards = document.querySelectorAll('.order-card');
+            orderCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                }, index * 100);
+            });
+        });
+
+        // Hiệu ứng hover cho nút
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-2px)';
+            });
+            button.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+}

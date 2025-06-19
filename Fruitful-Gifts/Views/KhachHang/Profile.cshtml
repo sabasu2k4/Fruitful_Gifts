@@ -1,0 +1,134 @@
+﻿@model Fruitful_Gifts.Database.KhachHang
+
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-3 mb-4">
+            @await Html.PartialAsync("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <div class="col-lg-9">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-primary text-white rounded-top-4 py-4">
+                    <h4 class="mb-0 fw-bold text-center">Hồ Sơ Của Tôi</h4>
+                    <p class="text-center mb-0">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+                </div>
+
+                <div class="card-body px-4 py-5">
+                    <form method="post" action="@Url.Action("EditProfile", "KhachHang")" class="needs-validation" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ho" name="HoKH" value="@Model.HoKh" required>
+                                    <label for="ho">Họ</label>
+                                    <div class="invalid-feedback">Vui lòng nhập họ</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ten" name="TenKH" value="@Model.TenKh" required>
+                                    <label for="ten">Tên</label>
+                                    <div class="invalid-feedback">Vui lòng nhập tên</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="Email" value="@Model.Email"
+                                           required>
+                                    <label for="email">Email</label>
+                                    <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="sdt" name="SDT" value="@Model.Sdt"
+                                           pattern="^\d{10}$" required>
+                                    <label for="sdt">Số điện thoại</label>
+                                    <div class="invalid-feedback">Số điện thoại phải có 10 chữ số</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="diachi" name="DiaChi" value="@Model.DiaChi">
+                                    <label for="diachi">Địa chỉ</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="gioiTinh" name="gioiTinh">
+                                        <option value="Nam" selected="@(Model.GioiTinh == "Nam")">Nam</option>
+                                        <option value="Nữ" selected="@(Model.GioiTinh == "Nữ")">Nữ</option>
+                                    </select>
+                                    <label for="gioiTinh">Giới tính</label>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-success px-4 py-2 rounded-pill">
+                                    <i class="fas fa-save me-2"></i> Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            'use strict'
+
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+            setTimeout(() => {
+                $('.alert').alert('close');
+            }, 5000);
+        })()
+    </script>
+}
+
+

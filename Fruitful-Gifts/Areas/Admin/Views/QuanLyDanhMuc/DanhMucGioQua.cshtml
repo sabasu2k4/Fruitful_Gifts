@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Danh mục giỏ quà";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<Fruitful_Gifts.Database.DanhMucGioQua>
+@{
+    var danhMucChaList = ViewBag.DanhMucChaList as List<Fruitful_Gifts.Database.DanhMucGioQua>;
+}
+
+<h2>Danh sách danh mục giỏ quà</h2>
+
+<!-- Lọc theo danh mục cha -->
+<form method="get" asp-action="DanhMucGioQua" asp-controller="QuanLyDanhMuc" asp-area="Admin" class="form-inline mb-3">
+    <div class="form-group">
+        <label for="danhMucChaId">Chọn danh mục cha:</label>
+        <select name="danhMucChaId" id="danhMucChaId" class="form-control mx-2" onchange="this.form.submit()">
+            <option value="">-- Tất cả --</option>
+            @foreach (var dm in danhMucChaList)
+            {
+                <option value="@dm.MaDm" @(Context.Request.Query["danhMucChaId"] == dm.MaDm.ToString() ? "selected" : "")>@dm.TenDm</option>
+            }
+        </select>
+    </div>
+    <a class="btn btn-success ml-3" href="@Url.Action("ThemDanhMucGioQua", "QuanLyDanhMuc", new { area = "Admin" })">+ Thêm danh mục mới</a>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã DM</th>
+            <th>Tên danh mục</th>
+            <th>Danh mục cha</th>
+            <th>Trạng thái</th>
+            <th>Ngày tạo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDm</td>
+                <td>@item.TenDm</td>
+                <td>@item.DanhMucCha?.TenDm</td>
+                <td>@(item.TrangThai == 1 ? "Hiển thị" : "Ẩn")</td>
+                <td>@item.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="xoaDanhMuc(@item.MaDm)">Xóa</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function xoaDanhMuc(maDm) {
+            if (confirm("Bạn có chắc muốn xóa danh mục này?")) {
+                $.ajax({
+                    url: '/Admin/QuanLyDanhMuc/XoaDanhMucGioQua',
+                    type: 'POST',
+                    data: {
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                        maDm: maDm
+                    },
+                    success: function (res) {
+                        alert(res.message);
+                        if (res.success) {
+                            location.reload(); // hoặc $('#row-' + maDm).remove();
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu.");
+                    }
+                });
+            }
+        }
+    </script>
+}

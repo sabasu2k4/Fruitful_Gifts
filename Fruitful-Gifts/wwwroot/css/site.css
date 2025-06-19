@@ -1,5 +1,12 @@
-﻿html {
-  font-size: 14px;
+﻿:root {
+    --font-family-sans-serif: Roboto, sans-serif;
+    --footerBg: #003366;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,19 +15,44 @@
   }
 }
 
+.container {
+    max-width: 1500px; 
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    font-family: var(--font-family-sans-serif);
+    color: #424242;
 }
 
+.wrapper-main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1; /* giúp phần nội dung giãn ra đẩy footer xuống đáy */
+}
+
+.title{
+    font-weight: 700;
+}
+
+/* Tạo hiệu ứng hover cho các phần tử trong header */
+.header-link:hover {
+    color: #ffdf00;
+    text-decoration: underline;
+}
+
+.d-flex .gap-2 i {
+    font-size: 18px;
+}
 
 .nav-link {
     transition: color 0.3s ease;
@@ -45,14 +77,361 @@ body {
     border-radius: 5px;
 }
 
-/* Tạo hiệu ứng hover cho các phần tử trong header */
-.header-link:hover {
-    color: #ffdf00;
-    text-decoration: underline;
+.navbar-nav .nav-link.active {
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
 }
 
-.d-flex .gap-2 i {
-    font-size: 18px;
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Tùy chỉnh nếu bị lệch */
 }
 
+.dropdown-menu {
+    transition: all 1s ease-in-out;
+    display: none;
+}
+
+.dropdown-item:hover {
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+    margin: 45px 0 0 20px;
+}
+
+.user-dropdown .dropdown-menu {
+    display: none;
+    transition: all 1s ease-in-out;
+}
+
+.user-dropdown .dropdown-item:hover {
+    color: #003366 !important;
+    background-color: rgba(0, 51, 102, 0.1);
+}
+
+
+.badge {
+    color: white;
+    font-size: 0.7rem;
+    padding: 5px 7px;
+}
+
+.bg-fruitful-dark {
+    background-color: #003366 !important; /* Màu xanh đậm của footer */
+}
+
+.bg-fruitful-light {
+    background-color: #004080 !important; /* Một chút nhạt hơn để tạo sự khác biệt (tùy chọn) */
+}
+
+.text-fruitful-dark {
+    color: #003366 !important;
+}
+
+.btn-outline-fruitful-dark {
+    color: #003366 !important;
+    border-color: #003366 !important;
+}
+
+.btn-outline-fruitful-dark:hover {
+    background-color: #003366 !important;
+    color: white !important;
+}
+
+
+/*=============================================*/
+
+.footer-context {
+    background-color: var(--footerBg);
+}
+
+.footer-logo img {
+    max-width: 150px; /* Điều chỉnh kích thước logo */
+    height: auto;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+    .footer-links ul li a {
+        color: white;
+        text-decoration: none;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+.footer-contact p {
+    margin-bottom: 8px;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 20px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+    .footer-social a:hover {
+        opacity: 0.8;
+    }
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 15px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.bottom-nav {
+    background-color: #001a33; /* Màu xanh đậm hơn cho thanh dưới */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+    .bottom-nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+        .bottom-nav a:hover {
+            text-decoration: underline;
+        }
+
+/*========================*/
+.chat-buttons-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.chat-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white !important;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .chat-button:hover {
+        transform: scale(1.1);
+    }
+
+    .chat-button .chat-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+.zalo-button {
+    background-color: #007bff;
+}
+
+.call-button {
+    background-color: springgreen;
+}
+
+.chat-btn {
+    background-color: #02509f;
+}
+
+.waves {
+    height: 100px;
+    min-height: 100px;
+    position: relative;
+}
+
+.parallax > use {
+    animation: move-forever 18s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+    .parallax > use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 8s; /* Sóng đậm – nhanh */
+    }
+
+    .parallax > use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 11s; /* Trung bình */
+    }
+
+    .parallax > use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 14s; /* Nhẹ hơn */
+    }
+
+    .parallax > use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 18s; /* Nhẹ nhất */
+    }
+
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.header-title:hover {
+    color: #0661c3 !important;
+}
+
+/*chat nhanh khách hàng start*/
+#chatContainer {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    z-index: 9999;
+}
+
+#chatHeader {
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+    #chatHeader .close-chat {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+#chatBoxClient {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+#inputArea {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+#messageInputClient {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+    #messageInputClient:focus {
+        border: none;
+        outline: none;
+    }
+
+#sendButtonClient {
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+}
+
+    #sendButtonClient:hover {
+        background-color: #0056b3;
+    }
+
+/* Tin nhắn từ khách hàng (phía bên phải) */
+.client-message {
+    align-self: flex-end;
+    background-color: #d6eaff; /* Màu xanh nhạt */
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+/* Tin nhắn từ admin (phía bên trái) */
+.admin-message {
+    align-self: flex-start;
+    background-color: #f1f0f0; /* Màu xám nhạt */
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.timestamp {
+    font-size: 9px;
+    color: #888;
+    display: block;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Tùy chỉnh thanh scroll cho khung chat */
+#chatBoxClient::-webkit-scrollbar {
+    width: 6px; /* độ rộng của scrollbar */
+}
+
+#chatBoxClient::-webkit-scrollbar-track {
+    background: transparent; /* nền của track */
+}
+
+#chatBoxClient::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1); /* màu của thanh kéo */
+    border-radius: 10px; /* bo tròn */
+}
+
+    #chatBoxClient::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.4); /* khi hover */
+    }
+/*chat nhanh khách hàng end*/
 

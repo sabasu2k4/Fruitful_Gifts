@@ -1,0 +1,141 @@
+﻿
+@model IEnumerable<Fruitful_Gifts.Database.DonHang>
+
+@{
+    ViewData["Title"] = "Quản Lý Đơn Hàng";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Tìm kiếm...">
+                <select class="form-select" name="trangThai" asp-items="@(new SelectList(ViewBag.TrangThaiList, "Value", "Text", ViewData["CurrentStatus"]))">
+                    <option value="">Tất cả trạng thái</option>
+                </select>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+    
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
+                                Mã ĐH <i class="fas fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>Khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
+                                Ngày đặt <i class="fas fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["TotalSortParm"]">
+                                Tổng tiền <i class="fas fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>Trạng thái</th>
+                        <th>Thanh toán</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaDh</td>
+                            <td>@(item.MaKhNavigation?.TenKh ?? "Khách vãng lai")</td>
+                            <td>@item.SoDienThoai</td>
+                            <td>@item.NgayDatHang?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-end">@item.TongTienDonHang?.ToString("N0") ₫</td>
+                            <td>
+                                <span class="badge @GetStatusBadgeClass(item.TrangThai)">
+                                    @item.TrangThaiNavigation?.TenTrangThai
+                                </span>
+                            </td>
+                            <td>
+                                @if (item.TrangThaiThanhToan == 1)
+                                {
+                                    <span class="badge bg-success">Đã thanh toán</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <!-- Nút Xem chi tiết -->
+                                    <a href="/Admin/QuanLyDonHang/ChiTiet/@item.MaDh" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    <!-- Nút Cập nhật trạng thái -->
+                                    <a href="/Admin/QuanLyDonHang/CapNhatTrangThai/@item.MaDh" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <!-- Nút Hủy đơn hàng (chỉ hiển thị khi trạng thái là 1 hoặc 2) -->
+                                    @if (item.TrangThai == 1 || item.TrangThai == 2)
+                                    {
+                                        <a href="/Admin/QuanLyDonHang/HuyDonHang/@item.MaDh" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(int? status)
+    {
+        return status switch
+        {
+            1 => "bg-secondary",    // Chờ xác nhận
+            2 => "bg-primary",      // Đã xác nhận
+            3 => "bg-info",         // Đang giao hàng
+            4 => "bg-success",      // Đã giao hàng
+            5 => "bg-warning",      // Hoàn hàng
+            6 => "bg-danger",       // Đã hủy
+            7 => "bg-dark",         // Giao hàng thất bại
+            8 => "bg-danger",       // Từ chối
+            _ => "bg-secondary",
+        };
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Vietnamese.json"
+                }
+            });
+        });
+    </script>
+}
+

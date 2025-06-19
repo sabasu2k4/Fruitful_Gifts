@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Fruitful_Gifts.Database.DanhMucSanPham>
+
+@{
+    ViewData["Title"] = "Danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách danh mục sản phẩm</h2>
+<a class="btn btn-success ml-3" href="@Url.Action("ThemDanhMucSanPham", "QuanLyDanhMuc", new { area = "Admin" })">+ Thêm danh mục mới</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã loại</th>
+            <th>Tên danh mục</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="row-@item.MaLoai">
+                <td>@item.MaLoai</td>
+                <td>@item.TenLoai</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="xoaDanhMuc(@item.MaLoai)">Xóa</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        function xoaDanhMuc(maLoai) {
+            if (confirm("Bạn có chắc muốn xóa danh mục này?")) {
+                $.ajax({
+                    url: '/Admin/QuanLyDanhMuc/XoaDanhMucSanPham',
+                    type: 'POST',
+                    data: { maLoai: maLoai },
+                    success: function (res) {
+                        if (res.success) {
+                            alert(res.message);
+                            $('#row-' + maLoai).remove(); // xóa dòng khỏi bảng
+                        } else {
+                            alert(res.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu xóa.");
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+
+
+

@@ -1,0 +1,361 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/GioHang.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+}
+
+@model List<Fruitful_Gifts.Database.ChiTietGioHang>
+
+@functions {
+    public string FormatCurrency(decimal? amount)
+    {
+        return string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:c0}", amount ?? 0);
+    }
+}
+
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-12 div-sp-gio-hang">
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-warning" role="alert">
+                    Không có sản phẩm nào. Quay lại <a href="/" class="fw-bold text-decoration-none">cửa hàng</a> để tiếp tục mua sắm.
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="col-11 d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <input type="checkbox" id="checkbox-chon-tat-ca"
+                                       style="width: 18px; height: 18px; accent-color: #165da3;"
+                                @(Model.All(x => x.TrangThai == 1) ? "checked" : "") />
+                                <label for="checkbox-chon-tat-ca" class="ms-2 mb-0">Chọn tất cả</label>
+                            </div>
+
+                            <h6 class="mb-0">
+                                <a href="javascript:void(0)" id="btn-xoa-tat-ca"
+                                   class="line-bottom position-relative text-decoration-none text-danger">
+                                    Xóa tất cả
+                                </a>
+                            </h6>
+                        </div>
+
+                        <div class="col-11 pt-2">
+                            <div class="col-12">
+                                @foreach (var item in Model)
+                                {
+                                    var tenSanPham = item.MaSpNavigation?.TenSp ?? item.MaGqNavigation?.TenGioQua;
+                                    var hinhAnh = item.MaSpNavigation?.HinhAnh ?? item.MaGqNavigation?.HinhAnh;
+                                    var giaBan = item.MaSpNavigation?.GiaBan ?? item.MaGqNavigation?.GiaBan ?? 0;
+                                    var id = item.MaGq ?? item.MaSp;
+                                    var loai = item.MaGq != null ? "gq" : "sp";
+                                    var slug = loai == "gq" ? item.MaGqNavigation?.Slug : item.MaSpNavigation?.Slug;
+                                    var img = loai == "gq" ? $"~/images/gioqua/{hinhAnh}" : $"~/images/sanpham/{hinhAnh}";
+                                    var chitiet = Url.Action(loai == "gq" ? "ChiTietGioQua" : "ChiTietSanPham",
+                                    loai == "gq" ? "GioQua" : "SanPham", new { slug = slug });
+
+                                    <div class="col-12 mb-3 position-relative cart-item" data-id="@id" data-type="@loai">
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger position-absolute top-0 end-0 btn-delete-item rounded"
+                                                title="Xóa sản phẩm">
+                                            &times;
+                                        </button>
+
+                                        <div class="d-flex align-items-center justify-content-between border rounded p-3 shadow-sm">
+                                            <div class="d-flex align-items-center">
+                                                <input type="checkbox"
+                                                       class="me-3 checkbox-chon-sp item-checkbox"
+                                                       data-id="@id"
+                                                       data-loai="@loai"
+                                                       style="width: 18px; height: 18px; accent-color: #165da3;"
+                                                @(item.TrangThai == 1 ? "checked" : "") />
+                                                <a href="@chitiet" class="text-decoration-none text-dark">
+                                                    <img src="@Url.Content(img)" alt="@tenSanPham" class="image-item-cart" />
+                                                </a>
+                                                <div class="ms-3">
+                                                    <h6 class="mb-1 text-uppercase">
+                                                        <a href="@chitiet" class="text-decoration-none text-dark">@tenSanPham</a>
+                                                    </h6>
+                                                    <div class="d-flex align-items-center mt-2">
+                                                        <button class="btn btn-sm btn-outline-secondary rounded-circle btn-update-qty"
+                                                                data-type="giam">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                        <span class="mx-2 so-luong">@item.SoLuong</span>
+                                                        <button class="btn btn-sm btn-outline-secondary rounded-circle btn-update-qty"
+                                                                data-type="tang">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <strong class="thanh-tien" style="white-space: nowrap;">
+                                                    @FormatCurrency((item.SoLuong ?? 0) * giaBan)
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 div-tong-tien bg-light border clearfix mb-3 p-2 p-lg-3 rounded-10 total">
+                        <dl class="bg-light border clearfix mb-3 p-2 p-lg-3 rounded-10 total">
+                            <dt class="text-uppercase font-weight-bold text-btn">
+                                <h3>Tổng tiền</h3>
+                            </dt>
+                            <dd id="tong-tien" class="gia-tong-cong cart__summary_total font-weight-bold ml-auto mb-0">
+                                @FormatCurrency(Model.Where(x => x.TrangThai == 1).Sum(x => (x.SoLuong ?? 0) * (x.MaSpNavigation?.GiaBan ?? x.MaGqNavigation?.GiaBan ?? 0)))
+                            </dd>
+
+                            <div class="js-free-shipping mb-3 mt-3 position-relative progress rounded-10">
+                                @{
+                                    var tongTienChon = Model.Where(x => x.TrangThai == 1).Sum(x => (x.SoLuong ?? 0) * (x.MaSpNavigation?.GiaBan ?? x.MaGqNavigation?.GiaBan ?? 0));
+                                    var progressWidth = tongTienChon >= 500000 ? 100 : (tongTienChon / 500000) * 100;
+                                }
+                                <div class="progress-bar progress-bar-animated rounded-10 position-relative @(tongTienChon >= 500000 ? "bg-success" : "bg-warning") progress-bar-striped"
+                                     role="progressbar" style="width: @(progressWidth > 100 ? 100 : progressWidth)%;">
+                                    <span class="align-items-center d-inline-flex icon justify-content-center position-absolute rounded-circle @(tongTienChon >= 500000 ? "bg-success" : "bg-warning")"
+                                          style="top: 50%; right: -5px; transform: translateY(-50%); width: 40px; height: 40px;">
+                                        <i class="bi bi-truck" style="color: white; font-size: 15px;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="alert alert-info free-shipping-content js-free-shipping-text mb-0 rounded-10">
+                                @if (tongTienChon >= 500000)
+                                {
+                                    <text>Đơn hàng của quý khách đã được miễn phí vận chuyển.</text>
+                                }
+                                else
+                                {
+                                    <text>Còn @FormatCurrency(500000 - tongTienChon) nữa để được miễn phí vận chuyển.</text>
+                                }
+                            </div>
+                        </dl>
+
+                        <form method="get" asp-controller="Payment" asp-action="Checkout" id="checkoutForm">
+                            <button type="button" id="btnThanhToan" class="btn-dangnhap w-100 text-center"
+                            @(tongTienChon <= 0 ? "disabled" : "")>
+                                Thanh Toán
+                            </button>
+                        </form>
+
+                        <div class="alert alert-warning mt-2 @(tongTienChon > 0 ? "d-none" : "")">
+                            Vui lòng chọn ít nhất một sản phẩm để thanh toán
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            // Hàm cập nhật tổng tiền và trạng thái nút thanh toán
+            function updateCartSummary() {
+                var selectedItems = $('.item-checkbox:checked');
+                var total = 0;
+
+                selectedItems.each(function () {
+                    var item = $(this).closest('.cart-item');
+                    var quantity = parseInt(item.find('.so-luong').text());
+                    var priceText = item.find('.thanh-tien').text().replace(/[^\d]/g, '');
+                    var price = parseInt(priceText) / quantity;
+
+                    total += quantity * price;
+                });
+
+                $('#tong-tien').text(total.toLocaleString('vi-VN') + '₫');
+
+                // Cập nhật trạng thái nút thanh toán
+                if (selectedItems.length > 0) {
+                    $('#btnThanhToan').prop('disabled', false);
+                    $('.alert-warning').addClass('d-none');
+                } else {
+                    $('#btnThanhToan').prop('disabled', true);
+                    $('.alert-warning').removeClass('d-none');
+                }
+
+                // Cập nhật progress bar
+                var progressWidth = total >= 500000 ? 100 : (total / 500000) * 100;
+                var progressBar = $('.progress-bar');
+                var progressIcon = $('.progress-bar .icon');
+
+                if (total >= 500000) {
+                    progressBar.removeClass('bg-warning').addClass('bg-success');
+                    progressIcon.removeClass('bg-warning').addClass('bg-success');
+                    $('.js-free-shipping-text').html('Đơn hàng của quý khách đã được miễn phí vận chuyển.');
+                } else {
+                    progressBar.removeClass('bg-success').addClass('bg-warning');
+                    progressIcon.removeClass('bg-success').addClass('bg-warning');
+                    var remaining = (500000 - total).toLocaleString('vi-VN');
+                    $('.js-free-shipping-text').html(`Còn ${remaining}₫ nữa để được miễn phí vận chuyển.`);
+                }
+
+                progressBar.css('width', progressWidth + '%');
+            }
+
+            // Xử lý chọn tất cả
+            $('#checkbox-chon-tat-ca').change(function () {
+                var isChecked = $(this).is(':checked');
+                $('.item-checkbox').prop('checked', isChecked).trigger('change');
+
+                $.post('/GioHang/CapNhatTatCaTrangThai', {
+                    trangThai: isChecked
+                }, function (response) {
+                    if (response.success) {
+                        updateCartSummary();
+                    }
+                });
+            });
+
+            // Xử lý chọn từng sản phẩm
+            $(document).on('change', '.item-checkbox', function () {
+                var id = $(this).data('id');
+                var loai = $(this).data('loai');
+                var isChecked = $(this).is(':checked');
+
+                $.post('/GioHang/CapNhatTrangThai', {
+                    id: id,
+                    loai: loai,
+                    trangThai: isChecked
+                }, function (response) {
+                    if (response.success) {
+                        updateCartSummary();
+
+                        // Kiểm tra trạng thái "chọn tất cả"
+                        var allChecked = $('.item-checkbox').length === $('.item-checkbox:checked').length;
+                        $('#checkbox-chon-tat-ca').prop('checked', allChecked);
+                    }
+                });
+            });
+
+            // Xử lý thay đổi số lượng
+            $(document).on('click', '.btn-update-qty', function () {
+                var button = $(this);
+                var item = button.closest('.cart-item');
+                var id = item.data('id');
+                var loai = item.data('type');
+                var action = button.data('type');
+                var quantityElement = item.find('.so-luong');
+                var quantity = parseInt(quantityElement.text());
+
+                if (action === 'tang') {
+                    quantity++;
+                } else if (action === 'giam' && quantity > 1) {
+                    quantity--;
+                }
+
+                $.post('/GioHang/CapNhatSoLuongAjax', {
+                    id: id,
+                    loai: loai,
+                    type: action
+                }, function (response) {
+                    if (response.success) {
+                        quantityElement.text(response.soLuongMoi);
+                        item.find('.thanh-tien').text(response.thanhTien);
+                        updateCartSummary();
+                    }
+                });
+            });
+
+            // Xử lý xóa sản phẩm
+            $(document).on('click', '.btn-delete-item', function () {
+                var item = $(this).closest('.cart-item');
+                var id = item.data('id');
+                var type = item.data('type');
+
+                Swal.fire({
+                    title: 'Xóa sản phẩm?',
+                    text: "Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post('/GioHang/XoaItem', {
+                            id: id,
+                            type: type
+                        }, function (response) {
+                            if (response.success) {
+                                item.remove();
+                                updateCartSummary();
+
+                                if ($('.cart-item').length === 0) {
+                                    $('.div-sp-gio-hang').html(`
+                                                <div class="alert alert-warning" role="alert">
+                                                    Không có sản phẩm nào. Quay lại <a href="/" class="fw-bold text-decoration-none">cửa hàng</a> để tiếp tục mua sắm.
+                                                </div>
+                                            `);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Xử lý xóa tất cả
+            $('#btn-xoa-tat-ca').click(function () {
+                Swal.fire({
+                    title: 'Xóa toàn bộ giỏ hàng?',
+                    text: "Bạn có chắc muốn xóa hết sản phẩm trong giỏ hàng?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Xóa tất cả',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post('/GioHang/XoaTatCaGioHang', function (response) {
+                            if (response.success) {
+                                $('.div-sp-gio-hang').html(`
+                                            <div class="alert alert-warning" role="alert">
+                                                Không có sản phẩm nào. Quay lại <a href="/" class="fw-bold text-decoration-none">cửa hàng</a> để tiếp tục mua sắm.
+                                            </div>
+                                        `);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Xử lý thanh toán
+            $('#btnThanhToan').click(function () {
+                var selectedItems = $('.item-checkbox:checked').length;
+
+                if (selectedItems > 0) {
+                    $('#checkoutForm').submit();
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Vui lòng chọn sản phẩm',
+                        text: 'Bạn cần chọn ít nhất một sản phẩm để thanh toán',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+
+            // Khởi tạo lần đầu
+            updateCartSummary();
+        });
+    </script>
+}

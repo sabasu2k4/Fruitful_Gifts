@@ -1,0 +1,106 @@
+﻿@model Fruitful_Gifts.Models.Vnpay.PaymentInformationModel
+@{
+    ViewData["Title"] = "Xác nhận thanh toán";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-gradient-primary text-white rounded-top-4 d-flex align-items-center">
+            <i class="bi bi-credit-card-2-front-fill fs-3 me-3"></i>
+            <h3 class="mb-0 fw-bold">Xác nhận thông tin thanh toán</h3>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Checkout" asp-controller="Payment" method="post" novalidate>
+                <div class="row g-4">
+                    <!-- Thông tin khách hàng -->
+                    <div class="col-md-6">
+                        <h5 class="mb-4 fw-semibold text-primary"><i class="bi bi-person-circle me-2"></i>Thông tin khách hàng</h5>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-semibold">Họ tên</label>
+                            <input asp-for="Name" class="form-control form-control-lg" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                            <input asp-for="Email" class="form-control form-control-lg" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Sdt" class="form-label fw-semibold">Số điện thoại</label>
+                            <input asp-for="Sdt" class="form-control form-control-lg" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="DiaChi" class="form-label fw-semibold">Địa chỉ</label>
+                            <input asp-for="DiaChi" class="form-control form-control-lg" readonly />
+                        </div>
+                    </div>
+
+                    <!-- Thông tin đơn hàng và thanh toán -->
+                    <div class="col-md-6">
+                        <h5 class="mb-4 fw-semibold text-primary"><i class="bi bi-bag-check-fill me-2"></i>Thông tin đơn hàng & thanh toán</h5>
+                        <div class="mb-3">
+                            <label asp-for="Amount" class="form-label fw-semibold">Số tiền (VNĐ)</label>
+                            <input asp-for="Amount" class="form-control form-control-lg fw-bold text-success" readonly style="font-size:1.25rem;" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="OrderType" class="form-label fw-semibold">Loại đơn</label>
+                            <input asp-for="OrderType" class="form-control form-control-lg" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="OrderDescription" class="form-label fw-semibold">Ghi chú đơn hàng (tuỳ chọn)</label>
+                            <textarea asp-for="OrderDescription" class="form-control form-control-lg" rows="3" placeholder="Nhập ghi chú nếu có..."></textarea>
+                            <span asp-validation-for="OrderDescription" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Phương thức thanh toán :</label>
+                            <div class="d-flex gap-4">
+                                <div class="form-check d-flex align-items-center" style="min-height: 48px;">
+                                    <input class="form-check-input" type="radio" name="PaymentMethod" value="cash" id="payCash" checked>
+                                    <label class="form-check-label ms-2 mb-0" for="payCash">
+                                        <i class="bi bi-cash-stack me-1"></i> Thanh toán khi nhận hàng (Tiền mặt)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center" style="min-height: 48px;">
+                                    <input class="form-check-input" type="radio" name="PaymentMethod" value="vnpay" id="payVnpay">
+                                    <label class="form-check-label ms-2 mb-0" for="payVnpay">
+                                        <i class="bi bi-credit-card-2-front me-1"></i> Thanh toán qua thẻ (VNPay)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-gradient-success w-100 fw-bold py-3 fs-5 rounded-3 shadow-sm">
+                            Xác nhận và thanh toán
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Gradient màu xanh cho header và button */
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+    }
+
+    .btn-gradient-success {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        border: none;
+        transition: background 0.3s ease;
+    }
+
+        .btn-gradient-success:hover {
+            background: linear-gradient(45deg, #218838, #17a2b8);
+        }
+</style>

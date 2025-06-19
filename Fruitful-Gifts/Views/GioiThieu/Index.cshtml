@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Giới Thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Fruitful_Gifts.Database.BaiViet>
+@{
+    var baiVietMoi = ViewBag.BaiVietMoi as List<Fruitful_Gifts.Database.BaiViet>;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/GioiThieu.css" />
+}
+
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Giới thiệu</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Nội dung giới thiệu công ty -->
+        <div class="col-12 col-lg-9 gap-4">
+            <h2 class="fw-bold">Giới thiệu</h2>
+            <h4 class="fw-bold mt-3">@ViewBag.BaiVietGioiThieu.TieuDe</h4>
+            <div class="mt-2">
+                @Html.Raw(ViewBag.BaiVietGioiThieu.NoiDung)
+            </div>
+        </div>
+
+        <!-- Tin mới nhất -->
+        <div class="col-12 col-lg-3">
+            <div class="row p-3 tin-moi-nhat">
+                <h5 class="fw-bold">Tin mới nhất</h5>
+                @foreach (var tin in baiVietMoi)
+                {
+                    <div class="d-flex mb-2 news-item p-1">
+                        <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })"
+                           class="mb-1 fw-bold text-break text-decoration-none text-dark">
+                            <img src="~/images/baiviet/@tin.HinhAnh" alt="tin" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+                        </a>
+                        <div>
+                            <a href="@Url.Action("chitiet", "baiviet", new { mabv = tin.MaBv })" 
+                            class="mb-1 fw-bold text-break text-decoration-none text-dark">
+                                @tin.TieuDe
+                            </a><br />
+                            <small class="text-muted">@tin.CreatedAt?.ToString("dd/MM/yyyy")</small>
+                        </div>
+                    </div>
+                }
+                <a href="/baiviet" class="btn btn-xemthem-1 rounded-pill px-4">
+                    Xem thêm
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,67 @@
+﻿@model Fruitful_Gifts.Models.Vnpay.PaymentInformationModel
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+}
+
+<div class="container py-5 text-center">
+    <div class="card shadow-sm p-4 mx-auto" style="max-width: 600px;">
+        <div class="checkmark-circle">
+            <div class="checkmark draw"></div>
+        </div>
+        <h2 class="text-success mb-4">🎉 Đặt hàng thành công!</h2>
+
+        <div class="order-details text-start mb-4">
+            <div class="d-flex justify-content-between py-2 border-bottom">
+                <span>Phương thức thanh toán:</span>
+                <strong>Tiền mặt khi nhận hàng</strong>
+            </div>
+            <div class="d-flex justify-content-between py-2 border-bottom">
+                <span>Tổng tiền:</span>
+                <strong class="text-danger">@string.Format("{0:N0}₫", Model.Amount)</strong>
+            </div>
+            <div class="d-flex justify-content-between py-2">
+                <span>Phí vận chuyển:</span>
+                <strong>@string.Format("{0:N0}₫", Model.PhiVanChuyenBanHang)</strong>
+            </div>
+        </div>
+
+        <p class="text-muted mb-4">Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận đơn hàng.</p>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a class="btn btn-primary" href="/">
+                <i class="fas fa-home me-2"></i>Trang chủ
+            </a>
+            <a class="btn btn-outline-secondary" href="/tai-khoan/don-hang">
+                <i class="fas fa-list-alt me-2"></i>Xem đơn hàng
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .checkmark-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #28a745;
+        margin: 0 auto 20px;
+        position: relative;
+    }
+
+    .checkmark {
+        width: 30px;
+        height: 60px;
+        border-right: 5px solid white;
+        border-bottom: 5px solid white;
+        transform: rotate(45deg);
+        position: absolute;
+        left: 28px;
+        top: 5px;
+    }
+
+    .order-details {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+    }
+</style>

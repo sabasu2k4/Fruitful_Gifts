@@ -1,0 +1,79 @@
+﻿@model Fruitful_Gifts.Database.BinhLuan
+
+@{
+    ViewBag.Title = "Chỉnh sửa chấm điểm";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/chamdiem.css" asp-append-version="true" />
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Shared/PartialsViews/_SlidebarProfile.cshtml")
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="card shadow-lg p-4">
+                <h3 class="mb-4 text-primary">Chỉnh sửa đánh giá sản phẩm</h3>
+
+                @if (TempData["Message"] != null)
+                {
+                    <div id="message" class="alert alert-info">
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="sanPhamId" value="@Model.MaSp" />
+                    <input type="hidden" name="gioQuaId" value="@Model.MaGq " />
+
+                    <div class="form-group mb-3">
+                        <label for="rating" class="form-label">Chấm điểm:</label>
+                        <select class="form-control" id="rating" name="rating" required>
+                            <option value="1" selected="@(Model.SoSao == 1)">1 Sao</option>
+                            <option value="2" selected="@(Model.SoSao == 2)">2 Sao</option>
+                            <option value="3" selected="@(Model.SoSao == 3)">3 Sao</option>
+                            <option value="4" selected="@(Model.SoSao == 4)">4 Sao</option>
+                            <option value="5" selected="@(Model.SoSao == 5)">5 Sao</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="comment" class="form-label">Bình luận:</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="4" required>@Model.NoiDung</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-save"></i> Cập nhật
+                        </button>
+                        <a href="@Url.Action("SanPhamChamDiem", "SanPham")" class="btn btn-secondary">
+                            <i class="fa fa-arrow-left"></i> Quay lại
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        setTimeout(function () {
+            var messageElement = document.getElementById("message");
+            if (messageElement) {
+                messageElement.style.display = "none";
+            }
+        }, 5000);
+    </script>
+}
+
+
+

@@ -1,0 +1,27 @@
+﻿.input-dangky, .input-dangnhap {
+    border: 1px solid #003366 !important;
+    border-radius: 5px !important;
+    font-size: 18px !important;
+}
+
+.btn-dangky, .btn-dangnhap {
+    background: #003366;
+    color: white !important;
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    border-radius: 5px;
+    display: block; 
+    width: 100%;
+    font-size: 18px;
+}
+    .btn-dangky:hover, .btn-dangnhap:hover {
+        background-color: #034a90;
+        color: white;
+    }
+
+.f-dangnhap {
+    border: 1px solid #003366 !important;
+}

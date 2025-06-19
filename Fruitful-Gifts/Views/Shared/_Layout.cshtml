@@ -1,78 +1,413 @@
-﻿<!DOCTYPE html>
+﻿@using Fruitful_Gifts.Database
+@* @model Fruitful_Gifts.Database.KhachHang *@
+
+<!DOCTYPE html>
 <html lang="en">
+@RenderSection("Styles", required: false)
+@{
+    var userName = Context.Session.GetString("UserName");
+    int? maKh = Context.Session.GetInt32("MaKh");
+
+    var db = Context.RequestServices.GetService(typeof(FruitfulGiftsContext)) as FruitfulGiftsContext;
+
+    int? soLuong = 0;
+    if (maKh != null)
+    {
+        soLuong = db.ChiTietGioHangs
+            .Where(x => x.MaKh == maKh)
+            .Sum(x => (int?)x.SoLuong) ?? 0;
+    }
+
+}
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Fruitful_Gifts</title>
+    @RenderSection("CSS", required: false)
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Fruitful_Gifts.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/TaiKhoan.css" asp-append-version="true" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="bg-primary text-white py-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div>
-                <a href="#" class="text-white text-decoration-none fs-4 fw-bold">BeryBee 🍇</a>
-            </div>
-            <div class="d-none d-md-flex gap-4 align-items-center">
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-phone"></i> 1900 636 597</a>
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-regular fa-user"></i> Đăng nhập</a>
-                <a href="#" class="text-white text-decoration-none d-flex align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand d-md-none" href="#">BeryBee</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Quà tặng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Trái cây</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Hộp quà</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Khuyến mãi</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2 rounded-pill border-0 shadow-sm" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
-                    <button class="btn btn-outline-primary rounded-pill px-4" type="submit">Tìm</button>
+    <div class="wrapper-main">
+        <header class="bg-fruitful-dark text-white py-3 sticky-top">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="/trangchu" class="text-white text-decoration-none fs-4 fw-bold">
+                        Fruitful-Gifts
+                        <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 40px;">
+                    </a>
+                </div>
+                <!-- Thanh tìm kiếm -->
+                <form class="d-none d-md-block flex-grow-1 mx-4" role="search" method="get" asp-controller="TrangChu" asp-action="TimKiem">
+                    <div class="input-group rounded-pill overflow-hidden" style="background-color: white; border: 1px solid #ccc;">
+                        <input type="text" class="form-control border-0 shadow-none px-4 py-2" name="TuKhoa" placeholder="Bạn tìm gì hôm nay?" aria-label="Tìm kiếm" />
+                        <button class="btn bg-transparent border-0 px-3" type="submit">
+                            <i class="fa fa-search text-dark"></i>
+                        </button>
+                    </div>
                 </form>
+                <div class="d-none d-md-flex gap-4 align-items-center text-white">
+                    <div class="d-flex gap-4">
+                        <div class="d-flex  align-items-center gap-2">
+                            <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                <i class="fa-regular fa-heart fa-lg"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="">
+                                    <a href="@Url.Action("DanhSachSanPhamYeuThich", "SanPham")" class="text-white text-decoration-none align-items-center text-start header-title">
+                                        <div class="small">Sản phẩm</div>
+                                        <div class="fw-bold">Yêu thích</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="d-flex gap-4">
+                        <div class="d-flex  align-items-center gap-2">
+                            <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                <i class="fa-solid fa-bag-shopping fa-lg"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="">
+                                    <a href="@(!string.IsNullOrEmpty(userName) ? "/giohang" : "/taikhoan/dangnhap")" class="text-white text-decoration-none align-items-center text-start header-title">
+                                        <div class="small">Giỏ</div>
+                                        <div class="fw-bold">hàng</div>
+                                        @if (soLuong > 0 && !string.IsNullOrEmpty(userName))
+                                        {
+                                            <span id="soLuongGio" class="position-absolute top-10 start-10 translate-middle badge rounded-pill bg-danger">
+                                                @soLuong
+                                            </span>
+                                        }else{
+                                            <span id="soLuongGio" class="position-absolute top-10 start-10 translate-middle badge rounded-pill bg-danger">
+                                                0
+                                            </span>
+                                        }
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <div class="d-flex gap-4 dropdown user-dropdown">
+                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 text-white text-decoration-none dropdown-toggle">
+                                <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                    <i class="fa-regular fa-user fa-lg"></i>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold">Hello, @userName</div>
+                                </div>
+                            </a>
+                            @{
+                                var profileUrl = Url.Action("Profile", "KhachHang");
+                            }
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="@profileUrl">Thông tin tài khoản</a></li>
+                                <li><a class="dropdown-item" href="/taikhoan/dangxuat">Đăng xuất</a></li>
+                            </ul>
+
+                        </div>
+                    }
+                    else
+                    {
+                      <!-- Nếu chưa đăng nhập, hiển thị các liên kết đăng nhập và đăng ký -->
+                        <div class="d-flex gap-4">
+                            <div class="d-flex  align-items-center gap-2">
+                                <div class="rounded-circle border border-white p-2 d-flex justify-content-center align-items-center header-icon">
+                                    <i class="fa-regular fa-user fa-lg"></i>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold">
+                                        <a href="javascript:void(0)" class="text-white text-decoration-none align-items-center text-start header-title"
+                                           data-bs-toggle="modal" data-bs-target="#loginModal" style="cursor: pointer;">
+                                            <div class="fw-bold">Đăng nhập</div>
+                                        </a>
+                                    </div>
+                                    <div class="fw-bold">
+                                        <a href="/taikhoan/dangky" class="text-white text-decoration-none align-items-center text-start header-title">
+                                            <div class="fw-bold">Đăng ký</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    }
+                </div>
+            </div>
+        </header>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-md-none fw-bold text-fruitful-dark" href="#">Fruitful-Gifts</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/trangchu">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/gioithieu">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdownMenuLink"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Danh mục
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Quà tăng dịp lễ</a></li>
+                                <li><a class="dropdown-item" href="#">Quà tặng gia đình và cá nhân</a></li>
+                                <li><a class="dropdown-item" href="#">Quà tặng thương mại</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ưu đãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "LienHe")">Liên hệ</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fuild main-content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <div class="chat-buttons-container">
+            <a href="https://zalo.me/1889612680828902680" target="_blank" rel="nofollow noopener" class="chat-button zalo-button">
+                <img src="~/images/Icon_of_Zalo.svg.png" alt="zalo" class="chat-icon">
+            </a>
+            <a href="#" class="chat-button call-button">
+                <i class="bi bi-telephone-fill"></i>
+            </a>
+            <a href="#" class="chat-button chat-btn">
+                <i class="bi bi-chat-left-dots-fill"></i>
+            </a>
+        </div>
+        <footer class="text-white">
+            <!-- SVG sóng nước -->
+            <div class="wave-wrapper">
+                <svg class="waves position-relative w-100" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+                    </defs>
+                    <g class="parallax">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 51, 102, 1)"></use>    <!-- đậm nhất -->
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 51, 102, 0.8)"></use>
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 51, 102, 0.6)"></use>
+                        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0, 51, 102, 0.4)"></use>  <!-- nhạt nhất -->
+
+                    </g>
+                </svg>
+            </div>
+
+            <div class="container-fluid footer-context">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 footer-logo">
+                            <img src="~/images/logo.png" alt="Fruitful-Gifts Logo" style="max-height: 80px;">
+                            <p class="mt-3">Địa chỉ: Số nhà, Đường phố, Quận/Huyện, Thành phố.</p>
+                            <p>Điện thoại: 09xxxxxxxxx</p>
+                            <p>Email: info@example.com</p>
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Hỗ Trợ</h5>
+                            <ul>
+                                <li><a href="#">Giới Thiệu Về BeryBee</a></li>
+                                <li><a href="#">Thông Tin Liên Hệ</a></li>
+                                <li><a href="#">Sản Phẩm</a></li>
+                                <li><a href="#">Tin Tức</a></li>
+                                <li><a href="#">Hệ Thống Cửa Hàng/Đại Lý</a></li>
+                                <li><a href="#">Tuyển Dụng</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Sản Phẩm</h5>
+                            <ul>
+                                <li><a href="#">Sản Phẩm 1</a></li>
+                                <li><a href="#">Sản Phẩm 2</a></li>
+                                <li><a href="#">Danh Mục Khác</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 footer-links">
+                            <h5>Chính Sách</h5>
+                            <ul>
+                                <li><a href="#">Chính Sách Thanh Toán</a></li>
+                                <li><a href="#">Chính Sách Đổi Trả</a></li>
+                                <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
+                                <li><a href="#">Chính Sách Giao Hàng</a></li>
+                                <li><a href="#">Chính Sách Khách Hàng Thân Thiết</a></li>
+                                <li><a href="#">Điều Khoản Sử Dụng</a></li>
+                                <li><a href="#">Chính Sách Vận Chuyển và Lắp Đặt</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2025 Fruitful - Gifts. Tất cả các quyền được bảo lưu.
+                </div>
+            </div>
+
+        </footer>
+    </div>
+    <!-- Chat nhanh start-->
+    <div id="chatContainer">
+        <div id="chatHeader">
+            <span>Hỗ trợ khách hàng</span>
+            <button id="closeChatBtn" class="close-chat">×</button>
+        </div>
+        <div id="chatBoxClient"></div>
+        <div id="inputArea">
+            <input id="messageInputClient" placeholder="Nhập tin nhắn..." autocomplete="off" />
+            <button id="sendButtonClient" onclick="sendToAdmin()">Gửi</button>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.chat-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const chat = document.getElementById('chatContainer');
+            const isVisible = chat.style.display === 'flex';
+            chat.style.display = isVisible ? 'none' : 'flex';
+
+            if (!isVisible) {
+                setTimeout(() => {
+                    document.getElementById('messageInputClient').focus();
+
+                    // Hiển thị tin nhắn mặc định nếu chưa có tin nhắn nào
+                    const chatBox = document.getElementById("chatBoxClient");
+                    if (chatBox.children.length === 0) {
+                        appendAdminMessage("Cảm ơn bạn đã liên hệ, bạn cần chúng tôi hỗ trợ gì không ?", new Date().toLocaleTimeString());
+                    }
+                }, 100);
+            }
+        });
+
+        document.getElementById("closeChatBtn").addEventListener("click", function () {
+            document.getElementById("chatContainer").style.display = "none";
+        });
+
+        document.getElementById("messageInputClient").addEventListener("keydown", function (event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault(); // Ngăn xuống dòng nếu có Shift
+                sendToAdmin();
+            }
+        });
+
+        const userName = "@userName"; // Lấy từ Razor
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(`/chathub?role=khach&name=${encodeURIComponent(userName)}`)
+            .build();
+
+        connection.on("ReceiveFromAdmin", function (message) {
+            const chatBox = document.getElementById("chatBoxClient");
+            const msg = document.createElement("div");
+            const time = new Date().toLocaleTimeString();
+
+            msg.classList.add("admin-message");
+            msg.innerHTML = `${message}<br><span class="timestamp">${time}</span>`;
+
+            chatBox.appendChild(msg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        async function sendToAdmin() {
+            const input = document.getElementById("messageInputClient");
+            const message = input.value.trim();
+            if (message === "") return;
+
+            const time = new Date().toLocaleTimeString();
+
+            await connection.invoke("SendFromClient", message);
+
+            appendClientMessage(message, time);
+
+            input.value = "";
+        }
+
+        function appendClientMessage(message, time) {
+            const chatBoxClient = document.getElementById("chatBoxClient");
+            const msg = document.createElement("div");
+            msg.classList.add("client-message");
+            msg.innerHTML = `${message}<br><span class="timestamp">${time}</span>`;
+            chatBoxClient.appendChild(msg);
+            chatBoxClient.scrollTop = chatBoxClient.scrollHeight;
+        }
+
+        // Tin nhắn tự động từ admin
+        function appendAdminMessage(message, time) {
+            const chatBox = document.getElementById("chatBoxClient");
+            const msg = document.createElement("div");
+            msg.classList.add("admin-message");
+            msg.innerHTML = `${message}<br><span class="timestamp">${time}</span>`;
+            chatBox.appendChild(msg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+    </script>
+    <!-- Chat nhanh end-->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="loginModalLabel">Đăng nhập</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Razor bên trong Modal -->
+                    <form asp-controller="TaiKhoan" asp-action="DangNhap" method="post" class="row g-3">
+                        <div class="col-12 pt-2">
+                            <div class="col-12">
+                                <input name="TenDangNhap" class="form-control input-dangnhap" placeholder="Tên đăng nhập hoặc Email" title="Nhập tên đăng nhập hoặc email của bạn" />
+                                <span class="text-danger">@ViewData["Error"]</span>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="col-12">
+                                <input name="MatKhau" type="password" class="form-control input-dangnhap" placeholder="Mật khẩu" title="Nhập mật khẩu của bạn" />
+                                <span class="text-danger">@ViewData.ModelState["MatKhau"]?.Errors.FirstOrDefault()?.ErrorMessage</span>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn-dangky w-100 text-center" title="Nhấn để đăng nhập">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </nav>
-	
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Fruitful_Gifts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

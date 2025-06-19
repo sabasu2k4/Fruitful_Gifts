@@ -17,43 +17,207 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Fruitful_Gifts
 build_property.RootNamespace = Fruitful_Gifts
-build_property.ProjectDir = D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts\
+build_property.ProjectDir = D:\DoAnTotNghiepKhoa\DoAnTotNghiep\Fruitful-Gifts\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\DoAnTotNghiep\DoAnTotNghiep\Fruitful-Gifts
+build_property.MSBuildProjectDirectory = D:\DoAnTotNghiepKhoa\DoAnTotNghiep\Fruitful-Gifts
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/Home/Index.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/ChatNhanh/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdE5oYW5oXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDanhMuc/DanhMucGioQua.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RGFuaE11Y1xEYW5oTXVjR2lvUXVhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDanhMuc/DanhMucSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RGFuaE11Y1xEYW5oTXVjU2FuUGhhbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDanhMuc/ThemDanhMucGioQua.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RGFuaE11Y1xUaGVtRGFuaE11Y0dpb1F1YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDanhMuc/ThemDanhMucSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RGFuaE11Y1xUaGVtRGFuaE11Y1NhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDonHang/CapNhatTrangThai.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RG9uSGFuZ1xDYXBOaGF0VHJhbmdUaGFpLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDonHang/ChiTiet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RG9uSGFuZ1xDaGlUaWV0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDonHang/HuyDonHang.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RG9uSGFuZ1xIdXlEb25IYW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDonHang/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RG9uSGFuZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDonHang/Sua.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RG9uSGFuZ1xTdWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/Indexlienhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXEluZGV4bGllbmhlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLySanPham/DanhSachGioQua.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5U2FuUGhhbVxEYW5oU2FjaEdpb1F1YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLySanPham/DanhSachSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5U2FuUGhhbVxEYW5oU2FjaFNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLySanPham/ThemSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5U2FuUGhhbVxUaGVtU2FuUGhhbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/shared/_LayoutAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3Ncc2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/TaiKhoan/DangNhapAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFpS2hvYW5cRGFuZ05oYXBBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/BaiViet/ChiTiet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFpVmlldFxDaGlUaWV0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/BaiViet/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFpVmlldFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/DonHang/DetailsDonHang.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uSGFuZ1xEZXRhaWxzRG9uSGFuZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/DonHang/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uSGFuZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/GioHang/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lvSGFuZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/GioiThieu/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lvaVRoaWV1XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/GioQua/ChiTietGioQua.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lvUXVhXENoaVRpZXRHaW9RdWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/Home/Privacy.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/Error.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/KhachHang/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nXFByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/KhachHang/UpdateProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nXFVwZGF0ZVByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/LienHe/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGllbkhlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Payment/CashSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDYXNoU3VjY2Vzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Payment/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDaGVja291dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Payment/Fail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxGYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Payment/Success.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxTdWNjZXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/SanPham/ChiTietSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVxDaGlUaWV0U2FuUGhhbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/SanPham/DanhSachSanPhamYeuThich.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVxEYW5oU2FjaFNhblBoYW1ZZXVUaGljaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/SanPham/SanPhamChamDiem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVxTYW5QaGFtQ2hhbURpZW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/SanPham/SuaChamDiem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVxTdWFDaGFtRGllbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/PartialsViews/_SlidebarProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzVmlld3NcX1NsaWRlYmFyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/TrangChu/Index.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/TaiKhoan/DangKy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFpS2hvYW5cRGFuZ0t5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/TaiKhoan/DangNhap.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFpS2hvYW5cRGFuZ05oYXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/TrangChu/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbmdDaHVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/_ViewImports.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/TrangChu/TimKiem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbmdDaHVcVGltS2llbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/_ViewStart.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiep/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/_Layout.cshtml]
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-nr50s7ty7u

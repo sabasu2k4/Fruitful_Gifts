@@ -1,0 +1,19 @@
+﻿@model Fruitful_Gifts.Database.DanhMucSanPham
+
+@{
+    ViewData["Title"] = "Thêm danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm danh mục sản phẩm</h2>
+
+<form asp-action="ThemDanhMuc" asp-controller="QuanLySanPham" asp-area="Admin" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="TenLoai">Tên danh mục sản phẩm</label>
+        <input type="text" class="form-control" id="TenLoai" name="TenLoai" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Thêm</button>
+</form>

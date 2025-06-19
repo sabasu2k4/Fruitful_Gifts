@@ -1,0 +1,178 @@
+﻿@model Fruitful_Gifts.Models.Vnpay.PaymentResponseModel
+@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<div class="payment-success-container">
+    <div class="payment-success-card">
+        <!-- Header với icon checkmark -->
+        <div class="payment-success-header">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h1 class="payment-success-title">Thanh Toán Thành Công</h1>
+            <p class="payment-success-subtitle">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi</p>
+        </div>
+
+        <!-- Thông tin giao dịch -->
+        <div class="payment-details">
+            <div class="detail-row">
+                <span class="detail-label">Mã giao dịch:</span>
+                <span class="detail-value">@Model.TransactionId</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Mã đơn hàng:</span>
+                <span class="detail-value">@Model.OrderId</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Số tiền:</span>
+                <span class="detail-value text-success">@Model.Amount.ToString("N0") ₫</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Thời gian:</span>
+                <span class="detail-value">@DateTime.Now.ToString("HH:mm dd/MM/yyyy")</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Phương thức:</span>
+                <span class="detail-value">VNPay</span>
+            </div>
+        </div>
+
+        <!-- Thông báo bổ sung -->
+        <div class="payment-notice">
+            <div class="notice-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <p>Đơn hàng của bạn đã được xử lý thành công. Chúng tôi sẽ gửi giao đơn hàng đến bạn trong thời gian sớm nhất.</p>
+        </div>
+
+        <!-- Các nút hành động -->
+        <div class="payment-actions">
+            <a href="/" class="btn btn-primary btn-lg">
+                <i class="fas fa-home me-2"></i> Về trang chủ
+            </a>
+            <a href="@Url.Action("Index", "DonHang")" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-list-alt me-2"></i> Xem đơn hàng
+            </a>
+            <a href="@Url.Action("Index", "LienHe")" class="btn btn-link">
+                <i class="fas fa-question-circle me-2"></i> Cần hỗ trợ?
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .payment-success-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+
+        .payment-success-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .payment-success-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .success-icon {
+            margin-bottom: 1.5rem;
+            color: #28a745;
+        }
+
+        .payment-success-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-success-subtitle {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        .payment-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+            .detail-row:last-child {
+                border-bottom: none;
+            }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .detail-value {
+            color: #212529;
+        }
+
+        .payment-notice {
+            background-color: #e7f5ff;
+            border-left: 4px solid #4dabf7;
+            padding: 1rem;
+            border-radius: 4px;
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .notice-icon {
+            color: #4dabf7;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .payment-notice p {
+            margin: 0;
+            color: #1864ab;
+        }
+
+        .payment-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        @@media (max-width: 576px) {
+            .payment-success-card {
+                padding: 1.5rem;
+            }
+
+            .payment-success-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+}

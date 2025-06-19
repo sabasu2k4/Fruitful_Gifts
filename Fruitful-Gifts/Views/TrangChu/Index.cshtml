@@ -1,6 +1,746 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Trang Chủ";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/TrangChu.css" />
+}
+@{
+    var rand = new Random();
+}
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-12 slide-container">
+            <img src="~/images/slide5.jpg" class="slide active" alt="Slide 1">
+            <img src="~/images/slide6.jpg" class="slide" alt="Slide 2">
+            <img src="~/images/slide8.jpg" class="slide" alt="Slide 3">
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5">
+    <div class="container container-md mt-3 category-list-container position-relative">
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <button class="scroll-btn left-btn btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(-1)">
+                ‹
+            </button>
+            <button class="scroll-btn right-btn btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollCategory(1)">
+                ›
+            </button>
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+                <span class="line-bottom position-relative">Danh mục</span>
+            </h3>
+            <div id="category-scroll" class="category-scroll d-flex overflow-auto gap-3 px-5 py-2">
+                @if (ViewBag.DanhMuc != null)
+                {
+                    foreach (var danhMuc in ViewBag.DanhMuc)
+                    {
+                        var r = rand.Next(220, 256);
+                        var g = rand.Next(220, 256);
+                        var b = rand.Next(220, 256);
+                        var bgColor = $"rgb({r},{g},{b})";
+                        <div class="card shadow-sm rounded-3 text-center" style="min-width: 140px; background-color: @bgColor;">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="~/images/danhmuc/@danhMuc.HinhAnh" class="object-fit-cover category-image card-img-top p-2" 
+                                alt="@danhMuc.TenDm">
+                            </a>
+                            <a href="#" class="text-decoration-none text-dark card-body p-2">
+                                <h6 class="small mb-0 text-wrap text-break">@danhMuc.TenDm</h6>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Không có danh mục nào.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="flash_sale" class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md product-list-container position-relative">
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div class="time_box row align-items-center mb-2">
+                <div class=" col-12 col-lg-9 mb-2 mb-lg-0">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-4">
+                            <h2 class="title text-uppercase font-weight-bold position-relative m-0 text-center text-lg-left cl_tit_fl">
+                                <a class="position-relative text-white" href="https://www.berybee.com/pages/flash-sale" title="HOTDEAL"
+                                   style="max-height: 40px; overflow: hidden; font-size: 1.5rem; text-decoration:none;">
+                                    <img alt="icon-flash-sale" src="https://file.hstatic.net/200000823693/file/flash_11b2c7ab01f347fdb5018fb85b0955e7.gif"
+                                         style="height: 40px; width: auto; object-fit: contain;">
+                                    HOTDEAL
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <div class="promotion-text">
+                                <span id="promo-text">Giảm ngay 120k (áp dụng cho các đơn hàng trên 500k)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-auto col-12 col-lg-3 text-center text-lg-right">
+                    <countdown-timer data-time="02/24/2025 23:33" class="countdown-time-wrapper font-weight-bold position-relative pl-md-2 hidden">
+                        <div class="px-2 countdown-item rod position-relative text-white rounded-pill d-inline-flex align-items-baseline justify-content-center modal-open">
+                            <div class="days mr-1">-74</div>
+                            <span>Ngày</span>
+                        </div>
+                        <div class="hours px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-14</div>
+                        <div class="minutes px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-24</div>
+                        <div class="seconds px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open">-59</div>
+                    </countdown-timer>
+                </div>
+            </div>
+            <div id="product-hotdeal-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollHotDeal(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham)
+                    {
+                        <article class="card-container position-relative shadow-sm rounded-4 bg-white p-2">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+
+                                       <img src="~/images/gioqua/@product.HinhAnh"
+
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenGioQua">
+                             
+                                <!-- Ảnh khung đè -->
+                                <img src="https://file.hstatic.net/200000865177/file/fresh_meat_af50968460124816b48d30d1fc87c6a6.png"
+                                     class="w-100 h-100 position-absolute"
+                                     alt="Khung sản phẩm"
+                                     style="pointer-events: none;">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                            onclick="themVaoGio(null, @product.MaGq)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                    <article class="card-container position-relative shadow-sm rounded-4 bg-light p-2 d-flex flex-column justify-content-center align-items-center" style="min-width: 200px;">
+                        <i class="bi bi-boxes" style="font-size: 2rem; color: #002395;"></i>
+                        <a href="/SanPham" class="btn btn-lg rounded-pill px-3" style="font-weight: 500; color: #002395;">Xem thêm</a>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center"
+                             style="width: 40px; height: 40px; background: #002395;">
+                            <i class="bi bi-chevron-right text-white"></i>
+                        </div>
+                    </article>
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng dịp lễ</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-dip-le-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaDipLe(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaDipLe(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham1 != null)
+                {
+                    foreach (var product in ViewBag.SanPham1)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/gioqua/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenGioQua">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                            onclick="themVaoGio(null, @product.MaGq)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng gia đình và cá nhân</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-gia-dinh-ca-nhan-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaBanDinhCaNhan(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaGiaBanDinhCaNhan(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham2)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/gioqua/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenGioQua">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                            onclick="themVaoGio(null, @product.MaGq)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Quà tặng thương mại</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-thuong-mai-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaThuongMai(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollQuaThuongMai(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham != null)
+                {
+                    foreach (var product in ViewBag.SanPham3)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="@Url.Action("ChiTietGioQua", "GioQua", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenGioQua"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/gioqua/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenGioQua">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenGioQua" style="color: #002395">@product.TenGioQua</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                               onclick="themVaoGio(null, @product.MaGq)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 mb-lg-5 position-relative mt-5">
+    <div class="container container-md position-relative">
+        <div class="head_box d-flex align-items-center justify-content-center justify-content-md-between flex-column flex-md-row">
+            <h3 class="title text-uppercase font-weight-bold position-relative mb-3">
+                <span class="line-bottom position-relative">Các sản phẩm khác</span>
+            </h3>
+        </div>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="product-cac-san-pham-khac-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollCacSanPhamKhac(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollCacSanPhamKhac(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.SanPham4 != null)
+                {
+                    foreach (var product in ViewBag.SanPham4)
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn m-2"
+                                    style="top: 7px; left: 7px; z-index: 2; border: 2px solid #002395; background-color: white;">
+                                <i class="bi bi-heart-fill" style="color: #002395; font-size: 1rem;"></i>
+                            </button>
+
+                            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { slug = product.Slug })" class="d-block position-relative rounded-4 overflow-hidden" title="@product.TenSp"
+                               style="aspect-ratio: 1 / 1;">
+
+                                <!-- Ảnh sản phẩm -->
+                                <img src="~/images/sanpham/@product.HinhAnh"
+                                     class="w-100 h-100 object-fit-cover position-absolute product-image"
+                                     alt="@product.TenSp">
+                            </a>
+
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@product.TenSp" style="color: #002395">@product.TenSp</h6>
+                                <h8 class="fw-bold mb-1 d-inline pt-2">Giá:</h8>
+                                <p class="d-inline ms-2">@string.Format("{0:N0} đ", product.GiaBan)</p>
+
+                                <div class="d-flex justify-content-center gap-2 mt-3 mb-2">
+                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3 text-start">
+                                        <i class="bi bi-lightning-fill me-1"></i> Mua ngay
+                                    </a>
+                                    <button class="btn btn-warning btn-sm rounded-pill px-3 text-dark text-end"
+                                       onclick="themVaoGio(@product.MaSp, null)">
+                                        <i class="bi bi-cart-plus me-1"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+                }
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/SanPham" class="rounded-pill px-4 py-2 btn-xemthem">
+                Xem thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-3 mb-lg-5">
+    <div class="container">
+        <div class="d-flex justify-content-start overflow-auto flex-nowrap gap-3">
+            <div class="p-2">
+                <img src="~/images/banner1.jpg" class="img-fluid" alt="Ảnh 1">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner2.jpg" class="img-fluid" alt="Ảnh 2">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner3.jpg" class="img-fluid" alt="Ảnh 3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="position-relative mt-5">
+    <div class="container container-md position-relative">
+        <h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+            Dịch vụ công ty
+        </h3>
+        <div class="rounded-10 bg-flash p-2 p-lg-3">
+            <div id="dich-vu-cong-ty-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                @if (ViewBag.DichVuCongTy != null)
+                {
+                    var list = (IEnumerable<dynamic>)ViewBag.DichVuCongTy;
+
+                    // Nhân đôi dữ liệu để tạo hiệu ứng vòng lặp
+                    foreach (var item in list.Concat(list))
+                    {
+                        <article class="card-container-1 position-relative shadow-sm rounded-4 bg-white p-2 border border-light bg - light h-100">
+                            <div class="text-center mt-3 px-2">
+                                <h6 class="fw-bold mb-1" title="@item.TieuDe" style="color: #002395">@item.TieuDe</h6>
+                                <p class="d-inline ms-2">@item.MoTa</p>
+                            </div>
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="m_blog" class="mb-3 mb-lg-5">
+    <div class="container">
+        <h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+            <a class="line-bottom position-relative text-decoration-none text-dark" href="#" title="Tạp Chí Fruitful-Gifts">
+                Tin Tức
+            </a>
+        </h3>
+        <div class="rounded-10 bg-flash p-2 p-lg-3 position-relative">
+            <div id="list-bai-viet-scroll" class="d-flex overflow-auto gap-3 px-5 py-3 bg-transparent rounded-3">
+                <button class="scroll-btn left-scroll btn btn-light position-absolute top-50 start-0 translate-middle-y z-3 shadow-sm" onclick="scrollListBaiViet(-1)">
+                    &lsaquo;
+                </button>
+                <button class="scroll-btn right-scroll btn btn-light position-absolute top-50 end-0 translate-middle-y z-3 shadow-sm" onclick="scrollListBaiViet(1)">
+                    &rsaquo;
+                </button>
+                @if (ViewBag.TinTuc != null)
+                {
+                    @foreach (var baiViet in ViewBag.TinTuc)
+                    {
+                        <article class="card-container-tintuc position-relative rounded-4 p-2 h-100">
+                            <a href="@Url.Action("chitiet", "baiviet", new { mabv = baiViet.MaBv })" class="d-block position-relative overflow-hidden"
+                               style="height: 270px;">
+                                <img src="~/images/baiviet/@baiViet.HinhAnh"
+                                     class="card-img-top h-100 w-100"
+                                     alt="@baiViet.TieuDe"
+                                     style="object-fit: cover; transition: transform 0.5s ease;"
+                                     onmouseover="this.style.transform='scale(1.05)'"
+                                     onmouseout="this.style.transform='scale(1)'" />
+                            </a>
+
+                            <div class="mt-3 px-2">
+                                <a href="@Url.Action("chitiet", "baiviet", new { mabv = baiViet.MaBv })" class="text-decoration-none text-dark">
+                                    <h5 class="card-title  mb-2 text-uppercase">@baiViet.TieuDe</h5>
+                                </a>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="bi bi-calendar-event"></i> @baiViet.CreatedAt.ToString("dd/MM/yyyy")
+                                </p>
+                                <p class="card-text mb-2 text-truncate">
+                                    @baiViet.NoiDung
+                                </p>
+                            </div>
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="">
+    <div class="container">
+        <div class="d-flex justify-content-start overflow-auto flex-nowrap gap-3">
+            <div class="p-2">
+                <img src="~/images/banner1.jpg" class="img-fluid" alt="Ảnh 1">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner2.jpg" class="img-fluid" alt="Ảnh 2">
+            </div>
+            <div class="p-2">
+                <img src="~/images/banner3.jpg" class="img-fluid" alt="Ảnh 3">
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        let slideIndex = 0;
+        showSlides();
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            slideIndex = n - 1; // Cập nhật slideIndex cho đúng
+            showSlides();
+        }
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 5000); // Thay đổi 3000 (milliseconds) để điều chỉnh tốc độ chuyển slide (3 giây trong ví dụ này)
+        }
+
+        function smoothScroll(container, direction, scrollAmount) {
+            const start = container.scrollLeft;
+            const end = start + direction * scrollAmount;
+            const duration = 700; // Thời GiaBann cuộn (ms)
+            let startTime = null;
+
+            function animateScroll(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+
+                container.scrollLeft = start + (end - start) * progress;
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animateScroll);
+                }
+            }
+            requestAnimationFrame(animateScroll);
+        }
+
+        function scrollCategory(direction) {
+            const container = document.getElementById('category-scroll');
+            const scrollAmount = 700;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollHotDeal(direction) {
+            const container = document.getElementById('product-hotdeal-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollQuaDipLe(direction) {
+            const container = document.getElementById('product-dip-le-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollQuaGiaBanDinhCaNhan(direction) {
+            const container = document.getElementById('product-GiaBan-dinh-ca-nhan-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollQuaThuongMai(direction) {
+            const container = document.getElementById('product-thuong-mai-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollCacSanPhamKhac(direction) {
+            const container = document.getElementById('product-cac-san-pham-khac-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        function scrollListBaiViet(direction) {
+            const container = document.getElementById('list-bai-viet-scroll');
+            const scrollAmount = 500;
+            smoothScroll(container, direction, scrollAmount);
+        }
+
+        // Hoán đổi văn bản
+        const texts = [
+            "Giảm ngay 120k (Áp dụng cho đơn hàng trên 1 triệu)",
+            "Mua ngay để nhận ưu đãi đặc biệt! Số lượng có hạng!"
+        ];
+        let index = 0;
+        function changeText() {
+            index = (index + 1) % texts.length; // Chuyển đến đoạn văn bản tiếp theo
+            document.getElementById("promo-text").innerText = texts[index]; // Thay đổi nội dung văn bản
+        }
+        setInterval(changeText, 5000);
+        // ---------------- Thêm vào giỏ quà start ------------------ //
+        function themVaoGio(maSp = null, maGq = null) {
+            $.ajax({
+                url: '/GioHang/ThemVaoGio',
+                type: 'POST',
+                data: { maSp: maSp, maGq: maGq },
+                success: function (res) {
+                    if (res.success) {
+                        $('#soLuongGio').text(res.tongSoLuong);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: res.message,
+                            showConfirmButton: true
+                        }).then(() => {
+                            window.location.href = "/TaiKhoan/DangNhap";
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi khi thêm vào giỏ hàng!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            });
+        }
+        // ================== Thêm vào giỏ quà end ==================== //
+
+        // ------------------ Dịch vụ công ty start -------------------- //
+        let autoScrollInterval;
+        const scrollSpeed = 2; // px mỗi lần
+        const delay = 20; // ms mỗi lần cuộn
+        const pauseTime = 2000; // dừng lại một chút khi cuộn hết vòng
+
+        function startAutoScrollDichVu() {
+            const container = document.getElementById('dich-vu-cong-ty-scroll');
+
+            autoScrollInterval = setInterval(() => {
+                if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                    // Khi đã cuộn đến hết, reset về đầu sau 1 chút delay
+                    setTimeout(() => {
+                        container.scrollLeft = 0;
+                    }, pauseTime);
+                } else {
+                    container.scrollLeft += scrollSpeed;
+                }
+            }, delay);
+        }
+
+        function stopAutoScrollDichVu() {
+            clearInterval(autoScrollInterval);
+        }
+
+        window.addEventListener('load', () => {
+            startAutoScrollDichVu();
+
+            // Nếu người dùng hover thì tạm dừng cuộn
+            const container = document.getElementById('dich-vu-cong-ty-scroll');
+            container.addEventListener('mouseenter', stopAutoScrollDichVu);
+            container.addEventListener('mouseleave', startAutoScrollDichVu);
+        });
+        // ================== Dịch vụ công ty end ==================== //
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

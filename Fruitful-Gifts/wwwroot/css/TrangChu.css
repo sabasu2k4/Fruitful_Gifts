@@ -1,0 +1,331 @@
+﻿/* ===== SLIDER (Carousel) ===== */
+.slide-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Khi màn hình nhỏ hơn hoặc bằng 1024px */
+@media (max-width: 1024px) {
+    .slide {
+        height: 450px;
+    }
+}
+
+/* Khi màn hình nhỏ hơn hoặc bằng 768px */
+@media (max-width: 768px) {
+    .slide {
+        height: 300px;
+    }
+}
+
+/* Khi màn hình nhỏ hơn hoặc bằng 480px */
+@media (max-width: 480px) {
+    .slide {
+        height: 200px;
+    }
+}
+
+    .slide.active {
+        display: block;
+    }
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    transform: translateY(-50%);
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    user-select: none;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.6s ease;
+}
+
+.next {
+    right: 0;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+/* ===== DOT NAVIGATION ===== */
+.dots-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.6s ease;
+}
+
+    .dot.active, .dot:hover {
+        background-color: #717171;
+    }
+
+/* ===== CATEGORY SCROLL ===== */
+.category-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 10px;
+    cursor: grab;
+}
+
+    .category-scroll:active {
+        cursor: grabbing;
+    }
+
+    .category-scroll::-webkit-scrollbar,
+    #category-scroll::-webkit-scrollbar,
+    #product-hotdeal-scroll::-webkit-scrollbar {
+        display: none !important;
+    }
+
+/* ===== SCROLL BUTTON ===== */
+.scroll-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+}
+
+/* ===== CATEGORY CARD ===== */
+.category-card {
+    min-width: 180px;
+}
+.category-image{
+    
+}
+
+.category-card img,
+.category-image {
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    left: 50%;
+    top: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* ===== PRODUCT LIST STYLING ===== */
+.product-list-container {
+    background: linear-gradient(#0c14a5 0%, #a8a8d8);
+    border-radius: 10px;
+}
+
+.product-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+    border: 1px solid #e0e0e0;
+}
+
+.image-container {
+    position: relative;
+}
+
+.product-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 10;
+    transition: transform 0.5s ease;
+}
+
+.card-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.card-container {
+    position: relative;
+    display: inline-block;
+    min-width: 260px;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease;
+}
+
+.card-container-1 {
+    position: relative;
+    display: inline-block;
+    min-width: 270px;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    background-color: #e6e6e6;
+    overflow: hidden;
+}
+
+.card-container-tintuc {
+    position: relative;
+    display: inline-block;
+    min-width: 350px;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+    .card-container a:hover .product-image, .card-container-1 a:hover .product-image,
+    .card-container-tintuc a:hover .product-image, .category-image:hover {
+        transform: scale(1.1);
+    }
+
+    .card-container-1:hover{
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 15px 30px rgba(0, 0, 0, 0.4), 0 20px 50px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 1);
+        background-color: #f8f9fa;
+    }
+
+/* ===== PROMOTION LABELS ===== */
+.promotion-labels {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .promotion-labels .badge {
+        font-size: 0.8rem;
+        font-weight: bold;
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px;
+    }
+
+/* ===== HOTDEAL + COUNTDOWN ===== */
+.hotdeal-logo span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.promotion-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.countdown-time-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.countdown-item {
+    background-color: #a2add4;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .countdown-item.rounded-pill {
+        border-radius: 999px;
+    }
+
+    .countdown-item.rounded-circle {
+        border-radius: 50%;
+        min-width: 36px;
+    }
+
+    .countdown-item .days {
+        margin-right: 4px;
+    }
+
+/* ===== SCROLLBAR CUSTOM FOR HOTDEAL SCROLL ===== */
+
+#product-hotdeal-scroll::-webkit-scrollbar, #product-dip-le-scroll::-webkit-scrollbar,
+#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar, #product-thuong-mai-scroll::-webkit-scrollbar,
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar, #dich-vu-cong-ty-scroll::-webkit-scrollbar,
+#list-bai-viet-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+#product-hotdeal-scroll::-webkit-scrollbar-thumb, #product-dip-le-scroll::-webkit-scrollbar-thumb,
+#product-gia-dinh-ca-nhan-scroll::-webkit-scrollbar-thumb, #product-thuong-mai-scroll::-webkit-scrollbar-thumb,
+#product-cac-san-pham-khac-scroll::-webkit-scrollbar-thumb, #dich-vu-cong-ty-scroll::-webkit-scrollbar-thumb,
+#list-bai-viet-scroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.row.overflow-auto.flex-nowrap::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+    .row.overflow-auto.flex-nowrap::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa;
+    }
+
+.btn-xemthem {
+    color: #002395;
+    border: 1px solid #002395;
+    font-weight:600;
+    text-decoration: none;
+}
+    .btn-xemthem:hover {
+        background-color: #002395;
+        color: white;
+    }
+
+

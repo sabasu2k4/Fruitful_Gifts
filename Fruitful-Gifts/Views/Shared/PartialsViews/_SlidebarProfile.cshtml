@@ -1,0 +1,19 @@
+﻿<div class="sidebar">
+    @* <div class="d-flex align-items-center mb-3"> *@
+    @*     <h2>@Model.TenKH</h2> *@
+    @* </div> *@
+    <a class="active" href="@Url.Action("Profile", "KhachHang")"><i class="bi bi-person-circle"></i> Hồ Sơ</a>
+    <a href="@Url.Action("Index", "DonHang")"><i class=" bi bi-cart"></i> Đơn Hàng</a>
+    <a href="@Url.Action("DanhSachSanPhamYeuThich", "SanPham")">
+        <i class="bi bi-heart"></i> Sản phẩm yêu thích
+    </a>
+
+    <a href="@Url.Action("SanPhamChamDiem", "SanPham")">
+        <i class="bi bi-star"></i> Sản phẩm chấm điểm
+    </a>
+    <a href="#"><i class="bi bi-ticket-perforated"></i> Kho Voucher</a>
+</div>
+
+<div>
+    <button class="btn " id="logoutButton"><i class="bi bi-box-arrow-left"></i> Đăng xuất</button>
+</div>

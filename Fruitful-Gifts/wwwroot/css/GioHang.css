@@ -1,0 +1,33 @@
+﻿.div-tong-tien {
+    background: #f8f9fa !important;
+    border-radius: 10px;
+}
+
+.gia-tong-cong {
+    font-size: 24px;
+    font-weight: 500;
+    color: #003366 !important;
+    text-shadow: 2px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 3px 3px 5px #666666;
+}
+
+.js-free-shipping .icon {
+    top: 0;
+    right: 0;
+    transform: translate(0, -50%);
+    width: 35px;
+    height: 35px;
+    transition: 1.2s all;
+}
+
+.image-item-cart {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 15px;
+    transition: transform 1s ease;
+}
+
+    .image-item-cart:hover {
+        transform: scale(1.1);
+    }
+

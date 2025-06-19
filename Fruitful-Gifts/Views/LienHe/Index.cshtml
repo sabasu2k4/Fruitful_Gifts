@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Liên Hệ";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Liên Hệ Với Chúng Tôi</h4>
+                </div>
+
+                <div class="card-body">
+                    @if (TempData["GuiLienHeThanhCong"] != null)
+                    {
+                        <div class="alert alert-success fade-message">@TempData["GuiLienHeThanhCong"]</div>
+                    }
+
+                    <form asp-action="Index" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="HO_TEN" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" id="HO_TEN" name="HO_TEN" required placeholder="Nhập họ và tên của bạn"
+                                   value="@ViewBag.HoTen" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="EMAIL" class="form-label">Email</label>
+                            <input type="email" name="EMAIL" class="form-control"
+                                   value="@ViewBag.Email"
+                            @Html.Raw(@"pattern=""^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$""")
+                                   title="Email không hợp lệ" required />
+                        </div>
+                   
+
+
+                        <div class="mb-3">
+                            <label for="SDT" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="SDT" name="SDT" required placeholder="0123456789"
+                                   pattern="^\d{10}$" title="Số điện thoại phải có 10 chữ số" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="NOI_DUNG" class="form-label">Nội dung</label>
+                            <textarea class="form-control" id="NOI_DUNG" name="NOI_DUNG" rows="5" required placeholder="Nhập nội dung bạn muốn gửi..."></textarea>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Gửi liên hệ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const alert = document.querySelector('.fade-message');
+            if (alert) {
+                setTimeout(() => {
+                    alert.style.transition = "opacity 1s ease";
+                    alert.style.opacity = "0";
+                    setTimeout(() => alert.style.display = "none", 1000);
+                }, 5000);
+            }
+        });
+    </script>
+}

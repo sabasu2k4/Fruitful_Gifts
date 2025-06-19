@@ -1,0 +1,152 @@
+﻿@model Fruitful_Gifts.Database.DonHang
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Chi tiết đơn hàng #@Model.MaDh</h6>
+        <div>
+            <a asp-action="Index" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h5>Thông tin khách hàng</h5>
+                <hr />
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tên khách hàng:</label>
+                    <p>@(Model.MaKhNavigation?.TenKh ?? "Khách vãng lai")</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Số điện thoại:</label>
+                    <p>@Model.SoDienThoai</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Địa chỉ nhận hàng:</label>
+                    <p>@Model.DiaChiNhanHang</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5>Thông tin đơn hàng</h5>
+                <hr />
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Trạng thái:</label>
+                    <p>
+                        <span class="badge @GetStatusBadgeClass(Model.TrangThai)">
+                            @Model.TrangThaiNavigation?.TenTrangThai
+                        </span>
+                    </p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Ngày đặt hàng:</label>
+                    <p>@Model.NgayDatHang?.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Phương thức bán:</label>
+                    <p>@Model.PhuongThucBan</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Phương thức thanh toán:</label>
+                    <p>@Model.MaPtNavigation?.TenPt</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Ghi chú:</label>
+                    <p>@(string.IsNullOrEmpty(Model.GhiChu) ? "Không có ghi chú" : Model.GhiChu)</p>
+                </div>
+            </div>
+        </div>
+
+        <h5>Chi tiết sản phẩm</h5>
+        <hr />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>STT</th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int stt = 1;
+                        decimal? tongTien = 0;
+                    }
+                    @foreach (var item in Model.ChiTietDonHangs)
+                    {
+                        var thanhTien = item.SoLuong * item.GiaBan;
+                        tongTien += thanhTien;
+                        <tr>
+                            <td>@stt</td>
+                            <td>@item.MaSpNavigation?.TenSp</td>
+                            <td>@item.SoLuong</td>
+                            <td class="text-end">@item.GiaBan?.ToString("N0") ₫</td>
+                            <td class="text-end">@thanhTien?.ToString("N0") ₫</td>
+                        </tr>
+                        stt++;
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Tổng tiền hàng:</td>
+                        <td class="text-end fw-bold">@tongTien?.ToString("N0") ₫</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Phí vận chuyển:</td>
+                        <td class="text-end fw-bold">@Model.PhiVanChuyenBanHang?.ToString("N0") ₫</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Tổng thanh toán:</td>
+                        <td class="text-end fw-bold text-danger">@Model.TongTienDonHang?.ToString("N0") ₫</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+            <a asp-action="CapNhatTrangThai" asp-route-id="@Model.MaDh" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Cập nhật trạng thái
+            </a>
+            @if (Model.TrangThai == 1 || Model.TrangThai == 2)
+            {
+                <a asp-action="HuyDonHang" asp-route-id="@Model.MaDh" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Hủy đơn hàng
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(int? status)
+    {
+        return status switch
+        {
+            1 => "bg-secondary",    // Chờ xác nhận
+            2 => "bg-primary",      // Đã xác nhận
+            3 => "bg-info",         // Đang giao hàng
+            4 => "bg-success",      // Đã giao hàng
+            5 => "bg-warning",      // Hoàn hàng
+            6 => "bg-danger",       // Đã hủy
+            7 => "bg-dark",         // Giao hàng thất bại
+            8 => "bg-danger",       // Từ chối
+            _ => "bg-secondary",
+        };
+    }
+}

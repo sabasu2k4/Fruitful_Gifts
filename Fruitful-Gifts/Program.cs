@@ -40,13 +40,13 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "areas",
-    pattern: "{area:exists}/{controller=TaiKhoan}/{action=DangNhapAdmin}/{id?}"
-    //defaults: new { area = "Admin" }
-);
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=TrangChu}/{action=Index}/{id?}");
+
+
 
 
 // chat nhanh

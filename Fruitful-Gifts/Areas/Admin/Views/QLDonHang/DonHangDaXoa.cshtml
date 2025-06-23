@@ -1,0 +1,390 @@
+﻿@model IEnumerable<Fruitful_Gifts.Database.DonHang>
+
+@{
+    ViewData["Title"] = "Lịch Sử Đơn Hàng Đã Xóa";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mt-4">
+            <i class="fas fa-trash-alt me-2 text-danger"></i>Lịch Sử Đơn Hàng Đã Xóa
+        </h1>
+        <div>
+            <a href="@Url.Action("Index", "QLDonHang", new { area = "Admin" })" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại
+            </a>
+        </div>
+    </div>
+
+    <!-- Thông báo -->
+    @if (TempData["RestoreSuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i> @TempData["RestoreSuccess"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["RestoreError"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i> @TempData["RestoreError"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Bộ lọc -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-3">
+            <form method="get" class="row g-2">
+                <div class="col-md-4">
+                    <input type="text" name="searchString" class="form-control" placeholder="Tìm theo mã đơn hoặc tên KH..."
+                           value="@Context.Request.Query["searchString"]">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" name="fromDate" class="form-control" value="@Context.Request.Query["fromDate"]">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" name="toDate" class="form-control" value="@Context.Request.Query["toDate"]">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-dark w-100">
+                        <i class="fas fa-search me-1"></i> Tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Danh sách đơn hàng -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-list-ol me-2"></i>Danh sách đơn hàng đã xóa
+                </h5>
+                <div class="text-muted small">
+                    Tổng: <span class="fw-bold">@Model.Count()</span> đơn hàng
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="100">Mã ĐH</th>
+                            <th>Khách hàng</th>
+                            <th width="120">Ngày đặt</th>
+                            <th width="150">Tổng tiền</th>
+                            <th width="150">Ngày xóa</th>
+                            <th width="150" class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var donHang in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">#@donHang.MaDh</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm me-2">
+                                            <div class="avatar-title bg-light rounded-circle">
+                                                <i class="fas fa-user text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">@donHang.MaKhNavigation?.HoKh @donHang.MaKhNavigation?.TenKh</h6>
+                                            <small class="text-muted">@donHang.SoDienThoai</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@donHang.NgayDatHang?.ToString("dd/MM/yyyy")</td>
+                                <td class="fw-bold text-danger">@(donHang.TongTienDonHang?.ToString("N0") + "₫")</td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#orderModal_@donHang.MaDh">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="confirmRestore(@donHang.MaDh)">
+                                        <i class="fas fa-undo"></i> Khôi phục
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <!-- Modal chi tiết -->
+                            <div class="modal fade" id="orderModal_@donHang.MaDh" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-light">
+                                            <h5 class="modal-title">
+                                                <i class="fas fa-file-invoice me-2"></i>Chi tiết đơn hàng đã xóa #@donHang.MaDh
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <h6 class="fw-bold"><i class="fas fa-user me-2"></i>Thông tin khách hàng</h6>
+                                                    <hr class="mt-1">
+                                                    <p><strong>Tên:</strong> @donHang.MaKhNavigation?.HoKh @donHang.MaKhNavigation?.TenKh</p>
+                                                    <p><strong>Điện thoại:</strong> @donHang.SoDienThoai</p>
+                                                    <p><strong>Địa chỉ:</strong> @donHang.DiaChiNhanHang</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h6 class="fw-bold"><i class="fas fa-receipt me-2"></i>Thông tin đơn hàng</h6>
+                                                    <hr class="mt-1">
+                                                    <p><strong>Ngày đặt:</strong> @donHang.NgayDatHang?.ToString("dd/MM/yyyy HH:mm")</p>
+                                                    <p><strong>Trạng thái cuối:</strong> <span class="badge bg-danger">Đã hủy</span></p>
+                                                    <p><strong>Lý do hủy:</strong> @(string.IsNullOrEmpty(donHang.GhiChu) ? "Không có" : donHang.GhiChu)</p>
+                                                </div>
+                                            </div>
+
+                                            <h6 class="fw-bold"><i class="fas fa-boxes me-2"></i>Sản phẩm đã đặt</h6>
+                                            <hr class="mt-1">
+                                            <div class="table-responsive">
+                                                <table class="table table-sm table-bordered">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>STT</th>
+                                                            <th>Sản phẩm</th>
+                                                            <th class="text-end">Đơn giá</th>
+                                                            <th class="text-center">SL</th>
+                                                            <th class="text-end">Thành tiền</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                                            int stt = 1;
+                                                            decimal total = 0;
+                                                        }
+
+                                                        @if (donHang.ChiTietDonHangs != null && donHang.ChiTietDonHangs.Any())
+                                                        {
+                                                            foreach (var item in donHang.ChiTietDonHangs)
+                                                            {
+                                                                string productName = "";
+                                                                decimal price = 0;
+                                                                int quantity = (int)(item.SoLuong ?? 0); // khai báo và gán luôn
+
+                                                                if (item.MaSpNavigation != null)
+                                                                {
+                                                                    productName = $"<i class='fas fa-box me-2'></i>{item.MaSpNavigation.TenSp}";
+                                                                    price = item.MaSpNavigation.GiaBan ?? 0;
+                                                                }
+                                                                else if (item.MaGqNavigation != null)
+                                                                {
+                                                                    productName = $"<i class='fas fa-gift me-2'></i>{item.MaGqNavigation.TenGioQua}";
+                                                                    price = item.MaGqNavigation.GiaBan;
+                                                                }
+                                                                else
+                                                                {
+                                                                    productName = "<i class='fas fa-question me-2'></i>Sản phẩm không xác định";
+                                                                }
+
+                                                                var subtotal = price * quantity;
+                                                                total += subtotal;
+
+                                                                <tr>
+                                                                    <td>@stt</td>
+                                                                    <td>@Html.Raw(productName)</td>
+                                                                    <td class="text-end">@price.ToString("N0")₫</td>
+                                                                    <td class="text-center">@quantity</td>
+                                                                    <td class="text-end">@subtotal.ToString("N0")₫</td>
+                                                                </tr>
+                                                                stt++;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr>
+                                                                <td colspan="5" class="text-center text-muted">Không có sản phẩm</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+
+                                                    <tfoot class="table-light">
+                                                        <tr>
+                                                            <th colspan="4" class="text-end">Tổng tiền hàng:</th>
+                                                            <th class="text-end">@total.ToString("N0")₫</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="4" class="text-end">Phí vận chuyển:</th>
+                                                            <th class="text-end">@((donHang.PhiVanChuyenBanHang ?? 0).ToString("N0"))₫</th>
+                                                        </tr>
+                                                        <tr class="table-active">
+                                                            <th colspan="4" class="text-end">Tổng thanh toán:</th>
+                                                            <th class="text-end text-danger">@((donHang.TongTienDonHang ?? 0).ToString("N0"))₫</th>
+                                                        </tr>
+                                                    </tfoot>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="fas fa-times me-1"></i> Đóng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-white">
+            <!-- Phân trang -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-0">
+                    @{
+                        var currentPage = (int)(ViewBag.Page ?? 1);
+                        var totalPages = (int)(ViewBag.TotalPages ?? 1);
+                        var searchString = Context.Request.Query["searchString"];
+                        var fromDate = Context.Request.Query["fromDate"];
+                        var toDate = Context.Request.Query["toDate"];
+                    }
+
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("DonHangDaXoa", new {
+                            page = currentPage - 1,
+                            searchString,
+                            fromDate,
+                            toDate
+                        })">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("DonHangDaXoa", new {
+                                page = i,
+                                searchString,
+                                fromDate,
+                                toDate
+                            })">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("DonHangDaXoa", new {
+                            page = currentPage + 1,
+                            searchString,
+                            fromDate,
+                            toDate
+                        })">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Restore Confirmation Modal -->
+<div class="modal fade" id="restoreModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-question-circle me-2"></i>Xác nhận khôi phục</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn khôi phục đơn hàng này? Đơn hàng sẽ được chuyển về trạng thái "Đã hủy".</p>
+                <input type="hidden" id="orderIdToRestore" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i> Hủy
+                </button>
+                <button type="button" class="btn btn-success" onclick="restoreOrder()">
+                    <i class="fas fa-check me-1"></i> Khôi phục
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .avatar-sm {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.35em 0.65em;
+            font-size: 0.75em;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        .card-header {
+            border-bottom: 1px solid rgba(0,0,0,.05);
+        }
+
+        .text-strikethrough {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Xác nhận khôi phục
+        function confirmRestore(orderId) {
+            $('#orderIdToRestore').val(orderId);
+            $('#restoreModal').modal('show');
+        }
+
+        // Khôi phục đơn hàng
+        function restoreOrder() {
+            var orderId = $('#orderIdToRestore').val();
+            $.ajax({
+                url: '/Admin/QuanLyDonHang/RestoreDonHang',
+                type: 'POST',
+                data: { maDH: orderId },
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert('Lỗi: ' + res.message);
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi kết nối đến server');
+                }
+            });
+        }
+
+        // Tự động đóng thông báo sau 5s
+        setTimeout(function () {
+            $('.alert').fadeOut('slow');
+        }, 5000);
+    </script>
+}

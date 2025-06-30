@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Fruitful_Gifts.Database;
 
@@ -17,8 +16,6 @@ public partial class DonHang
     public decimal? TongTienDonHang { get; set; }
 
     public decimal? PhiVanChuyenBanHang { get; set; }
-
-    [Required(ErrorMessage = "Vui lòng chọn trạng thái")]
 
     public int? TrangThai { get; set; }
 

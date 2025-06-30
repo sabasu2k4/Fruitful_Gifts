@@ -1,0 +1,240 @@
+﻿@{
+    ViewData["Title"] = "Thống kê doanh thu";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mt-4"><i class="fas fa-chart-line me-2"></i>Thống kê doanh thu</h1>
+        <div>
+            <a href="@Url.Action("XuatExcel", new { fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, phuongThuc = ViewBag.PhuongThuc })"
+               class="btn btn-success">
+                <i class="fas fa-file-excel me-1"></i> Xuất Excel
+            </a>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-filter me-1"></i> Bộ lọc thống kê
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label">Từ ngày</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        <input type="date" name="fromDate" value="@ViewBag.FromDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Đến ngày</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        <input type="date" name="toDate" value="@ViewBag.ToDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Phương thức thanh toán</label>
+                    <select name="phuongThuc" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        @foreach (var pt in ViewBag.DanhSachPT)
+                        {
+                            <option value="@pt.MaPt" @(ViewBag.PhuongThuc == pt.MaPt ? "selected" : "")>@pt.TenPt</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-1 d-grid">
+                    <label class="form-label invisible">Xoá bộ lọc</label>
+                    <a href="@Url.Action("ThongKeDoanhThu")" class="btn btn-outline-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                    </a>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <label class="form-label invisible">Thống kê</label>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-chart-pie me-1"></i> Thống kê
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Tổng doanh thu</h5>
+                            <h2 class="mb-0">@string.Format("{0:N0}", ViewBag.TongDoanhThu) VNĐ</h2>
+                        </div>
+                        <div class="bg-white bg-opacity-25 p-3 rounded-circle">
+                            <i class="fas fa-money-bill-wave fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span>Trong khoảng thời gian đã chọn</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Tổng số đơn hoàn thành</h5>
+                            <h2 class="mb-0">@ViewBag.TongDon</h2>
+                        </div>
+                        <div class="bg-white bg-opacity-25 p-3 rounded-circle">
+                            <i class="fas fa-clipboard-check fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span>Đơn hàng đã giao thành công</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <i class="fas fa-chart-area me-1"></i> Biểu đồ doanh thu theo tháng
+        </div>
+        <div class="card-body">
+            <div class="chart-container" style="position: relative; height:400px; width:100%">
+                <canvas id="doanhThuChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <i class="fas fa-table me-1"></i> Chi tiết doanh thu theo ngày
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Số đơn</th>
+                            <th>Doanh thu (VNĐ)</th>
+                            <th>Tỷ lệ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.DoanhThuTheoNgay)
+                        {
+                            var percentage = ViewBag.TongDoanhThu > 0 ? (item.DoanhThu / ViewBag.TongDoanhThu * 100) : 0;
+                            <tr>
+                                <td>@item.Ngay.ToString("dd/MM/yyyy")</td>
+                                <td>@item.SoDon</td>
+                                <td class="fw-bold">@string.Format("{0:N0}", item.DoanhThu)</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success"
+                                             role="progressbar"
+                                             style="width: @percentage%"
+                                             aria-valuenow="@percentage"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100">
+                                            @Math.Round(percentage, 1)%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        .card-header {
+            font-weight: 600;
+        }
+
+        .table th {
+            white-space: nowrap;
+        }
+
+        .progress {
+            height: 24px;
+        }
+
+        .chart-container {
+            min-height: 400px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Biểu đồ theo tháng
+            const chartDataThang = @Html.Raw(Json.Serialize(ViewBag.DoanhThuTheoThang));
+            console.log('Data theo tháng:', chartDataThang); // Debug xem dữ liệu
+
+            if (chartDataThang && chartDataThang.length > 0) {
+                const labelsThang = chartDataThang.map(x => x.thangNam); // Sửa thành ThangNam
+                const dataThang = chartDataThang.map(x => x.doanhThu); // Sửa thành DoanhThu
+
+                const ctx = document.getElementById('doanhThuChart'); // Sửa ID cho khớp
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labelsThang,
+                            datasets: [{
+                                label: 'Doanh thu theo tháng (VNĐ)',
+                                data: dataThang,
+                                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            return context.dataset.label + ': ' +
+                                                context.raw.toLocaleString('vi-VN') + ' VNĐ';
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function (value) {
+                                            return value.toLocaleString('vi-VN') + ' vnđ';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Không tìm thấy element canvas');
+                }
+            } else {
+                document.getElementById('doanhThuChart').closest('.card-body').innerHTML =
+                    '<div class="alert alert-info">Không có dữ liệu để hiển thị biểu đồ theo tháng</div>';
+            }
+        });
+    </script>
+}

@@ -56,6 +56,7 @@ namespace Fruitful_Gifts.Controllers
 
             var model = new PaymentInformationModel
             {
+                TienHang = tongTien,
                 Amount = tongTien + phiVanChuyen,
                 PhiVanChuyenBanHang = phiVanChuyen,
                 // 
@@ -114,10 +115,11 @@ namespace Fruitful_Gifts.Controllers
           
             decimal phiVanChuyen = tongTien < 500000 ? 30000 : 0;
 
-      
+            model.TienHang = tongTien;
             model.Amount = tongTien + phiVanChuyen;
             model.PhiVanChuyenBanHang = phiVanChuyen;
             model.PhuongThucBan = "online";
+           
 
             if (string.IsNullOrWhiteSpace(model.OrderDescription))
             {

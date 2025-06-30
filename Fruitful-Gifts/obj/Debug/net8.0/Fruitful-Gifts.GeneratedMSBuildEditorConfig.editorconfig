@@ -30,12 +30,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdE5oYW5oXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/DonHang/DonHangDaXoa.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRG9uSGFuZ1xEb25IYW5nRGFYb2EuY3NodG1s
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/DonHangAdmin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRG9uSGFuZ0FkbWluXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QLDonHang/CreateOfflineOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUUxEb25IYW5nXENyZWF0ZU9mZmxpbmVPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QLDonHang/DonHangDaXoa.cshtml]
@@ -44,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QLDonHang/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUUxEb25IYW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QLDonHang/TaoDonHangOffline.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUUxEb25IYW5nXFRhb0RvbkhhbmdPZmZsaW5lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyDanhMuc/DanhMucGioQua.cshtml]
@@ -62,12 +70,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5RGFuaE11Y1xUaGVtRGFuaE11Y1NhblBoYW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/DetailsKH.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXERldGFpbHNLSC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/Indexlienhe.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXEluZGV4bGllbmhlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLyKhachHang/QLKhachHang.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5S2hhY2hIYW5nXFFMS2hhY2hIYW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/QuanLySanPham/DanhSachGioQua.cshtml]
@@ -88,6 +104,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/TaiKhoan/DangNhapAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFpS2hvYW5cRGFuZ05oYXBBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/Thongke/SanPhamVaGioQuaBanChayKem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGhvbmdrZVxTYW5QaGFtVmFHaW9RdWFCYW5DaGF5S2VtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/Thongke/ThongKeDoanhThu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGhvbmdrZVxUaG9uZ0tlRG9hbmhUaHUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAnTotNghiepKhoa/DoAnTotNghiep/Fruitful-Gifts/Areas/Admin/Views/_ViewStart.cshtml]

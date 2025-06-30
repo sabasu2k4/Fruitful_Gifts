@@ -13,6 +13,8 @@
         public string? DiaChi { get; set; }
         public decimal PhiVanChuyenBanHang { get; set; }  // thêm phí vận chuyển
         public string? PhuongThucBan { get; set; }
+        public decimal TienHang { get; set; }
+
     }
 
 }

@@ -18,9 +18,6 @@ public partial class LienHe
     public DateTime? ThoiGianGui { get; set; }
 
     public bool TrangThai { get; set; }
-
-
-
     public int? MaNv { get; set; }
 
     public virtual NhanVien? MaNvNavigation { get; set; }

@@ -21,13 +21,12 @@ public partial class DanhMucGioQua
     public int? DanhMucChaId { get; set; }
 
     public string? Slug { get; set; }
+    [NotMapped]
+    public IFormFile ImageUpload { get; set; }
 
     public virtual DanhMucGioQua? DanhMucCha { get; set; }
 
     public virtual ICollection<GioQua> GioQuas { get; set; } = new List<GioQua>();
 
     public virtual ICollection<DanhMucGioQua> InverseDanhMucCha { get; set; } = new List<DanhMucGioQua>();
-    // Thêm dòng này nếu bạn muốn upload ảnh
-    [NotMapped]
-    public IFormFile ImageUpload { get; set; }
 }

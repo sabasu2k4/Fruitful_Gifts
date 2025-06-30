@@ -1,0 +1,242 @@
+﻿@model Fruitful_Gifts.ViewModels.OfflineOrderViewModel
+@{
+    ViewData["Title"] = "Bán hàng tại quầy";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form id="orderForm" asp-action="CreateOfflineOrder" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Toggle Xuất hóa đơn -->
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="showCustomerInfo">
+                    <label class="form-check-label" for="showCustomerInfo">Xuất hóa đơn / Lưu thông tin khách hàng</label>
+                </div>
+
+                <!-- Thông tin KH -->
+                <div id="customerInfo" style="display:none;">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Mã khách hàng (nếu có)</label>
+                                <input asp-for="CustomerId" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input asp-for="Address" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danh sách SP / Giỏ quà -->
+                <h5 class="border-bottom pb-2">Sản phẩm / Giỏ quà</h5>
+                <div id="orderItemsContainer">
+                    <table class="table table-bordered">
+                        <thead class="bg-light">
+                            <tr>
+                                <th style="width:40%">Sản phẩm / Giỏ quà</th>
+                                <th style="width:15%">Đơn giá</th>
+                                <th style="width:15%">Số lượng</th>
+                                <th style="width:15%">Thành tiền</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody"></tbody>
+                    </table>
+                    <button type="button" id="addProductBtn" class="btn btn-outline-primary btn-sm mr-2">
+                        <i class="fas fa-plus"></i> Thêm sản phẩm
+                    </button>
+                    <button type="button" id="addBasketBtn" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-gift"></i> Thêm giỏ quà
+                    </button>
+                </div>
+
+                <!-- Thanh toán -->
+                <h5 class="mt-4 border-bottom pb-2">Thanh toán</h5>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Phương thức thanh toán</label>
+                            <select asp-for="PaymentMethodId" class="form-control">
+                                <option value="">-- Chọn --</option>
+                                @foreach (var method in ViewBag.PaymentMethods)
+                                {
+                                    <option value="@method.MaPt">@method.TenPt</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Tổng tiền</label>
+                        <input id="orderTotal" class="form-control" readonly value="0" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ghi chú</label>
+                    <textarea asp-for="Note" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-cash-register"></i> Hoàn tất bán hàng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Toggle KH info
+            $('#showCustomerInfo').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#customerInfo').slideDown();
+                } else {
+                    $('#customerInfo').slideUp();
+                }
+            });
+
+            // Thêm sản phẩm
+            $('#addProductBtn').click(function () {
+                addItemRow('product');
+            });
+
+            // Thêm giỏ quà
+            $('#addBasketBtn').click(function () {
+                addItemRow('basket');
+            });
+
+            // Xóa row
+            $(document).on('click', '.remove-item', function () {
+                $(this).closest('tr').remove();
+                updateIndexes();
+                calculateTotal();
+            });
+
+            // Load giá khi chọn SP hoặc giỏ quà
+            $(document).on('change', '.product-select', function () {
+                var row = $(this).closest('tr');
+                var id = $(this).val();
+                var type = $(this).data('type');
+
+                if (id) {
+                    $.get('/QLDonHang/GetProductInfo', { id: id, type: type }, function (data) {
+                        if (data.success) {
+                            row.find('.price-input').val(data.price);
+                            calculateRow(row);
+                            calculateTotal();
+                        } else {
+                            alert(data.message);
+                            row.find('.price-input').val(0);
+                            calculateRow(row);
+                            calculateTotal();
+                        }
+                    });
+                } else {
+                    row.find('.price-input').val(0);
+                    calculateRow(row);
+                    calculateTotal();
+                }
+            });
+
+            // Thay đổi số lượng
+            $(document).on('input change', '.quantity-input', function () {
+                var row = $(this).closest('tr');
+                calculateRow(row);
+                calculateTotal();
+            });
+
+            // Hàm thêm dòng item (sản phẩm hoặc giỏ quà)
+            function addItemRow(type) {
+                var index = $('#itemsBody tr').length;
+
+                var selectHtml = `<select name="Items[${index}].${type === 'product' ? 'ProductId' : 'GiftBasketId'}"
+                                                    class="form-control product-select"
+                                                    data-type="${type}">
+                                                    <option value="">-- Chọn ${type === 'product' ? 'Sản phẩm' : 'Giỏ quà'} --</option>`;
+
+                // Thêm option tương ứng
+        @* Sản phẩm *@
+        @foreach (var p in ViewBag.Products)
+        {
+            <text>
+                                if (type === 'product') {
+                        selectHtml += `<option value="@p.MaSp">@p.TenSp</option>`;
+                    }
+            </text>
+        }
+        @* Giỏ quà *@
+        @foreach (var b in ViewBag.GiftBaskets)
+        {
+            <text>
+                                if (type === 'basket') {
+                        selectHtml += `<option value="@b.MaGq">@b.TenGioQua</option>`;
+                    }
+            </text>
+        }
+
+                    selectHtml += `</select>`;
+
+                // Hidden input để bên kia bind model không bị lỗi (giá trị 0 cho trường không dùng)
+                var hiddenInputName = type === 'product' ? 'GiftBasketId' : 'ProductId';
+                var hiddenInput = `<input type="hidden" name="Items[${index}].${hiddenInputName}" value="0" />`;
+
+                var row = `<tr>
+                                        <td>${selectHtml} ${hiddenInput}</td>
+                                        <td><input name="Items[${index}].Price" class="form-control price-input" readonly /></td>
+                                        <td><input name="Items[${index}].Quantity" type="number" min="1" class="form-control quantity-input" value="1" /></td>
+                                        <td><input class="form-control row-total" readonly value="0" /></td>
+                                        <td><button type="button" class="btn btn-danger btn-sm remove-item">Xóa</button></td>
+                                   </tr>`;
+
+                $('#itemsBody').append(row);
+            }
+
+            // Cập nhật lại index các trường name khi xóa dòng
+            function updateIndexes() {
+                $('#itemsBody tr').each(function (i) {
+                    $(this).find('select, input').each(function () {
+                        var name = $(this).attr('name');
+                        if (name) {
+                            var newName = name.replace(/\[\d+\]/, `[${i}]`);
+                            $(this).attr('name', newName);
+                        }
+                    });
+                });
+            }
+
+            // Tính thành tiền dòng
+            function calculateRow(row) {
+                var price = parseFloat(row.find('.price-input').val()) || 0;
+                var qty = parseInt(row.find('.quantity-input').val()) || 0;
+                row.find('.row-total').val((price * qty).toFixed(2));
+            }
+
+            // Tính tổng tiền đơn hàng
+            function calculateTotal() {
+                var total = 0;
+                $('.row-total').each(function () {
+                    total += parseFloat($(this).val()) || 0;
+                });
+                $('#orderTotal').val(total.toFixed(2));
+            }
+        });
+    </script>
+}

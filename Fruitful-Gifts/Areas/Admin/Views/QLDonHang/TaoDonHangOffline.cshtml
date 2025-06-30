@@ -1,0 +1,198 @@
+﻿@model Fruitful_Gifts.ViewModels.DonHangOfflineViewModel
+@{
+    ViewData["Title"] = "Quản Lý Đơn Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+<div class="container">
+    <h2>Tạo đơn hàng offline</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Sản phẩm</h4>
+            <table class="table" id="sanPhamTable">
+                <thead>
+                    <tr>
+                        <th>Tên SP</th>
+                        <th>Số lượng tồn</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sp in ViewBag.SanPhams)
+                    {
+                        <tr>
+                            <td>@sp.TenSp</td>
+                            <td>@sp.TongTonKho</td>
+                            <td>@sp.GiaBan?.ToString("n0")</td>
+                            <td><input type="number" min="1" class="form-control soLuongSp" data-masp="@sp.MaSp" value="1" /></td>
+                            <td><button class="btn btn-sm btn-primary themSanPham" data-masp="@sp.MaSp">Thêm</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Giỏ quà</h4>
+            <table class="table" id="gioQuaTable">
+                <thead>
+                    <tr>
+                        <th>Tên giỏ quà</th>
+                        <th>Số lượng tồn</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var gq in ViewBag.GioQuas)
+                    {
+                        <tr>
+                            <td>@gq.TenGioQua</td>
+                            
+                            <td>@gq.GiaBan?.ToString("n0")</td>
+                            <td><input type="number" min="1" class="form-control soLuongGq" data-magq="@gq.MaGq" value="1" /></td>
+                            <td><button class="btn btn-sm btn-primary themGioQua" data-magq="@gq.MaGq">Thêm</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h4>Danh sách đã chọn</h4>
+            <table class="table" id="selectedItems">
+                <thead>
+                    <tr>
+                        <th>Loại</th>
+                        <th>Tên</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Items will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <button id="taoDonHangBtn" class="btn btn-success">Tạo đơn hàng</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var selectedSanPhams = [];
+            var selectedGioQuas = [];
+
+            // Thêm sản phẩm vào danh sách chọn
+            $('.themSanPham').click(function () {
+                var maSp = $(this).data('masp');
+                var soLuong = $(this).closest('tr').find('.soLuongSp').val();
+                var tenSp = $(this).closest('tr').find('td:eq(0)').text();
+                var giaBan = $(this).closest('tr').find('td:eq(2)').text().replace(/\./g, '');
+
+                // Thêm vào mảng
+                selectedSanPhams.push({
+                    MaSp: maSp,
+                    SoLuong: soLuong
+                });
+
+                // Thêm vào bảng
+                $('#selectedItems tbody').append(`
+                            <tr data-type="sp" data-id="${maSp}">
+                                <td>Sản phẩm</td>
+                                <td>${tenSp}</td>
+                                <td>${soLuong}</td>
+                                <td>${formatMoney(giaBan)}</td>
+                                <td>${formatMoney(giaBan * soLuong)}</td>
+                                <td><button class="btn btn-sm btn-danger xoaItem">Xóa</button></td>
+                            </tr>
+                        `);
+            });
+
+            // Thêm giỏ quà vào danh sách chọn
+            $('.themGioQua').click(function () {
+                var maGq = $(this).data('magq');
+                var soLuong = $(this).closest('tr').find('.soLuongGq').val();
+                var tenGq = $(this).closest('tr').find('td:eq(0)').text();
+                var giaBan = $(this).closest('tr').find('td:eq(2)').text().replace(/\./g, '');
+
+                // Thêm vào mảng
+                selectedGioQuas.push({
+                    MaGq: maGq,
+                    SoLuong: soLuong
+                });
+
+                // Thêm vào bảng
+                $('#selectedItems tbody').append(`
+                            <tr data-type="gq" data-id="${maGq}">
+                                <td>Giỏ quà</td>
+                                <td>${tenGq}</td>
+                                <td>${soLuong}</td>
+                                <td>${formatMoney(giaBan)}</td>
+                                <td>${formatMoney(giaBan * soLuong)}</td>
+                                <td><button class="btn btn-sm btn-danger xoaItem">Xóa</button></td>
+                            </tr>
+                        `);
+            });
+
+            // Xóa item khỏi danh sách chọn
+            $(document).on('click', '.xoaItem', function () {
+                var type = $(this).closest('tr').data('type');
+                var id = $(this).closest('tr').data('id');
+
+                if (type === 'sp') {
+                    selectedSanPhams = selectedSanPhams.filter(x => x.MaSp != id);
+                } else {
+                    selectedGioQuas = selectedGioQuas.filter(x => x.MaGq != id);
+                }
+
+                $(this).closest('tr').remove();
+            });
+
+            // Gửi đơn hàng
+            $('#taoDonHangBtn').click(function () {
+                var model = {
+                    MaNv: @User.FindFirst("MaNv")?.Value ?? "0",
+                    SelectedSanPhams: selectedSanPhams,
+                    SelectedGioQuas: selectedGioQuas
+                };
+
+                $.ajax({
+                    url: '@Url.Action("TaoDonHangOffline", "QLDonHang")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(model),
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Tạo đơn hàng thành công! Mã đơn hàng: ' + response.maDh);
+                            window.location.href = '@Url.Action("Details", "QLDonHang")' + '?id=' + response.maDh;
+                        } else {
+                            alert('Lỗi: ' + response.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('Có lỗi xảy ra khi tạo đơn hàng');
+                    }
+                });
+            });
+
+            // Hàm định dạng tiền
+            function formatMoney(number) {
+                return parseInt(number).toLocaleString('vi-VN');
+            }
+        });
+    </script>
+}

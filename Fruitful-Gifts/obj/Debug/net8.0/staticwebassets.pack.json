@@ -525,6 +525,10 @@
       "PackagePath": "staticwebassets\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff2"
     },
     {
+      "Id": "D:\\DoAnTotNghiepKhoa\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gs.jpg",
+      "PackagePath": "staticwebassets\\Admin\\gs.jpg"
+    },
+    {
       "Id": "D:\\DoAnTotNghiepKhoa\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulp-tasks\\inject.js",
       "PackagePath": "staticwebassets\\Admin\\gulp-tasks\\inject.js"
     },

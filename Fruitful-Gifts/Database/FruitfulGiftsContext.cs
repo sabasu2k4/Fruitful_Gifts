@@ -396,6 +396,7 @@ public partial class FruitfulGiftsContext : DbContext
             entity.Property(e => e.HoKh).HasMaxLength(50);
             entity.Property(e => e.Sdt).HasMaxLength(20);
             entity.Property(e => e.TenKh).HasMaxLength(50);
+            entity.Property(e => e.TrangThai).HasDefaultValue(1);
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");

@@ -25,6 +25,8 @@ public partial class KhachHang
 
     public DateTime? UpdatedAt { get; set; }
 
+    public int TrangThai { get; set; }
+
     public virtual ICollection<BinhLuan> BinhLuans { get; set; } = new List<BinhLuan>();
 
     public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; } = new List<ChiTietGioHang>();

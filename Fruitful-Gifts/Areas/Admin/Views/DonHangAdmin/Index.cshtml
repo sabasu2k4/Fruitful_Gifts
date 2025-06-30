@@ -1,0 +1,242 @@
+﻿@model Fruitful_Gifts.Areas.Admin.Controllers.DonHangAdminController.DonHangOfflineViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Tạo đơn hàng offline</h3>
+    </div>
+    <div class="card-body">
+        <form id="formTaoDonHangOffline">
+            <input type="hidden" asp-for="MaNv" value="@User.FindFirst("MaNv").Value" />
+
+            <div class="form-group">
+                <label>Số điện thoại khách hàng</label>
+                <input asp-for="SoDienThoai" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input asp-for="DaThanhToan" /> Đã thanh toán
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Ghi chú</label>
+                <textarea asp-for="GhiChu" class="form-control"></textarea>
+            </div>
+
+            <hr />
+
+            <h4>Chọn sản phẩm</h4>
+            <div class="row">
+                @foreach (var sp in ViewBag.SanPhams)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@sp.TenSp</h5>
+                                <p class="card-text">Giá: @sp.GiaBan?.ToString("n0") đ</p>
+                                <p class="card-text">Tồn kho: @(sp.KhoHangs.AsEnumerable().Sum(k => k.SoLuongTon))</p>
+                                <div class="input-group">
+                                    <input type="number" min="1" max="@sp.KhoHangs.AsEnumerable().Sum(k => k.SoLuongTon)" />
+                                           class="form-control so-luong-sp" data-masp="@sp.MaSp"
+                                           placeholder="Số lượng" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary btn-them-sp" type="button"
+                                                data-masp="@sp.MaSp" data-tensp="@sp.TenSp" data-gia="@sp.GiaBan">
+                                            Thêm
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <hr />
+
+            <h4>Chọn giỏ quà</h4>
+            <div class="row">
+                @foreach (var gq in ViewBag.GioQuas)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@gq.GioQua.TenGq</h5>
+                                <p class="card-text">Giá: @gq.GioQua.GiaBan?.ToString("n0") đ</p>
+                                <p class="card-text">Tồn kho: @gq.SoLuongTon</p>
+                                <div class="input-group">
+                                    <input type="number" min="1" max="@gq.SoLuongTon"
+                                           class="form-control so-luong-gq" data-magq="@gq.GioQua.MaGq"
+                                           placeholder="Số lượng" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary btn-them-gq" type="button"
+                                                data-magq="@gq.GioQua.MaGq" data-tengq="@gq.GioQua.TenGq" data-gia="@gq.GioQua.GiaBan">
+                                            Thêm
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <hr />
+
+            <h4>Danh sách đã chọn</h4>
+            <div id="danhSachChon">
+                <!-- Danh sách sản phẩm/giỏ quà đã chọn sẽ hiển thị ở đây -->
+            </div>
+
+            <button type="submit" class="btn btn-primary">Tạo đơn hàng</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var selectedSanPhams = [];
+            var selectedGioQuas = [];
+
+            // Thêm sản phẩm vào danh sách chọn
+            $('.btn-them-sp').click(function () {
+                var maSp = $(this).data('masp');
+                var tenSp = $(this).data('tensp');
+                var gia = $(this).data('gia');
+                var soLuong = $(this).closest('.input-group').find('.so-luong-sp').val();
+
+                if (!soLuong || soLuong < 1) {
+                    alert('Vui lòng nhập số lượng hợp lệ');
+                    return;
+                }
+
+                // Kiểm tra đã có trong danh sách chưa
+                var index = selectedSanPhams.findIndex(x => x.MaSp == maSp);
+                if (index >= 0) {
+                    selectedSanPhams[index].SoLuong = parseInt(soLuong);
+                } else {
+                    selectedSanPhams.push({
+                        MaSp: maSp,
+                        SoLuong: parseInt(soLuong)
+                    });
+                }
+
+                renderDanhSachChon();
+            });
+
+            // Thêm giỏ quà vào danh sách chọn
+            $('.btn-them-gq').click(function () {
+                var maGq = $(this).data('magq');
+                var tenGq = $(this).data('tengq');
+                var gia = $(this).data('gia');
+                var soLuong = $(this).closest('.input-group').find('.so-luong-gq').val();
+
+                if (!soLuong || soLuong < 1) {
+                    alert('Vui lòng nhập số lượng hợp lệ');
+                    return;
+                }
+
+                // Kiểm tra đã có trong danh sách chưa
+                var index = selectedGioQuas.findIndex(x => x.MaGq == maGq);
+                if (index >= 0) {
+                    selectedGioQuas[index].SoLuong = parseInt(soLuong);
+                } else {
+                    selectedGioQuas.push({
+                        MaGq: maGq,
+                        SoLuong: parseInt(soLuong)
+                    });
+                }
+
+                renderDanhSachChon();
+            });
+
+            // Render danh sách đã chọn
+            function renderDanhSachChon() {
+                var html = '<table class="table table-bordered">';
+                html += '<thead><tr><th>Tên</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th><th>Thao tác</th></tr></thead>';
+                html += '<tbody>';
+
+                // Thêm sản phẩm
+                selectedSanPhams.forEach(function (item, index) {
+                    var sp = $('.btn-them-sp[data-masp="' + item.MaSp + '"]');
+                    var gia = sp.data('gia');
+                    var thanhTien = gia * item.SoLuong;
+
+                    html += '<tr>';
+                    html += '<td>' + sp.data('tensp') + '</td>';
+                    html += '<td>' + item.SoLuong + '</td>';
+                    html += '<td>' + gia.toLocaleString() + ' đ</td>';
+                    html += '<td>' + thanhTien.toLocaleString() + ' đ</td>';
+                    html += '<td><button type="button" class="btn btn-sm btn-danger btn-xoa-sp" data-index="' + index + '">Xóa</button></td>';
+                    html += '</tr>';
+                });
+
+                // Thêm giỏ quà
+                selectedGioQuas.forEach(function (item, index) {
+                    var gq = $('.btn-them-gq[data-magq="' + item.MaGq + '"]');
+                    var gia = gq.data('gia');
+                    var thanhTien = gia * item.SoLuong;
+
+                    html += '<tr>';
+                    html += '<td>' + gq.data('tengq') + '</td>';
+                    html += '<td>' + item.SoLuong + '</td>';
+                    html += '<td>' + gia.toLocaleString() + ' đ</td>';
+                    html += '<td>' + thanhTien.toLocaleString() + ' đ</td>';
+                    html += '<td><button type="button" class="btn btn-sm btn-danger btn-xoa-gq" data-index="' + index + '">Xóa</button></td>';
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                $('#danhSachChon').html(html);
+
+                // Xử lý xóa sản phẩm
+                $('.btn-xoa-sp').click(function () {
+                    var index = $(this).data('index');
+                    selectedSanPhams.splice(index, 1);
+                    renderDanhSachChon();
+                });
+
+                // Xử lý xóa giỏ quà
+                $('.btn-xoa-gq').click(function () {
+                    var index = $(this).data('index');
+                    selectedGioQuas.splice(index, 1);
+                    renderDanhSachChon();
+                });
+            }
+
+            // Submit form
+            $('#formTaoDonHangOffline').submit(function (e) {
+                e.preventDefault();
+
+                var formData = {
+                    MaNv: $('#MaNv').val(),
+                    SoDienThoai: $('#SoDienThoai').val(),
+                    DaThanhToan: $('#DaThanhToan').is(':checked'),
+                    GhiChu: $('#GhiChu').val(),
+                    SelectedSanPhams: selectedSanPhams,
+                    SelectedGioQuas: selectedGioQuas
+                };
+
+                $.ajax({
+                    url: '@Url.Action("TaoDonHangOffline", "QLDonHang")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            window.location.href = '@Url.Action("Details", "QLDonHang")/' + response.maDh;
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi gửi dữ liệu');
+                    }
+                });
+            });
+        });
+    </script>
+}

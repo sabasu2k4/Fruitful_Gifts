@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "r8azSGyZlGDjQgU1hu4Qe3fonI8Xe9Ofeo0JWBPgy34=",
+  "Hash": "RtjfrDjOVzC39GD0ruLoaLDoCIv9llGPTSJzoxmerDU=",
   "Source": "Fruitful-Gifts",
   "BasePath": "_content/Fruitful-Gifts",
   "Mode": "Default",
@@ -2523,6 +2523,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\assets\\vendors\\mdi\\fonts\\materialdesignicons-webfont.woff2"
+    },
+    {
+      "Identity": "D:\\DoAnTotNghiepKhoa\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gs.jpg",
+      "SourceId": "Fruitful-Gifts",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DoAnTotNghiepKhoa\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\",
+      "BasePath": "_content/Fruitful-Gifts",
+      "RelativePath": "Admin/gs.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Admin\\gs.jpg"
     },
     {
       "Identity": "D:\\DoAnTotNghiepKhoa\\DoAnTotNghiep\\Fruitful-Gifts\\wwwroot\\Admin\\gulpfile.js",

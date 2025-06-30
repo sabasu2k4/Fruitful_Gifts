@@ -174,41 +174,105 @@ namespace Fruitful_Gifts.Controllers
         {
             var maKhachHang = GetLoggedInKhachHangId();
             if (maKhachHang == null)
-                return RedirectToAction("DangKy", "TaiKhoan");
+            {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    return Json(new { success = false, message = "Bạn chưa đăng nhập." });
 
+                return RedirectToAction("DangKy", "TaiKhoan");
+            }
+
+            // Lấy đơn hàng của khách
             var donHang = await _context.DonHangs
                 .FirstOrDefaultAsync(d => d.MaDh == id && d.MaKh == maKhachHang);
 
             if (donHang == null)
-                return NotFound();
+                return Json(new { success = false, message = "Không tìm thấy đơn hàng." });
 
-            if (donHang.TrangThai != 1 && donHang.TrangThai != 5)
+            if (donHang.TrangThai != 1 && donHang.TrangThai != 2)
+                return Json(new { success = false, message = "Đơn hàng không thể hủy ở trạng thái hiện tại." });
+
+            // Bắt đầu transaction
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                TempData["ErrorMessage"] = "Đơn hàng không thể hủy ở trạng thái hiện tại.";
-                return RedirectToAction("DetailsDonHang", new { id });
+                try
+                {
+                    if (donHang.TrangThai == 1 || donHang.TrangThai == 2)
+                    {
+                        var chiTietDonHang = await _context.ChiTietDonHangs
+                            .Where(ct => ct.MaDh == donHang.MaDh)
+                            .ToListAsync();
+
+                        foreach (var chiTiet in chiTietDonHang)
+                        {
+                            if (chiTiet.MaSp.HasValue)
+                            {
+                                // Trường hợp sản phẩm lẻ
+                                var khoHangs = await _context.KhoHangs
+                                    .Where(k => k.MaSp == chiTiet.MaSp)
+                                    .ToListAsync();
+
+                                foreach (var kho in khoHangs)
+                                {
+                                    kho.SoLuongTon = kho.SoLuongTon + (int)(chiTiet.SoLuong ?? 0);
+
+
+                                }
+                            }
+                            else if (chiTiet.MaGq.HasValue)
+                            {
+                                // Trường hợp giỏ quà
+                                var chiTietGioQuaList = await _context.ChiTietGioQuas
+                                    .Where(ctgq => ctgq.MaGq == chiTiet.MaGq)
+                                    .ToListAsync();
+
+                                foreach (var ctGioQua in chiTietGioQuaList)
+                                {
+                                    var tongTraLai = (chiTiet.SoLuong ?? 0m) * (decimal)(ctGioQua.SoLuong);
+
+
+
+                                    var khoHangs = await _context.KhoHangs
+                                        .Where(k => k.MaSp == ctGioQua.MaSp)
+                                        .ToListAsync();
+
+                                    foreach (var kho in khoHangs)
+                                    {
+                                        kho.SoLuongTon += (int)tongTraLai; 
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    donHang.TrangThai = 6;
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    return Json(new { success = true, message = "Hủy đơn hàng thành công." });
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    Console.WriteLine($"Lỗi: {ex.Message}");
+                    return Json(new { success = false, message = "Có lỗi xảy ra khi hủy đơn hàng." });
+                }
             }
 
-            donHang.TrangThai = 6; // Mã trạng thái "Đã hủy" (theo model của bạn có TrangThaiNavigation)
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Hủy đơn hàng thành công.";
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi hủy đơn hàng.";
-            }
-
-            return RedirectToAction("DetailsDonHang", new { id });
         }
 
         [HttpPost]
-        public async Task<IActionResult> RepurchaseOrder(int id)
+        public async Task<IActionResult> RepurchaseOrder(int id, string? ghiChu)
         {
             var maKhachHang = GetLoggedInKhachHangId();
             if (maKhachHang == null)
-                return RedirectToAction("DangKy", "TaiKhoan");
+            {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    return Json(new { success = false, message = "Bạn cần đăng nhập để tiếp tục." });
+                else
+                    return RedirectToAction("DangKy", "TaiKhoan");
+            }
 
             var donHangCu = await _context.DonHangs
                 .Include(d => d.ChiTietDonHangs)
@@ -218,47 +282,107 @@ namespace Fruitful_Gifts.Controllers
                 .FirstOrDefaultAsync(d => d.MaDh == id && d.MaKh == maKhachHang);
 
             if (donHangCu == null)
-                return NotFound();
+            {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    return Json(new { success = false, message = "Không tìm thấy đơn hàng." });
+                else
+                    return NotFound();
+            }
 
             if (donHangCu.TrangThai != 6 && donHangCu.TrangThai != 7) // 6: hủy, 7: giao thất bại
             {
-                TempData["ErrorMessage"] = "Chỉ có thể mua lại đơn hàng đã hủy hoặc giao thất bại.";
-                return RedirectToAction("DetailsDonHang", new { id });
+                var errMsg = "Chỉ có thể mua lại đơn hàng đã hủy hoặc giao thất bại.";
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    return Json(new { success = false, message = errMsg });
+                else
+                    return RedirectToAction("DetailsDonHang", new { id, errorMessage = errMsg });
             }
 
+            // ===== LẤY DANH SÁCH NHÂN VIÊN HIỆN CÓ =====
+            var danhSachNhanVien = await _context.NhanViens
+                .OrderBy(nv => nv.MaNv)
+                .Select(nv => nv.MaNv)
+                .ToListAsync();
+
+            int? maNvGan = null;
+            if (danhSachNhanVien.Any())
+            {
+                int soLuongDonHang = await _context.DonHangs.CountAsync();
+                int index = soLuongDonHang % danhSachNhanVien.Count;
+                maNvGan = danhSachNhanVien[index];
+            }
+
+            // ===== TẠO ĐƠN HÀNG MỚI =====
             var donHangMoi = new DonHang
             {
                 MaKh = maKhachHang.Value,
                 NgayDatHang = DateTime.Now,
-                PhiVanChuyenBanHang = donHangCu.PhiVanChuyenBanHang,
-                TrangThai = 1, // chờ xác nhận
-                TrangThaiThanhToan = 0,
                 DiaChiNhanHang = donHangCu.DiaChiNhanHang,
                 SoDienThoai = donHangCu.SoDienThoai,
-                GhiChu = donHangCu.GhiChu,
-                MaPt = donHangCu.MaPt
+                GhiChu = ghiChu ?? donHangCu.GhiChu,
+                MaPt = donHangCu.MaPt,
+                TrangThai = 1,
+                TrangThaiThanhToan = 0,
+                PhuongThucBan = "online",
+                MaNv = maNvGan,
+                PhiVanChuyenBanHang = donHangCu.PhiVanChuyenBanHang
             };
 
             _context.DonHangs.Add(donHangMoi);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // Để có MaDh mới
 
+            decimal tongTien = 0;
+
+            // ===== Thêm chi tiết đơn hàng mới và tính tổng tiền =====
             foreach (var ct in donHangCu.ChiTietDonHangs)
             {
+                decimal giaBan = 0;
+                if (ct.MaSp.HasValue)
+                {
+                    var sp = ct.MaSpNavigation;
+                    giaBan = sp?.GiaBan ?? 0;
+                }
+                else if (ct.MaGq.HasValue)
+                {
+                    var gq = ct.MaGqNavigation;
+                    giaBan = gq?.GiaBan ?? 0;
+                }
+
+                var thanhTien = giaBan * (ct.SoLuong ?? 0);
+                tongTien += thanhTien;
+
                 var chiTietMoi = new ChiTietDonHang
                 {
                     MaDh = donHangMoi.MaDh,
                     MaSp = ct.MaSp,
                     MaGq = ct.MaGq,
                     SoLuong = ct.SoLuong,
-                    GiaBan = ct.GiaBan,
-                    TongTienTungSanPham = (ct.SoLuong ?? 0) * (ct.GiaBan ?? 0)
+                    GiaBan = giaBan,
+                    TongTienTungSanPham = thanhTien
                 };
+
                 _context.ChiTietDonHangs.Add(chiTietMoi);
             }
+
+            // Tính phí vận chuyển (nếu bạn có logic tính phí vận chuyển ở đây)
+            decimal phiVanChuyen = 0;
+            if (tongTien < 500000)
+                phiVanChuyen = 30000;
+
+            donHangMoi.PhiVanChuyenBanHang = phiVanChuyen;
+            donHangMoi.TongTienDonHang = tongTien + phiVanChuyen;
+
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Đặt lại đơn hàng thành công.";
-            return RedirectToAction("Index");
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { success = true, message = "Đặt lại đơn hàng thành công." });
+            else
+            {
+                TempData["SuccessMessage"] = "Đặt lại đơn hàng thành công.";
+                return RedirectToAction("Index");
+            }
         }
+
+
     }
 }

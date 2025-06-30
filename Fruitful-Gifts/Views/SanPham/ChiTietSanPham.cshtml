@@ -194,7 +194,7 @@
             <h2 class="fw-bold">@Model.SanPham.TenSp</h2>
 
             <p class="fs-4 fw-semibold text-danger">
-                @Model.SanPham.GiaBan?.ToString("N0") đ
+                @Model.SanPham.GiaBan?.ToString("N0") VNĐ
             </p>
 
             <div class="rating mb-3 fs-5">
@@ -330,17 +330,20 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function validateRating(orderId) {
-            const ratingInputs = document.querySelectorAll(`form[action='/SanPham/BinhLuan'] input[name='Rating']`);
+        function validateRating(form) {
+            const ratingInputs = form.querySelectorAll("input[name='Rating']");
             let checked = false;
             ratingInputs.forEach(radio => {
                 if (radio.checked) checked = true;
             });
 
             if (!checked) {
-                alert('Vui lòng chọn số sao đánh giá!');
+                const orderId = form.querySelector("input[name='MaDh']")?.value ?? '';
+                const warningEl = document.getElementById(`rating-warning-${orderId}`);
+                if (warningEl) warningEl.classList.remove('d-none');
                 return false;
             }
+
             return true;
         }
         //thông báo

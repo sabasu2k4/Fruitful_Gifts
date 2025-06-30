@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fruitful-Gifts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36ff47dd45e6c349ddd0508b757b287423764685")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6baa17a57100cb8ba20510c8f8b42d8d440e6d49")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fruitful-Gifts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fruitful-Gifts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

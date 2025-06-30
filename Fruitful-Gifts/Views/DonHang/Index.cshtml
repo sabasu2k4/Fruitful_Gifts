@@ -729,10 +729,11 @@
                                 </a>
                                 @if (don.TrangThai == 1)
                                 {
-                                    <button class="action-btn btn-danger">
-                                        <i class="bi bi-x-circle"></i>Hủy đơn
+                                    <button class="action-btn btn-danger cancel-order-btn" data-id="@don.MaDh">
+                                        <i class="bi bi-x-circle"></i> Hủy đơn
                                     </button>
                                 }
+
                                 @if (don.TrangThai == 4)
                                 {
                                     <button class="action-btn btn-success">
@@ -800,5 +801,69 @@
                 });
             });
         });
+        //hủy đơn
+        document.addEventListener('DOMContentLoaded', function () {
+            const cancelButtons = document.querySelectorAll('.cancel-order-btn');
+
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: 'Bạn có chắc muốn hủy đơn hàng?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Hủy đơn',
+                        cancelButtonText: 'Không'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const formData = new URLSearchParams();
+                            formData.append("id", orderId);
+
+                            fetch('/DonHang/CancelOrder', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                body: formData
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Thành công!',
+                                            text: data.message,
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        }).then(() => {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Thất bại!',
+                                            text: data.message
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lỗi kết nối!',
+                                        text: 'Đã xảy ra lỗi khi gửi yêu cầu.'
+                                    });
+                                    console.error(error);
+                                });
+                        }
+                    });
+                });
+            });
+        });
+
+
     </script>
 }

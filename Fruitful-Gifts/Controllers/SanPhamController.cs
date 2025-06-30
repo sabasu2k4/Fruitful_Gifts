@@ -376,17 +376,30 @@ namespace Fruitful_Gifts.Controllers
                 }
             }
 
-            // Kiểm tra đã đánh giá đơn hàng này cho sản phẩm/giỏ quà này chưa
-            var daDanhGiaDonHangNay = await _context.BinhLuans
-                .AnyAsync(b => b.MaKh == maKH &&
-                               b.MaGq == MaGq &&
-                               b.MaSp == MaSp &&
-                               b.MaGq == (MaGq.HasValue ? MaGq : null) &&
-                               b.MaSp == (MaSp.HasValue ? MaSp : null));
+            // Kiểm tra không quá 3 đánh giá cho cùng sản phẩm trong đơn hàng này
 
-            if (daDanhGiaDonHangNay)
+
+            bool daDanhGia = false;
+
+            if (MaSp.HasValue)
             {
-                TempData["Message"] = "Bạn đã đánh giá sản phẩm/giỏ quà này cho đơn hàng này rồi.";
+                daDanhGia = await _context.BinhLuans
+                    .AnyAsync(b => b.MaKh == maKH &&
+                                   b.MaDh == MaDh &&
+                                   b.MaSp == MaSp.Value);
+            }
+            else if (MaGq.HasValue)
+            {
+                daDanhGia = await _context.BinhLuans
+                    .AnyAsync(b => b.MaKh == maKH &&
+                                   b.MaDh == MaDh &&
+                                   b.MaGq == MaGq.Value);
+            }
+
+            if (daDanhGia)
+            {
+                TempData["Message"] = "Bạn đã đánh sản phẩm này cho đơn hàng " + MaDh + " này rồi.";
+
                 if (MaSp.HasValue)
                 {
                     var spRated = await _context.SanPhams.FindAsync(MaSp.Value);
@@ -416,7 +429,6 @@ namespace Fruitful_Gifts.Controllers
                 CreatedAt = DateTime.Now,
                 MaDh = MaDh
             };
-
 
             _context.BinhLuans.Add(binhLuan);
             await _context.SaveChangesAsync();

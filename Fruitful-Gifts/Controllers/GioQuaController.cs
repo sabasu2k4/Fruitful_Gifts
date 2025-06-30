@@ -64,7 +64,7 @@ namespace Fruitful_Gifts.Controllers
             {
                 donHangChuaDanhGia = _context.ChiTietDonHangs
                     .Include(ct => ct.MaDhNavigation)
-                    .Where(ct => ct.MaGq == gioQua.MaGq && // ✅ Đúng rồi
+                    .Where(ct => ct.MaGq == gioQua.MaGq && 
                                  ct.MaDhNavigation.MaKh == userId &&
                                  ct.MaDhNavigation.TrangThai == 4 &&
                                  !_context.BinhLuans.Any(bl => bl.MaGq == gioQua.MaGq &&
@@ -230,16 +230,27 @@ namespace Fruitful_Gifts.Controllers
             }
 
             // Kiểm tra đã đánh giá đơn hàng này cho sản phẩm/giỏ quà này chưa
-            var daDanhGiaDonHangNay = await _context.BinhLuans
-                .AnyAsync(b => b.MaKh == maKH &&
-                               b.MaGq == MaGq &&
-                               b.MaSp == MaSp &&
-                               b.MaGq == (MaGq.HasValue ? MaGq : null) &&
-                               b.MaSp == (MaSp.HasValue ? MaSp : null));
+           
 
+            bool daDanhGiaDonHangNay = false;
+
+            if (MaSp.HasValue)
+            {
+                daDanhGiaDonHangNay = await _context.BinhLuans
+                    .AnyAsync(b => b.MaKh == maKH &&
+                                   b.MaDh == MaDh &&
+                                   b.MaSp == MaSp.Value);
+            }
+            else if (MaGq.HasValue)
+            {
+                daDanhGiaDonHangNay = await _context.BinhLuans
+                    .AnyAsync(b => b.MaKh == maKH &&
+                                   b.MaDh == MaDh &&
+                                   b.MaGq == MaGq.Value);
+            }
             if (daDanhGiaDonHangNay)
             {
-                TempData["Message"] = "Bạn đã đánh giá sản phẩm/giỏ quà này cho đơn hàng này rồi.";
+                TempData["Message"] = "Bạn đã đánh giá giỏ quà này cho đơn hàng " + MaDh + " này rồi.";
                 if (MaSp.HasValue)
                 {
                     var spRated = await _context.SanPhams.FindAsync(MaSp.Value);

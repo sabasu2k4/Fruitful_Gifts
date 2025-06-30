@@ -4,6 +4,7 @@
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger">
@@ -23,10 +24,9 @@
         <div class="card-body p-4">
             <form asp-action="Checkout" asp-controller="Payment" method="post" novalidate>
                 <div class="row g-4">
-                    <!-- Thông tin khách hàng -->
+                    <!-- THÔNG TIN KHÁCH HÀNG -->
                     <div class="col-md-6">
                         <h5 class="mb-4 fw-semibold text-primary"><i class="bi bi-person-circle me-2"></i>Thông tin khách hàng</h5>
-
                         <div class="mb-3">
                             <label asp-for="Name" class="form-label fw-semibold">Họ tên</label>
                             <input asp-for="Name" class="form-control form-control-lg" readonly />
@@ -45,22 +45,42 @@
                         </div>
                     </div>
 
-                    <!-- Thông tin đơn hàng và thanh toán -->
+                    <!-- THÔNG TIN ĐƠN HÀNG -->
                     <div class="col-md-6">
                         <h5 class="mb-4 fw-semibold text-primary"><i class="bi bi-bag-check-fill me-2"></i>Thông tin đơn hàng & thanh toán</h5>
+
                         <div class="mb-3">
-                            <label asp-for="Amount" class="form-label fw-semibold">Số tiền (VNĐ)</label>
-                            <input asp-for="Amount" class="form-control form-control-lg fw-bold text-success" readonly style="font-size:1.25rem;" />
+                            <label class="form-label fw-semibold">Tiền hàng</label>
+                            <input class="form-control form-control-lg" value="@Model.TienHang.ToString("N0") VNĐ" readonly />
                         </div>
+
+                        @if (Model.PhiVanChuyenBanHang > 0)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Phí vận chuyển</label>
+                                <input class="form-control form-control-lg text-info" value="@Model.PhiVanChuyenBanHang.ToString("N0") VNĐ" readonly />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tổng cộng</label>
+                            <input class="form-control form-control-lg fw-bold text-success"
+                                   value="@Model.Amount.ToString("N0") VNĐ" readonly
+                                   style="font-size:1.25rem;" />
+                        </div>
+
                         <div class="mb-3">
                             <label asp-for="OrderType" class="form-label fw-semibold">Loại đơn</label>
                             <input asp-for="OrderType" class="form-control form-control-lg" readonly />
                         </div>
+
                         <div class="mb-3">
                             <label asp-for="OrderDescription" class="form-label fw-semibold">Ghi chú đơn hàng (tuỳ chọn)</label>
                             <textarea asp-for="OrderDescription" class="form-control form-control-lg" rows="3" placeholder="Nhập ghi chú nếu có..."></textarea>
                             <span asp-validation-for="OrderDescription" class="text-danger"></span>
                         </div>
+
+                        <!-- Phương thức thanh toán -->
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Phương thức thanh toán :</label>
                             <div class="d-flex gap-4">
@@ -78,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <button type="submit" class="btn btn-gradient-success w-100 fw-bold py-3 fs-5 rounded-3 shadow-sm">
                             Xác nhận và thanh toán
                         </button>
@@ -89,7 +110,6 @@
 </div>
 
 <style>
-    /* Gradient màu xanh cho header và button */
     .bg-gradient-primary {
         background: linear-gradient(45deg, #0d6efd, #6610f2);
     }

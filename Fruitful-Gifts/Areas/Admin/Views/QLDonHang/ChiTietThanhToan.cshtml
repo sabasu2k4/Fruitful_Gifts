@@ -1,0 +1,679 @@
+﻿@model List<Fruitful_Gifts.Database.ThanhToan>
+@{
+    ViewData["Title"] = "Quản lý Thanh Toán";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    :root {
+        --primary: #1a73e8;
+        --primary-dark: #0d62c9;
+        --primary-light: #e8f0fe;
+        --secondary: #6c757d;
+        --success: #28a745;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --border: #e0e0e0;
+        --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s ease;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        animation: fadeIn 0.5s ease;
+    }
+
+    .header-title h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 5px;
+    }
+
+    .header-title p {
+        color: var(--secondary);
+        font-size: 16px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(26, 115, 232, 0.25);
+        }
+
+    .btn-outline {
+        background: white;
+        border: 1px solid var(--border);
+        color: var(--dark);
+    }
+
+        .btn-outline:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+    .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--dark);
+        margin: 15px 0;
+    }
+
+    .stat-label {
+        color: var(--secondary);
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-light);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 24px;
+    }
+
+    .main-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        margin-bottom: 30px;
+        animation: slideUp 0.5s ease;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+        .card-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+    }
+
+    .payment-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1000px;
+    }
+
+        .payment-table th {
+            background: #f8fafc;
+            color: var(--dark);
+            font-weight: 600;
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 2px solid var(--border);
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .payment-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .payment-table tbody tr {
+            transition: var(--transition);
+        }
+
+            .payment-table tbody tr:hover {
+                background-color: rgba(26, 115, 232, 0.03);
+            }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 500;
+        display: inline-block;
+    }
+
+    .badge-success {
+        background: rgba(40, 167, 69, 0.15);
+        color: var(--success);
+    }
+
+    .badge-warning {
+        background: rgba(255, 193, 7, 0.15);
+        color: #e0a800;
+    }
+
+    .badge-danger {
+        background: rgba(220, 53, 69, 0.15);
+        color: var(--danger);
+    }
+
+    .badge-info {
+        background: rgba(23, 162, 184, 0.15);
+        color: #138496;
+    }
+
+    .badge-secondary {
+        background: rgba(108, 117, 125, 0.15);
+        color: var(--secondary);
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--light);
+        color: var(--secondary);
+        border: 1px solid var(--border);
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    .table-footer {
+        background: var(--light);
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--border);
+    }
+
+    .total-amount {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--dark);
+    }
+    /* Animations */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    /* Responsive */
+    @@media (max-width: 992px) {
+        .dashboard-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .header-actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .stats-container {
+            grid-template-columns: 1fr;
+        }
+
+        .header-actions {
+            flex-wrap: wrap;
+        }
+    }
+</style>
+<div class="container-fluid">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="header-title">
+            <h1><i class="fas fa-credit-card"></i> Quản lý Thanh Toán</h1>
+            <p>Danh sách các giao dịch thanh toán trong hệ thống</p>
+        </div>
+        <div class="header-actions">
+           
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                <i class="fas fa-filter"></i> Lọc
+            </button>
+        </div>
+    </div>
+    <!-- Stats Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-list"></i>
+            </div>
+            <div class="stat-value">@Model.Count</div>
+            <div class="stat-label">Tổng số giao dịch</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-value">
+                @Model.Count(x => x.PaymentStatus?.ToLower() == "success")
+            </div>
+            <div class="stat-label">Đã hoàn thành</div>
+        </div>
+
+        <div class="stat-card border border-danger bg-danger bg-opacity-25 text-danger position-relative rounded p-3" style="font-weight: 600; box-shadow: 0 0 8px rgba(220,53,69,0.5);">
+            <div class="stat-icon fs-2 mb-2">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:1rem;">
+                    !
+                    <span class="visually-hidden">Alert</span>
+                </span>
+            </div>
+            <div class="stat-value fs-3">
+                @Model.Count(x => x.PaymentStatus?.ToLower() == "pendingrefund")
+            </div>
+            <div class="stat-label fs-6">
+                Hoàn tiền đang chờ xử lý
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-value">@Model.Sum(x => x.Amount).ToString("N0")</div>
+            <div class="stat-label">Tổng doanh thu (VNĐ)</div>
+        </div>
+    </div>
+    <!-- Main Card -->
+    <div class="main-card">
+        <div class="card-header">
+            <h2><i class="fas fa-table"></i> Danh sách thanh toán</h2>
+            <div class="filter-section">
+                <div style="position: relative;">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm thanh toán..." style="padding: 10px 15px 10px 40px; border-radius: 8px; border: none; width: 250px;">
+                    <i class="fas fa-search" style="position: absolute; left: 15px; top: 12px; color: #777;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-container">
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Ngân hàng</th>
+                            <th>Số Tiền (VNĐ)</th>
+                            <th>Trạng Thái</th>
+                            <th>Thời Gian TT</th>
+                            <th>Mã Giao Dịch</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td>
+                                    <a href="@Url.Action("Details", "Order", new { id = item.MaDh })" class="text-primary fw-bold">#@item.MaDh</a>
+                                </td>
+                                <td>@item.BankCode</td>
+                                <td>@item.Amount.ToString("N0")</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(item.PaymentStatus)">
+                                        @GetStatusText(item.PaymentStatus)
+                                    </span>
+                                </td>
+                                <td>@(item.PaymentTime?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.TransactionCode))
+                                    {
+                                        <code>@item.TransactionCode</code>
+                                    }
+                                    else
+                                    {
+                                        <span>N/A</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                         <div class="action-btn" title="Chi tiết" onclick="showPaymentDetail(@item.Id)">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                             
+                                      
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="table-footer">
+            <div class="total-amount">
+                Tổng cộng: @Model.Sum(x => x.Amount).ToString("N0") VNĐ
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="filterModalLabel"><i class="fas fa-filter me-2"></i>Lọc thanh toán</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="filterForm">
+                    <div class="mb-3">
+                        <label class="form-label">Trạng thái</label>
+                        <select name="status" class="form-control">
+                            <option value="">-- Tất cả --</option>
+                            <option value="Success">Hoàn thành</option>
+                            <option value="PendingRefund">Đang chờ xử lý</option>
+                        </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Khoảng thời gian</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="startDate">
+                            <span class="input-group-text">đến</span>
+                            <input type="date" class="form-control" name="endDate">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Số tiền từ</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="minAmount" placeholder="Tối thiểu">
+                            <span class="input-group-text">đến</span>
+                            <input type="number" class="form-control" name="maxAmount" placeholder="Tối đa">
+                        </div>
+                    </div>
+                   
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger" onclick="resetFilters()">Xóa lọc</button>
+                <button type="button" class="btn btn-primary" onclick="applyFilters()">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Payment Detail Modal -->
+
+<div class="modal fade" id="paymentDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Chi tiết thanh toán</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body" id="paymentDetailContent">
+                <!-- Nội dung chi tiết sẽ load vào đây -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo DataTable
+            const table = $('.payment-table').DataTable({
+                responsive: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                    search: "_INPUT_",
+                    searchPlaceholder: "Tìm kiếm...",
+                },
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel me-1"></i> Excel',
+                        className: 'btn btn-sm btn-outline-success'
+                    }
+                ],
+                initComplete: function () {
+                    $('.dataTables_filter input').addClass('form-control form-control-sm');
+                    $('.dt-buttons button').removeClass('dt-button');
+                }
+            });
+
+            // Tìm kiếm với DataTable
+            $('#searchInput').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+
+            // Xử lý click row
+            $('.payment-table tbody').on('click', 'tr', function () {
+                const data = table.row(this).data();
+                if (data) {
+                    const orderId = data[0].match(/#(\d+)/)[1];
+                    showPaymentDetail(orderId);
+                }
+            });
+
+            // Load lại giá trị filter từ URL
+            loadFilterValues();
+        });
+
+        function loadFilterValues() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.has('status')) {
+                $('select[name="status"]').val(urlParams.get('status'));
+            }
+
+            if (urlParams.has('startDate')) {
+                $('input[name="startDate"]').val(urlParams.get('startDate'));
+            }
+
+            if (urlParams.has('endDate')) {
+                $('input[name="endDate"]').val(urlParams.get('endDate'));
+            }
+
+            if (urlParams.has('minAmount')) {
+                $('input[name="minAmount"]').val(urlParams.get('minAmount'));
+            }
+
+            if (urlParams.has('maxAmount')) {
+                $('input[name="maxAmount"]').val(urlParams.get('maxAmount'));
+            }
+        }
+
+        function applyFilters() {
+            const status = $('select[name="status"]').val();
+            const startDate = $('input[name="startDate"]').val();
+            const endDate = $('input[name="endDate"]').val();
+            const minAmount = $('input[name="minAmount"]').val();
+            const maxAmount = $('input[name="maxAmount"]').val();
+
+            let url = '@Url.Action("ChiTietThanhToan", "QLDonHang")?';
+            if (status) url += `status=${status}&`;
+            if (startDate) url += `startDate=${startDate}&`;
+            if (endDate) url += `endDate=${endDate}&`;
+            if (minAmount) url += `minAmount=${minAmount}&`;
+            if (maxAmount) url += `maxAmount=${maxAmount}`;
+
+            // Xóa dấu & cuối cùng nếu có
+            url = url.endsWith('&') ? url.slice(0, -1) : url;
+
+            window.location.href = url;
+        }
+
+        function resetFilters() {
+            // Reset form
+            $('#filterForm')[0].reset();
+
+            // Redirect về trang không có filter
+            window.location.href = '@Url.Action("ChiTietThanhToan", "QLDonHang")';
+        }
+
+        function exportToExcel() {
+            const table = $('.payment-table').DataTable();
+            table.button('.buttons-excel').trigger();
+        }
+
+        function showPaymentDetail(orderId) {
+            $.get('@Url.Action("PaymentDetail", "QLDonHang")', { id: orderId }, function (data) {
+                $('#paymentDetailContent').html(data);
+                $('#paymentDetailModal').modal('show');
+            }).fail(function () {
+                toastr.error('Không thể tải chi tiết thanh toán', 'Lỗi');
+            });
+        }
+
+        function printInvoice(orderId) {
+            window.open('@Url.Action("PrintInvoice", "Payment")?id=' + orderId, '_blank');
+        }
+    </script>
+}
+ @functions {
+    public string GetStatusBadgeClass(string status)
+    {
+        switch (status?.ToLower())
+        {
+            case "success":
+                return "badge-success";
+            case "pendingrefund":
+                return "badge-warning";
+            case "failed":
+                return "badge-danger";
+            
+
+            default:
+                return "badge-secondary";
+        }
+    }
+
+    public string GetStatusText(string status)
+    {
+        switch (status?.ToLower())
+        {
+            case "success":
+                return "Hoàn thành";
+            case "pendingrefund":
+                return "Đang chờ xử lý";
+            case "failed":
+                return "Thất bại";
+           
+            default:
+                return status ?? "Không xác định";
+        }
+    }
+}
+

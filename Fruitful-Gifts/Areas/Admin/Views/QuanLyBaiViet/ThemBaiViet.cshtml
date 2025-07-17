@@ -1,0 +1,209 @@
+﻿@model Fruitful_Gifts.Database.BaiViet
+@{
+    ViewData["Title"] = "Thêm bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .image-upload-box {
+        width: 100%;
+        height: 630px;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: #f9f9f9;
+        text-align: center;
+        transition: border-color 0.3s ease;
+    }
+
+        .image-upload-box:hover {
+            border-color: #999;
+        }
+
+    .img-preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 1s ease;
+    }
+
+    .image-upload-box:hover .img-preview {
+        transform: scale(1.1);
+    }
+
+    .icon-overlay {
+        position: absolute;
+        color: #888;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    #NoiDung, .cke_contents {
+        min-height: 450px !important;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .form-section {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <form asp-action="ThemBaiViet" asp-controller="QuanLyBaiViet" asp-area="Admin" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
+                <div class="card border-0 shadow-sm rounded-3 mb-4">
+                    <div class="card-header py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="mb-0 fw-semibold text-gradient">
+                                <i class="bi bi-journal-text me-2"></i>THÊM BÀI VIẾT
+                            </h3>
+                            <button type="reset" class="btn btn-primary text-white rounded-pill px-3 btn-sm">
+                                <i class="fas fa-undo me-2"></i> Nhập lại
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Cột trái: hình ảnh -->
+                            <div class="col-md-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0 fw-semibold">
+                                        <i class="bi bi-image me-2"></i>HÌNH ẢNH
+                                    </h6>
+                                </div>
+                                <div class="image-upload-box mt-5" onclick="triggerFileInput()">
+                                    <input type="file" id="HinhAnhUpload" name="HinhAnhUpload" accept="image/*" class="d-none" onchange="previewImage(event)" required />
+                                    <img id="preview" src="#" alt="Xem trước hình" class="img-preview d-none" />
+                                    <div id="icon-overlay" class="icon-overlay">
+                                        <i class="bi bi-camera" style="font-size: 2rem;"></i>
+                                        <p class="text-muted">Chọn ảnh</p>
+                                    </div>
+                                </div>
+                                <small class="text-muted">Nhấp vào ảnh để thay đổi</small>
+                            </div>
+
+                            <!-- Cột phải -->
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-light">
+                                        <h6 class="mb-0 fw-semibold">
+                                            <i class="bi bi-info-circle me-2"></i>THÔNG TIN BÀI VIẾT
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <!-- Tên sản phẩm -->
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-medium">TIỀU ĐỀ <span class="text-danger">*</span></label>
+                                                <input id="TieuDe" name="TieuDe" class="form-control shadow-sm" placeholder="Nhập tiêu đề..." required />
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-danger" id="TieuDeError"></small>
+                                                    <small class="text-muted"><span id="titleCounter">0</span>/100 ký tự</small>
+                                                </div>
+                                            </div>
+
+                                            <!-- Trạng thái -->
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-medium">TRẠNG THÁI <span class="text-danger">*</span></label>
+                                                <select id="TrangThai" name="TrangThai" class="form-select" required>
+                                                    <option value="1">Hiển thị</option>
+                                                    <option value="0">Ẩn</option>
+                                                </select>
+                                                <div class="invalid-feedback" id="TrangThaiError">Vui lòng chọn trạng thái</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Nội dung -->
+                                        <div class="mt-4">
+                                            <label class="form-label fw-medium">NỘI DUNG <span class="text-danger">*</span></label>
+                                            <textarea id="NoiDung" name="NoiDung" class="form-control shadow-sm" rows="12"
+                                                      placeholder="Nhập nội dung chi tiết..." required></textarea>
+                                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                                <small class="text-danger" id="NoiDungError"></small>
+                                                <small class="text-muted"><span id="contentCounter">0</span>/2000 ký tự</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút điều khiển -->
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("DanhSachBaiViet", "QuanLyBaiViet", new { area = "Admin" })"
+                       class="btn btn-outline-secondary rounded-pill px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+                        <i class="bi bi-save me-2"></i>Lưu thông tin
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        CKEDITOR.replace('NoiDung');
+
+        // Hình ảnh
+        function triggerFileInput() {
+            document.getElementById('HinhAnhUpload').click();
+        }
+
+        function previewImage(event) {
+            const fileInput = event.target;
+            const preview = document.getElementById('preview');
+            const iconOverlay = document.getElementById('icon-overlay');
+            const [file] = fileInput.files;
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                    iconOverlay.classList.add('d-none');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "#";
+                preview.classList.add('d-none');
+                iconOverlay.classList.remove('d-none');
+            }
+        }
+        // Validate form
+        (function () {
+            'use strict'
+
+            const forms = document.querySelectorAll('.needs-validation')
+
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}
+

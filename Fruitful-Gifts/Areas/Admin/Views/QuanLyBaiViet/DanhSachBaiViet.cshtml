@@ -1,0 +1,463 @@
+﻿@model List<Fruitful_Gifts.Database.BaiViet>
+
+@{
+    ViewData["Title"] = "Danh sách bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm rounded-3 border-0 mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <h3 class="mb-0 fw-bold text-gradient">
+                    <i class="bi bi-journal-text me-2"></i>QUẢN LÝ BÀI VIẾT
+                </h3>
+
+                <div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
+                    <div class="input-group" style="width: 300px;">
+                        <span class="input-group-text bg-transparent"><i class="bi bi-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm...">
+                    </div>
+
+                    <select id="statusFilter" class="form-select" style="width: 180px;">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="1">Hiển thị</option>
+                        <option value="0">Ẩn</option>
+                    </select>
+
+                    <a href="@Url.Action("ThemBaiViet", "QuanLyBaiViet", new { area = "Admin" })"
+                       class="btn btn-primary shadow-sm">
+                        <i class="fas fa-plus-circle me-2"></i>Thêm bài viết
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded-3 border-0">
+        <div class="card-body">
+            <div class="table-responsive rounded-3">
+                <table id="baiVietTable" class="table table-hover align-middle mb-0 w-100">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">Hình ảnh</th>
+                            <th>Tiêu đề</th>
+                            <th style="width: 150px;">Ngày đăng</th>
+                            <th style="width: 120px;">Trạng thái</th>
+                            <th style="width: 180px;" class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-status="@item.TrangThai">
+                                <td class="text-center">
+                                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                    {
+                                        <img src="@Url.Content("~/images/baiviet/" + item.HinhAnh)"
+                                             class="img-thumbnail border-0 p-0"
+                                             style="width: 50px; height: 50px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light d-flex align-items-center justify-content-center"
+                                             style="width: 50px; height: 50px;">
+                                            <i class="fas fa-image text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td class="fw-medium">@item.TieuDe</td>
+                                <td>@item.NgayDang?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.TrangThai == 1)
+                                    {
+                                        <span class="badge bg-success bg-opacity-10 text-success">Hiển thị</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary">Ẩn</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button class="btn btn-outline-primary btn-edit"
+                                                data-mabv="@item.MaBv"
+                                                data-tieude="@item.TieuDe"
+                                                data-noidung="@item.NoiDung"
+                                                data-trangthai="@item.TrangThai"
+                                                data-hinhanh="@item.HinhAnh"
+                                                title="Sửa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-xoa-bv"
+                                                data-mabv="@item.MaBv"
+                                                title="Xóa">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <button class="btn btn-outline-info btn-preview"
+                                                data-tieude="@item.TieuDe"
+                                                data-noidung="@item.NoiDung"
+                                                data-hinhanh="@item.HinhAnh"
+                                                title="Xem trước">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <img src="~/admin/images/empty.svg" alt="Empty" style="height: 120px;" class="mb-3">
+                        <h5 class="text-muted">Không có dữ liệu bài viết</h5>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal cập nhật bài viết -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="editModalLabel">
+                    <i class="bi bi-pencil-square me-2"></i> Cập nhật bài viết
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="editForm" onsubmit="submitEditForm(event)" enctype="multipart/form-data">
+                    <input type="hidden" id="MaBv" name="MaBv" />
+                    <div class="row">
+                        <!-- Hình ảnh -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="HinhAnhUpload" class="form-label fw-semibold">Hình ảnh</label>
+                                <input type="file" class="form-control d-none" id="HinhAnhUpload" name="HinhAnhUpload" accept="image/*" onchange="previewNewImage(event)">
+                                <div class="image-edit">
+                                    <img id="PreviewImage" src="" alt="Ảnh hiện tại" class="img-fluid rounded" title="Nhấp để thay đổi ảnh" style="cursor: pointer; max-height: 200px;" onclick="document.getElementById('HinhAnhUpload').click()" />
+                                </div>
+                                <!-- Thông tin hỗ trợ -->
+                                <div class="small text-muted">
+                                    <i class="bi bi-info-circle me-1"></i>Nhấp vào để thay đổi ảnh
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tiêu đề và trạng thái -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="TieuDe" class="form-label fw-semibold">Tiêu đề bài viết</label>
+                                <input type="text" class="form-control" id="TieuDe" name="TieuDe" placeholder="Nhập tiêu đề bài viết">
+                            </div>
+                            <div class="mb-3">
+                                <label for="TrangThai" class="form-label fw-semibold">Trạng thái</label>
+                                <select class="form-select" id="TrangThai" name="TrangThai">
+                                    <option value="1">Hiển thị</option>
+                                    <option value="0">Ẩn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nội dung bài viết -->
+                    <div class="mb-3">
+                        <label for="NoiDung" class="form-label fw-semibold">Nội dung bài viết</label>
+                        <textarea class="form-control" id="NoiDung" name="NoiDung" rows="6" placeholder="Nhập nội dung bài viết..."></textarea>
+                    </div>
+
+                    <!-- Footer nút -->
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-2"></i> Hủy
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-2"></i> Lưu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .image-edit {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
+    }
+
+        .image-edit:hover {
+            border-color: var(--bs-primary) !important;
+        }
+
+        .image-edit img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .image-edit::before {
+            font-family: bootstrap-icons;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .image-edit:hover::before {
+            opacity: 1;
+        }
+</style>
+
+<!-- Modal xem trước -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Xem trước bài viết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <img id="previewImage" src="" class="img-fluid rounded" style="max-height: 300px;">
+                </div>
+                <h3 id="previewTitle" class="mb-3"></h3>
+                <div id="previewContent" class="content-html"></div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .table > :not(:first-child) {
+            border-top: none;
+        }
+
+        .table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
+        
+        #baiVietTable tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.375rem;
+            margin-left: 2px;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #4e73df;
+            color: white !important;
+            border: 1px solid #4e73df;
+        }
+        
+        .content-html img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo DataTable
+            var table = $('#baiVietTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                    search: "_INPUT_",
+                    searchPlaceholder: "Tìm kiếm...",
+                },
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                pageLength: 10,
+                columnDefs: [
+                    { orderable: false, targets: [0, 3, 4] },
+                    { className: "dt-nowrap", targets: [2] }
+                ],
+                order: [[2, "desc"]],
+                initComplete: function () {
+                    // Áp dụng bộ lọc trạng thái ban đầu nếu có
+                    var statusFilter = $('#statusFilter').val();
+                    if (statusFilter) {
+                        table.column(3).search(statusFilter).draw();
+                    }
+                }
+            });
+
+            // Xử lý tìm kiếm
+            $('#searchInput').keyup(function () {
+                table.search($(this).val()).draw();
+            });
+
+            // Xử lý lọc trạng thái
+            $('#statusFilter').change(function () {
+                var status = $(this).val();
+                table.column(3).search(status).draw();
+            });
+
+            // Khởi tạo CKEditor cho modal chỉnh sửa
+            if ($('#NoiDung').length) {
+                CKEDITOR.replace('NoiDung');
+            }
+
+            // Xử lý xem trước bài viết
+            $(document).on('click', '.btn-preview', function () {
+                var title = $(this).data('tieude');
+                var content = $(this).data('noidung');
+                var image = $(this).data('hinhanh');
+
+                $('#previewTitle').text(title);
+                $('#previewContent').html(content);
+
+                if (image) {
+                    $('#previewImage').attr('src', '/images/baiviet/' + image).show();
+                } else {
+                    $('#previewImage').hide();
+                }
+
+                var previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+                previewModal.show();
+            });
+
+            // Xử lý xóa bài viết
+            $(document).on('click', '.btn-xoa-bv', function () {
+                var maBv = $(this).data('mabv');
+                var row = $(this).closest('tr');
+
+                Swal.fire({
+                    title: 'Xác nhận xóa?',
+                    text: "Bài viết sẽ bị xóa vĩnh viễn!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Xoá',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Admin/QuanLyBaiViet/XoaBaiViet/' + maBv,
+                            method: 'DELETE',
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Đã xoá bài viết!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+
+                                    // Xóa hàng khỏi DataTable
+                                    table.row(row).remove().draw();
+                                } else {
+                                    Swal.fire('Lỗi', 'Không xoá được bài viết.', 'error');
+                                }
+                            },
+                            error: function () {
+                                Swal.fire('Lỗi', 'Đã xảy ra lỗi khi xóa.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Xử lý chỉnh sửa bài viết (giữ nguyên từ code gốc)
+            $(document).on('click', '.btn-edit', function () {
+                var maBv = $(this).data('mabv');
+                var tieuDe = $(this).data('tieude');
+                var noiDung = $(this).data('noidung');
+                var trangThai = $(this).data('trangthai');
+                var hinhAnh = $(this).data('hinhanh');
+
+                $('#MaBv').val(maBv);
+                $('#TieuDe').val(tieuDe);
+                $('#TrangThai').val(trangThai);
+                $('#PreviewImage').attr('src', '/images/baiviet/' + hinhAnh);
+
+                if (CKEDITOR.instances['NoiDung']) {
+                    CKEDITOR.instances['NoiDung'].setData(noiDung);
+                }
+
+                var modal = new bootstrap.Modal(document.getElementById("editModal"));
+                modal.show();
+            });
+        });
+
+        function previewNewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#PreviewImage').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function submitEditForm(event) {
+            event.preventDefault();
+
+            if (CKEDITOR.instances['NoiDung']) {
+                CKEDITOR.instances['NoiDung'].updateElement();
+            }
+
+            var formData = new FormData($('#editForm')[0]);
+            $.ajax({
+                url: '/Admin/QuanLyBaiViet/Edit',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Bài viết đã được cập nhật!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setTimeout(() => location.reload(), 1500);
+                },
+                error: function () {
+                    Swal.fire('Lỗi', 'Đã xảy ra lỗi khi cập nhật.', 'error');
+                }
+            });
+        }
+    </script>
+}

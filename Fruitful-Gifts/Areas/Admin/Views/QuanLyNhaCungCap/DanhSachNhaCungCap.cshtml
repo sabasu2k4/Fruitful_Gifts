@@ -1,0 +1,274 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Fruitful_Gifts.Database.NhaCungCap>
+@{
+    ViewData["Title"] = "Quản lý nhà cung cấp";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm rounded-3 border-0 mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <h2 class="mb-0 fw-bold text-gradient">
+                    <i class="bi bi-truck me-2"></i>QUẢN LÝ NHÀ CUNG CẤP
+                </h2>
+                <!-- Form tìm kiếm -->
+                <form method="get" asp-action="DanhSachNhaCungCap" class="flex-grow-1" style="min-width: 300px;">
+                    <div class="input-group">
+                        <input type="text" name="tuKhoa" class="form-control"
+                               value="@ViewBag.TuKhoa" placeholder="Tìm kiếm sản phẩm...">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <a href="@Url.Action("ThemNhaCungCap", "QuanLyNhaCungCap", new { area = "Admin" })"
+                   class="btn btn-primary shadow-sm">
+                    <i class="fas fa-plus-circle me-2"></i>Thêm sản phẩm
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded-3 border-0">
+        <div class="card-body">
+            <div class="table-responsive rounded-3">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tên NCC</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th class="text-center" style="width: 150px;">Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TenNcc</td>
+                                <td>@item.Sdt</td>
+                                <td>@item.Email</td>
+                                <td>
+                                    @if (item.TrangThai == 1)
+                                    {
+                                        <span class="badge bg-success">Đang hợp tác</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Ngưng hợp tác</span>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline-primary btn-sua"
+                                            data-mancc="@item.MaNcc"
+                                            data-ten="@item.TenNcc"
+                                            data-sdt="@item.Sdt"
+                                            data-email="@item.Email"
+                                            data-trangthai="@item.TrangThai">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-xoa" data-mancc="@item.MaNcc">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <img src="~/admin/images/empty.svg" alt="Empty" style="height: 120px;" class="mb-3">
+                        <h5 class="text-muted">Không có dữ liệu nhà cung cấp</h5>
+                    </div>
+                }
+
+                @if (Model.PageCount > 1)
+                {
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="text-muted small">
+                            Hiển thị @Model.FirstItemOnPage - @Model.LastItemOnPage trong tổng @Model.TotalItemCount sản phẩm
+                        </div>
+
+                        <div>
+                            @Html.PagedListPager(Model, page => Url.Action("DanhSachNhaCungCap", new
+                                {
+                                    page,
+                                    tuKhoa = ViewBag.TuKhoa
+                                }),
+                                     new PagedListRenderOptions
+                        {
+                            UlElementClasses = new[] { "pagination pagination-sm" },
+                            LiElementClasses = new[] { "page-item" },
+                            PageClasses = new[] { "page-link" },
+                            DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                            DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                            MaximumPageNumbersToDisplay = 5
+                        })
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal sửa NCC -->
+<div class="modal fade" id="modalSuaNCC" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật nhà cung cấp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="manccSua" />
+                <div class="mb-3">
+                    <label>Tên NCC</label>
+                    <input type="text" id="tenSua" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>SĐT</label>
+                    <input type="text" id="sdtSua" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" id="emailSua" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Trạng thái</label>
+                    <select id="trangThaiSua" class="form-select">
+                        <option value="1">Đang hợp tác</option>
+                        <option value="0">Ngưng hợp tác</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnLuuSua">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .table > :not(:first-child) {
+            border-top: none;
+        }
+
+        .table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // xóa ncc
+        $(document).on('click', '.btn-xoa', function () {
+            const mancc = $(this).data('mancc');
+            const row = $(this).closest('tr');
+
+            Swal.fire({
+                title: 'Bạn có chắc muốn xoá?',
+                text: "Thao tác này sẽ không thể hoàn tác!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/QuanLyNhaCungCap/XoaNhaCungCap',
+                        type: 'POST',
+                        data: { mancc: mancc },
+                        success: function (res) {
+                            if (res.success) {
+                                row.remove(); 
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Đã xóa!',
+                                    text: 'Nhà cung cấp đã được xóa.',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            } else {
+                                Swal.fire('Lỗi', res.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Lỗi', 'Không thể kết nối đến server.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-sua', function () {
+            $('#manccSua').val($(this).data('mancc'));
+            $('#tenSua').val($(this).data('ten'));
+            $('#sdtSua').val($(this).data('sdt'));
+            $('#emailSua').val($(this).data('email'));
+            $('#trangThaiSua').val($(this).data('trangthai'));
+
+            $('#modalSuaNCC').modal('show');
+        });
+
+        $('#btnLuuSua').click(function () {
+            var data = {
+                MaNcc: $('#manccSua').val(),
+                TenNcc: $('#tenSua').val(),
+                Sdt: $('#sdtSua').val(),
+                Email: $('#emailSua').val(),
+                TrangThai: $('#trangThaiSua').val()
+            };
+
+            $.ajax({
+                url: '/Admin/QuanLyNhaCungCap/CapNhatNhaCungCap',
+                type: 'POST',
+                data: data,
+                success: function (res) {
+                    if (res.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã cập nhật!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => location.reload()); // reload để cập nhật bảng
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Lỗi', 'Không thể kết nối server.', 'error');
+                }
+            });
+        });
+    </script>
+}
+

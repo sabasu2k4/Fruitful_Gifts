@@ -1,0 +1,58 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #007bff;
+        text-decoration: underline;
+    }
+
+.navbar-toggler-icon {
+    background-color: #007bff; /* Thay đổi màu của nút toggle */
+}
+
+.btn-outline-primary {
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+/* Tạo hiệu ứng hover cho các phần tử trong header */
+.header-link:hover {
+    color: #ffdf00;
+    text-decoration: underline;
+}
+
+.d-flex .gap-2 i {
+    font-size: 18px;
+}
+
+

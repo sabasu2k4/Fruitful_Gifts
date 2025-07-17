@@ -1,0 +1,129 @@
+﻿@model Fruitful_Gifts.Database.Luong
+@{
+    var chamCongs = ViewBag.ChamCongs as List<Fruitful_Gifts.Database.ChamCong>;
+}
+
+<div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">CHI TIẾT LƯƠNG THÁNG @Model.TuNgay?.Month/@Model.TuNgay?.Year</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h6 class="fw-bold">Nhân viên: @Model.NhanVien?.TenNv</h6>
+                <p class="mb-1">Chức vụ: @Model.NhanVien?.ChucVu</p>
+                <p class="mb-1">SĐT: @Model.NhanVien?.Sdt</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <h6 class="fw-bold">Kỳ lương: @Model.TuNgay?.ToString("dd/MM/yyyy") - @Model.DenNgay?.ToString("dd/MM/yyyy")</h6>
+                <p class="mb-1">Ngày công: @Model.SoNgayCong</p>
+                <p class="mb-1">
+                    Trạng thái:
+                    @if (Model.DaThanhToan == true)
+                    {
+                        <span class="badge bg-success">Đã thanh toán</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">Chờ thanh toán</span>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div class="border-top pt-3">
+            <h6 class="fw-bold mb-3">BẢNG CHẤM CÔNG</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-light">
+                            <th>Ngày</th>
+                            <th>Check-in</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cc in chamCongs)
+                        {
+                            <tr>
+                                <td>@cc.Ngay.ToString("dd/MM/yyyy")</td>
+                                <td>@cc.GioCheckIn.ToString("HH:mm")</td>
+                                <td>@(cc.GhiChu ?? "Không có ghi chú")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="border-top pt-3">
+            <h6 class="fw-bold mb-3">TỔNG HỢP LƯƠNG</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <span class="fw-semibold">Lương cơ bản:</span>
+                        <span class="float-end">@Model.LuongCoBan?.ToString("N0") VNĐ</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="fw-semibold">Phụ cấp:</span>
+                        <span class="float-end">@Model.LuongPhuCap?.ToString("N0") VNĐ</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <span class="fw-semibold">Thưởng:</span>
+                        <span class="float-end">@Model.Thuong?.ToString("N0") VNĐ</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="fw-semibold">Phạt:</span>
+                        <span class="float-end">@Model.Phat?.ToString("N0") VNĐ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mt-2 pt-2">
+                <div class="fw-bold fs-5">
+                    <span>Tổng lương:</span>
+                    <span class="float-end text-primary">@Model.TongLuong?.ToString("N0") VNĐ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        @if (Model.DaThanhToan != true)
+        {
+            <button type="button" class="btn btn-primary btn-xac-nhan-thanh-toan" data-maluong="@Model.MaLuong">
+                <i class="bi bi-cash-coin me-1"></i> Xác nhận thanh toán
+            </button>
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.btn-xac-nhan-thanh-toan').click(function () {
+            const maLuong = $(this).data('maluong');
+
+            Swal.fire({
+                title: 'Xác nhận thanh toán lương?',
+                text: 'Bạn có chắc chắn muốn đánh dấu khoản lương này đã được thanh toán?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('/Admin/QuanLyNhanVien/ThanhToanLuong', { maLuong: maLuong }, function (res) {
+                        if (res.success) {
+                            Swal.fire('Thành công!', 'Đã đánh dấu lương đã thanh toán', 'success')
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire('Lỗi!', res.message || 'Có lỗi xảy ra', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,209 @@
+﻿@model Fruitful_Gifts.Database.KhachHang
+
+@{
+    ViewData["Title"] = "Chi tiết khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    var orders = ViewBag.Orders as IEnumerable<Fruitful_Gifts.Database.DonHang> ?? Enumerable.Empty<Fruitful_Gifts.Database.DonHang>();
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    int totalOrders = ViewBag.TotalOrders ?? 0;
+    decimal totalSpent = ViewBag.TotalSpent ?? 0;
+
+    bool hasPreviousPage = currentPage > 1;
+    bool hasNextPage = currentPage < totalPages;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 font-weight-bold text-primary">
+            <i class="fas fa-user"></i> @ViewData["Title"]
+        </h4>
+        <a href="@Url.Action("QLKhachHang", "QuanLyKhachHang")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <!-- Thông tin khách hàng -->
+            <div class="col-md-4 border-right">
+                <div class="text-center mb-4">
+                    <div class="avatar-profile">
+                        <div class="avatar-initial rounded-circle bg-primary text-white mx-auto"
+                             style="width: 120px; height: 120px; line-height: 120px; font-size: 3rem;">
+                            @Model.HoKh?.Substring(0, 1)@Model.TenKh?.Substring(0, 1)
+                        </div>
+                    </div>
+                    <h3 class="mt-3">@Model.HoKh @Model.TenKh</h3>
+                   
+                </div>
+
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <strong>Email:</strong> @Model.Email
+                    </div>
+                    <div class="list-group-item">
+                        <i class="fas fa-phone mr-2"></i>
+                        <strong>SĐT:</strong> @Model.Sdt
+                    </div>
+                    <div class="list-group-item">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <strong>Địa chỉ:</strong> @Model.DiaChi
+                    </div>
+                    <div class="list-group-item">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <strong>Ngày tạo:</strong> @Model.CreatedAt?.ToString("dd/MM/yyyy HH:mm")
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="h5">@totalOrders</div>
+                            <small class="text-muted">Tổng đơn hàng</small>
+                        </div>
+                        <div class="col-6">
+                            <div class="h5">@totalSpent.ToString("N0") VNĐ</div>
+                            <small class="text-muted">Tổng chi tiêu</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lịch sử đơn hàng -->
+            <div class="col-md-8">
+                <h5 class="mb-3"><i class="fas fa-history"></i> Lịch sử đơn hàng</h5>
+
+                @if (orders.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in orders)
+                                {
+                                    <tr>
+                                        <td>@order.MaDh</td>
+                                        <td>@order.NgayDatHang?.ToString("dd/MM/yyyy")</td>
+                                        <td>@(order.ChiTietDonHangs?.Count ?? 0) món</td>
+                                        <td>@order.TongTienDonHang?.ToString("N0") VNĐ</td>
+                                        <td>
+                                            <span class="badge @GetStatusBadgeClass(order.TrangThai)">
+                                                @GetStatusText(order.TrangThai)
+                                            </span>
+                                        </td>
+                                      
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                      
+                        <!-- Phân trang thủ công -->
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center mb-0">
+
+                                <!-- Nút Trước -->
+                                <li class="page-item @(ViewBag.CurrentPage <= 1 ? "disabled" : "")">
+                                    <a class="page-link" href="@Url.Action("DetailsKH", new {
+                                        id = Model.MaKh,
+                                        pageNumber = ViewBag.CurrentPage > 1 ? ViewBag.CurrentPage - 1 : 1
+                                    })">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+
+                                <!-- Số trang -->
+                                @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                        <a class="page-link" href="@Url.Action("DetailsKH", new {
+                                        id = Model.MaKh,
+                                        pageNumber = i
+                                    })">@i</a>
+                                    </li>
+                                }
+
+                                <!-- Nút Sau -->
+                                <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages ? "disabled" : "")">
+                                    <a class="page-link" href="@Url.Action("DetailsKH", new {
+                                        id = Model.MaKh,
+                                        pageNumber = ViewBag.CurrentPage < ViewBag.TotalPages ? ViewBag.CurrentPage + 1 : ViewBag.TotalPages
+                                    })">
+                                    <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+
+
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Khách hàng chưa có đơn hàng nào
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        @@media (max-width: 768px) {
+            .border-right {
+                border-right: none !important;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+}
+
+@functions {
+    string GetStatusBadgeClass(int? status)
+    {
+        return status switch
+        {
+            1 => "badge-primary",   // Chờ xác nhận
+            2 => "badge-info",      // Đã xác nhận
+            3 => "badge-warning",   // Đang giao hàng
+            4 => "badge-success",   // Đã giao hàng
+            5 => "badge-secondary", // Hoàn hàng
+            6 => "badge-danger",    // Đã hủy
+            7 => "badge-danger",    // Giao hàng thất bại
+            8 => "badge-dark",      // Từ chối
+            _ => "badge-light"
+        };
+    }
+
+    string GetStatusText(int? status)
+    {
+        return status switch
+        {
+            1 => "⏳ Chờ xác nhận",
+            2 => "✅ Đã xác nhận",
+            3 => "🚚 Đang giao hàng",
+            4 => "✔️ Đã giao hàng",
+            5 => "🔄 Hoàn hàng",
+            6 => "❌ Đã hủy",
+            7 => "⚠️ Giao hàng thất bại",
+            8 => "🚫 Từ chối",
+            _ => "Không xác định"
+        };
+    }
+}

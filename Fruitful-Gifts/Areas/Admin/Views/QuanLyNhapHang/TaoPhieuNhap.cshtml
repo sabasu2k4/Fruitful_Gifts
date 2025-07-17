@@ -1,0 +1,160 @@
+﻿@model Fruitful_Gifts.Database.NhapHang
+
+@{
+    ViewData["Title"] = "Tạo phiếu nhập mới";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Tạo phiếu nhập mới</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="TaoPhieuNhap" asp-controller="QuanLyNhapHang" asp-area="Admin" enctype="multipart/form-data" method="post" id="formNhapHang">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MaNcc" class="control-label">Nhà cung cấp</label>
+                        <select id="MaNcc" name="MaNcc" class="form-select" required>
+                            <option value="">-- Chọn NCC --</option>
+                            @foreach (var item in ViewBag.NhaCungCap)
+                            {
+                                <option value="@item.MaNcc">@item.TenNcc</option>
+                            }
+                        </select>
+                        <span asp-validation-for="MaNcc" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PhiVanChuyenNhapHang" class="control-label">Phí vận chuyển</label>
+                        <input name="PhiVanChuyenNhapHang" class="form-control" type="number" min="0" />
+                        <span asp-validation-for="PhiVanChuyenNhapHang" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GhiChu" class="control-label">Ghi chú</label>
+                <textarea name="GhiChu" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="GhiChu" class="text-danger"></span>
+            </div>
+
+            <h5 class="mt-4">Chi tiết sản phẩm nhập</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblChiTiet">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá nhập</th>
+                            <th>Thành tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="MaSp[]" class="form-select san-pham" required>
+                                    <option value="">-- Chọn sản phẩm --</option>
+                                    @foreach (var sp in ViewBag.SanPham)
+                                    {
+                                        <option value="@sp.MaSp">@sp.TenSp</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="SoLuong[]" class="form-control so-luong" min="1" step="0.1" value="1" />
+                            </td>
+                            <td>
+                                <input type="number" name="GiaNhap[]" class="form-control gia-nhap" min="0" />
+                            </td>
+                            <td class="thanh-tien">0</td>
+                            <td><button type="button" class="btn btn-danger btn-remove">Xóa</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Tổng cộng:</strong></td>
+                            <td colspan="2" id="tongCong">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <button type="button" id="btnThemSanPham" class="btn btn-secondary">Thêm sản phẩm</button>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">Lưu phiếu nhập</button>
+                <a asp-action="NhapHang" class="btn btn-secondary">Hủy bỏ</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Thêm dòng sản phẩm mới
+            $('#btnThemSanPham').click(function () {
+                var rowCount = $('#tblChiTiet tbody tr').length;
+                var newRow = `
+                <tr>
+                    <td>
+                        <select name="MaSp[]" class="form-control select-sanpham" required>
+                            <option value="">-- Chọn sản phẩm --</option>
+                @foreach (var sp in ViewBag.SanPham)
+                {
+                                    <option value="@sp.MaSp">@sp.TenSp</option>
+                }
+                        </select>
+                    </td>
+                    <td><input type="number" name="SoLuong[]" class="form-control so-luong" min="1" step="0.1" value="1" /></td>
+                    <td><input type="number" name="GiaNhap[]" class="form-control gia-nhap" min="0" /></td>
+                    <td class="thanh-tien">0</td>
+                    <td><button type="button" class="btn btn-danger btn-remove">Xóa</button></td>
+                </tr>`;
+
+                $('#tblChiTiet tbody').append(newRow);
+            });
+
+            // Xóa dòng sản phẩm
+            $(document).on('click', '.btn-remove', function () {
+                $(this).closest('tr').remove();
+                calculateTotal();
+                reindexRows();
+            });
+
+            // Tính toán thành tiền và tổng cộng
+            $(document).on('input', '.so-luong, .gia-nhap', function () {
+                var row = $(this).closest('tr');
+                var soLuong = parseFloat(row.find('.so-luong').val()) || 0;
+                var giaNhap = parseFloat(row.find('.gia-nhap').val()) || 0;
+                var thanhTien = soLuong * giaNhap;
+                row.find('.thanh-tien').text(thanhTien.toLocaleString());
+                calculateTotal();
+            });
+
+            function calculateTotal() {
+                var total = 0;
+                $('.thanh-tien').each(function () {
+                    var value = parseFloat($(this).text().replace(/,/g, '')) || 0;
+                    total += value;
+                });
+                $('#tongCong').text(total.toLocaleString());
+            }
+
+            function reindexRows() {
+                $('#tblChiTiet tbody tr').each(function (index) {
+                    $(this).find('select').attr('name', `chiTietNhap[${index}].MaSp`);
+                    $(this).find('input[type="number"]').each(function (i, input) {
+                        if ($(input).hasClass('so-luong')) {
+                            $(input).attr('name', `chiTietNhap[${index}].SoLuong`);
+                        } else if ($(input).hasClass('gia-nhap')) {
+                            $(input).attr('name', `chiTietNhap[${index}].GiaNhap`);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+}
+

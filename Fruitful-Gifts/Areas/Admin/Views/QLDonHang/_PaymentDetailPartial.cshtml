@@ -1,0 +1,69 @@
+﻿@model Fruitful_Gifts.Database.ThanhToan
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-4">Mã đơn hàng:</dt>
+        <dd class="col-sm-8">@Model.MaDh</dd>
+
+        <dt class="col-sm-4">Phương thức:</dt>
+        <dd class="col-sm-8">@Model.MaPtNavigation?.TenPt</dd>
+
+        <dt class="col-sm-4">Số tiền:</dt>
+        <dd class="col-sm-8">@Model.Amount.ToString("N0") đ</dd>
+
+        <dt class="col-sm-4">Trạng thái:</dt>
+        <dd class="col-sm-8">
+            <span class="badge @GetStatusBadgeClass(Model.PaymentStatus)">
+                @GetStatusText(Model.PaymentStatus)
+            </span>
+        </dd>
+
+        <dt class="col-sm-4">Mã Ngân hàng:</dt>
+        <dd class="col-sm-8">@Model.BankCode</dd>
+
+        <dt class="col-sm-4">Mã giao dịch:</dt>
+        <dd class="col-sm-8">@Model.TransactionCode</dd>
+
+        <dt class="col-sm-4">Thời gian thanh toán:</dt>
+        <dd class="col-sm-8">@Model.PaymentTime?.ToString("dd/MM/yyyy HH:mm")</dd>
+    </dl>
+</div>
+@functions {
+    public string GetStatusBadgeClass(string status)
+    {
+        switch (status?.ToLower())
+        {
+            case "completed":
+            case "hoàn thành":
+                return "badge-success";
+            case "pending":
+            case "đang chờ":
+                return "badge-warning";
+            case "failed":
+            case "thất bại":
+                return "badge-danger";
+            case "refunded":
+            case "hoàn tiền":
+                return "badge-info";
+            default:
+                return "badge-secondary";
+        }
+    }
+
+    public string GetStatusText(string status)
+    {
+        switch (status?.ToLower())
+        {
+            case "completed":
+                return "Hoàn thành";
+            case "pending":
+                return "Đang chờ";
+            case "failed":
+                return "Thất bại";
+            case "refunded":
+                return "Hoàn tiền";
+            default:
+                return status ?? "Không xác định";
+        }
+    }
+}

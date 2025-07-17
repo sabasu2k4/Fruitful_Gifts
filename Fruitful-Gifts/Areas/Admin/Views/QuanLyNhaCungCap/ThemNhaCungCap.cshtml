@@ -1,0 +1,157 @@
+﻿@model Fruitful_Gifts.Database.NhaCungCap
+@{
+    ViewData["Title"] = "Thêm nhà cung cấp";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <form asp-action="ThemNhaCungCap" asp-controller="QuanLyNhaCungCap" asp-area="Admin" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
+                <div class="card border-0 shadow-sm rounded-3 mb-4">
+                    <div class="card-header py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="mb-0 fw-semibold text-gradient">
+                                <i class="fas fa-truck me-2"></i>THÊM NHÀ CUNG CẤP
+                            </h3>
+                            <button type="reset" class="btn btn-primary text-white rounded-pill px-3 btn-sm">
+                                <i class="fas fa-undo me-2"></i> Nhập lại
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <!-- Tên NCC -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-building me-2"></i>TÊN NHÀ CUNG CẤP <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent">
+                                        <i class="fas fa-signature"></i>
+                                    </span>
+                                    <input name="TenNcc" class="form-control" required
+                                           placeholder="Nhập tên nhà cung cấp" />
+                                </div>
+                                <div class="invalid-feedback">Vui lòng nhập tên nhà cung cấp</div>
+                            </div>
+
+                            <!-- SĐT -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-phone me-2"></i>SỐ ĐIỆN THOẠI
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </span>
+                                    <input name="Sdt" class="form-control"
+                                           placeholder="Nhập số điện thoại" />
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-envelope me-2"></i>EMAIL
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent">
+                                        <i class="fas fa-at"></i>
+                                    </span>
+                                    <input name="Email" type="email" class="form-control"
+                                           placeholder="Nhập email" />
+                                </div>
+                            </div>
+
+                            <!-- Trạng thái -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-info-circle me-2"></i>TRẠNG THÁI <span class="text-danger">*</span>
+                                </label>
+                                <select name="TrangThai" class="form-select" required>
+                                    <option value="1" selected>
+                                        <i class="fas fa-check-circle me-2"></i> Đang hợp tác
+                                    </option>
+                                    <option value="0">
+                                        <i class="fas fa-times-circle me-2"></i> Ngưng hợp tác
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút điều khiển -->
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("DanhSachNhaCungCap", "QuanLyNhaCungCap", new { area = "Admin" })"
+                       class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+                        <i class="fas fa-save me-2"></i> Lưu thông tin
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.5rem;
+        }
+        .card-header {
+            border-radius: 0.5rem 0.5rem 0 0 !important;
+        }
+        .form-label {
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+        .input-group-text {
+            border-right: none;
+        }
+        .form-control, .form-select {
+            border-left: none;
+        }
+            .form-control:focus, .form-select:focus {
+                box-shadow: none;
+                border-color: #ced4da;
+            }
+        .btn-outline-secondary {
+            border-width: 1.5px;
+        }
+        .btn-primary {
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Validate form
+        (function () {
+            'use strict'
+
+            const forms = document.querySelectorAll('.needs-validation')
+
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}

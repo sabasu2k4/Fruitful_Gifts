@@ -1,0 +1,614 @@
+﻿@model List<Fruitful_Gifts.Database.KhuyenMai>
+@{
+    ViewData["Title"] = "Sản phẩm khuyến mãi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    @functions {
+        public string GetPromotionStatus(DateTime? startDate, DateTime? endDate)
+        {
+            if (!startDate.HasValue || !endDate.HasValue)
+                return "expired";
+
+            var now = DateTime.Now;
+            if (now < startDate) return "upcoming";
+            if (now > endDate) return "expired";
+            return "active";
+        }
+    }
+}
+
+<form id="antiForgeryForm">
+    @Html.AntiForgeryToken()
+</form>
+<div class="container-fluid py-4">
+    <div class="card shadow-sm rounded-3 border-0 mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <h3 class="mb-0 fw-bold text-gradient">
+                    <i class="bi bi-tags me-2"></i>QUẢN LÝ SẢN PHẨM KHUYẾN MÃI
+                </h3>
+
+                <div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
+                    <select id="categoryFilter" class="form-select" style="width: 200px;">
+                        <option value="">Tất cả danh mục</option>
+                        @foreach (var dm in ViewBag.LoaiSanPham)
+                        {
+                            <option value="@dm.MaLoai">@dm.TenLoai</option>
+                        }
+                        <option value="gift">Giỏ quà</option>
+                    </select>
+
+                    <select id="statusFilter" class="form-select" style="width: 150px;">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="active">Đang áp dụng</option>
+                        <option value="upcoming">Sắp diễn ra</option>
+                        <option value="expired">Đã kết thúc</option>
+                    </select>
+
+                    <a href="@Url.Action("ThemSanPhamKhuyenMai", "QuanLySanPham", new { area = "Admin" })"
+                       class="btn btn-primary shadow-sm">
+                        <i class="fas fa-plus-circle me-2"></i>Thêm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded-3 border-0">
+        <div class="card-body">
+            <div class="table-responsive rounded-3">
+                <table id="khuyenMaiTable" class="table table-hover align-middle mb-0 w-100">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Danh mục</th>
+                            <th>Giá gốc</th>
+                            <th style="width: 120px;">Giảm (%)</th>
+                            <th>Giảm còn</th>
+                            <th style="width: 150px;">Ngày bắt đầu</th>
+                            <th style="width: 150px;">Ngày kết thúc</th>
+                            <th class="text-center" style="width: 150px;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var km in Model)
+                        {
+                            <tr data-category="@(km.MaSp != null ? km.MaSpNavigation?.MaLoai.ToString() : "gift")"
+                                data-status="@@GetPromotionStatus(km.NgayBatDau, km.NgayKetThuc)">
+                                <td class="text-center">
+                                    @if (!string.IsNullOrEmpty(km.MaSpNavigation?.HinhAnh))
+                                    {
+                                        <img src="@Url.Content("~/images/sanpham/" + km.MaSpNavigation.HinhAnh)"
+                                             style="width: 50px; height: 50px; object-fit: cover;" />
+                                    }
+                                    else if (!string.IsNullOrEmpty(km.MaGqNavigation?.HinhAnh))
+                                    {
+                                        <img src="@Url.Content("~/images/gioqua/" + km.MaGqNavigation.HinhAnh)"
+                                             style="width: 50px; height: 50px; object-fit: cover;" />
+                                    }
+                                </td>
+                                <td>
+                                    @(km.MaSpNavigation?.TenSp ?? km.MaGqNavigation?.TenGioQua)
+                                </td>
+                                <td>
+                                    @(km.MaSpNavigation?.MaLoaiNavigation?.TenLoai ?? "Giỏ quà")
+                                </td>
+                                <td>
+                                    @string.Format("{0:N0}", km.MaSpNavigation?.GiaBan ?? km.MaGqNavigation?.GiaBan) VNĐ
+                                </td>
+                                <td>
+                                    @{
+                                        var giaGoc = km.MaSpNavigation?.GiaBan ?? km.MaGqNavigation?.GiaBan ?? 0;
+                                        var mucGiamGia = km.MucGiamGia ?? 0;
+                                        var phanTram = giaGoc > 0 ? (1 - mucGiamGia / giaGoc) * 100 : 0;
+                                    }
+                                    @string.Format("{0:0.#}%", phanTram)
+                                </td>
+                                <td>@string.Format("{0:N0}", km.MucGiamGia) VNĐ</td>
+                                <td>@km.NgayBatDau?.ToString("dd/MM/yyyy")</td>
+                                <td>@km.NgayKetThuc?.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button class="btn btn-outline-primary btn-edit-km"
+                                                data-id="@km.Id"
+                                                data-masp="@km.MaSp"
+                                                data-magq="@km.MaGq"
+                                                data-mucgiamgia="@km.MucGiamGia"
+                                                data-ngaybatdau="@km.NgayBatDau?.ToString("yyyy-MM-dd")"
+                                                data-ngayketthuc="@km.NgayKetThuc?.ToString("yyyy-MM-dd")"
+                                                data-ten="@((km.MaSpNavigation?.TenSp ?? km.MaGqNavigation?.TenGioQua) ?? "")"
+                                                data-hinhanh="@((!string.IsNullOrEmpty(km.MaSpNavigation?.HinhAnh)
+                                    ? Url.Content("~/images/sanpham/" + km.MaSpNavigation.HinhAnh)
+                                    : (!string.IsNullOrEmpty(km.MaGqNavigation?.HinhAnh)
+                                   ? Url.Content("~/images/gioqua/" + km.MaGqNavigation.HinhAnh)
+                                   : "")))"
+                                                data-gia="@((km.MaSpNavigation?.GiaBan ?? km.MaGqNavigation?.GiaBan) ?? 0)"
+                                                data-danhmuc="@((km.MaSpNavigation?.MaLoaiNavigation?.TenLoai ?? "Giỏ quà"))"
+                                                title="Sửa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-delete"
+                                                data-id="@km.Id"
+                                                title="Xóa">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <img src="~/admin/images/empty.svg" alt="Empty" style="height: 120px;" class="mb-3">
+                        <h5 class="text-muted">Không có dữ liệu sản phẩm khuyến mãi</h5>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditKhuyenMai" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="formEditKhuyenMai" method="post" action="/Admin/QuanLySanPham/ChinhSuaKhuyenMai">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-tag me-2"></i>CHỈNH SỬA KHUYẾN MÃI
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-5 border-end pe-4">
+                            <div class="text-center mb-3">
+                                <img id="editHinhAnh" src="" class="img-thumbnail rounded" style="width: 150px; height: 150px; object-fit: cover;" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tên sản phẩm / Giỏ quà</label>
+                                <input type="text" class="form-control bg-light" id="editTen" readonly />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Danh mục</label>
+                                <input type="text" class="form-control bg-light" id="editDanhMuc" readonly />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Giá gốc</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light" id="editGia" readonly />
+                                    <span class="input-group-text bg-light">VNĐ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7 ps-4">
+                            <input type="hidden" name="Id" id="editId" />
+                            <input type="hidden" name="MaSp" id="editMaSp" />
+                            <input type="hidden" name="MaGq" id="editMaGq" />
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Phần trăm khuyến mãi</label>
+                                <div class="input-group">
+                                    <input type="number" min="0" max="100" step="1" id="editPhanTram"
+                                           class="form-control border-primary"
+                                           placeholder="Nhập % giảm giá" />
+                                    <span class="input-group-text bg-primary text-white">%</span>
+                                </div>
+                                <div class="form-text text-muted">Nhập từ 0 đến 100%, hệ thống tự động tính toán</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Số tiền được giảm</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light" id="editTienGiam" readonly />
+                                    <span class="input-group-text bg-light">VNĐ</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Giảm còn</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control border-primary"
+                                           name="MucGiamGia" id="editMucGiamGia" />
+                                    <span class="input-group-text bg-primary text-white">VNĐ</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Ngày bắt đầu</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="far fa-calendar-alt"></i></span>
+                                        <input type="date" class="form-control" name="NgayBatDau" id="editNgayBatDau" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Ngày kết thúc</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="far fa-calendar-alt"></i></span>
+                                        <input type="date" class="form-control" name="NgayKetThuc" id="editNgayKetThuc" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-info mb-0">
+                                <div class="card-header bg-info text-white py-2">
+                                    <i class="fas fa-info-circle me-2"></i>THÔNG TIN KHUYẾN MÃI
+                                </div>
+                                <div class="card-body p-3 small">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Thời gian áp dụng:</span>
+                                        <span id="editThoiGianApDung" class="fw-bold">--/--/---- đến --/--/----</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Thời lượng:</span>
+                                        <span id="editThoiLuong" class="fw-bold">0 ngày</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">Giảm còn:</span>
+                                        <span id="editMucGiam" class="fw-bold text-danger">0% (0 VNĐ)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-x-lg me-1"></i>Hủy bỏ
+                    </button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+                        <i class="bi bi-save me-1"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    #modalEditKhuyenMai .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    #modalEditKhuyenMai .modal-header {
+        border-bottom: none;
+        padding: 1rem 1.5rem;
+    }
+
+    #modalEditKhuyenMai .modal-body {
+        padding: 1.5rem;
+    }
+
+    #modalEditKhuyenMai .form-control:read-only {
+        background-color: #f8f9fa;
+    }
+
+    #modalEditKhuyenMai .input-group-text {
+        min-width: 40px;
+        justify-content: center;
+    }
+
+    #modalEditKhuyenMai .border-primary {
+        border-color: #4e73df !important;
+    }
+
+    #modalEditKhuyenMai .card {
+        border-radius: 0.35rem;
+    }
+</style>
+
+    @section Styles {
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .table > :not(:first-child) {
+            border-top: none;
+        }
+
+        .table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
+
+        #khuyenMaiTable tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.375rem;
+            margin-left: 2px;
+        }
+
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                background: #4e73df;
+                color: white !important;
+                border: 1px solid #4e73df;
+            }
+
+        /* Style cho trạng thái khuyến mãi */
+        tr[data-status="active"] {
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+
+        tr[data-status="upcoming"] {
+            background-color: rgba(23, 162, 184, 0.05);
+        }
+
+        tr[data-status="expired"] {
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+    </style>
+    }
+
+    @section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo DataTable
+            var table = $('#khuyenMaiTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                    search: "_INPUT_",
+                    searchPlaceholder: "Tìm kiếm...",
+                },
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                pageLength: 10,
+                columnDefs: [
+                    { orderable: false, targets: [0, 8] },
+                    { className: "dt-nowrap", targets: [3, 5, 6, 7] }
+                ],
+                order: [[6, "desc"]],
+                initComplete: function () {
+                    // Áp dụng bộ lọc ban đầu nếu có
+                    var categoryFilter = $('#categoryFilter').val();
+                    var statusFilter = $('#statusFilter').val();
+
+                    if (categoryFilter) {
+                        table.column(2).search(categoryFilter).draw();
+                    }
+
+                    if (statusFilter) {
+                        filterByStatus(statusFilter);
+                    }
+                }
+            });
+
+            // Xử lý tìm kiếm
+            $('#searchInput').keyup(function () {
+                table.search($(this).val()).draw();
+            });
+
+            // Xử lý lọc danh mục
+            $('#categoryFilter').change(function () {
+                var category = $(this).val();
+                if (category === "gift") {
+                    // Lọc giỏ quà
+                    table.column(2).search("Giỏ quà").draw();
+                } else if (category) {
+                    // Lọc theo mã loại sản phẩm
+                    table.rows().every(function () {
+                        var rowData = this.data();
+                        var rowNode = this.node();
+                        var rowCategory = $(rowNode).data('category');
+
+                        if (rowCategory === category) {
+                            $(rowNode).show();
+                        } else {
+                            $(rowNode).hide();
+                        }
+                    });
+                    table.draw(false); // Vẽ lại bảng mà không reset paging
+                } else {
+                    // Hiển thị tất cả
+                    table.column(2).search('').draw();
+                    table.rows().every(function () {
+                        $(this.node()).show();
+                    });
+                    table.draw(false);
+                }
+            });
+
+            // Xử lý lọc trạng thái
+            $('#statusFilter').change(function () {
+                var status = $(this).val();
+                filterByStatus(status);
+            });
+
+            function filterByStatus(status) {
+                if (status) {
+                    table.rows().every(function () {
+                        var rowNode = this.node();
+                        var rowStatus = $(rowNode).data('status');
+
+                        if (rowStatus === status) {
+                            $(rowNode).show();
+                        } else {
+                            $(rowNode).hide();
+                        }
+                    });
+                    table.draw(false);
+                } else {
+                    table.rows().every(function () {
+                        $(this.node()).show();
+                    });
+                    table.draw(false);
+                }
+            }
+
+            // Xử lý xóa khuyến mãi
+            $(document).on('click', '.btn-delete', function () {
+                var button = $(this);
+                var id = button.data("id");
+                var token = $('input[name="__RequestVerificationToken"]').val();
+
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn xoá?',
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Xoá',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("XoaKhuyenMai", "QuanLySanPham", new { area = "Admin" })',
+                            type: 'POST',
+                            data: {
+                                id: id,
+                                __RequestVerificationToken: token
+                            },
+                            success: function (res) {
+                                if (res.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Đã xoá thành công!',
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+                                    // Xóa hàng khỏi DataTable
+                                    table.row(button.closest('tr')).remove().draw();
+                                } else {
+                                    Swal.fire(
+                                        'Thất bại!',
+                                        res.message || 'Không thể xoá khuyến mãi.',
+                                        'error'
+                                    );
+                                }
+                            },
+                        });
+                    }
+                });
+            });
+
+            // Phần chỉnh sửa khuyến mãi
+            $(document).on('click', '.btn-edit-km', function () {
+                var btn = $(this);
+
+                const giaGoc = parseFloat(btn.data("gia")) || 0;
+                const mucGiamGia = parseFloat(btn.data("mucgiamgia")) || 0;
+
+                $("#editId").val(btn.data("id"));
+                $("#editMaSp").val(btn.data("masp"));
+                $("#editMaGq").val(btn.data("magq"));
+                $("#editMucGiamGia").val(mucGiamGia);
+                $("#editNgayBatDau").val(btn.data("ngaybatdau"));
+                $("#editNgayKetThuc").val(btn.data("ngayketthuc"));
+
+                // Các thông tin hiển thị thêm
+                $("#editTen").val(btn.data("ten"));
+                $("#editHinhAnh").attr("src", btn.data("hinhanh"));
+                $("#editGia").val(giaGoc.toLocaleString("vi-VN"));
+                $("#editDanhMuc").val(btn.data("danhmuc"));
+
+                // Tính phần trăm
+                const percent = giaGoc > 0 ? (100 - (mucGiamGia * 100 / giaGoc)) : 0;
+                $("#editPhanTram").val(percent.toFixed(1));
+                const tienGiam = giaGoc - mucGiamGia;
+                $("#editTienGiam").val(tienGiam.toLocaleString("vi-VN"));
+                capNhatThongTinKhuyenMai(giaGoc, mucGiamGia, btn.data("ngaybatdau"), btn.data("ngayketthuc"));
+
+                $("#modalEditKhuyenMai").modal("show");
+            });
+
+            // Khi nhập phần trăm => tính lại mức giảm giá
+            $("#editPhanTram").on("input", function () {
+                const percent = parseFloat($(this).val()) || 0;
+                const giaText = $("#editGia").val().replace(/[^\d]/g, "");
+                const giaGoc = parseFloat(giaText) || 0;
+
+                const giamGia = giaGoc * (100 - percent) / 100;
+                $("#editMucGiamGia").val(giamGia.toFixed(0));
+                const tienGiam = giaGoc - giamGia;
+                $("#editTienGiam").val(tienGiam.toLocaleString("vi-VN"));
+
+                // GỌI LẠI cập nhật thông tin KM
+                capNhatThongTinKhuyenMai(giaGoc, giamGia, $("#editNgayBatDau").val(), $("#editNgayKetThuc").val());
+            });
+
+            // Khi sửa lại mức giảm giá => tính lại phần trăm
+            $("#editMucGiamGia").on("input", function () {
+                const mucGiam = parseFloat($(this).val()) || 0;
+                const giaText = $("#editGia").val().replace(/[^\d]/g, "");
+                const giaGoc = parseFloat(giaText) || 0;
+
+                const percent = giaGoc > 0 ? 100 - ((mucGiam * 100) / giaGoc) : 0;
+                $("#editPhanTram").val(percent.toFixed(1));
+                const tienGiam = giaGoc - mucGiam;
+                $("#editTienGiam").val(tienGiam.toLocaleString("vi-VN"));
+
+                // GỌI LẠI cập nhật thông tin KM
+                capNhatThongTinKhuyenMai(giaGoc, mucGiam, $("#editNgayBatDau").val(), $("#editNgayKetThuc").val());
+            });
+
+            // Cập nhật khuyến mãi
+            $("#formEditKhuyenMai").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (res) {
+                        if (res.success) {
+                            $("#modalEditKhuyenMai").modal("hide");
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Cập nhật thành công!",
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                location.reload(); // Tải lại trang để cập nhật dữ liệu
+                            });
+                        } else {
+                            Swal.fire("Lỗi", res.message, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Lỗi", "Không thể gửi yêu cầu.", "error");
+                    }
+                });
+            });
+
+            function capNhatThongTinKhuyenMai(giaGoc, giaSauGiam, ngayBatDau, ngayKetThuc) {
+                const dateStart = new Date(ngayBatDau);
+                const dateEnd = new Date(ngayKetThuc);
+                const duration = Math.round((dateEnd - dateStart) / (1000 * 60 * 60 * 24)) + 1;
+
+                $("#editThoiGianApDung").text(`${formatDate(dateStart)} đến ${formatDate(dateEnd)}`);
+                $("#editThoiLuong").text(`${duration} ngày`);
+
+                const percent = giaGoc > 0 ? 100 - (giaSauGiam * 100 / giaGoc) : 0;
+                $("#editMucGiam").text(`${(giaSauGiam).toLocaleString("vi-VN")} VNĐ`);
+            }
+
+            function formatDate(date) {
+                return date.toLocaleDateString('vi-VN');
+            }
+        });
+    </script>
+    }
+

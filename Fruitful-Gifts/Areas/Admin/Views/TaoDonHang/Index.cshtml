@@ -1,0 +1,1303 @@
+﻿@{
+    ViewData["Title"] = "Tạo đơn hàng mới";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+
+    var userQuyen = Context.Session.GetString("Quyen");
+    var allowedQuyens = new List<string> { "admin", "quanly", "thungan", "banhang" };
+}
+
+@model Fruitful_Gifts.Database.DonHang
+
+@if (allowedQuyens.Contains(userQuyen))
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <form id="orderForm">
+                <div class="row no-gutters">
+                    <!-- Cột sản phẩm -->
+                    <div class="col-lg-7 p-4 border-right">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0 font-weight-bold text-dark"><i class="fas fa-cart-plus mr-2"></i>Tạo đơn hàng mới</h5>
+                            <div class="btn-group btn-group-toggle custom-radio-group" data-toggle="buttons">
+                                <label class="btn btn-radio-custom active">
+                                    <input type="radio" name="productType" autocomplete="off" checked data-tab="products">
+                                    <span class="radio-label">Sản phẩm</span>
+                                </label>
+                                <label class="btn btn-radio-custom">
+                                    <input type="radio" name="productType" autocomplete="off" data-tab="gifts">
+                                    <span class="radio-label">Giỏ quà</span>
+                                </label>
+                            </div>
+                            <style>
+                                .custom-radio-group {
+                                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+                                    border-radius: 8px;
+                                    overflow: hidden;
+                                }
+
+                                .btn-radio-custom {
+                                    color: #5a5a5a;
+                                    background-color: #f8f9fa;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    font-weight: 500;
+                                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                                    position: relative;
+                                    border-radius: 0 !important;
+                                }
+
+                                    .btn-radio-custom:first-child {
+                                        border-top-left-radius: 8px !important;
+                                        border-bottom-left-radius: 8px !important;
+                                    }
+
+                                    .btn-radio-custom:last-child {
+                                        border-top-right-radius: 8px !important;
+                                        border-bottom-right-radius: 8px !important;
+                                    }
+
+                                    .btn-radio-custom:hover {
+                                        color: #2c3e50;
+                                        background-color: #e9ecef;
+                                    }
+
+                                    .btn-radio-custom.active {
+                                        color: #fff;
+                                        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+                                        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+                                    }
+
+                                    .btn-radio-custom input[type="radio"] {
+                                        position: absolute;
+                                        opacity: 0;
+                                        pointer-events: none;
+                                    }
+
+                                .radio-label {
+                                    position: relative;
+                                    z-index: 1;
+                                }
+
+                                .btn-radio-custom.active .radio-label {
+                                    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+                                }
+
+                                /* Hiệu ứng khi active */
+                                .btn-radio-custom.active:after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background: linear-gradient(135deg, rgba(106, 17, 203, 0.8) 0%, rgba(37, 117, 252, 0.8) 100%);
+                                    z-index: 0;
+                                    border-radius: inherit;
+                                }
+                            </style>
+                        </div>
+
+                        <!-- Search box -->
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="productSearch" placeholder="Tìm kiếm sản phẩm...">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Danh sách sản phẩm -->
+                        <div id="products-tab" class="product-tab">
+                            <div class="row row-cols-2 row-cols-md-3 g-3" id="products-container">
+                                <!-- Sản phẩm sẽ được load bằng AJAX -->
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <small class="text-muted" id="products-count">Đang tải...</small>
+                                <nav aria-label="Products pagination">
+                                    <ul class="pagination mb-0" id="products-pagination">
+                                        <!-- Phân trang sẽ được tạo bằng JavaScript -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <!-- Danh sách giỏ quà -->
+                        <div id="gifts-tab" class="product-tab d-none">
+                            <div class="row row-cols-2 row-cols-md-3 g-3" id="gifts-container">
+                                <!-- Giỏ quà sẽ được load bằng AJAX -->
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <small class="text-muted" id="gifts-count">Đang tải...</small>
+                                <nav aria-label="Gifts pagination">
+                                    <ul class="pagination mb-0" id="gifts-pagination">
+                                        <!-- Phân trang sẽ được tạo bằng JavaScript -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cột đơn hàng -->
+                    <div class="col-lg-5 p-4">
+                        <div class="sticky-top" style="top: 20px;">
+                            <h5 class="mb-3 font-weight-bold text-dark"><i class="fas fa-shopping-cart mr-2"></i>Đơn hàng của bạn</h5>
+
+                            <div class="table-responsive mb-3" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-borderless mb-0" id="orderItems">
+                                    <thead class="bg-light" style="position: sticky; top: 0; z-index: 1;">
+                                        <tr>
+                                            <th class="border-0">Sản phẩm</th>
+                                            <th class="border-0 text-right" style="width: 90px;">SL</th>
+                                            <th class="border-0 text-right" style="width: 110px;">Thành tiền</th>
+                                            <th class="border-0" style="width: 40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="empty-cart-message">
+                                            <td colspan="4" class="text-center py-4 text-muted">
+                                                <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                                <p>Chưa có sản phẩm nào</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="total-summary mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="font-weight-bold">Tạm tính:</span>
+                                    <span id="subtotal">0 đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="font-weight-bold">Phí vận chuyển:</span>
+                                    <div class="input-group input-group-sm" style="width: 120px;">
+                                        <input type="number" class="form-control" id="shippingFeeInput" value="0" min="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between font-weight-bold text-primary h5 mb-0">
+                                    <span>Tổng cộng:</span>
+                                    <span id="grandTotal">0 đ</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5 class="font-weight-bold text-dark mb-3"><i class="fas fa-credit-card mr-2"></i>Thanh toán</h5>
+                                <div class="form-group">
+                                    <label class="small font-weight-bold">Phương thức <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="MaPt" required>
+                                        <option value="">-- Chọn phương thức --</option>
+                                        @foreach (var pt in ViewBag.PhuongThucThanhToans)
+                                        {
+                                            <option value="@pt.MaPt">@pt.TenPt</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="small font-weight-bold">Ghi chú đơn hàng</label>
+                                    <textarea class="form-control" name="GhiChu" rows="2" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-primary btn-lg flex-grow-1 mr-2">
+                                    <i class="fas fa-save mr-2"></i> Tạo đơn hàng
+                                </button>
+                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-times mr-2"></i> Hủy
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        Bạn không có quyền truy cập chức năng này
+    </div>
+}
+
+<!-- Modal hiển thị hóa đơn -->
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">HÓA ĐƠN BÁN HÀNG #<span id="invoiceOrderId"></span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="invoiceModalBody">
+                <!-- Nội dung sẽ được load bằng JS -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnPrintInvoice">
+                    <i class="fas fa-print me-1"></i> In hóa đơn
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --warning-color: #f8961e;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
+
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 16px rgba(67, 97, 238, 0.15);
+            }
+
+            .product-card .card-img-top {
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                height: 120px;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+
+            .product-card:hover .card-img-top {
+                transform: scale(1.05);
+            }
+            /* Thêm vào section Styles */
+            .product-card .text-muted {
+                font-size: 0.75rem;
+            }
+
+            .product-card .out-of-stock {
+                color: #dc3545;
+                font-weight: bold;
+            }
+
+            .product-card .low-stock {
+                color: #fd7e14;
+                font-weight: bold;
+            }
+
+        .btn-add-to-order {
+            transition: all 0.2s;
+        }
+
+            .btn-add-to-order:hover {
+                transform: scale(1.1);
+            }
+
+        #orderItems {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+            #orderItems tbody tr {
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+
+                #orderItems tbody tr td {
+                    border-top: none;
+                    vertical-align: middle;
+                    padding: 12px 8px;
+                }
+
+                    #orderItems tbody tr td:first-child {
+                        border-radius: 8px 0 0 8px;
+                    }
+
+                    #orderItems tbody tr td:last-child {
+                        border-radius: 0 8px 8px 0;
+                    }
+
+        .quantity-input {
+            width: 50px !important;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        .btn-remove-item {
+            color: var(--danger-color);
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+            .btn-remove-item:hover {
+                transform: scale(1.2);
+            }
+
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .total-summary {
+            background: linear-gradient(135deg, #f6f7f9, #ffffff);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+            .nav-tabs .nav-link.active {
+                color: var(--primary-color);
+                border-bottom: 2px solid var(--primary-color);
+                background: transparent;
+            }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--secondary-color);
+                border-color: var(--secondary-color);
+                transform: translateY(-2px);
+            }
+
+        .btn-outline-secondary {
+            transition: all 0.3s;
+        }
+
+            .btn-outline-secondary:hover {
+                background-color: #e9ecef;
+            }
+
+        .pagination .page-item .page-link {
+            border-radius: 4px;
+            margin: 0 3px;
+            border: none;
+            color: var(--dark-color);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .pagination .page-item:hover .page-link {
+            background-color: #f0f2f5;
+        }
+
+        /* Animation khi thêm sản phẩm vào giỏ */
+        @@keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce-animation {
+            animation: bounce 0.6s;
+        }
+
+        /* CSS cho bảng đơn hàng với chiều cao cố định */
+        .table-responsive {
+            max-height: 400px; /* Chiều cao tối đa */
+            overflow-y: auto; /* Thanh cuộn dọc khi cần */
+            border: 1px solid #dee2e6; /* Thêm viền để đẹp hơn */
+            border-radius: 8px; /* Bo góc */
+        }
+
+            /* Cố định header khi cuộn */
+            .table-responsive thead th {
+                position: sticky;
+                top: 0;
+                background-color: #f8f9fa; /* Màu nền giống với bg-light */
+                z-index: 1;
+            }
+
+            /* Style thanh cuộn */
+            .table-responsive::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .table-responsive::-webkit-scrollbar-track {
+                background: #e4e9ee;
+                border-radius: 10px;
+            }
+
+            .table-responsive::-webkit-scrollbar-thumb {
+                background: #e4e9ee;
+                border-radius: 10px;
+            }
+
+                .table-responsive::-webkit-scrollbar-thumb:hover {
+                    background: #e4e9ee;
+                }
+
+        /* Thêm vào section Styles */
+        #invoiceModal .modal-lg {
+            max-width: 900px;
+        }
+
+        #invoiceModal .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        #invoiceModal .table th {
+            white-space: nowrap;
+        }
+
+        #invoiceModal .card {
+            border-radius: 8px;
+        }
+
+        #invoiceModal .table-bordered th,
+        #invoiceModal .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Biến lưu trữ các sản phẩm trong đơn hàng
+            var orderItems = [];
+            var currentProductsPage = 1;
+            var currentGiftsPage = 1;
+            var itemsPerPage = 9;
+            var searchTimeout = null;
+
+            // Hàm load sản phẩm với tìm kiếm
+            function loadProducts(page, search = '') {
+                $.get('@Url.Action("GetProducts", "TaoDonHang")', {
+                    page: page,
+                    pageSize: itemsPerPage,
+                    search: search
+                }, function (response) {
+                    var container = $('#products-container');
+                    container.empty();
+
+                    if (response.data.length === 0) {
+                        container.html(`
+                                            <div class="col-12 text-center py-5">
+                                                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                                <p class="text-muted">Không tìm thấy sản phẩm phù hợp</p>
+                                            </div>
+                                        `);
+                    } else {
+                        response.data.forEach(function (product) {
+                            var productCard = createProductCard(product, 'product');
+                            container.append(productCard);
+                        });
+                    }
+
+                    renderPagination('#products-pagination', page, response.totalPages, 'products');
+                    $('#products-count').text(`${response.totalItems} sản phẩm`);
+                    currentProductsPage = page;
+                });
+            }
+
+            // Hàm load giỏ quà với tìm kiếm
+            function loadGifts(page, search = '') {
+                $.get('@Url.Action("GetGifts", "TaoDonHang")', {
+                    page: page,
+                    pageSize: itemsPerPage,
+                    search: search
+                }, function (response) {
+                    var container = $('#gifts-container');
+                    container.empty();
+
+                    if (response.data.length === 0) {
+                        container.html(`
+                                            <div class="col-12 text-center py-5">
+                                                <i class="fas fa-gift fa-3x text-muted mb-3"></i>
+                                                <p class="text-muted">Không tìm thấy giỏ quà phù hợp</p>
+                                            </div>
+                                        `);
+                    } else {
+                        response.data.forEach(function (gift) {
+                            var giftCard = createProductCard(gift, 'gift');
+                            container.append(giftCard);
+                        });
+                    }
+
+                    renderPagination('#gifts-pagination', page, response.totalPages, 'gifts');
+                    $('#gifts-count').text(`${response.totalItems} giỏ quà`);
+                    currentGiftsPage = page;
+                });
+            }
+
+            // Xử lý sự kiện click phân trang
+            $(document).on('click', '.page-link:not(.disabled)', function (e) {
+                e.preventDefault();
+
+                var page = parseInt($(this).data('page'));
+                var type = $(this).data('type');
+                var searchTerm = $('#productSearch').val().trim();
+
+                if (type === 'products') {
+                    if (page !== currentProductsPage) {
+                        loadProducts(page, searchTerm);
+                    }
+                } else if (type === 'gifts') {
+                    if (page !== currentGiftsPage) {
+                        loadGifts(page, searchTerm);
+                    }
+                }
+            });
+
+            // Hàm tạo card sản phẩm/giỏ quà
+            function createProductCard(item, type) {
+                var imagePath = type === 'product' ? '/images/sanpham/' : '/images/gioqua/';
+                var name = type === 'product' ? item.tenSp : item.tenGioQua;
+                var id = type === 'product' ? item.maSp : item.maGq;
+                var soLuongTon = item.soLuongTon || 0;
+                var isFruit = type === 'product' && item.maLoai === 2;
+    
+                var stockClass = '';
+                if (soLuongTon <= 0) {
+                    stockClass = 'out-of-stock';
+                    soLuongTon = 'Hết hàng';
+                } else if (soLuongTon < 5) {
+                    stockClass = 'low-stock';
+                }
+
+                // Sử dụng input type="text" cho trái cây để tránh validate mặc định của trình duyệt
+            var inputType = isFruit ? "text" : "number";
+            var pattern = isFruit ? "pattern='\\d*(\\.\\d{0,1})?'" : "";
+            var step = isFruit ? "" : "step='1'";
+
+                return `
+                    <div class="col">
+                        <div class="card h-100 product-card" data-id="${id}" data-type="${type}" data-price="${item.giaBan}" data-category="${item.maLoai || 0}">
+                            <div class="position-relative overflow-hidden" style="height: 120px;">
+                                <img src="${imagePath}${item.hinhAnh}" class="card-img-top h-100 w-100" alt="${name}" style="object-fit: cover;">
+                                <span class="badge badge-success position-absolute" style="top: 8px; right: 8px;">
+                                    ${formatCurrency(item.giaBan)}
+                                </span>
+                            </div>
+                            <div class="card-body p-2">
+                                <h6 class="card-title mb-1 text-truncate">${name}</h6>
+                                <small class="${stockClass} d-block mb-2">Còn: ${soLuongTon}</small>
+                                <div class="d-flex align-items-center mt-1">
+                                    <button class="btn btn-sm btn-outline-secondary btn-minus rounded-circle">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+            <input type="${inputType}" class="form-control form-control-sm mx-1 quantity-input"
+                   value="${isFruit ? '1.0' : '1'}" 
+                   min="${isFruit ? '0.1' : '1'}" 
+                   max="${soLuongTon}" 
+                   ${step}
+                   ${pattern}
+                   ${isFruit ? '' : 'oninput="this.value=this.value.replace(/[^0-9]/g,\'\')"'}>
+                                    <button class="btn btn-sm btn-outline-secondary btn-plus rounded-circle">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary ml-auto btn-add-to-order rounded-pill px-3">
+                                        <i class="fas fa-plus mr-1"></i> Thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Thêm sự kiện validate khi nhập liệu cho trái cây
+            $(document).on('input', '.quantity-input[type="text"]', function() {
+                var value = $(this).val();
+                // Chỉ cho phép số và 1 dấu chấm thập phân
+                var regex = /^(\d+\.?\d{0,1}|\.\d{1})$/;
+                if (!regex.test(value)) {
+                    $(this).val(value.substring(0, value.length - 1));
+                }
+            });
+
+            // Hàm tạo phân trang
+            function renderPagination(selector, currentPage, totalPages, type) {
+                var pagination = $(selector);
+                pagination.empty();
+
+                if (totalPages <= 1) return;
+
+                // Nút Previous
+                var prevDisabled = currentPage === 1 ? 'disabled' : '';
+                pagination.append(`
+                                    <li class="page-item ${prevDisabled}">
+                                        <a class="page-link" href="#" data-page="${currentPage - 1}" data-type="${type}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                `);
+
+                // Hiển thị các trang
+                var startPage = Math.max(1, currentPage - 2);
+                var endPage = Math.min(totalPages, currentPage + 2);
+
+                if (startPage > 1) {
+                    pagination.append(`
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" data-page="1" data-type="${type}">1</a>
+                                        </li>
+                                    `);
+                    if (startPage > 2) {
+                        pagination.append('<li class="page-item disabled"><span class="page-link">...</span></li>');
+                    }
+                }
+
+                for (var i = startPage; i <= endPage; i++) {
+                    var active = i === currentPage ? 'active' : '';
+                    pagination.append(`
+                                        <li class="page-item ${active}">
+                                            <a class="page-link" href="#" data-page="${i}" data-type="${type}">${i}</a>
+                                        </li>
+                                    `);
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        pagination.append('<li class="page-item disabled"><span class="page-link">...</span></li>');
+                    }
+                    pagination.append(`
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" data-page="${totalPages}" data-type="${type}">${totalPages}</a>
+                                        </li>
+                                    `);
+                }
+
+                // Nút Next
+                var nextDisabled = currentPage === totalPages ? 'disabled' : '';
+                pagination.append(`
+                                    <li class="page-item ${nextDisabled}">
+                                        <a class="page-link" href="#" data-page="${currentPage + 1}" data-type="${type}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                `);
+            }
+
+            // Chuyển tab sản phẩm/giỏ quà
+            $('input[name="productType"]').change(function () {
+                var tab = $(this).data('tab');
+                $('.product-tab').addClass('d-none');
+                $('#' + tab + '-tab').removeClass('d-none');
+
+                // Load lại dữ liệu với từ khóa tìm kiếm hiện tại khi chuyển tab
+                var searchTerm = $('#productSearch').val().trim();
+                if (tab === 'products') {
+                    loadProducts(1, searchTerm);
+                } else {
+                    loadGifts(1, searchTerm);
+                }
+            });
+
+            // Tìm kiếm sản phẩm với debounce
+            $('#productSearch').on('input', function () {
+                clearTimeout(searchTimeout);
+                var searchTerm = $(this).val().trim();
+                var activeTab = $('input[name="productType"]:checked').data('tab');
+
+                searchTimeout = setTimeout(function () {
+                    if (activeTab === 'products') {
+                        loadProducts(1, searchTerm);
+                    } else {
+                        loadGifts(1, searchTerm);
+                    }
+                }, 500);
+            });
+
+            // Xóa tìm kiếm
+            $('#clearSearch').click(function () {
+                $('#productSearch').val('');
+                var activeTab = $('input[name="productType"]:checked').data('tab');
+                if (activeTab === 'products') {
+                    loadProducts(1);
+                } else {
+                    loadGifts(1);
+                }
+            });
+
+            // Xử lý tăng/giảm số lượng
+            $(document).on('click', '.btn-plus', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var input = $(this).siblings('.quantity-input');
+                var card = $(this).closest('.product-card');
+                var isFruit = card.data('category') === 2;
+                var step = isFruit ? 0.1 : 1;
+                var currentValue = parseFloat(input.val()) || 0;
+                var newValue = currentValue + step;
+    
+                // Làm tròn đến 1 chữ số thập phân cho trái cây
+                if (isFruit) {
+                    newValue = Math.round(newValue * 10) / 10;
+                }
+    
+                input.val(newValue).trigger('change');
+            });
+
+            $(document).on('click', '.btn-minus', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var input = $(this).siblings('.quantity-input');
+                var card = $(this).closest('.product-card');
+                var isFruit = card.data('category') === 2;
+                var step = isFruit ? 0.1 : 1;
+                var min = isFruit ? 0.1 : 1;
+                var currentValue = parseFloat(input.val()) || min;
+                var newValue = currentValue - step;
+    
+                if (newValue >= min) {
+                    // Làm tròn đến 1 chữ số thập phân cho trái cây
+                    if (isFruit) {
+                        newValue = Math.round(newValue * 10) / 10;
+                    }
+                    input.val(newValue).trigger('change');
+                }
+            });
+            // Thêm sản phẩm vào đơn hàng với hiệu ứng
+            $(document).on('click', '.btn-add-to-order', function (e) {
+                e.preventDefault(); // Thêm dòng này
+                e.stopPropagation();
+
+                try {
+                    var card = $(this).closest('.product-card');
+                    var id = card.data('id');
+                    var type = card.data('type');
+                    var isFruit = card.data('category') === 2;
+                    var price = card.data('price');
+                    var input = card.find('.quantity-input');
+                            var quantity = isFruit ? 
+                            parseFloat(input.val().replace(',', '.')) || 0.1 : 
+                            parseInt(input.val()) || 1;
+                    var maxQuantity = parseFloat(input.attr('max')) || 0;
+                    var name = card.find('.card-title').text();
+                    var image = card.find('img').attr('src');
+
+                    // 1. Kiểm tra số lượng hợp lệ
+                    if (quantity <= 0) {
+                            toastr.warning('Số lượng phải lớn hơn 0');
+                            input.val(isFruit ? '0.1' : '1');
+                            return;
+                        }
+
+                    // 2. Kiểm tra tồn kho
+                    if (maxQuantity <= 0) {
+                        toastr.error(`${name} đã hết hàng`);
+                        return;
+                    }
+
+                    if (quantity > maxQuantity) {
+                        toastr.warning(`Số lượng vượt quá tồn kho. Chỉ còn ${maxQuantity}`);
+                        input.val(maxQuantity);
+                        return;
+                    }
+
+                    // Kiểm tra số nguyên cho sản phẩm không phải trái cây
+                    if (!isFruit && !Number.isInteger(quantity)) {
+                        toastr.warning(`${name} phải có số lượng là số nguyên`);
+                        input.val(Math.floor(quantity));
+                        return;
+                    }
+
+                    // Hiệu ứng khi thêm
+                    var btn = $(this);
+                    btn.html('<i class="fas fa-check"></i> Đã thêm').addClass('btn-success');
+                    setTimeout(() => {
+                        btn.html('<i class="fas fa-plus mr-1"></i> Thêm').removeClass('btn-success').addClass('btn-primary');
+                    }, 1000);
+
+                    // Kiểm tra sản phẩm đã có trong đơn chưa
+                    var existingItem = orderItems.find(item => item.id === id && item.type === type);
+
+                    if (existingItem) {
+                        existingItem.quantity += quantity;
+                        toastr.success(`Đã cập nhật số lượng ${name}`);
+                    } else {
+                        orderItems.push({
+                            id: id,
+                            type: type,
+                            name: name,
+                            price: price,
+                            quantity: quantity,
+                            image: image,
+                            category: card.data('category') 
+                        });
+                        toastr.success(`Đã thêm ${name} vào đơn hàng`);
+                    }
+
+                    updateOrderItemsTable();
+                } catch (error) {
+                    console.error('Lỗi khi thêm sản phẩm:', error);
+                    toastr.error('Có lỗi xảy ra khi thêm sản phẩm');
+                }
+            });
+
+            // Thêm vào sự kiện thay đổi số lượng
+            $(document).on('change', '.quantity-input', function () {
+                var max = parseInt($(this).attr('max')) || 9999;
+                var value = parseInt($(this).val()) || 1;
+
+                if (value > max) {
+                    toastr.warning(`Số lượng tối đa là ${max}`);
+                    $(this).val(max);
+                }
+            });
+
+            // Xóa sản phẩm khỏi đơn hàng
+            $(document).on('click', '.btn-remove-item', function () {
+                var id = $(this).data('id');
+                var type = $(this).data('type');
+                var item = orderItems.find(item => item.id === id && item.type === type);
+
+                if (item) {
+                    toastr.info(`Đã xóa ${item.name} khỏi đơn hàng`);
+                    orderItems = orderItems.filter(i => !(i.id === id && i.type === type));
+                    updateOrderItemsTable();
+                }
+            });
+
+            // Cập nhật số lượng sản phẩm
+            $(document).on('change', '.quantity-update', function (e) {
+                var input = $(this);
+                var id = input.data('id');
+                var type = input.data('type');
+                var isFruit = input.data('category') === 2;
+                var quantity = isFruit ? parseFloat(input.val()) : parseInt(input.val());
+                var min = isFruit ? 0.1 : 1;
+
+                if (quantity < min) {
+                    toastr.warning(`Số lượng tối thiểu là ${min}`);
+                    input.val(min);
+                    quantity = min;
+                }
+
+                var item = orderItems.find(item => item.id === id && item.type === type);
+                if (item) {
+                    // Kiểm tra số nguyên cho sản phẩm không phải trái cây
+                    if (!isFruit && !Number.isInteger(quantity)) {
+                        toastr.warning('Số lượng phải là số nguyên');
+                        input.val(Math.floor(quantity));
+                        return;
+                    }
+        
+                    item.quantity = quantity;
+                    updateOrderItemsTable();
+                }
+            });
+
+            // Cập nhật phí vận chuyển
+            $('#shippingFeeInput').on('change', function () {
+                var fee = parseInt($(this).val()) || 0;
+                if (fee < 0) {
+                    $(this).val(0);
+                    fee = 0;
+                }
+                updateOrderTotals();
+            });
+
+            // Cập nhật bảng đơn hàng
+            function updateOrderItemsTable() {
+                try {
+                    var tbody = $('#orderItems tbody');
+                    tbody.empty();
+
+                    if (orderItems.length === 0) {
+                        tbody.html(`
+                            <tr id="empty-cart-message">
+                                <td colspan="4" class="text-center py-4 text-muted">
+                                    <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                    <p>Chưa có sản phẩm nào</p>
+                                </td>
+                            </tr>
+                        `);
+                    } else {
+                        orderItems.forEach(function (item, index) {
+                            var isFruit = item.category === 2;
+                            var quantityDisplay = isFruit ? item.quantity.toFixed(1) : item.quantity;
+                            var total = item.price * item.quantity;
+                
+                            var row = `
+                                <tr class="bounce-animation" style="animation-delay: ${index * 0.05}s">
+                                    <td class="align-middle">
+                                        <div class="d-flex align-items-center">
+                                            <img src="${item.image || '/images/no-image.png'}" alt="${item.name}"
+                                                 class="rounded" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
+                                            <span style="max-width: 150px;" class="d-inline-block text-truncate">${item.name}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <input type="number" class="form-control form-control-sm quantity-update"
+                                               value="${quantityDisplay}" 
+                                               ${isFruit ? 'step="0.1" min="0.1"' : 'step="1" min="1"'}
+                                               data-id="${item.id}" 
+                                               data-type="${item.type}"
+                                               data-category="${item.category}">
+                                    </td>
+                                    <td class="align-middle text-right font-weight-bold">${formatCurrency(total)}</td>
+                                    <td class="align-middle text-center">
+                                        <button type="button" class="btn-remove-item"
+                                                data-id="${item.id}" data-type="${item.type}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                            tbody.append(row);
+                        });
+                    }
+
+                    updateOrderTotals();
+                } catch (error) {
+                    console.error('Lỗi khi cập nhật bảng đơn hàng:', error);
+                    toastr.error('Có lỗi khi hiển thị đơn hàng');
+                }
+            }
+
+            // Cập nhật tổng tiền
+            function updateOrderTotals() {
+                var subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                var shippingFee = parseInt($('#shippingFeeInput').val()) || 0;
+
+                $('#subtotal').text(formatCurrency(subtotal));
+                $('#shippingFee').text(formatCurrency(shippingFee));
+                $('#grandTotal').text(formatCurrency(subtotal + shippingFee));
+            }
+
+            // Gửi đơn hàng
+            $('#orderForm').submit(function (e) {
+                e.preventDefault();
+
+                if (orderItems.length === 0) {
+                    toastr.error('Vui lòng thêm ít nhất một sản phẩm vào đơn hàng');
+                    return;
+                }
+
+                // Đảm bảo set lại step đúng trước khi gửi
+                $('.quantity-update').each(function () {
+                    var isFruit = $(this).data('category') === 2;
+                    if (isFruit) {
+                        let val = parseFloat($(this).val());
+                        val = Math.round(val * 10) / 10;
+                        $(this).val(val);
+                    } else {
+                        $(this).val(parseInt($(this).val()));
+                    }
+                });
+
+                // Hiển thị loading
+                var submitBtn = $(this).find('button[type="submit"]');
+                submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Đang tạo đơn...');
+
+                // Tạo đối tượng donHang từ form
+                var donHang = {
+                    MaPt: $('select[name="MaPt"]').val(),
+                    GhiChu: $('textarea[name="GhiChu"]').val(),
+                    PhiVanChuyenBanHang: parseInt($('#shippingFeeInput').val()) || 0,
+                    // Các trường mặc định khác
+                    TrangThai: 4,
+                    TrangThaiThanhToan: 1,
+                    PhuongThucBan: "offline"
+                };
+
+                // Tạo danh sách chi tiết đơn hàng
+                var chiTietDonHangs = orderItems.map(item => ({
+                    MaSp: item.type === 'product' ? item.id : null,
+                    MaGq: item.type === 'gift' ? item.id : null,
+                    SoLuong: item.quantity,
+                    GiaBan: item.price,
+                    TongTienTungSanPham: item.price * item.quantity,
+                    MaLoai: item.type === 'product' ? $('.product-card[data-id="' + item.id + '"]').data('category') : null
+                }));
+
+                // Gửi dữ liệu dưới dạng form-data thay vì JSON
+                var formData = new FormData();
+                formData.append('donHang.MaPt', donHang.MaPt);
+                formData.append('donHang.GhiChu', donHang.GhiChu);
+                formData.append('donHang.PhiVanChuyenBanHang', donHang.PhiVanChuyenBanHang);
+                formData.append('donHang.TrangThai', donHang.TrangThai);
+                formData.append('donHang.TrangThaiThanhToan', donHang.TrangThaiThanhToan);
+                formData.append('donHang.PhuongThucBan', donHang.PhuongThucBan);
+
+                // Thêm chi tiết đơn hàng
+                chiTietDonHangs.forEach((item, index) => {
+                    formData.append(`chiTietDonHangs[${index}].MaSp`, item.MaSp);
+                    formData.append(`chiTietDonHangs[${index}].MaGq`, item.MaGq);
+                    formData.append(`chiTietDonHangs[${index}].SoLuong`, item.SoLuong);
+                    formData.append(`chiTietDonHangs[${index}].GiaBan`, item.GiaBan);
+                    formData.append(`chiTietDonHangs[${index}].TongTienTungSanPham`, item.TongTienTungSanPham);
+                });
+
+                $.ajax({
+                    url: '@Url.Action("CreateOrder", "TaoDonHang")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success('Đơn hàng đã được tạo thành công! Mã đơn: ' + response.orderId);
+                            showInvoice(response.orderId, donHang, chiTietDonHangs);
+                            resetOrderForm();
+                        } else {
+                            toastr.error('Lỗi: ' + response.message);
+                        }
+                        submitBtn.prop('disabled', false).html('<i class="fas fa-save mr-2"></i> Tạo đơn hàng');
+                    },
+                    error: function (xhr) {
+                        toastr.error('Có lỗi xảy ra: ' + (xhr.responseJSON?.message || xhr.statusText));
+                        submitBtn.prop('disabled', false).html('<i class="fas fa-save mr-2"></i> Tạo đơn hàng');
+                    }
+                });
+            });
+
+            // Hàm hiển thị hóa đơn
+            function showInvoice(orderId, donHang, chiTietDonHangs) {
+                $('#invoiceOrderId').text(orderId);
+
+                // Tính toán tổng tiền từ chi tiết đơn hàng
+                var subtotal = chiTietDonHangs.reduce((sum, item) => sum + (item.GiaBan * item.SoLuong), 0);
+                var shippingFee = donHang.PhiVanChuyenBanHang || 0;
+                var grandTotal = subtotal + shippingFee;
+
+                // Tạo nội dung hóa đơn
+                var invoiceContent = `
+                <div class="container-fluid">
+                    <div class="row mb-4">
+                        <div class="col-md-12 text-center">
+                            <h5 class="fw-bold">THÔNG TIN ĐƠN HÀNG</h5>
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body text-start">
+                                    <p class="mb-1"><strong>Mã đơn:</strong> ${orderId}</p>
+                                    <p class="mb-1"><strong>Ngày tạo:</strong> ${new Date().toLocaleString('vi-VN')}</p>
+                                    <p class="mb-1"><strong>Phương thức thanh toán:</strong> ${$('select[name="MaPt"] option:selected').text()}</p>
+                                    <p class="mb-1"><strong>Phí vận chuyển:</strong> ${formatCurrency(shippingFee)}</p>
+                                    <p class="mb-1"><strong>Tổng tiền:</strong> <span class="text-success fw-bold">${formatCurrency(grandTotal)}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <h5 class="fw-bold">CHI TIẾT SẢN PHẨM</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Sản phẩm</th>
+                                            <th class="text-center">Số lượng</th>
+                                            <th class="text-right">Đơn giá</th>
+                                            <th class="text-right">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+
+                // Thêm chi tiết sản phẩm
+                chiTietDonHangs.forEach((item, index) => {
+                    var productName = '';
+                    if (item.MaSp) {
+                        var product = $('.product-card[data-id="' + item.MaSp + '"][data-type="product"]');
+                        productName = product.find('.card-title').text();
+                    } else if (item.MaGq) {
+                        var gift = $('.product-card[data-id="' + item.MaGq + '"][data-type="gift"]');
+                        productName = gift.find('.card-title').text();
+                    }
+
+                    invoiceContent += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${productName}</td>
+                        <td class="text-center">${item.SoLuong}</td>
+                        <td class="text-right">${formatCurrency(item.GiaBan)}</td>
+                        <td class="text-right">${formatCurrency(item.GiaBan * item.SoLuong)}</td>
+                    </tr>`;
+                });
+
+                // Thêm tổng cộng
+                invoiceContent += `
+                                    </tbody>
+                                    <tfoot class="table-light">
+                                        <tr>
+                                            <td colspan="4" class="text-right fw-bold">Tạm tính:</td>
+                                            <td class="text-right">${formatCurrency(subtotal)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-right fw-bold">Phí vận chuyển:</td>
+                                            <td class="text-right">${formatCurrency(shippingFee)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-right fw-bold">Tổng cộng:</td>
+                                            <td class="text-right fw-bold text-success">${formatCurrency(grandTotal)}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p class="text-muted">Cảm ơn quý khách đã mua hàng!</p>
+                            <p class="text-muted">Hóa đơn có giá trị khi có chữ ký và đóng dấu của cửa hàng</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                $('#invoiceModalBody').html(invoiceContent);
+                $('#invoiceModal').modal('show');
+            }
+
+            // Hàm in hóa đơn
+            function printInvoice() {
+                // Lấy nội dung từ modal
+                let $modalContent = $('#invoiceModal .modal-content').clone();
+
+                // Xóa các nút không cần in
+                $modalContent.find('.modal-header .btn-close, .modal-footer').remove();
+
+                // Thêm tiêu đề công ty
+                $modalContent.find('.modal-header').after(`
+                <div class="text-center mb-3">
+                    <h2>FRUITFUL GIFTS</h2>
+                    <p class="text-muted">Địa chỉ: 30 Cao Thắng, Phường 8, Quận 10, Thành Phố HCM</p>
+                    <p class="text-muted">Điện thoại: 0324659874</p>
+                </div>
+            `);
+
+                // Thêm CSS cho phần in
+                $modalContent.prepend(`
+                <style>
+                    @@media print {
+                        body { padding: 20px; font-size: 12pt; }
+                        .table { width: 100%; border-collapse: collapse; }
+                        .table th, .table td { border: 1px solid #ddd; padding: 8px; }
+                        .table th { background-color: #f2f2f2; }
+                        .no-print { display: none !important; }
+                        .modal-content { box-shadow: none; border: none; }
+                    }
+                </style>
+            `);
+
+                // Lưu nội dung gốc
+                const originalContent = $('body').html();
+
+                // Thay thế nội dung body bằng nội dung in
+                $('body').html($modalContent.html());
+
+                // Thực hiện in
+                window.print();
+
+                // Khôi phục nội dung gốc
+                $('body').html(originalContent);
+            }
+
+            // Xử lý sự kiện click nút in hóa đơn
+            $(document).on('click', '#btnPrintInvoice', function () {
+                printInvoice();
+            });
+
+            // Hàm reset form sau khi tạo đơn thành công
+            function resetOrderForm() {
+                orderItems = [];
+                updateOrderItemsTable();
+                $('#shippingFeeInput').val(0);
+                $('textarea[name="GhiChu"]').val('');
+                $('select[name="MaPt"]').val('');
+
+                // Tạo số đơn hàng mới
+                $('#orderNumber').text(new Date().toLocaleString('vi-VN', {
+                    year: '2-digit',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }).replace(/[\/\s:]/g, ''));
+
+                // Load lại danh sách sản phẩm
+                var activeTab = $('input[name="productType"]:checked').data('tab');
+                var searchTerm = $('#productSearch').val().trim();
+
+                if (activeTab === 'products') {
+                    loadProducts(1, searchTerm);
+                } else {
+                    loadGifts(1, searchTerm);
+                }
+            }
+            // Định dạng tiền tệ
+            function formatCurrency(amount) {
+                try {
+                    return new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(amount);
+                } catch (e) {
+                    return amount.toLocaleString() + ' ₫';
+                }
+            }
+
+            // Load dữ liệu ban đầu
+            loadProducts(currentProductsPage);
+            loadGifts(currentGiftsPage);
+
+            // Khởi tạo toastr
+            toastr.options = {
+                positionClass: "toast-bottom-right",
+                progressBar: true,
+                timeOut: 3000
+            };
+        });
+    </script>
+
+    <!-- Thêm thư viện toastr để hiển thị thông báo đẹp -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+}

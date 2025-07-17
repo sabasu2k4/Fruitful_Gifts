@@ -1,0 +1,375 @@
+﻿@model IEnumerable<Fruitful_Gifts.Database.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    
+    var currentSort = ViewData["CurrentSort"] as string ?? "";
+    var currentFilter = ViewData["CurrentFilter"] as string ?? "";
+}
+<div class="row mb-4 justify-content-center">
+    <!-- Tổng khách hàng -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-danger border-4 shadow-sm h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Tổng khách hàng
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.TotalCustomers
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex align-items-center justify-content-center">
+                        <i class="fas fa-users fa-2x text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tổng TK khóa -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-warning border-4 shadow-sm h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Tổng TK khóa
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.TotalLockedAccounts
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex align-items-center justify-content-center">
+                        <i class="fas fa-lock fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tổng TK mở -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-info border-4 shadow-sm h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Tổng TK mở
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.TotalActiveAccounts
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex align-items-center justify-content-center">
+                        <i class="fas fa-lock-open fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h4>
+        <a href="@Url.Action("ExportToExcel", "QuanLyKhachHang", new { area = "Admin" })"
+           class="btn btn-success">
+            <i class="fas fa-file-excel"></i> Xuất Excel
+        </a>
+
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form asp-action="Index" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Tìm kiếm...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">Xóa</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                                Họ tên
+                                @if (ViewData["CurrentSort"]?.ToString() == "name_desc")
+                                {
+                                    <i class="fas fa-sort-alpha-down-alt"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-sort-alpha-up"></i>
+                                }
+                            </a>
+                        </th>
+                        <th>Email</th>
+                        <th>SĐT</th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                                Ngày tạo
+                                @if (ViewData["CurrentSort"]?.ToString() == "date_desc")
+                                {
+                                    <i class="fas fa-sort-numeric-down-alt"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-sort-numeric-up"></i>
+                                }
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                                Trạng thái
+                                @if (ViewData["CurrentSort"]?.ToString() == "status_desc")
+                                {
+                                    <i class="fas fa-sort-down"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-sort-up"></i>
+                                }
+                            </a>
+                        </th>
+                        <th class="text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar mr-3">
+                                        <div class="avatar-initial rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                            @item.HoKh?.Substring(0, 1)@item.TenKh?.Substring(0, 1)
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-weight-bold">@item.HoKh @item.TenKh</div>
+                                        <small class="text-muted">ID: @item.MaKh</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@item.Email</td>
+                            <td>@item.Sdt</td>
+                            <td>@item.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                            
+                            <td>
+                                    @if (item.TaiKhoan?.TrangThai == 1)
+                                    {
+                                    <span class="badge badge-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                    <span class="badge badge-danger">Đã khóa</span>
+                                    }
+                            </td>
+                          
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="@Url.Action("DetailsKH", "QuanLyKhachHang", new { id = item.MaKh })"
+                                       class="btn btn-info" title="Xem chi tiết">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    @if (item.TaiKhoan?.TrangThai == 1)
+                                    {
+                                        <button class="btn btn-danger update-status-btn"
+                                                data-id="@item.MaKh"
+                                                data-name="@item.HoKh @item.TenKh"
+                                                title="Khóa tài khoản">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-success update-status-btn"
+                                                data-id="@item.MaKh"
+                                                data-name="@item.HoKh @item.TenKh"
+                                                title="Mở khóa tài khoản">
+                                            <i class="fas fa-lock-open"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="card-footer bg-white border-top">
+            @{
+                var currentPage = ViewData["CurrentPage"] != null ? (int)ViewData["CurrentPage"] : 1;
+                var totalPages = ViewData["TotalPages"] != null ? (int)ViewData["TotalPages"] : 1;
+
+                var searchString = Context.Request.Query["searchString"];
+                var trangThai = Context.Request.Query["trangThai"];
+                var sortOrder = Context.Request.Query["sortOrder"];
+            }
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-0">
+
+                    <!-- Nút Trước -->
+                    <li class="page-item @(currentPage <= 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("QLKhachHang", new {
+                    page = currentPage > 1 ? currentPage - 1 : 1,
+                    searchString,
+                    trangThai,
+                    sortOrder
+                })">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- Số trang -->
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("QLKhachHang", new {
+                        page = i,
+                        searchString,
+                        trangThai,
+                        sortOrder
+                    })">@i</a>
+                        </li>
+                    }
+
+                    <!-- Nút Sau -->
+                    <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("QLKhachHang", new {
+                    page = currentPage < totalPages ? currentPage + 1 : totalPages,
+                    searchString,
+                    trangThai,
+                    sortOrder
+                })">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    @Html.AntiForgeryToken()
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            // Hiển thị thông báo từ TempData nếu có
+            var successMessage = '@(TempData["SuccessMessage"] ?? "")';
+            var errorMessage = '@(TempData["ErrorMessage"] ?? "")';
+
+            if (successMessage && successMessage.trim() !== '') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: successMessage,
+                    confirmButtonText: 'OK'
+                });
+            }
+
+            if (errorMessage && errorMessage.trim() !== '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: errorMessage,
+                    confirmButtonText: 'OK'
+                });
+            }
+
+            // Xử lý sự kiện click nút cập nhật trạng thái
+            $(document).on('click', '.update-status-btn', function () {
+                var $button = $(this);
+                var id = $button.data('id');
+                var name = $button.data('name');
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                var isActive = $button.hasClass('btn-danger'); // Kiểm tra trạng thái hiện tại
+
+                Swal.fire({
+                    title: 'Xác nhận thay đổi trạng thái',
+                    text: 'Bạn có chắc muốn ' + (isActive ? 'khóa' : 'mở khóa') + ' tài khoản của ' + name + '?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hiển thị loading
+                        $button.prop('disabled', true);
+                        $button.html('<i class="fas fa-spinner fa-spin"></i>');
+
+                        $.ajax({
+                            url: '@Url.Action("ToggleLock", "QuanLyKhachHang")',
+                            type: 'POST',
+                            headers: {
+                                'RequestVerificationToken': token
+                            },
+                            contentType: 'application/json',
+                            data: JSON.stringify({ id: id }),
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        title: 'Thành công!',
+                                        text: response.message,
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        // Reload trang để cập nhật giao diện
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Lỗi!',
+                                        text: response.message,
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('AJAX Error:', status, error);
+                                Swal.fire({
+                                    title: 'Lỗi hệ thống!',
+                                    text: 'Đã xảy ra lỗi khi kết nối tới máy chủ. Vui lòng thử lại sau.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                            complete: function () {
+                                $button.prop('disabled', false);
+                                // Khôi phục icon ban đầu
+                                $button.html(isActive ? '<i class="fas fa-lock"></i>' : '<i class="fas fa-lock-open"></i>');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+

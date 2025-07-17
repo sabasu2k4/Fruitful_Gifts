@@ -1,0 +1,974 @@
+﻿@{
+    ViewData["Title"] = "Thống kê hiệu suất sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    decimal minBanChaySanPham = ViewBag.MinBanChaySanPham != null
+        ? Convert.ToDecimal(ViewBag.MinBanChaySanPham) : 10m;
+
+    decimal maxBanKemSanPham = ViewBag.MaxBanKemSanPham != null
+        ? Convert.ToDecimal(ViewBag.MaxBanKemSanPham) : 5m;
+
+    decimal minBanChayGioQua = ViewBag.MinBanChayGioQua != null
+        ? Convert.ToDecimal(ViewBag.MinBanChayGioQua) : 5m;
+
+    decimal maxBanKemGioQua = ViewBag.MaxBanKemGioQua != null
+        ? Convert.ToDecimal(ViewBag.MaxBanKemGioQua) : 3m;
+    var today = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+@section Styles {
+    <style>
+
+        :root {
+            --primary-color: #4e73df;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --secondary-color: #858796;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        /* Base Typography */
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        /* Card Enhancements */
+        .dashboard-card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            transition: all 0.3s;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+            }
+
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+            padding: 1.25rem 1.5rem;
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+        }
+
+        /* Icon Styles */
+        .icon-shape {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .icon-shape i {
+                font-size: 1.25rem;
+            }
+
+        /* Tab Styles */
+        .nav-tabs {
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+            .nav-tabs .nav-link {
+                color: var(--secondary-color);
+                font-weight: 600;
+                border: none;
+                padding: 1rem 1.5rem;
+            }
+
+                .nav-tabs .nav-link.active {
+                    color: var(--primary-color);
+                    border-bottom: 3px solid var(--primary-color);
+                    background-color: transparent;
+                }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+        }
+
+            .data-table th {
+                font-weight: 700;
+                color: var(--dark-color);
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.5px;
+                border-top: none;
+            }
+
+            .data-table td {
+                vertical-align: middle;
+                padding: 1rem;
+                border-top: 1px solid #e3e6f0;
+            }
+
+        /* Badge Styles */
+        .performance-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.25rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            color: #dddfeb;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Controls */
+        .form-control {
+            border: 1px solid #d1d3e2;
+            border-radius: 0.35rem;
+            padding: 0.75rem 1rem;
+        }
+
+            .form-control:focus {
+                border-color: #bac8f3;
+                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            }
+
+        /* Button Styles */
+        .btn-action {
+            border-radius: 0.35rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 20rem;
+        }
+
+        /* Responsive Adjustments */
+        @@media (max-width: 768px) {
+            .card-header {
+                padding: 1rem;
+            }
+
+            .nav-tabs .nav-link {
+                padding: 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+}
+
+<div class="container-fluid px-4">
+    <!-- Page Header -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">
+                <i class="fas fa-chart-line text-primary mr-2"></i>@ViewData["Title"]
+            </h1>
+            <p class="mb-0 text-muted">Phân tích hiệu suất bán hàng theo sản phẩm và giỏ quà</p>
+        </div>
+        <div>
+            <a href="@Url.Action("XuatExcelThongKe", "Thongke", new { fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, phuongThuc = ViewBag.PhuongThuc, top = 5 })"
+               class="btn btn-sm btn-outline-secondary btn-action"
+               data-toggle="tooltip"
+               title="Xuất báo cáo Excel">
+                <i class="fas fa-file-export mr-2"></i>Xuất báo cáo
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter Card -->
+    <div class="card dashboard-card mb-4">
+        <div class="card-header py-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-filter mr-2"></i>Bộ lọc báo cáo
+            </h6>
+            <small class="text-muted">Dữ liệu được cập nhật lần cuối: @DateTime.Now.ToString("HH:mm dd/MM/yyyy")</small>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Date Range Filter -->
+                <div class="col-lg-4 border-right pr-lg-4">
+                    <form method="get" class="needs-validation" novalidate>
+                        <h6 class="font-weight-bold text-dark mb-3 d-flex align-items-center">
+                            <span class="icon-shape bg-primary mr-2">
+                                <i class="fas fa-calendar text-white"></i>
+                            </span>
+                            <span>LỌC THEO THỜI GIAN</span>
+                        </h6>
+                        <div class="form-group mb-3">
+                            <label for="fromDate" class="font-weight-600 small">Ngày bắt đầu</label>
+                            <input type="date" class="form-control" id="fromDate"
+                                   name="fromDate" value="@ViewBag.FromDate" max="@today"  required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="toDate" class="font-weight-600 small">Ngày kết thúc</label>
+                            <input type="date" class="form-control" id="toDate"
+                                   name="toDate" value="@ViewBag.ToDate" max="@today" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-action btn-block">
+                            <i class="fas fa-check-circle mr-2"></i>Áp dụng bộ lọc
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Performance Thresholds -->
+                <div class="col-lg-8 pl-lg-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="font-weight-bold text-dark mb-0 d-flex align-items-center">
+                            <span class="icon-shape bg-primary mr-2">
+                                <i class="fas fa-sliders-h text-white"></i>
+                            </span>
+                            <span>THIẾT LẬP TIÊU CHÍ ĐÁNH GIÁ</span>
+                        </h6>
+                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                data-toggle="collapse" data-target="#thresholdSettings">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <div class="collapse show" id="thresholdSettings">
+                        <form method="get" id="thresholdForm" class="needs-validation" novalidate>
+                            <input type="hidden" name="fromDate" value="@ViewBag.FromDate">
+                            <input type="hidden" name="toDate" value="@ViewBag.ToDate">
+                            <input type="hidden" name="phuongThuc" value="@ViewBag.PhuongThuc">
+                            <input type="hidden" name="top" value="5">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card mb-3 border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h6 class="font-weight-bold text-dark mb-3 d-flex align-items-center">
+                                                <i class="fas fa-boxes text-success mr-2"></i>SẢN PHẨM
+                                            </h6>
+                                            <div class="form-group">
+                                                <label for="minBanChaySanPham" class="font-weight-600 small">
+                                                    Ngưỡng bán chạy (≥)
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="minBanChaySanPham" name="minBanChaySanPham"
+                                                       value="@minBanChaySanPham" min="0" step="1" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="maxBanKemSanPham" class="font-weight-600 small">
+                                                    Ngưỡng bán kém (≤)
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="maxBanKemSanPham" name="maxBanKemSanPham"
+                                                       value="@maxBanKemSanPham" min="0" step="1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card mb-3 border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h6 class="font-weight-bold text-dark mb-3 d-flex align-items-center">
+                                                <i class="fas fa-gift text-info mr-2"></i>GIỎ QUÀ
+                                            </h6>
+                                            <div class="form-group">
+                                                <label for="minBanChayGioQua" class="font-weight-600 small">
+                                                    Ngưỡng bán chạy (≥)
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="minBanChayGioQua" name="minBanChayGioQua"
+                                                       value="@minBanChayGioQua" min="0" step="1" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="maxBanKemGioQua" class="font-weight-600 small">
+                                                    Ngưỡng bán kém (≤)
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="maxBanKemGioQua" name="maxBanKemGioQua"
+                                                       value="@maxBanKemGioQua" min="0" step="1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <button type="button" class="btn btn-outline-secondary btn-action" id="resetThresholds">
+                                    <i class="fas fa-undo mr-2"></i>Thiết lập mặc định
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-action" id="applyThresholds">
+                                    <i class="fas fa-check-circle mr-2"></i>Áp dụng tiêu chí
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card dashboard-card border-left-success h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-2">
+                                Sản phẩm bán chạy
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.SanPhamBanChay.Count</div>
+                        </div>
+                        <div class="icon-shape bg-success-light">
+                            <i class="fas fa-trophy text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card dashboard-card border-left-warning h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-2">
+                                Sản phẩm bán kém
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.SanPhamBanKem.Count</div>
+                        </div>
+                        <div class="icon-shape bg-warning-light">
+                            <i class="fas fa-exclamation-triangle text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card dashboard-card border-left-info h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-2">
+                                Giỏ quà bán chạy
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.GioQuaBanChay.Count</div>
+                        </div>
+                        <div class="icon-shape bg-info-light">
+                            <i class="fas fa-gift text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card dashboard-card border-left-secondary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-2">
+                                Giỏ quà bán kém
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.GioQuaBanKem.Count</div>
+                        </div>
+                        <div class="icon-shape bg-secondary-light">
+                            <i class="fas fa-box-open text-secondary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Overview -->
+    <div class="row mb-4">
+        <!-- Criteria Card -->
+        <div class="col-lg-4 mb-4">
+            <div class="card dashboard-card h-100">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-info-circle mr-2"></i>Tiêu chí đánh giá
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-center">
+                                <span class="icon-shape bg-success-light mr-3">
+                                    <i class="fas fa-circle text-success"></i>
+                                </span>
+                                <span>Sản phẩm bán chạy</span>
+                            </span>
+                            <span class="badge performance-badge bg-success-light text-success">≥ @minBanChaySanPham.ToString("N0")</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-center">
+                                <span class="icon-shape bg-warning-light mr-3">
+                                    <i class="fas fa-circle text-warning"></i>
+                                </span>
+                                <span>Sản phẩm bán kém</span>
+                            </span>
+                            <span class="badge performance-badge bg-warning-light text-warning">≤ @maxBanKemSanPham.ToString("N0")</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-center">
+                                <span class="icon-shape bg-info-light mr-3">
+                                    <i class="fas fa-circle text-info"></i>
+                                </span>
+                                <span>Giỏ quà bán chạy</span>
+                            </span>
+                            <span class="badge performance-badge bg-info-light text-info">≥ @minBanChayGioQua.ToString("N0")</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-center">
+                                <span class="icon-shape bg-secondary-light mr-3">
+                                    <i class="fas fa-circle text-secondary"></i>
+                                </span>
+                                <span>Giỏ quà bán kém</span>
+                            </span>
+                            <span class="badge performance-badge bg-secondary-light text-secondary">≤ @maxBanKemGioQua.ToString("N0")</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Chart -->
+        <div class="col-lg-8 mb-4">
+            <div class="card dashboard-card h-100">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-pie mr-2"></i>Phân bố hiệu suất
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Performance -->
+    <div class="row mb-4">
+        <div class="col-lg-6 mb-4">
+            <div class="card dashboard-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-boxes mr-2"></i>Hiệu suất sản phẩm
+                    </h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuProduct"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuProduct">
+                            <a class="dropdown-item" href="#">Xem tất cả</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="best-products-tab" data-toggle="tab" href="#tab_best_products" role="tab">
+                                    <i class="fas fa-trophy mr-2"></i>Bán chạy (@ViewBag.SanPhamBanChay.Count)
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="worst-products-tab" data-toggle="tab" href="#tab_worst_products" role="tab">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>Bán kém (@ViewBag.SanPhamBanKem.Count)
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3">
+                            <div class="tab-pane fade show active" id="tab_best_products" role="tabpanel">
+                                @if (ViewBag.SanPhamBanChay != null && ViewBag.SanPhamBanChay.Count > 0)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table data-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Sản phẩm</th>
+                                                    <th class="text-right">Số lượng</th>
+                                                    <th class="text-right">Đánh giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var sp in ViewBag.SanPhamBanChay)
+                                                {
+                                                    decimal tongSoLuong = Convert.ToDecimal(sp.TongSoLuong);
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-shape bg-success-light mr-3">
+                                                                    <i class="fas fa-box text-success"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="font-weight-bold">@sp.TenSp</div>
+                                                                    <div class="text-xs text-muted">Mã SP: @sp.MaSp</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right font-weight-bold text-success">
+                                                            @tongSoLuong.ToString("N0")
+                                                        </td>
+                                                        <td class="text-right">
+                                                            @if (tongSoLuong >= minBanChaySanPham)
+                                                            {
+                                                                <span class="badge performance-badge bg-success-light text-success">Xuất sắc</span>
+                                                            }
+                                                            else if (tongSoLuong >= maxBanKemSanPham)
+                                                            {
+                                                                <span class="badge performance-badge bg-primary-light text-primary">Tốt</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge performance-badge bg-secondary-light text-secondary">Trung bình</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">
+                                            <i class="fas fa-box-open"></i>
+                                        </div>
+                                        <h5>Không có sản phẩm bán chạy</h5>
+                                        <p class="text-muted small">Không có sản phẩm nào đạt ngưỡng bán chạy trong khoảng thời gian này</p>
+                                    </div>
+                                }
+                            </div>
+                            <div class="tab-pane fade" id="tab_worst_products" role="tabpanel">
+                                @if (ViewBag.SanPhamBanKem != null && ViewBag.SanPhamBanKem.Count > 0)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table data-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Sản phẩm</th>
+                                                    <th class="text-right">Số lượng</th>
+                                                    <th class="text-right">Đánh giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var sp in ViewBag.SanPhamBanKem)
+                                                {
+                                                    decimal tongSoLuong = Convert.ToDecimal(sp.TongSoLuong);
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-shape bg-warning-light mr-3">
+                                                                    <i class="fas fa-box text-warning"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="font-weight-bold">@sp.TenSp</div>
+                                                                    <div class="text-xs text-muted">Mã SP: @sp.MaSp</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right font-weight-bold text-warning">
+                                                            @tongSoLuong.ToString("N0")
+                                                        </td>
+                                                        <td class="text-right">
+                                                            @if (tongSoLuong == 0)
+                                                            {
+                                                                <span class="badge performance-badge bg-danger-light text-danger">Không bán</span>
+                                                            }
+                                                            else if (tongSoLuong <= maxBanKemSanPham)
+                                                            {
+                                                                <span class="badge performance-badge bg-warning-light text-warning">Rất thấp</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge performance-badge bg-secondary-light text-secondary">Thấp</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon text-success">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <h5 class="text-success">Tất cả sản phẩm đều đạt yêu cầu</h5>
+                                        <p class="text-muted small">Không có sản phẩm nào bán kém theo tiêu chí</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gift Basket Performance -->
+        <div class="col-lg-6 mb-4">
+            <div class="card dashboard-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-gifts mr-2"></i>Hiệu suất giỏ quà
+                    </h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuGift"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuGift">
+                            <a class="dropdown-item" href="#">Xem tất cả</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="best-gifts-tab" data-toggle="tab" href="#tab_best_gifts" role="tab">
+                                    <i class="fas fa-gift mr-2"></i>Bán chạy (@ViewBag.GioQuaBanChay.Count)
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="worst-gifts-tab" data-toggle="tab" href="#tab_worst_gifts" role="tab">
+                                    <i class="fas fa-box-open mr-2"></i>Bán kém (@ViewBag.GioQuaBanKem.Count)
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3">
+                            <div class="tab-pane fade show active" id="tab_best_gifts" role="tabpanel">
+                                @if (ViewBag.GioQuaBanChay != null && ViewBag.GioQuaBanChay.Count > 0)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table data-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Giỏ quà</th>
+                                                    <th class="text-right">Số lượng</th>
+                                                    <th class="text-right">Đánh giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var gq in ViewBag.GioQuaBanChay)
+                                                {
+                                                    decimal tongSoLuong = Convert.ToDecimal(gq.TongSoLuong);
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-shape bg-info-light mr-3">
+                                                                    <i class="fas fa-gift text-info"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="font-weight-bold">@gq.TenGq</div>
+                                                                    <div class="text-xs text-muted">Mã GQ: @gq.MaGq</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right font-weight-bold text-info">
+                                                            @tongSoLuong.ToString("N0")
+                                                        </td>
+                                                        <td class="text-right">
+                                                            @if (tongSoLuong >= minBanChayGioQua)
+                                                            {
+                                                                <span class="badge performance-badge bg-primary-light text-primary">Xuất sắc</span>
+                                                            }
+                                                            else if (tongSoLuong >= maxBanKemGioQua)
+                                                            {
+                                                                <span class="badge performance-badge bg-info-light text-info">Tốt</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge performance-badge bg-secondary-light text-secondary">Trung bình</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">
+                                            <i class="fas fa-gift"></i>
+                                        </div>
+                                        <h5>Không có giỏ quà bán chạy</h5>
+                                        <p class="text-muted small">Không có giỏ quà nào đạt ngưỡng bán chạy trong khoảng thời gian này</p>
+                                    </div>
+                                }
+                            </div>
+                            <div class="tab-pane fade" id="tab_worst_gifts" role="tabpanel">
+                                @if (ViewBag.GioQuaBanKem != null && ViewBag.GioQuaBanKem.Count > 0)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table data-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Giỏ quà</th>
+                                                    <th class="text-right">Số lượng</th>
+                                                    <th class="text-right">Đánh giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var gq in ViewBag.GioQuaBanKem)
+                                                {
+                                                    decimal tongSoLuong = Convert.ToDecimal(gq.TongSoLuong);
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-shape bg-secondary-light mr-3">
+                                                                    <i class="fas fa-gift text-secondary"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="font-weight-bold">@gq.TenGq</div>
+                                                                    <div class="text-xs text-muted">Mã GQ: @gq.MaGq</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right font-weight-bold text-secondary">
+                                                            @tongSoLuong.ToString("N0")
+                                                        </td>
+                                                        <td class="text-right">
+                                                            @if (tongSoLuong == 0)
+                                                            {
+                                                                <span class="badge performance-badge bg-danger-light text-danger">Không bán</span>
+                                                            }
+                                                            else if (tongSoLuong <= maxBanKemGioQua)
+                                                            {
+                                                                <span class="badge performance-badge bg-warning-light text-warning">Rất thấp</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge performance-badge bg-secondary-light text-secondary">Thấp</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon text-success">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <h5 class="text-success">Tất cả giỏ quà đều đạt yêu cầu</h5>
+                                        <p class="text-muted small">Không có giỏ quà nào bán kém theo tiêu chí</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Recommendations -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card dashboard-card">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-lightbulb mr-2"></i>Gợi ý hành động
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="d-flex">
+                                <div class="icon-shape bg-success-light mr-3">
+                                    <i class="fas fa-thumbs-up text-success"></i>
+                                </div>
+                                <div>
+                                    <h6 class="font-weight-bold mb-3">Sản phẩm/giỏ quà bán chạy</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>Ưu tiên quảng bá các sản phẩm có nhãn <span class="badge performance-badge bg-success-light text-success">Xuất sắc</span></span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>Xem xét làm combo từ các sản phẩm bán chạy</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="icon-shape bg-danger-light mr-3">
+                                    <i class="fas fa-exclamation-circle text-danger"></i>
+                                </div>
+                                <div>
+                                    <h6 class="font-weight-bold mb-3">Sản phẩm/giỏ quà bán kém</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-times-circle text-danger mt-1 mr-2"></i>
+                                            <span>Xem xét ngừng kinh doanh các mặt hàng <span class="badge performance-badge bg-danger-light text-danger">Không bán được</span></span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-times-circle text-danger mt-1 mr-2"></i>
+                                            <span>Đánh giá lại giá cả, vị trí trưng bày</span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-times-circle text-danger mt-1 mr-2"></i>
+                                            <span>Xem xét cải tiến hoặc thay thế sản phẩm</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize performance chart
+        var ctx = document.getElementById('performanceChart').getContext('2d');
+        var performanceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['SP Bán chạy', 'SP Bán kém', 'Giỏ quà Bán chạy', 'Giỏ quà Bán kém'],
+                datasets: [{
+                    data: [
+        @(ViewBag.SanPhamBanChay?.Count ?? 0),
+        @(ViewBag.SanPhamBanKem?.Count ?? 0),
+        @(ViewBag.GioQuaBanChay?.Count ?? 0),
+        @(ViewBag.GioQuaBanKem?.Count ?? 0)
+                            ],
+                    backgroundColor: [
+                        'rgba(28, 200, 138, 0.8)',
+                        'rgba(246, 194, 62, 0.8)',
+                        'rgba(54, 185, 204, 0.8)',
+                        'rgba(133, 135, 150, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(28, 200, 138, 1)',
+                        'rgba(246, 194, 62, 1)',
+                        'rgba(54, 185, 204, 1)',
+                        'rgba(133, 135, 150, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.label + ': ' + context.raw + ' sản phẩm';
+                            }
+                        }
+                    }
+                },
+                cutout: '70%',
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+
+        // Form validation and interactions
+        $(document).ready(function () {
+            // Enable tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Form validation
+            $('#thresholdForm').on('submit', function (e) {
+                if (!this.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+
+            // Reset to default values
+            $('#resetThresholds').click(function () {
+                $('#minBanChaySanPham').val(10);
+                $('#maxBanKemSanPham').val(5);
+                $('#minBanChayGioQua').val(5);
+                $('#maxBanKemGioQua').val(3);
+                $('#thresholdForm').removeClass('was-validated');
+            });
+
+            // Toggle advanced options
+            $('[data-toggle="collapse"]').click(function () {
+                $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+            });
+
+            // Prevent min < max conflicts
+            $('#minBanChaySanPham, #maxBanKemSanPham').change(function () {
+                const min = parseFloat($('#minBanChaySanPham').val());
+                const max = parseFloat($('#maxBanKemSanPham').val());
+
+                if (min <= max) {
+                    $('#maxBanKemSanPham').get(0).setCustomValidity('Giá trị bán kém phải nhỏ hơn giá trị bán chạy');
+                } else {
+                    $('#maxBanKemSanPham').get(0).setCustomValidity('');
+                }
+            });
+
+            // Same for gift baskets
+            $('#minBanChayGioQua, #maxBanKemGioQua').change(function () {
+                const min = parseFloat($('#minBanChayGioQua').val());
+                const max = parseFloat($('#maxBanKemGioQua').val());
+
+                if (min <= max) {
+                    $('#maxBanKemGioQua').get(0).setCustomValidity('Giá trị bán kém phải nhỏ hơn giá trị bán chạy');
+                } else {
+                    $('#maxBanKemGioQua').get(0).setCustomValidity('');
+                }
+            });
+
+            // Tab click handler
+            $('.nav-tabs a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+}

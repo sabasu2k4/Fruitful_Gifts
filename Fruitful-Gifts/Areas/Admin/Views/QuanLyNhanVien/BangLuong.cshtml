@@ -1,0 +1,239 @@
+﻿@model X.PagedList.IPagedList<Fruitful_Gifts.Database.Luong>
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Bảng lương nhân viên";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm rounded-3 border-0 mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <h2 class="mb-0 fw-bold text-gradient">
+                    <i class="bi bi-cash-coin me-2"></i>BẢNG LƯƠNG NHÂN VIÊN
+                </h2>
+
+                <!-- Form lọc theo tháng/năm -->
+                <form method="get" class="d-flex gap-2">
+                    <select name="thang" class="form-select" style="width: 100px;">
+                        @foreach (var thang in ViewBag.DanhSachThang as List<int>)
+                        {
+                            <option value="@thang" selected="@(thang == ViewBag.Thang)">Tháng @thang</option>
+                        }
+                    </select>
+                    <select name="nam" class="form-select" style="width: 100px;">
+                        @foreach (var nam in ViewBag.DanhSachNam as List<int>)
+                        {
+                            <option value="@nam" selected="@(nam == ViewBag.Nam)">@nam</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-filter"></i> Lọc
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded-3 border-0">
+        <div class="card-body">
+            <div class="table-responsive rounded-3">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nhân viên</th>
+                            <th class="text-center">Chức vụ</th>
+                            <th class="text-center">Ngày công</th>
+                            <th class="text-end">Lương cơ bản</th>
+                            <th class="text-end">Phụ cấp</th>
+                            <th class="text-end">Thưởng</th>
+                            <th class="text-end">Phạt</th>
+                            <th class="text-end">Tổng lương</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-40px me-3">
+                                            <div class="symbol-label bg-light-primary text-primary fw-bold">
+                                                @item.NhanVien?.TenNv?.Substring(0, 1)
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">@item.NhanVien?.TenNv</div>
+                                            <div class="text-muted small">@item.NhanVien?.Sdt</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">@item.NhanVien?.ChucVu</td>
+                                <td class="text-center">@item.SoNgayCong</td>
+                                <td class="text-end">@item.LuongCoBan?.ToString("N0") VNĐ</td>
+                                <td class="text-end">@item.LuongPhuCap?.ToString("N0") VNĐ</td>
+                                <td class="text-end">@item.Thuong?.ToString("N0") VNĐ</td>
+                                <td class="text-end">@item.Phat?.ToString("N0") VNĐ</td>
+                                <td class="text-end fw-bold text-primary">@item.TongLuong?.ToString("N0") VNĐ</td>
+                                <td class="text-center">
+                                    @if (item.DaThanhToan == true)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle-fill"></i> Đã thanh toán
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="bi bi-hourglass-split"></i> Chờ thanh toán
+                                        </span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (item.DaThanhToan != true)
+                                    {
+                                        <button class="btn btn-sm btn-success btn-thanh-toan" data-maluong="@item.MaLuong">
+                                            <i class="bi bi-cash-coin"></i> Thanh toán
+                                        </button>
+                                    }
+                                    <button class="btn btn-sm btn-outline-primary btn-chi-tiet" data-maluong="@item.MaLuong">
+                                        <i class="bi bi-eye"></i> Chi tiết
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <img src="~/admin/images/empty.svg" alt="Empty" style="height: 120px;" class="mb-3">
+                        <h5 class="text-muted">Không có dữ liệu lương trong tháng này</h5>
+                    </div>
+                }
+
+                @if (Model.PageCount > 1)
+                {
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="text-muted small">
+                            Hiển thị @Model.FirstItemOnPage - @Model.LastItemOnPage trong tổng @Model.TotalItemCount bản ghi
+                        </div>
+
+                        <div>
+                            @Html.PagedListPager(Model, page => Url.Action("BangLuong", new
+                                {
+                                    page,
+                                    thang = ViewBag.Thang,
+                                    nam = ViewBag.Nam
+                                }), new PagedListRenderOptions
+                   {
+                       UlElementClasses = new[] { "pagination pagination-sm" },
+                       LiElementClasses = new[] { "page-item" },
+                       PageClasses = new[] { "page-link" },
+                       DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                       DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                       DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                       DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                       MaximumPageNumbersToDisplay = 5
+                   })
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chi tiết lương -->
+<div class="modal fade" id="modalChiTietLuong" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết lương</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung sẽ được load bằng AJAX -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .symbol {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .symbol-40px {
+            width: 40px;
+            height: 40px;
+        }
+
+        .symbol-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Xử lý thanh toán lương
+        $('.btn-thanh-toan').click(function () {
+            const maLuong = $(this).data('maluong');
+
+            Swal.fire({
+                title: 'Xác nhận thanh toán lương?',
+                text: 'Bạn có chắc chắn muốn đánh dấu khoản lương này đã được thanh toán?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('/Admin/QuanLyNhanVien/ThanhToanLuong', { maLuong: maLuong }, function (res) {
+                        if (res.success) {
+                            Swal.fire('Thành công!', 'Đã đánh dấu lương đã thanh toán', 'success')
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire('Lỗi!', res.message || 'Có lỗi xảy ra', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Xử lý xem chi tiết lương
+        $('.btn-chi-tiet').click(function () {
+            const maLuong = $(this).data('maluong');
+
+            // Load nội dung vào phần modal-body
+            $.get('/Admin/QuanLyNhanVien/ChiTietLuong', { maLuong: maLuong }, function (data) {
+                $('#modalChiTietLuong .modal-body').html(data);
+                var modal = new bootstrap.Modal(document.getElementById('modalChiTietLuong'));
+                modal.show();
+            });
+        });
+    </script>
+}
